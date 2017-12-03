@@ -347,7 +347,7 @@
 		 										<img id="imgShipperSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 									</a>
 	 									<%-- </c:if> --%>
-	 									<font style="margin-left:12em;color:darkgreen;">Hurtigsøk-knr</font>
+	 									<font style="margin-left:12em;color:darkgreen;" title="wvakure">Hurtigsøk-knr</font>
 					 				</td>
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="heads1"><spring:message code="systema.ebooking.orders.form.update.label.shipper.adr1"/></span></td>
 					 			</tr>
@@ -411,8 +411,8 @@
 					 				<td class="text11">&nbsp;<span title="wsstlf"><spring:message code="systema.ebooking.orders.form.update.label.shipper.telephone"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsscont" id="wsscont" size="25" maxlength="30" value="${model.record.wsscont}"></td>
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsstlf" id="wsstlf" size="25" maxlength="30" value="${model.record.wsstlf}"></td>
+				 					<td class="text11"><input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueUPPERCASEMandatoryField" name="wsscont" id="wsscont" size="25" maxlength="30" value="${model.record.wsscont}"></td>
+				 					<td class="text11"><input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueUPPERCASEMandatoryField" name="wsstlf" id="wsstlf" size="25" maxlength="30" value="${model.record.wsstlf}"></td>
 				 				</tr>
 					 			<tr>	
 					 				<td class="text11" colspan="2">&nbsp;<span title="wssmail"><spring:message code="systema.ebooking.orders.form.update.label.shipper.email"/></span></td>
@@ -515,7 +515,7 @@
 		 										<img id="imgConsigneeSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 									</a>
 	 									<%-- </c:if> --%>
-	 									<font style="margin-left:12em;color:darkgreen;">Hurtigsøk-knr</font>
+	 									<font style="margin-left:12em;color:darkgreen;" title="wvakure2">Hurtigsøk-knr</font>
 					 				</td>
 					 				<td class="text11">&nbsp;<font class="text16RedBold" >*</font><span title="headk1"><spring:message code="systema.ebooking.orders.form.update.label.consignee.adr1"/></span></td>
 					 			</tr>
@@ -572,8 +572,8 @@
 					 				<td class="text11">&nbsp;<span title="wsktlf"><spring:message code="systema.ebooking.orders.form.update.label.consignee.telephone"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wskcont" id="wskcont" size="25" maxlength="30" value="${model.record.wskcont}"></td>
-				 					<td class="text11"><input type="text" class="inputTextMediumBlueUPPERCASE" name="wsktlf" id="wsktlf" size="25" maxlength="30" value="${model.record.wsktlf}"></td>
+				 					<td class="text11"><input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueUPPERCASEMandatoryField" name="wskcont" id="wskcont" size="25" maxlength="30" value="${model.record.wskcont}"></td>
+				 					<td class="text11"><input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueUPPERCASEMandatoryField" name="wsktlf" id="wsktlf" size="25" maxlength="30" value="${model.record.wsktlf}"></td>
 				 				</tr>
 					 			<tr>	
 					 				<td class="text11" colspan="2">&nbsp;<span title="wskmail"><spring:message code="systema.ebooking.orders.form.update.label.consignee.email"/></span></td>

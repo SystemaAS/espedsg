@@ -97,12 +97,15 @@
 	jq(function() {
 		jq('#customerAddressesList').on('click', 'td', function(){
 		  var id = this.id;
-		  var record = id.split('@');
+		  var record = id.split('#');
 		  var kundNr = record[0].replace("vadrnr_", "");
 		  var navn = record[1].replace("navn_", "");
 		  var adr1 = record[2].replace("adr1_", "");
 		  var adr2 = record[3].replace("adr2_", "");
 		  var postnrsted = record[4].replace("postnrsted_", "");
+		  var tlf = record[5].replace("tlf_", "");
+		  var mail = record[6].replace("mail_", "");
+		  var land = record[7].replace("valand_", "");
 		  
 		  //alert(kundNr + " type:" + jq('#ctype').val() + "-->customerName:" + customerName);
 		  //addressing a parent field from this child window
@@ -113,7 +116,15 @@
 			  opener.jq('#heads1').val(adr1);
 			  opener.jq('#heads2').val(adr2);
 			  opener.jq('#heads3').val(postnrsted);
+			  opener.jq('#wsstlf').val(tlf);
+			  opener.jq('#wssmail').val(mail);
+			  //extra fields to populate
+			  if(land != '' && land != opener.jq('#helka').val()){
+				  opener.jq('#helka').val(land);
+			  }
+			  //focus
 			  opener.jq('#henas').focus();
+			  
 			  
 		  }else if(jq('#ctype').val()=='c'){
 			  //consignee
@@ -122,6 +133,13 @@
 			  opener.jq('#headk1').val(adr1);
 			  opener.jq('#headk2').val(adr2);
 			  opener.jq('#headk3').val(postnrsted);
+			  opener.jq('#wsktlf').val(tlf);
+			  opener.jq('#wskmail').val(mail);
+			  //extra fields to populate
+			  if(land != '' && land != opener.jq('#hetri').val()){
+				  opener.jq('#hetri').val(land);
+			  }
+			  //focus
 			  opener.jq('#henak').focus();
 		  
 		  }

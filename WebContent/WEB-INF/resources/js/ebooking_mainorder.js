@@ -8,6 +8,12 @@
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   }
   
+  jq(function() {
+	  jq("#ebookingOrderForm").submit(function() {
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT}); 
+	  });
+  });
+  
 //Global functions
   function g_getCurrentYearStr(){
 	  return new Date().getFullYear().toString();
@@ -288,9 +294,7 @@
 				jq('#hesdfIdLink').click();
 			}
 	    });
-	    //------
-	    //hesdt
-	    //------
+	    
 	    //must be done since CustomValidity is HTML 5 and not jQuery
 	    //otherwise the validation is never removed (when the value was setted via jQuery in some event)
 	    jq('#hetri').focus(function() {
@@ -298,6 +302,30 @@
 	    		refreshCustomValidity(jq('#hetri')[0]);
 	  		}
 	  	});
+	    jq('#wsscont').focus(function() {
+	    	if(jq('#wsscont').val()!=''){
+	    		refreshCustomValidity(jq('#wsscont')[0]);
+	  		}
+	  	});
+	    jq('#wsstlf').focus(function() {
+	    	if(jq('#wsstlf').val()!=''){
+	    		refreshCustomValidity(jq('#wsstlf')[0]);
+	  		}
+	  	});
+	    jq('#wskcont').focus(function() {
+	    	if(jq('#wskcont').val()!=''){
+	    		refreshCustomValidity(jq('#wskcont')[0]);
+	  		}
+	  	});
+	    jq('#wsktlf').focus(function() {
+	    	if(jq('#wsktlf').val()!=''){
+	    		refreshCustomValidity(jq('#wsktlf')[0]);
+	  		}
+	  	});
+	    
+	    //------
+	    //hesdt
+	    //------
 	    jq('#hesdt').focus(function() {
 	    	if(jq('#hesdt').val()!=''){
 	    		refreshCustomValidity(jq('#hesdt')[0]);
@@ -540,6 +568,10 @@
 							jq('#wsscont').val("");
 							jq('#wsstlf').val(customer.auxtlf);
 							jq('#wssmail').val(customer.auxmail);
+							//extra fields to populate
+							if(customer.land != '' && customer.land != jq('#helka').val()){
+								jq('#helka').val(customer.land);
+							}
 							//
 							jq('#wvakure').removeClass( "isa_error" );
 		    			//}	
@@ -596,6 +628,11 @@
 							jq('#wsktlf').val(customer.auxtlf);
 							jq('#wskmail').val(customer.auxmail);
 							//
+							//extra fields to populate
+							if(customer.land != '' && customer.land != jq('#hetri').val()){
+								jq('#hetri').val(customer.land);
+							}
+							
 							jq('#wvakure2').removeClass( "isa_error" );
 		    			//}	
 					}else{

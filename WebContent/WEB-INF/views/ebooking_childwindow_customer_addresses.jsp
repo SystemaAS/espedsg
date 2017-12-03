@@ -73,7 +73,7 @@
 			                   </c:otherwise>
 			               </c:choose>
 			               
-			               <td width="2%" class="text11MediumBlue" style="cursor:pointer;" id="vadrnr_${record.vadrnr}@navn_${record.vadrna}@adr1_${record.vadrn1}@adr2_${record.vadrn2}@postnrsted_${record.vadrn3}@counter_${counter.count}">
+			               <td width="2%" class="text11MediumBlue" style="cursor:pointer;" id="vadrnr_${record.vadrnr}#navn_${record.vadrna}#adr1_${record.vadrn1}#adr2_${record.vadrn2}#postnrsted_${record.vadrn3}#tlf_${record.vatlf}#mail_${record.vamail}#valand_${record.valand}#counter_${counter.count}">
 			               	 <font class="text11MediumBlue" >${record.vadrnr}</font>
 			               </td>
 			               <td align="center" width="2%" class="text11MediumBlue" ><font class="text11MediumBlue" >${record.vakure}</font></td>
