@@ -2321,10 +2321,10 @@
   jq(function() { 
 	  jq("#dialogDup").dialog({
 		  autoOpen: false,
-		  maxWidth:600,
-          maxHeight: 550,
+		  maxWidth:550,
+          maxHeight: 650,
           width: 520,
-          height: 550,
+          height: 640,
 		  modal: true,
 		  dialogClass: 'main-dialog-class'
 	  });
@@ -2355,7 +2355,7 @@
   });
   function presentDupDialog(){
 	//setters (add more if needed)
-	  jq('#dialogDup').dialog( "option", "title", "DUP" );
+	  jq('#dialogDup').dialog( "option", "title", "DUP / Rekvisisjon" );
 	  //deal with buttons for this modal window
 	  jq('#dialogDup').dialog({
 		 buttons: [ 

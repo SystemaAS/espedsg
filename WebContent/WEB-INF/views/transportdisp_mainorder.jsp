@@ -2156,9 +2156,8 @@
 		 <tr>
 			<td>
 				<div id="dialogDup" title="Dialog">
-						
 							<table border="0">
-						 		<tr ><td class="text14" colspan="3"><b>Forfrakt...</b></td></tr>
+						 		<tr ><td class="text14" colspan="3"><b>Forfrakt&nbsp;&nbsp;DUP-Oppdrag</b></td></tr>
 								<tr>
 									<td class="text12"><span title="ffavd">Via avd</span></td>
 							 		<td class="text11">
@@ -2249,44 +2248,55 @@
 						 				</c:otherwise>
 						 				</c:choose>
 						 			</td>
-							 	</tr>	
-							 	<tr>		
-						 			<td class="text12"><span title="ffbnr">Bilnr</span></td>
-						 			<td class="text11" colspan="2" >
-						 				<c:choose>
-										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
-						 					<input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="ffbnr" id="ffbnr" value="${model.record.ffbnr}">
-						 				</c:when>
-						 				<c:otherwise>
-						 					<input readonly type="text" class="inputTextReadOnly" size="9" maxlength="8" name="ffbnr" id="ffbnr" value="${model.record.ffbnr}">
-						 				</c:otherwise>
-						 				</c:choose>
-						 			</td>
-						 			<td class="text12"><span title="fftran">Transportør</span></td>
-						 			<td class="text11" colspan="2" >
-						 				<c:choose>
-										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
-						 					<input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="fftran" id="fftran" value="${model.record.fftran}">
-						 				</c:when>
-						 				<c:otherwise>
-						 					<input readonly type="text" class="inputTextReadOnly" size="9" maxlength="8" name="fftran" id="fftran" value="${model.record.fftran}">
-						 				</c:otherwise>
-						 				</c:choose>
-						 			</td>
 							 	</tr>
-							 	<tr>		
-						 			<td class="text12"><span title="ffkomm">Kommentar</span></td>
-						 			<td class="text11" colspan="6" >
-						 				<c:choose>
-										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
-						 					<input type="text" class="inputTextMediumBlue11" size="36" maxlength="35" name="ffkomm" id="ffkomm" value="${model.record.ffkomm}">
-						 				</c:when>
-						 				<c:otherwise>
-						 					<input readonly type="text" class="inputTextReadOnly" size="36" maxlength="35" name="ffkomm" id="ffkomm" value="${model.record.ffkomm}">
-						 				</c:otherwise>
-						 				</c:choose>
+							 	<tr height="10"><td class="text12" ></td></tr>
+							 	<tr>
+							 		<td colspan="10">
+							 		<table class="tableBorderWithRoundCorners3D">
+							 			<tr height="3"><td></td></tr>
+							 			<tr height="10"><td colspan="3" class="text12" ><b>...Eller lag Rekvisisjon</b></td></tr>
+								 		<tr>		
+							 			<td class="text12"><span title="ffbnr">Bilnr</span></td>
+							 			<td class="text11" colspan="2" >
+							 				<c:choose>
+											<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
+							 					<input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="ffbnr" id="ffbnr" value="${model.record.ffbnr}">
+							 				</c:when>
+							 				<c:otherwise>
+							 					<input readonly type="text" class="inputTextReadOnly" size="9" maxlength="8" name="ffbnr" id="ffbnr" value="${model.record.ffbnr}">
+							 				</c:otherwise>
+							 				</c:choose>
+							 			</td>
+							 			<td class="text12"><span title="fftran">Transportør</span></td>
+							 			<td class="text11" colspan="2" >
+							 				<c:choose>
+											<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
+							 					<input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="fftran" id="fftran" value="${model.record.fftran}">
+							 				</c:when>
+							 				<c:otherwise>
+							 					<input readonly type="text" class="inputTextReadOnly" size="9" maxlength="8" name="fftran" id="fftran" value="${model.record.fftran}">
+							 				</c:otherwise>
+							 				</c:choose>
+							 			</td>
+							 			</tr>
+							 			<tr>
+							 			<td class="text12"><span title="ffkomm">Kommentar</span></td>
+							 			<td class="text11" colspan="6" >
+							 				<c:choose>
+											<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
+							 					<input type="text" class="inputTextMediumBlue11" size="36" maxlength="35" name="ffkomm" id="ffkomm" value="${model.record.ffkomm}">
+							 				</c:when>
+							 				<c:otherwise>
+							 					<input readonly type="text" class="inputTextReadOnly" size="36" maxlength="35" name="ffkomm" id="ffkomm" value="${model.record.ffkomm}">
+							 				</c:otherwise>
+							 				</c:choose>
+							 			</td>
+							 			</tr>
+							 			<tr height="3"><td></td></tr>
+						 			</table>
 						 			</td>
-							 	</tr>
+						 		</tr>
+							 	<tr height="5"><td class="text12" ></td></tr>
 							 	<tr>		
 						 			<td class="text12"><span title="ffbel">Beløp</span></td>
 						 			<td class="text11" colspan="3" >
@@ -2298,11 +2308,7 @@
 						 					<input readonly type="text" class="inputTextReadOnly" size="15" maxlength="15" name="ffbel" id="ffbel" value="${model.record.ffbel}">
 						 				</c:otherwise>
 						 				</c:choose>
-						 			</td>
-							 	</tr>
-							 	<tr>		
-						 			<td class="text12"><span title="ffbelk">A/E</span></td>
-						 			<td class="text11">
+						 				&nbsp;&nbsp;<span title="ffbelk"><font class="text12">A/E</font></span>
 						 				<c:choose>
 										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
 						 					<input type="text" class="inputTextMediumBlue11" size="3" maxlength="2" name="ffbelk" id="ffbelk" value="${model.record.ffbelk}">
@@ -2311,12 +2317,14 @@
 						 					<input readonly type="text" class="inputTextReadOnly" size="3" maxlength="2" name="ffbelk" id="ffbelk" value="${model.record.ffbelk}">
 						 				</c:otherwise>
 						 				</c:choose>
-						 				
-						 				
 						 			</td>
 							 	</tr>
-							 	<tr height="20"><td ></td></tr>	
-							 	<tr ><td class="text14" colspan="3"><b>Viderefrakt...</b></td></tr>
+							 	
+							 	<tr height="12"><td colspan="10" ></td></tr>
+								<tr height="1"><td colspan="10" style="border-bottom:2px solid;border-color:#FFFFFF;" class="text"></td></tr>
+								<tr height="12"><td colspan="10" ></td></tr>
+							 	
+							 	<tr ><td class="text14" colspan="3"><b>Viderefrakt&nbsp;&nbsp;DUP-Oppdrag</b></td></tr>
 							 	<tr>
 									<td class="text12"><span title="vfavd">Via avd</span></td>
 							 		<td class="text11">
@@ -2411,48 +2419,59 @@
 						 				</c:otherwise>
 						 				</c:choose>
 						 			</td>
-							 	</tr>	
-							 	<tr>		
-						 			<td class="text12"><span title="vfbnr">Bilnr</span></td>
-						 			<td class="text11" colspan="2" >
-						 				<c:choose>
-										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
-						 					<input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="vfbnr" id="vfbnr" value="${model.record.vfbnr}">
-						 				</c:when>
-						 				<c:otherwise>
-						 					<input readonly type="text" class="inputTextReadOnly" size="9" maxlength="8" name="vfbnr" id="vfbnr" value="${model.record.vfbnr}">
-						 				</c:otherwise>
-						 				</c:choose>
-						 			</td>
-						 			<td class="text12"><span title="vftran">Transportør</span></td>
-						 			<td class="text11" colspan="2" >
-						 				<c:choose>
-										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
-						 					<input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="vftran" id="vftran" value="${model.record.vftran}">
-						 				</c:when>
-						 				<c:otherwise>
-						 					<input readonly type="text" class="inputTextReadOnly" size="9" maxlength="8" name="vftran" id="vftran" value="${model.record.vftran}">
-						 				</c:otherwise>
-						 				</c:choose>
-						 			</td>
 							 	</tr>
-							 	<tr>		
-						 			<td class="text12"><span title="vfkomm">Kommentar</span></td>
-						 			<td class="text11" colspan="6" >
-						 				<c:choose>
-										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
-						 					<input type="text" class="inputTextMediumBlue11" size="36" maxlength="35" name="vfkomm" id="vfkomm" value="${model.record.vfkomm}">
-						 				</c:when>
-						 				<c:otherwise>
-						 					<input readonly type="text" class="inputTextReadOnly" size="36" maxlength="35" name="vfkomm" id="vfkomm" value="${model.record.vfkomm}">
-						 				</c:otherwise>	
-						 				</c:choose>
+							 	<tr height="10"><td class="text12" ></td></tr>	
+							 	<tr>	
+							 		<td colspan="10">
+							 		<table class="tableBorderWithRoundCorners3D">
+							 			<tr height="3"><td></td></tr>
+							 			<tr height="10"><td colspan="3" class="text12" ><b>...Eller lag Rekvisisjon</b></td></tr>
+									 	<tr>			
+							 			<td class="text12"><span title="vfbnr">Bilnr</span></td>
+							 			<td class="text11" colspan="2" >
+							 				<c:choose>
+											<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
+							 					<input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="vfbnr" id="vfbnr" value="${model.record.vfbnr}">
+							 				</c:when>
+							 				<c:otherwise>
+							 					<input readonly type="text" class="inputTextReadOnly" size="9" maxlength="8" name="vfbnr" id="vfbnr" value="${model.record.vfbnr}">
+							 				</c:otherwise>
+							 				</c:choose>
+							 			</td>
+							 			<td class="text12"><span title="vftran">Transportør</span></td>
+							 			<td class="text11" colspan="2" >
+							 				<c:choose>
+											<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
+							 					<input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="vftran" id="vftran" value="${model.record.vftran}">
+							 				</c:when>
+							 				<c:otherwise>
+							 					<input readonly type="text" class="inputTextReadOnly" size="9" maxlength="8" name="vftran" id="vftran" value="${model.record.vftran}">
+							 				</c:otherwise>
+							 				</c:choose>
+							 			</td>
+							 			</tr>
+							 			<tr>		
+							 			<td class="text12"><span title="vfkomm">Kommentar</span></td>
+							 			<td class="text11" colspan="6" >
+							 				<c:choose>
+											<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
+							 					<input type="text" class="inputTextMediumBlue11" size="36" maxlength="35" name="vfkomm" id="vfkomm" value="${model.record.vfkomm}">
+							 				</c:when>
+							 				<c:otherwise>
+							 					<input readonly type="text" class="inputTextReadOnly" size="36" maxlength="35" name="vfkomm" id="vfkomm" value="${model.record.vfkomm}">
+							 				</c:otherwise>	
+							 				</c:choose>
+							 			</td>
+								 		</tr>
+								 		<tr height="3"><td></td></tr>
+						 			</table>
 						 			</td>
 							 	</tr>
 							 	
+							 	<tr height="5"><td class="text12" ></td></tr>
 							 	<tr>		
 						 			<td class="text12"><span title="vfbel">Beløp</span></td>
-						 			<td class="text11" colspan="3" >
+						 			<td class="text11" colspan="4" >
 						 				<c:choose>
 										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
 						 					<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="vfbel" id="vfbel" value="${model.record.vfbel}">
@@ -2461,12 +2480,7 @@
 						 					<input readonly type="text" class="inputTextReadOnly" size="15" maxlength="15" name="vfbel" id="vfbel" value="${model.record.vfbel}">
 						 				</c:otherwise>
 						 				</c:choose>
-						 					
-						 			</td>
-							 	</tr>	
-							 	<tr>		
-						 			<td class="text12"><span title="vfbelk">A/E</span></td>
-						 			<td class="text11" >
+						 				&nbsp;&nbsp;<span title="vfbelk"><font class="text12">A/E</font></span>
 						 				<c:choose>
 										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
 						 					<input type="text" class="inputTextMediumBlue11" size="3" maxlength="2" name="vfbelk" id="vfbelk" value="${model.record.vfbelk}">
@@ -2476,7 +2490,9 @@
 						 				</c:otherwise>
 						 				</c:choose>
 						 			</td>
+						 			
 							 	</tr>	
+							 	
 								
 							</table>
 						

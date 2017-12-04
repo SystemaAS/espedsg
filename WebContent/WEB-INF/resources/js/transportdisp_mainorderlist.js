@@ -3,6 +3,19 @@
   var counterIndex = 0;
   var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
 
+//BlockUI behaviour
+  function setBlockUI(element){
+	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+  }
+  /*
+  jq(function() {
+	  jq('#todo').click(function() { 
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	  }); 
+  });
+  */
+  //End BlockUI
+  
   //Global functions
   function g_getCurrentYearStr(){
 	  return new Date().getFullYear().toString();
@@ -403,9 +416,7 @@
 	  });
   }
   
-  function setBlockUI(element){
-	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-  }
+  
   
   //-------------------
   //Datatables jquery
