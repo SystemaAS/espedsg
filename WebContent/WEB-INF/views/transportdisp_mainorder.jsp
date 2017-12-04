@@ -1116,27 +1116,48 @@
 					 				
 					 				</td>
 						 			<td class="text11" >
+						 				<c:choose>
+										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
 						 				<select name="helks" id="helks">
 					 						<option value="">-landkode-</option>
 						 				  	<c:forEach var="country" items="${model.countryCodeList}" >
 						 				  		<option value="${country.zkod}"<c:if test="${model.record.helks == country.zkod}"> selected </c:if> >${country.zkod}</option>
 											</c:forEach>  
 										</select>
+										</c:when>
+										<c:otherwise>
+											<input  type="text" readonly class="inputTextReadOnly" size="4" maxlength="2" name="helks" id="helks" value="${model.record.helks}">
+										</c:otherwise>
+										</c:choose>
 						 			</td>
 						 			<td class="text11" >
-						 				<input type="text" class="inputTextMediumBlue11" name="hesdff" id="hesdff" size="5" maxlength="5" value="${model.record.hesdff}">
-						 				<a tabindex=0 id="hesdffIdLink">
-	 										<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" width="13px" height="13px" border="0" alt="search">
-	 									</a>
+						 				<c:choose>
+										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
+							 				<input type="text" class="inputTextMediumBlue11" name="hesdff" id="hesdff" size="5" maxlength="5" value="${model.record.hesdff}">
+							 				<a tabindex=0 id="hesdffIdLink">
+		 										<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" width="13px" height="13px" border="0" alt="search">
+		 									</a>
+	 									</c:when>
+	 									<c:otherwise>
+	 										<input type="text" readonly class="inputTextReadOnly" name="hesdff" id="hesdff" size="5" maxlength="5" value="${model.record.hesdff}">
+	 									</c:otherwise>
+	 									</c:choose>
 						 			</td>
 						 			<td class="text11" >
-						 				<select name="trstaf" id="trstaf">
-					 						<option value="">-select-</option>
-					 						<option value="A" <c:if test="${model.record.trstaf == 'A'}"> selected </c:if> >A</option>
-					 						<option value="R" <c:if test="${model.record.trstaf == 'R'}"> selected </c:if> >R</option>
-					 						<option value="F" <c:if test="${model.record.trstaf == 'F'}"> selected </c:if> >F</option>
-					 						<option value="O" <c:if test="${model.record.trstaf == 'O'}"> selected </c:if> >O</option>
-										</select>
+						 				<c:choose>
+										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
+								 			<select name="trstaf" id="trstaf">
+						 						<option value="">-select-</option>
+						 						<option value="A" <c:if test="${model.record.trstaf == 'A'}"> selected </c:if> >A</option>
+						 						<option value="R" <c:if test="${model.record.trstaf == 'R'}"> selected </c:if> >R</option>
+						 						<option value="F" <c:if test="${model.record.trstaf == 'F'}"> selected </c:if> >F</option>
+						 						<option value="O" <c:if test="${model.record.trstaf == 'O'}"> selected </c:if> >O</option>
+											</select>
+										</c:when>
+										<c:otherwise>
+											<input type="text" readonly class="inputTextReadOnly" name="trstaf" id="trstaf" size="5" maxlength="1" value="${model.record.trstaf}">
+										</c:otherwise>
+										</c:choose>
 						 			</td>
 						 			<td class="text11" >
 						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" size="20" maxlength="14" name="OWNwppns3" id="OWNwppns3" value="${model.record.wppns3}">
@@ -1174,28 +1195,48 @@
 										</div>
 					 				</td>
 						 			<td class="text11" >
-						 				<select name="helkk" id="helkk">
-					 						<option value="">-landkode-</option>
-						 				  	<c:forEach var="country" items="${model.countryCodeList}" >
-						 				  		<option value="${country.zkod}"<c:if test="${model.record.helkk == country.zkod}"> selected </c:if> >${country.zkod}</option>
-											</c:forEach>  
-										</select>
+						 				<c:choose>
+										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
+									 		<select name="helkk" id="helkk">
+						 						<option value="">-landkode-</option>
+							 				  	<c:forEach var="country" items="${model.countryCodeList}" >
+							 				  		<option value="${country.zkod}"<c:if test="${model.record.helkk == country.zkod}"> selected </c:if> >${country.zkod}</option>
+												</c:forEach>  
+											</select>
+										</c:when>
+										<c:otherwise>
+											 <input  type="text" class="inputTextReadOnly" size="4" maxlength="2" name="helkk" id="helkk" value="${model.record.helkk}">
+										</c:otherwise>
+										</c:choose>
 						 			</td>
 						 			<td class="text11" >
-						 				<input  type="text" class="inputTextMediumBlue11UPPERCASE" size="5" maxlength="5" name="hesdvt" id="hesdvt" value="${model.record.hesdvt}">
-						 				<a tabindex=0 id="hesdvtIdLink">
-	 										<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" width="13px" height="13px" border="0" alt="search">
-	 									</a>
-						 				
+						 				<c:choose>
+										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
+									 		<input  type="text" class="inputTextMediumBlue11UPPERCASE" size="5" maxlength="5" name="hesdvt" id="hesdvt" value="${model.record.hesdvt}">
+							 				<a tabindex=0 id="hesdvtIdLink">
+		 										<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" width="13px" height="13px" border="0" alt="search">
+		 									</a>
+						 				</c:when>
+						 				<c:otherwise>
+											 <input  type="text" class="inputTextReadOnly" size="5" maxlength="5" name="hesdvt" id="hesdvt" value="${model.record.hesdvt}">
+										</c:otherwise>
+										</c:choose>
 						 			</td>
 						 			<td class="text11" >
-						 				<select name="trstae" id="trstae">
-					 						<option value="">-select-</option>
-					 						<option value="A" <c:if test="${model.record.trstae == 'A'}"> selected </c:if> >A</option>
-					 						<option value="R" <c:if test="${model.record.trstae == 'R'}"> selected </c:if> >R</option>
-					 						<option value="F" <c:if test="${model.record.trstae == 'F'}"> selected </c:if> >F</option>
-					 						<option value="O" <c:if test="${model.record.trstae == 'O'}"> selected </c:if> >O</option>
-										</select>
+						 				<c:choose>
+										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
+									 		<select name="trstae" id="trstae">
+						 						<option value="">-select-</option>
+						 						<option value="A" <c:if test="${model.record.trstae == 'A'}"> selected </c:if> >A</option>
+						 						<option value="R" <c:if test="${model.record.trstae == 'R'}"> selected </c:if> >R</option>
+						 						<option value="F" <c:if test="${model.record.trstae == 'F'}"> selected </c:if> >F</option>
+						 						<option value="O" <c:if test="${model.record.trstae == 'O'}"> selected </c:if> >O</option>
+											</select>
+										</c:when>
+						 				<c:otherwise>
+											 <input  type="text" class="inputTextReadOnly" size="2" maxlength="1" name="trstae" id="trstae" value="${model.record.trstae}">
+										</c:otherwise>
+										</c:choose>
 						 			</td>
 						 			<td class="text11" >
 						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" size="20" maxlength="14" name="OWNwppns4" id="OWNwppns4" value="${model.record.wppns4}">
