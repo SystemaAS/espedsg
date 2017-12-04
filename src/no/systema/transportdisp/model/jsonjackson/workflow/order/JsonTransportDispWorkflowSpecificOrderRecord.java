@@ -1037,6 +1037,34 @@ public class JsonTransportDispWorkflowSpecificOrderRecord extends JsonAbstractGr
 	public void setFfoty(String value) {  this.ffoty = value; }
 	public String getFfoty() {return this.ffoty;}
 	
+	private String fffrank = null;
+	public void setFffrank(String value) {  this.fffrank = value; }
+	public String getFffrank() {return this.fffrank;}
+	
+	private String ffftxt = null;
+	public void setFfftxt(String value) {  this.ffftxt = value; }
+	public String getFfftxt() {return this.ffftxt;}
+	
+	private String ffmodul = null;
+	public void setFfmodul(String value) {  this.ffmodul = value; }
+	public String getFfmodul() {return this.ffmodul;}
+	
+	private String ffpkod = null;
+	public void setFfpkod(String value) {  this.ffpkod = value; }
+	public String getFfpkod() {return this.ffpkod;}
+	
+	private String ffbnr = null;
+	public void setFfbnr(String value) {  this.ffbnr = value; }
+	public String getFfbnr() {return this.ffbnr;}
+	
+	private String fftran = null;
+	public void setFftran(String value) {  this.fftran = value; }
+	public String getFftran() {return this.fftran;}
+	
+	private String ffkomm = null;
+	public void setFfkomm(String value) {  this.ffkomm = value; }
+	public String getFfkomm() {return this.ffkomm;}
+	
 	private String ffbel = null;
 	public void setFfbel(String value) {  this.ffbel = value; }
 	public String getFfbel() {return this.ffbel;}
@@ -1052,6 +1080,34 @@ public class JsonTransportDispWorkflowSpecificOrderRecord extends JsonAbstractGr
 	private String vfoty = null;
 	public void setVfoty(String value) {  this.vfoty = value; }
 	public String getVfoty() {return this.vfoty;}
+	
+	private String vffrank = null;
+	public void setVffrank(String value) {  this.vffrank = value; }
+	public String getVffrank() {return this.vffrank;}
+	
+	private String vfftxt = null;
+	public void setVfftxt(String value) {  this.vfftxt = value; }
+	public String getVfftxt() {return this.vfftxt;}
+	
+	private String vfmodul = null;
+	public void setVfmodul(String value) {  this.vfmodul = value; }
+	public String getVfmodul() {return this.vfmodul;}
+	
+	private String vfpkod = null;
+	public void setVfpkod(String value) {  this.vfpkod = value; }
+	public String getVfpkod() {return this.vfpkod;}
+	
+	private String vfbnr = null;
+	public void setVfbnr(String value) {  this.vfbnr = value; }
+	public String getVfbnr() {return this.vfbnr;}
+	
+	private String vftran = null;
+	public void setVftran(String value) {  this.vftran = value; }
+	public String getVftran() {return this.vftran;}
+	
+	private String vfkomm = null;
+	public void setVfkomm(String value) {  this.vfkomm = value; }
+	public String getVfkomm() {return this.vfkomm;}
 	
 	private String vfbel = null;
 	public void setVfbel(String value) {  this.vfbel = value; }

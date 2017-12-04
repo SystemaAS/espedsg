@@ -489,6 +489,7 @@
 	                    <th class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.poNr"/></th>
 	                    <th class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.prebooking"/></th>
 	                    <th class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.dangerousgoods.adr"/></th>
+	                    <th class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.internmelding.text"/></th>
 	                    <th class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.fraktbrev"/></th>
 	                    <th class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.delete"/></th>
 	                    <th class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.copy"/></th>
@@ -555,6 +556,19 @@
 		               <td class="text11MediumBlue">&nbsp;${record.herfa}</td>
 		               <td align="center" class="text11RedBold">&nbsp;${record.hestn7}</td>
 		               <td align="center" class="tableCell11RedFont">&nbsp;${record.hepoen}</td>
+		               <td width="2%" align="center" class="text11MediumBlue">
+		               		<img onMouseOver="showPop('imText_info${counter.count}');" onMouseOut="hidePop('imText_info${counter.count}');" style="vertical-align:bottom;" src="resources/images/info4.png" width="12" height="12" border="0" alt="Internmelding">
+		               		
+		               		<div class="text10" style="position: relative;" align="left">
+	 						<span style="position:absolute; left:-50px; top:2px; width:250px;" id="imText_info${counter.count}" class="popupWithInputText"  >
+	 							<font class="text10">
+				           			<b>Internmelding</b>
+				           			<p>${Xrecord.JOVO_todo}</p>
+			           			</font>
+							</span>
+							</div>
+		               </td>
+		               
 		               <td align="center" class="text11MediumBlue">
 	           		   		<a target="_blank" href="transportdisp_mainorderlist_renderFraktbrev.do?user=${user.user}&wsavd=${record.heavd}&wsopd=${record.heopd}&wstoll=${record.dftoll}">
   		    					<img title="Fraktbr.PDF" style="vertical-align:bottom;" src="resources/images/pdf.png" width="16" height="16" border="0" alt="Fraktbr. PDF">

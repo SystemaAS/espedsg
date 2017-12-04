@@ -2156,7 +2156,8 @@
 		 <tr>
 			<td>
 				<div id="dialogDup" title="Dialog">
-					 	<table>
+					 	<table border="0">
+					 		<tr ><td class="text14" colspan="3"><b>Forfrakt...</b></td></tr>
 							<tr>
 								<td class="text12"><span title="ffavd">Via avd</span></td>
 						 		<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" size="5" maxlength="4" name="ffavd" id="ffavd" value="${model.record.ffavd}"></td>
@@ -2170,16 +2171,53 @@
 									</select>
 						 			
 						 		</td>
+						 		<td class="text12"><span title="fffrank">Frankatur</span></td>
+						 		<td class="text11">
+						 			<select class="inputTextMediumBlue" name="fffrank" id="fffrank">
+					            		<option value="">-select-</option>
+					 				  	<c:choose>
+					            		<c:when test="${not empty model.record.hefr}">
+						            		<c:forEach var="record" items="${model.incotermsList}" >
+						            			<option value="${record.franka}"<c:if test="${model.record.fffrank == record.franka}"> selected </c:if> >${record.franka}</option>
+											</c:forEach> 
+										</c:when>
+										<c:otherwise>
+											<c:forEach var="record" items="${model.incotermsList}" >
+						            			<option value="${record.franka}"<c:if test="${record.franka=='S'}"> selected </c:if> >${record.franka}</option>
+											</c:forEach>
+										</c:otherwise>
+										</c:choose>
+									</select>
+						 		</td>
+						 	</tr>
+						 	<tr>		
+					 			<td class="text12"><span title="ffftxt">Fritext</span></td>
+					 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="2" maxlength="1" name="ffftxt" id="ffftxt" value="${model.record.ffftxt}"></td>
+					 			<td class="text12"><span title="ffmodul">Modul</span></td>
+					 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="2" maxlength="1" name="ffmodul" id="ffmodul" value="${model.record.ffmodul}"></td>
+					 			<td class="text12"><span title="ffpkod">Prod.kode</span></td>
+					 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="2" maxlength="1" name="ffpkod" id="ffpkod" value="${model.record.ffpkod}"></td>
+						 	</tr>	
+						 	<tr>		
+					 			<td class="text12"><span title="ffbnr">Bilnr</span></td>
+					 			<td class="text11" colspan="2" ><input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="ffbnr" id="ffbnr" value="${model.record.ffbnr}"></td>
+					 			<td class="text12"><span title="fftran">Transportør</span></td>
+					 			<td class="text11" colspan="2" ><input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="fftran" id="fftran" value="${model.record.fftran}"></td>
+						 	</tr>
+						 	<tr>		
+					 			<td class="text12"><span title="ffkomm">Kommentar</span></td>
+					 			<td class="text11" colspan="6" ><input type="text" class="inputTextMediumBlue11" size="36" maxlength="35" name="ffkomm" id="ffkomm" value="${model.record.ffkomm}"></td>
 						 	</tr>
 						 	<tr>		
 					 			<td class="text12"><span title="ffbel">Beløp</span></td>
-					 			<td class="text11" colspan="2" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="ffbel" id="ffbel" value="${model.record.ffbel}"></td>
+					 			<td class="text11" colspan="3" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="ffbel" id="ffbel" value="${model.record.ffbel}"></td>
 						 	</tr>
 						 	<tr>		
 					 			<td class="text12"><span title="ffbelk">A/E</span></td>
 					 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="3" maxlength="2" name="ffbelk" id="ffbelk" value="${model.record.ffbelk}"></td>
-						 	</tr>	
-						 	<tr height="10"><td ></td></tr>
+						 	</tr>
+						 	<tr height="20"><td ></td></tr>	
+						 	<tr ><td class="text14" colspan="3"><b>Viderefrakt...</b></td></tr>
 						 	<tr>
 								<td class="text12"><span title="vfavd">Via avd</span></td>
 						 		<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" size="5" maxlength="4" name="vfavd" id="vfavd" value="${model.record.vfavd}"></td>
@@ -2192,14 +2230,54 @@
 										</c:forEach> 
 									</select>
 						 		</td>
+						 		<td class="text12"><span title="vffrank">Frankatur</span></td>
+						 		<td class="text11">
+						 			<select class="inputTextMediumBlue" name="vffrank" id="vffrank">
+					            		<option value="">-select-</option>
+					 				  	
+					 				  	<c:choose>
+					            		<c:when test="${not empty model.record.hefr}">
+						            		<c:forEach var="record" items="${model.incotermsList}" >
+						            			<option value="${record.franka}"<c:if test="${model.record.vffrank == record.franka}"> selected </c:if> >${record.franka}</option>
+											</c:forEach> 
+										</c:when>
+										<c:otherwise>
+											<c:forEach var="record" items="${model.incotermsList}" >
+						            			<option value="${record.franka}"<c:if test="${record.franka=='S'}"> selected </c:if> >${record.franka}</option>
+											</c:forEach>
+										</c:otherwise>
+										</c:choose>
+					 				  	
+									</select>
+						 		</td>
+						 		
 						 	</tr>
 						 	<tr>		
+					 			<td class="text12"><span title="vfftxt">Fritext</span></td>
+					 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="2" maxlength="1" name="vfftxt" id="vfftxt" value="${model.record.vfftxt}"></td>
+					 			<td class="text12"><span title="vfmodul">Modul</span></td>
+					 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="2" maxlength="1" name="vfmodul" id="vfmodul" value="${model.record.vfmodul}"></td>
+					 			<td class="text12"><span title="vfpkod">Prod.kode</span></td>
+					 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="2" maxlength="1" name="vfpkod" id="vfpkod" value="${model.record.vfpkod}"></td>
+						 	</tr>	
+						 	<tr>		
+					 			<td class="text12"><span title="vfbnr">Bilnr</span></td>
+					 			<td class="text11" colspan="2" ><input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="vfbnr" id="vfbnr" value="${model.record.vfbnr}"></td>
+					 			<td class="text12"><span title="vftran">Transportør</span></td>
+					 			<td class="text11" colspan="2" ><input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="vftran" id="vftran" value="${model.record.vftran}"></td>
+						 	</tr>
+						 	<tr>		
+					 			<td class="text12"><span title="vfkomm">Kommentar</span></td>
+					 			<td class="text11" colspan="6" ><input type="text" class="inputTextMediumBlue11" size="36" maxlength="35" name="vfkomm" id="vfkomm" value="${model.record.vfkomm}"></td>
+						 	</tr>
+						 	
+						 	<tr>		
 					 			<td class="text12"><span title="vfbel">Beløp</span></td>
-					 			<td colspan="2" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="vfbel" id="vfbel" value="${model.record.vfbel}"></td>
+					 			<td class="text11" colspan="3" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="vfbel" id="vfbel" value="${model.record.vfbel}"></td>
 						 	</tr>	
 						 	<tr>		
 					 			<td class="text12"><span title="vfbelk">A/E</span></td>
-					 			<td ><input type="text" class="inputTextMediumBlue11" size="3" maxlength="2" name="vfbelk" id="vfbelk" value="${model.record.vfbelk}"></td>
+					 			<td class="text11" ><input type="text" class="inputTextMediumBlue11" size="3" maxlength="2" name="vfbelk" id="vfbelk" value="${model.record.vfbelk}"></td>
 						 	</tr>	
 							
 						</table>

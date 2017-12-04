@@ -2321,10 +2321,10 @@
   jq(function() { 
 	  jq("#dialogDup").dialog({
 		  autoOpen: false,
-		  maxWidth:450,
-          maxHeight: 400,
-          width: 380,
-          height: 340,
+		  maxWidth:600,
+          maxHeight: 550,
+          width: 520,
+          height: 550,
 		  modal: true,
 		  dialogClass: 'main-dialog-class'
 	  });
