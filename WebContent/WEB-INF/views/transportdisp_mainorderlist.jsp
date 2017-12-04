@@ -162,18 +162,20 @@
 					 
 					<tr>
 					<td>
-					<table style="width:100%;" id="currentOrders" class="display compact cell-border" cellspacing="0" >
-						<thead>
+					<table width="100%" id="currentOrders" class="display compact cell-border" cellspacing="0" >
+						<thead style="width:100%"; >
 						<tr style="background-color:#EEEEEE">
-							<th style="width: 70px;" class="text12"><spring:message code="systema.transportdisp.orders.current.list.search.label.remove"/></th>   
-		                    <th style="width: 70px;" class="text12">
+							<th class="text12"><spring:message code="systema.transportdisp.orders.current.list.search.label.remove"/></th>   
+		                    <th class="text12">
 		            			<input style="cursor:pointer;" type="button" value="<spring:message code="systema.transportdisp.orders.current.list.search.label.remove"/>" name="currentordersColumnHeaderButtonRmv" id="currentordersColumnHeaderButtonRmv" onClick="getValidCheckis(this);">
 		                    </th>
-							<th style="width: 100px;" class="text12"><spring:message code="systema.transportdisp.orders.current.list.search.label.ourRef"/></th> 
-							<th style="width: 100px;" class="text12"><spring:message code="systema.transportdisp.orders.current.list.search.label.ttstat"/></th> 
-							<th style="width: 120px;" class="text12"><spring:message code="systema.transportdisp.orders.current.list.search.label.supplier"/></th>   
-		                    <th style="width: 120px;" class="text12"><spring:message code="systema.transportdisp.orders.current.list.search.label.consignee"/></th>   
+		                    <th class="text12"><spring:message code="systema.transportdisp.orders.current.list.search.label.ourRef"/></th> 
+							<th class="text12"><spring:message code="systema.transportdisp.orders.current.list.search.label.ttstat"/></th> 
+							
+							<th class="text12"><spring:message code="systema.transportdisp.orders.current.list.search.label.supplier"/></th>   
+		                    <th class="text12"><spring:message code="systema.transportdisp.orders.current.list.search.label.consignee"/></th>   
 		                    <th class="text12"><spring:message code="systema.transportdisp.orders.current.list.search.label.goodsDesc"/></th>   
+		                    
 		                    <th class="text12">
 	                    		<input style="cursor:pointer;" type="button" value="<spring:message code="systema.transportdisp.orders.current.list.search.label.pos"/>" name="currentordersColumnHeaderButtonPos" id="currentordersColumnHeaderButtonPos" onClick="getValidPositions(this);">
 		                    </th> 
@@ -184,27 +186,23 @@
 		                    <th class="text12"><spring:message code="systema.transportdisp.orders.current.list.search.label.loadMtr"/></th>
 		                    <th class="text12"><spring:message code="systema.transportdisp.orders.current.list.search.label.poNr"/></th>
 		                    <th class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.dangerousgoods.adr"/></th>
-		                    <th class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.fraktbrev"/></th>    
+		                    <th class="text12"><spring:message code="systema.transportdisp.orders.open.list.search.label.fraktbrev"/></th>  
 		                </tr> 
 		                </thead>
 		              
-		                <tbody>
+		                <tbody >
 			            <c:forEach items="${listCurrentOrders}" var="record" varStatus="counter">    
-			               <c:choose>           
-			                   <c:when test="${counter.count%2==0}">
-			                       <tr class="tex11 tableRow">
-			                   </c:when>
-			                   <c:otherwise>   
-			                       <tr class="tex11 tableRow">
-			                   </c:otherwise>
-			               </c:choose>
-			               <td style="width: 70px;" class="text11 tableCellGray">&nbsp;
+			               <tr class="tex11 tableRow">
+			                  
+			               <td class="text11 tableCellGray">&nbsp;
 				           		<a href="transportdisp_mainorderlist_add_remove_order.do?user=${user.user}&wmode=D&wstur=${searchFilter.tur}&wsavd=${record.heavd}&wsopd=${record.heopd}">
 	    		    				<img title="Remove" style="vertical-align:bottom;" src="resources/images/remove.png" width="14" height="15" border="0" alt="remove">
 			   					</a>
 				           </td>
-			               <td style="width: 70px;" class="text11 tableCellGray" align="center"><input class="clazz_checkis_currentorders" type="checkbox" id="checkis_currentorders${counter.count}@user=${user.user}&wmode=D&wstur=${searchFilter.tur}&wsavd=${record.heavd}&wsopd=${record.heopd}" ></td>
-				           <td style="width: 100px;" class="text11 tableCellGray">
+			               <td class="text11 tableCellGray" align="center">
+			               		<input class="clazz_checkis_currentorders" type="checkbox" id="checkis_currentorders${counter.count}@user=${user.user}&wmode=D&wstur=${searchFilter.tur}&wsavd=${record.heavd}&wsopd=${record.heopd}" >
+			               </td>
+			               <td class="text11 tableCellGray">
 				           		<a id="alinkCurrentOrdersListId_${counter.count}" onClick="setBlockUI(this);" href="transportdisp_mainorder.do?hepro=${searchFilter.tur}&heavd=${record.heavd}&heopd=${record.heopd}">
 	    		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
 	    		    				<font class="text11MediumBlue">${record.heavd}/${record.heopd}</font>
@@ -217,7 +215,6 @@
 					           		<c:when test="${record.ttstat=='Levert' || record.ttstat=='Urørt' || record.ttstat=='Hentet' }">
 						           		<c:if test="${record.ttstat=='Levert'}" >   
 						           			<td align="center" class="text11 tableCellGray" >
-							           			<%-- &nbsp;<img style="vertical-align:middle;" src="resources/images/bulletGreen.gif" border="0" alt="delivered"> --%>
 							           			<font class="inputText11" style="background-color: #DFF2BF;color: #4F8A10;" onMouseOver="showPop('delivered_info${counter.count}');" onMouseOut="hidePop('delivered_info${counter.count}');">${record.ttstat}</font>
 							           			<div class="text11" style="position: relative;" align="left">
 													<span style="position:absolute; left:15px; top:2px;" id="delivered_info${counter.count}" class="popupWithInputText"  >
@@ -230,13 +227,11 @@
 						           		</c:if>
 						           		<c:if test="${record.ttstat=='Urørt'}" >   
 						           			<td align="center" class="text11 tableCellGray" style="color: #D8000C;">
-							           			<%-- &nbsp;<img style="vertical-align:middle;" src="resources/images/bulletRed.gif" border="0" alt="pending">--%>
 							           			<font class="inputText11" style="background-color: #FFBABA;color: #D8000C;">${record.ttstat}</font>
 						           			</td>
 						           		</c:if>
 						           		<c:if test="${record.ttstat=='Hentet'}" >   
 						           			<td align="center" class="text11 tableCellGray" style="color: #9F6000;">
-							           			<%-- &nbsp;<img style="vertical-align:middle;" src="resources/images/bulletYellow.gif" border="0" alt="fetched">--%>
 							           			<font class="inputText11" style="background-color: #FEEFB3;color: #9F6000;">${record.ttstat}</font>
 						           			</td>
 						           		</c:if>
@@ -251,9 +246,10 @@
 					           </c:otherwise>
 			               </c:choose>
 			               
-			               <td style="width: 120px;" class="text11 tableCellGray">&nbsp;${record.henas}</td>
-			               <td style="width: 120px;" class="text11 tableCellGray">&nbsp;${record.henak}</td>
+			               <td class="text11 tableCellGray">&nbsp;${record.henas}</td>
+			               <td class="text11 tableCellGray">&nbsp;${record.henak}</td>
 			               <td class="text11 tableCellGray">&nbsp;${record.hevs1}</td>
+			               
 			               <td class="text11 tableCellGray">&nbsp;
 			               		<input onKeyPress="return numberKey(event)" type="text" class="inputText11 clazz_position_currentorders" name="wspos${counter.count}" id="wspos${counter.count}" title="wspos${counter.count}@user=${user.user}&wsavd=${record.heavd}&wsopd=${record.heopd}" size="4" maxlength="3" value='${record.wspos}'>&nbsp;
 			               </td>
@@ -273,9 +269,19 @@
 			            
 			            </c:forEach>
 			            </tbody>
+			            
 			            <tfoot>
 						<tr style="background-color:#EEEEEE">
-							<th align="left" colspan="9" class="text12">SUM.</th>   
+							<th align="left" class="text12">SUM.</th>
+							<th class="text12">&nbsp;</th>
+							<th class="text12">&nbsp;</th>
+							<th class="text12">&nbsp;</th>
+							<th class="text12">&nbsp;</th>
+							<th class="text12">&nbsp;</th>
+							<th class="text12">&nbsp;</th>
+							<th class="text12">&nbsp;</th>
+							<th class="text12">&nbsp;</th>
+							   
 							<th align="right" class="text12"><c:out value="${model.containerCurrentOrders.hentTotalAmount}"></c:out>&nbsp;</th>   
 		                    <th align="right" class="text12"><c:out value="${model.containerCurrentOrders.hevktTotalAmount}"></c:out>&nbsp;</th>   
 		                    <th align="right" class="text12"><c:out value="${model.containerCurrentOrders.hem3TotalAmount}"></c:out>&nbsp;</th>   
@@ -285,6 +291,7 @@
 							<th class="text12">&nbsp;</th>
 		                </tr> 
 		                </tfoot>
+		                
 		            </table>
 					</td>	
 					</tr>
@@ -557,16 +564,18 @@
 		               <td align="center" class="text11RedBold">&nbsp;${record.hestn7}</td>
 		               <td align="center" class="tableCell11RedFont">&nbsp;${record.hepoen}</td>
 		               <td width="2%" align="center" class="text11MediumBlue">
-		               		<img onMouseOver="showPop('imText_info${counter.count}');" onMouseOut="hidePop('imText_info${counter.count}');" style="vertical-align:bottom;" src="resources/images/info4.png" width="12" height="12" border="0" alt="Internmelding">
-		               		
-		               		<div class="text10" style="position: relative;" align="left">
-	 						<span style="position:absolute; left:-50px; top:2px; width:250px;" id="imText_info${counter.count}" class="popupWithInputText"  >
-	 							<font class="text10">
-				           			<b>Internmelding</b>
-				           			<p>${Xrecord.JOVO_todo}</p>
-			           			</font>
-							</span>
-							</div>
+		               		<c:if test="${not empty record.interninfo}">
+			               		<img onMouseOver="showPop('imText_info${counter.count}');" onMouseOut="hidePop('imText_info${counter.count}');" style="vertical-align:bottom;" src="resources/images/info4.png" width="12" height="12" border="0" alt="Internmelding">
+			               		
+			               		<div class="text10" style="position: relative;" align="left">
+		 						<span style="position:absolute; left:-50px; top:2px; width:250px;" id="imText_info${counter.count}" class="popupWithInputText"  >
+		 							<font class="text10">
+					           			<b>Internmelding</b>
+					           			<p>${record.interninfo}</p>
+				           			</font>
+								</span>
+								</div>
+							</c:if>
 		               </td>
 		               
 		               <td align="center" class="text11MediumBlue">

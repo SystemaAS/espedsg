@@ -111,6 +111,10 @@ public class JsonTransportDispWorkflowShippingPlanningOpenOrdersListRecord exten
 	public void setHepoen(String value) {  this.hepoen = value; }
 	public String getHepoen() {return this.hepoen;}
 	
+	private String interninfo = null;
+	public void setInterninfo(String value) {  this.interninfo = value; }
+	public String getInterninfo() {return this.interninfo;}
+	
 	//Prebooking
 	private String hestn7 = null;
 	public void setHestn7(String value) {  this.hestn7 = value; }

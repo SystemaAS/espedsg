@@ -73,6 +73,10 @@ public class JsonTransportDispWorkflowShippingPlanningCurrentOrdersListRecord ex
 	public void setHepoen(String value) {  this.hepoen = value; }
 	public String getHepoen() {return this.hepoen;}
 	
+	private String interninfo = null;
+	public void setInterninfo(String value) {  this.interninfo = value; }
+	public String getInterninfo() {return this.interninfo;}
+	
 	private String dftoll = null;
 	public void setDftoll(String value) {  this.dftoll = value; }
 	public String getDftoll() {return this.dftoll;}

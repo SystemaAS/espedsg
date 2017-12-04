@@ -424,11 +424,13 @@
   jq(document).ready(function() {
     //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
 	jq('#currentOrders').dataTable( {
+	  //"autoWidth":true,	
 	  "jQueryUI": false,
 	  "dom": '<"top"fli>rt<"bottom"p><"clear">',
-	  "scrollY":        	"350px",
-	  "scrollCollapse":  	false,
-	  "autoWidth": false, //for optimization purposes when initializing the table
+	  "scrollY": "350px",
+	  "scrollX":true,
+	  "scrollCollapse": false,
+	  //"autoWidth": false, //for optimization purposes when initializing the table
 	  "lengthMenu": [ 50, 75, 100]
 	} );
     //event on input field for search
@@ -440,9 +442,9 @@
 	jq('#openOrders').dataTable( {
 	  "jQueryUI": false,
 	  "dom": '<"top"fli>rt<"bottom"p><"clear">',
-	  "scrollY":        	"700px",
-	  "scrollCollapse":  	false,
-	  "autoWidth": false, //for optimization purposes when initializing the table
+	  "scrollY": "700px",
+	  "scrollCollapse": false,
+	  //"autoWidth": false, //for optimization purposes when initializing the table
 	  "lengthMenu": [ 50, 75, 100]
 	  
 	} );

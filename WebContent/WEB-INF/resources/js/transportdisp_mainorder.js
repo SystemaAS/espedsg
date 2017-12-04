@@ -2363,10 +2363,12 @@
 			 id: "dialogSaveTU",	
 			 text: "Fortsett",
 			 click: function(){
-				 		//jq('#skilleArkForm').submit();
-			 		}
-		 	 },
- 	 		{
+				 		//jq('#myForm').submit();
+				 	jq( this ).dialog( "close" ); 
+		 			}
+		 	 } ]
+ 	 		/*	
+  			{
 		 	 id: "dialogCancelTU",
 		 	 text: "Lukk", 
 			 click: function(){
@@ -2376,6 +2378,7 @@
 				 		jq( this ).dialog( "close" ); 
 			 		} 
  	 		 } ] 
+ 	 		 */
 	  });
 	  //init values
 	  //jq("#dialogSaveTU").button("option", "disabled", true);

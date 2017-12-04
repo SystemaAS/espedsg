@@ -2156,131 +2156,330 @@
 		 <tr>
 			<td>
 				<div id="dialogDup" title="Dialog">
-					 	<table border="0">
-					 		<tr ><td class="text14" colspan="3"><b>Forfrakt...</b></td></tr>
-							<tr>
-								<td class="text12"><span title="ffavd">Via avd</span></td>
-						 		<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" size="5" maxlength="4" name="ffavd" id="ffavd" value="${model.record.ffavd}"></td>
-						 		<td class="text12"><span title="ffoty">Opd.type</span></td>
-						 		<td class="text11">
-						 			<select class="inputTextMediumBlue" name="ffoty" id="ffoty">
-					            		<option value="">-select-</option>
-					 				  	<c:forEach var="record" items="${model.oppdragstypeList}" >
-				                       	 	<option value="${record.opdTyp}"<c:if test="${model.record.ffoty == record.opdTyp}"> selected </c:if> >${record.opdTyp}</option>
-										</c:forEach> 
-									</select>
-						 			
-						 		</td>
-						 		<td class="text12"><span title="fffrank">Frankatur</span></td>
-						 		<td class="text11">
-						 			<select class="inputTextMediumBlue" name="fffrank" id="fffrank">
-					            		<option value="">-select-</option>
-					 				  	<c:choose>
-					            		<c:when test="${not empty model.record.hefr}">
-						            		<c:forEach var="record" items="${model.incotermsList}" >
-						            			<option value="${record.franka}"<c:if test="${model.record.fffrank == record.franka}"> selected </c:if> >${record.franka}</option>
+						
+							<table border="0">
+						 		<tr ><td class="text14" colspan="3"><b>Forfrakt...</b></td></tr>
+								<tr>
+									<td class="text12"><span title="ffavd">Via avd</span></td>
+							 		<td class="text11">
+							 			<c:choose>
+										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
+							 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" size="5" maxlength="4" name="ffavd" id="ffavd" value="${model.record.ffavd}">
+							 			</c:when>
+							 			<c:otherwise>
+							 				<input readonly type="text" class="inputTextReadOnly" size="5" maxlength="4" name="ffavd" id="ffavd" value="${model.record.ffavd}">
+							 			</c:otherwise>
+							 			</c:choose>
+							 		</td>
+							 		<td class="text12"><span title="ffoty">Opd.type</span></td>
+							 		<td class="text11">
+							 			<c:choose>
+										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
+							 			<select class="inputTextMediumBlue" name="ffoty" id="ffoty">
+						            		<option value="">-select-</option>
+						 				  	<c:forEach var="record" items="${model.oppdragstypeList}" >
+					                       	 	<option value="${record.opdTyp}"<c:if test="${model.record.ffoty == record.opdTyp}"> selected </c:if> >${record.opdTyp}</option>
 											</c:forEach> 
+										</select>
 										</c:when>
 										<c:otherwise>
-											<c:forEach var="record" items="${model.incotermsList}" >
-						            			<option value="${record.franka}"<c:if test="${record.franka=='S'}"> selected </c:if> >${record.franka}</option>
-											</c:forEach>
+											<input readonly type="text" class="inputTextReadOnly" size="3" maxlength="2" name="ffoty" id="ffoty" value="${model.record.ffoty}">
 										</c:otherwise>
 										</c:choose>
-									</select>
-						 		</td>
-						 	</tr>
-						 	<tr>		
-					 			<td class="text12"><span title="ffftxt">Fritext</span></td>
-					 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="2" maxlength="1" name="ffftxt" id="ffftxt" value="${model.record.ffftxt}"></td>
-					 			<td class="text12"><span title="ffmodul">Modul</span></td>
-					 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="2" maxlength="1" name="ffmodul" id="ffmodul" value="${model.record.ffmodul}"></td>
-					 			<td class="text12"><span title="ffpkod">Prod.kode</span></td>
-					 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="2" maxlength="1" name="ffpkod" id="ffpkod" value="${model.record.ffpkod}"></td>
-						 	</tr>	
-						 	<tr>		
-					 			<td class="text12"><span title="ffbnr">Bilnr</span></td>
-					 			<td class="text11" colspan="2" ><input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="ffbnr" id="ffbnr" value="${model.record.ffbnr}"></td>
-					 			<td class="text12"><span title="fftran">Transportør</span></td>
-					 			<td class="text11" colspan="2" ><input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="fftran" id="fftran" value="${model.record.fftran}"></td>
-						 	</tr>
-						 	<tr>		
-					 			<td class="text12"><span title="ffkomm">Kommentar</span></td>
-					 			<td class="text11" colspan="6" ><input type="text" class="inputTextMediumBlue11" size="36" maxlength="35" name="ffkomm" id="ffkomm" value="${model.record.ffkomm}"></td>
-						 	</tr>
-						 	<tr>		
-					 			<td class="text12"><span title="ffbel">Beløp</span></td>
-					 			<td class="text11" colspan="3" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="ffbel" id="ffbel" value="${model.record.ffbel}"></td>
-						 	</tr>
-						 	<tr>		
-					 			<td class="text12"><span title="ffbelk">A/E</span></td>
-					 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="3" maxlength="2" name="ffbelk" id="ffbelk" value="${model.record.ffbelk}"></td>
-						 	</tr>
-						 	<tr height="20"><td ></td></tr>	
-						 	<tr ><td class="text14" colspan="3"><b>Viderefrakt...</b></td></tr>
-						 	<tr>
-								<td class="text12"><span title="vfavd">Via avd</span></td>
-						 		<td class="text11"><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" size="5" maxlength="4" name="vfavd" id="vfavd" value="${model.record.vfavd}"></td>
-						 		<td class="text12"><span title="vfoty">Opd.type</span></td>
-						 		<td class="text11">
-						 			<select class="inputTextMediumBlue" name="vfoty" id="vfoty">
-					            		<option value="">-select-</option>
-					 				  	<c:forEach var="record" items="${model.oppdragstypeList}" >
-				                       	 	<option value="${record.opdTyp}"<c:if test="${model.record.vfoty == record.opdTyp}"> selected </c:if> >${record.opdTyp}</option>
-										</c:forEach> 
-									</select>
-						 		</td>
-						 		<td class="text12"><span title="vffrank">Frankatur</span></td>
-						 		<td class="text11">
-						 			<select class="inputTextMediumBlue" name="vffrank" id="vffrank">
-					            		<option value="">-select-</option>
-					 				  	
-					 				  	<c:choose>
-					            		<c:when test="${not empty model.record.hefr}">
-						            		<c:forEach var="record" items="${model.incotermsList}" >
-						            			<option value="${record.franka}"<c:if test="${model.record.vffrank == record.franka}"> selected </c:if> >${record.franka}</option>
-											</c:forEach> 
+										
+							 		</td>
+							 		<td class="text12"><span title="fffrank">Frankatur</span></td>
+							 		<td class="text11">
+							 			<c:choose>
+										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
+							 			<select class="inputTextMediumBlue" name="fffrank" id="fffrank">
+						            		<option value="">-select-</option>
+						 				  	<c:choose>
+						            		<c:when test="${not empty model.record.hefr}">
+							            		<c:forEach var="record" items="${model.incotermsList}" >
+							            			<option value="${record.franka}"<c:if test="${model.record.fffrank == record.franka}"> selected </c:if> >${record.franka}</option>
+												</c:forEach> 
+											</c:when>
+											<c:otherwise>
+												<c:forEach var="record" items="${model.incotermsList}" >
+							            			<option value="${record.franka}"<c:if test="${record.franka=='S'}"> selected </c:if> >${record.franka}</option>
+												</c:forEach>
+											</c:otherwise>
+											</c:choose>
+										</select>
 										</c:when>
 										<c:otherwise>
-											<c:forEach var="record" items="${model.incotermsList}" >
-						            			<option value="${record.franka}"<c:if test="${record.franka=='S'}"> selected </c:if> >${record.franka}</option>
-											</c:forEach>
+											<input readonly type="text" class="inputTextReadOnly" size="4" maxlength="3" name="fffrank" id="fffrank" value="${model.record.fffrank}">
 										</c:otherwise>
 										</c:choose>
-					 				  	
-									</select>
-						 		</td>
-						 		
-						 	</tr>
-						 	<tr>		
-					 			<td class="text12"><span title="vfftxt">Fritext</span></td>
-					 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="2" maxlength="1" name="vfftxt" id="vfftxt" value="${model.record.vfftxt}"></td>
-					 			<td class="text12"><span title="vfmodul">Modul</span></td>
-					 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="2" maxlength="1" name="vfmodul" id="vfmodul" value="${model.record.vfmodul}"></td>
-					 			<td class="text12"><span title="vfpkod">Prod.kode</span></td>
-					 			<td class="text11"><input type="text" class="inputTextMediumBlue11" size="2" maxlength="1" name="vfpkod" id="vfpkod" value="${model.record.vfpkod}"></td>
-						 	</tr>	
-						 	<tr>		
-					 			<td class="text12"><span title="vfbnr">Bilnr</span></td>
-					 			<td class="text11" colspan="2" ><input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="vfbnr" id="vfbnr" value="${model.record.vfbnr}"></td>
-					 			<td class="text12"><span title="vftran">Transportør</span></td>
-					 			<td class="text11" colspan="2" ><input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="vftran" id="vftran" value="${model.record.vftran}"></td>
-						 	</tr>
-						 	<tr>		
-					 			<td class="text12"><span title="vfkomm">Kommentar</span></td>
-					 			<td class="text11" colspan="6" ><input type="text" class="inputTextMediumBlue11" size="36" maxlength="35" name="vfkomm" id="vfkomm" value="${model.record.vfkomm}"></td>
-						 	</tr>
-						 	
-						 	<tr>		
-					 			<td class="text12"><span title="vfbel">Beløp</span></td>
-					 			<td class="text11" colspan="3" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="vfbel" id="vfbel" value="${model.record.vfbel}"></td>
-						 	</tr>	
-						 	<tr>		
-					 			<td class="text12"><span title="vfbelk">A/E</span></td>
-					 			<td class="text11" ><input type="text" class="inputTextMediumBlue11" size="3" maxlength="2" name="vfbelk" id="vfbelk" value="${model.record.vfbelk}"></td>
-						 	</tr>	
-							
-						</table>
+										
+							 		</td>
+							 	</tr>
+							 	<tr>		
+						 			<td class="text12"><span title="ffftxt">Fritext</span></td>
+						 			<td class="text11">
+						 				<c:choose>
+										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
+						 					<input type="text" class="inputTextMediumBlue11" size="2" maxlength="1" name="ffftxt" id="ffftxt" value="${model.record.ffftxt}">
+						 				</c:when>
+						 				<c:otherwise>
+						 					<input readonly type="text" class="inputTextReadOnly" size="2" maxlength="1" name="ffftxt" id="ffftxt" value="${model.record.ffftxt}">
+						 				</c:otherwise>
+						 				</c:choose>
+						 			</td>
+						 			<td class="text12"><span title="ffmodul">Modul</span></td>
+						 			<td class="text11">
+						 				<c:choose>
+										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
+						 					<input type="text" class="inputTextMediumBlue11" size="2" maxlength="1" name="ffmodul" id="ffmodul" value="${model.record.ffmodul}">
+						 				</c:when>
+						 				<c:otherwise>
+						 					<input readonly type="text" class="inputTextReadOnly" size="2" maxlength="1" name="ffmodul" id="ffmodul" value="${model.record.ffmodul}">
+						 				</c:otherwise>
+						 				</c:choose>
+						 			</td>
+						 			<td class="text12"><span title="ffpkod">Prod.kode</span></td>
+						 			<td class="text11">
+						 				<c:choose>
+										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
+						 					<input type="text" class="inputTextMediumBlue11" size="2" maxlength="1" name="ffpkod" id="ffpkod" value="${model.record.ffpkod}">
+						 				</c:when>
+						 				<c:otherwise>
+						 					<input readonly type="text" class="inputTextReadOnly" size="2" maxlength="1" name="ffpkod" id="ffpkod" value="${model.record.ffpkod}">
+						 				</c:otherwise>
+						 				</c:choose>
+						 			</td>
+							 	</tr>	
+							 	<tr>		
+						 			<td class="text12"><span title="ffbnr">Bilnr</span></td>
+						 			<td class="text11" colspan="2" >
+						 				<c:choose>
+										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
+						 					<input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="ffbnr" id="ffbnr" value="${model.record.ffbnr}">
+						 				</c:when>
+						 				<c:otherwise>
+						 					<input readonly type="text" class="inputTextReadOnly" size="9" maxlength="8" name="ffbnr" id="ffbnr" value="${model.record.ffbnr}">
+						 				</c:otherwise>
+						 				</c:choose>
+						 			</td>
+						 			<td class="text12"><span title="fftran">Transportør</span></td>
+						 			<td class="text11" colspan="2" >
+						 				<c:choose>
+										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
+						 					<input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="fftran" id="fftran" value="${model.record.fftran}">
+						 				</c:when>
+						 				<c:otherwise>
+						 					<input readonly type="text" class="inputTextReadOnly" size="9" maxlength="8" name="fftran" id="fftran" value="${model.record.fftran}">
+						 				</c:otherwise>
+						 				</c:choose>
+						 			</td>
+							 	</tr>
+							 	<tr>		
+						 			<td class="text12"><span title="ffkomm">Kommentar</span></td>
+						 			<td class="text11" colspan="6" >
+						 				<c:choose>
+										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
+						 					<input type="text" class="inputTextMediumBlue11" size="36" maxlength="35" name="ffkomm" id="ffkomm" value="${model.record.ffkomm}">
+						 				</c:when>
+						 				<c:otherwise>
+						 					<input readonly type="text" class="inputTextReadOnly" size="36" maxlength="35" name="ffkomm" id="ffkomm" value="${model.record.ffkomm}">
+						 				</c:otherwise>
+						 				</c:choose>
+						 			</td>
+							 	</tr>
+							 	<tr>		
+						 			<td class="text12"><span title="ffbel">Beløp</span></td>
+						 			<td class="text11" colspan="3" >
+						 				<c:choose>
+										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
+						 					<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="ffbel" id="ffbel" value="${model.record.ffbel}">
+						 				</c:when>
+						 				<c:otherwise>
+						 					<input readonly type="text" class="inputTextReadOnly" size="15" maxlength="15" name="ffbel" id="ffbel" value="${model.record.ffbel}">
+						 				</c:otherwise>
+						 				</c:choose>
+						 			</td>
+							 	</tr>
+							 	<tr>		
+						 			<td class="text12"><span title="ffbelk">A/E</span></td>
+						 			<td class="text11">
+						 				<c:choose>
+										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
+						 					<input type="text" class="inputTextMediumBlue11" size="3" maxlength="2" name="ffbelk" id="ffbelk" value="${model.record.ffbelk}">
+						 				</c:when>
+						 				<c:otherwise>
+						 					<input readonly type="text" class="inputTextReadOnly" size="3" maxlength="2" name="ffbelk" id="ffbelk" value="${model.record.ffbelk}">
+						 				</c:otherwise>
+						 				</c:choose>
+						 				
+						 				
+						 			</td>
+							 	</tr>
+							 	<tr height="20"><td ></td></tr>	
+							 	<tr ><td class="text14" colspan="3"><b>Viderefrakt...</b></td></tr>
+							 	<tr>
+									<td class="text12"><span title="vfavd">Via avd</span></td>
+							 		<td class="text11">
+							 			<c:choose>
+										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
+							 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" size="5" maxlength="4" name="vfavd" id="vfavd" value="${model.record.vfavd}">
+							 			</c:when>
+							 			<c:otherwise>
+							 				<input readonly type="text" class="inputTextReadOnly" size="5" maxlength="4" name="vfavd" id="vfavd" value="${model.record.vfavd}">
+							 			</c:otherwise>
+							 			</c:choose>
+							 		</td>
+							 		<td class="text12"><span title="vfoty">Opd.type</span></td>
+							 		<td class="text11">
+							 			<c:choose>
+										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
+							 			<select class="inputTextMediumBlue" name="vfoty" id="vfoty">
+						            		<option value="">-select-</option>
+						 				  	<c:forEach var="record" items="${model.oppdragstypeList}" >
+					                       	 	<option value="${record.opdTyp}"<c:if test="${model.record.vfoty == record.opdTyp}"> selected </c:if> >${record.opdTyp}</option>
+											</c:forEach> 
+										</select>
+										</c:when>
+										<c:otherwise>
+											<input readonly type="text" class="inputTextReadOnly" size="4" maxlength="2" name="vfoty" id="vfoty" value="${model.record.vfoty}">
+										</c:otherwise>
+										</c:choose>
+							 		</td>
+							 		<td class="text12"><span title="vffrank">Frankatur</span></td>
+							 		<td class="text11">
+							 			<c:choose>
+										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
+							 			<select class="inputTextMediumBlue" name="vffrank" id="vffrank">
+						            		<option value="">-select-</option>
+						 				  	<c:choose>
+						            		<c:when test="${not empty model.record.hefr}">
+							            		<c:forEach var="record" items="${model.incotermsList}" >
+							            			<option value="${record.franka}"<c:if test="${model.record.vffrank == record.franka}"> selected </c:if> >${record.franka}</option>
+												</c:forEach> 
+											</c:when>
+											<c:otherwise>
+												<c:forEach var="record" items="${model.incotermsList}" >
+							            			<option value="${record.franka}"<c:if test="${record.franka=='S'}"> selected </c:if> >${record.franka}</option>
+												</c:forEach>
+											</c:otherwise>
+											</c:choose>
+						 				  	
+										</select>
+										</c:when>
+										<c:otherwise>
+											<input readonly type="text" class="inputTextReadOnly" size="4" maxlength="3" name="vffrank" id="vffrank" value="${model.record.vffrank}">
+										</c:otherwise>
+										</c:choose>
+							 		</td>
+							 		
+							 		
+							 	</tr>
+							 	<tr>		
+						 			<td class="text12"><span title="vfftxt">Fritext</span></td>
+						 			<td class="text11">
+						 				<c:choose>
+										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
+						 					<input type="text" class="inputTextMediumBlue11" size="2" maxlength="1" name="vfftxt" id="vfftxt" value="${model.record.vfftxt}">
+						 				</c:when>
+						 				<c:otherwise>
+						 					<input readonly type="text" class="inputTextReadOnly" size="2" maxlength="1" name="vfftxt" id="vfftxt" value="${model.record.vfftxt}">
+						 				</c:otherwise>
+						 				</c:choose>
+						 				
+						 			</td>
+						 				
+						 			<td class="text12"><span title="vfmodul">Modul</span></td>
+						 			<td class="text11">
+						 				<c:choose>
+										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
+						 					<input type="text" class="inputTextMediumBlue11" size="2" maxlength="1" name="vfmodul" id="vfmodul" value="${model.record.vfmodul}">
+						 				</c:when>
+						 				<c:otherwise>
+						 					<input readonly type="text" class="inputTextReadOnly" size="2" maxlength="1" name="vfmodul" id="vfmodul" value="${model.record.vfmodul}">
+						 				</c:otherwise>
+						 				</c:choose>
+						 				
+						 			</td>
+						 			<td class="text12"><span title="vfpkod">Prod.kode</span></td>
+						 			<td class="text11">
+						 				<c:choose>
+										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
+						 					<input type="text" class="inputTextMediumBlue11" size="2" maxlength="1" name="vfpkod" id="vfpkod" value="${model.record.vfpkod}">
+						 				</c:when>
+						 				<c:otherwise>
+						 					<input readonly type="text" class="inputTextReadOnly" size="2" maxlength="1" name="vfpkod" id="vfpkod" value="${model.record.vfpkod}">
+						 				</c:otherwise>
+						 				</c:choose>
+						 			</td>
+							 	</tr>	
+							 	<tr>		
+						 			<td class="text12"><span title="vfbnr">Bilnr</span></td>
+						 			<td class="text11" colspan="2" >
+						 				<c:choose>
+										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
+						 					<input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="vfbnr" id="vfbnr" value="${model.record.vfbnr}">
+						 				</c:when>
+						 				<c:otherwise>
+						 					<input readonly type="text" class="inputTextReadOnly" size="9" maxlength="8" name="vfbnr" id="vfbnr" value="${model.record.vfbnr}">
+						 				</c:otherwise>
+						 				</c:choose>
+						 			</td>
+						 			<td class="text12"><span title="vftran">Transportør</span></td>
+						 			<td class="text11" colspan="2" >
+						 				<c:choose>
+										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
+						 					<input type="text" class="inputTextMediumBlue11" size="9" maxlength="8" name="vftran" id="vftran" value="${model.record.vftran}">
+						 				</c:when>
+						 				<c:otherwise>
+						 					<input readonly type="text" class="inputTextReadOnly" size="9" maxlength="8" name="vftran" id="vftran" value="${model.record.vftran}">
+						 				</c:otherwise>
+						 				</c:choose>
+						 			</td>
+							 	</tr>
+							 	<tr>		
+						 			<td class="text12"><span title="vfkomm">Kommentar</span></td>
+						 			<td class="text11" colspan="6" >
+						 				<c:choose>
+										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
+						 					<input type="text" class="inputTextMediumBlue11" size="36" maxlength="35" name="vfkomm" id="vfkomm" value="${model.record.vfkomm}">
+						 				</c:when>
+						 				<c:otherwise>
+						 					<input readonly type="text" class="inputTextReadOnly" size="36" maxlength="35" name="vfkomm" id="vfkomm" value="${model.record.vfkomm}">
+						 				</c:otherwise>	
+						 				</c:choose>
+						 			</td>
+							 	</tr>
+							 	
+							 	<tr>		
+						 			<td class="text12"><span title="vfbel">Beløp</span></td>
+						 			<td class="text11" colspan="3" >
+						 				<c:choose>
+										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
+						 					<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" size="15" maxlength="15" name="vfbel" id="vfbel" value="${model.record.vfbel}">
+						 				</c:when>
+						 				<c:otherwise>
+						 					<input readonly type="text" class="inputTextReadOnly" size="15" maxlength="15" name="vfbel" id="vfbel" value="${model.record.vfbel}">
+						 				</c:otherwise>
+						 				</c:choose>
+						 					
+						 			</td>
+							 	</tr>	
+							 	<tr>		
+						 			<td class="text12"><span title="vfbelk">A/E</span></td>
+						 			<td class="text11" >
+						 				<c:choose>
+										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
+						 					<input type="text" class="inputTextMediumBlue11" size="3" maxlength="2" name="vfbelk" id="vfbelk" value="${model.record.vfbelk}">
+						 				</c:when>
+						 				<c:otherwise>
+						 					<input readonly type="text" class="inputTextReadOnly" size="3" maxlength="2" name="vfbelk" id="vfbelk" value="${model.record.vfbelk}">
+						 				</c:otherwise>
+						 				</c:choose>
+						 			</td>
+							 	</tr>	
+								
+							</table>
+						
 				</div>
 			</td>
 		</tr> 
