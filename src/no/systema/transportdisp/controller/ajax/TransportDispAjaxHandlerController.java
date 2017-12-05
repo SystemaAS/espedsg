@@ -91,6 +91,8 @@ import no.systema.transportdisp.service.TransportDispWorkflowSpecificOrderServic
 import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
 import no.systema.transportdisp.util.RpgReturnResponseHandler;
 import no.systema.transportdisp.util.TransportDispConstants;
+import no.systema.main.util.StringManager;
+
 import no.systema.transportdisp.util.manager.ControllerAjaxCommonFunctionsMgr;
 
 /**
@@ -108,7 +110,7 @@ public class TransportDispAjaxHandlerController {
 	private static final Logger logger = Logger.getLogger(TransportDispAjaxHandlerController.class.getName());
 	//private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 	private ControllerAjaxCommonFunctionsMgr controllerAjaxCommonFunctionsMgr;
-	
+	private StringManager strMgr = new StringManager();
 	/**
 	 * Gets the Specific Trip-heading
 	 * 
@@ -363,23 +365,32 @@ public class TransportDispAjaxHandlerController {
 				 if(rpgReturnPayload!=null){
 					 rpgReturnResponseHandler.evaluateRpgResponseOnAddRemoveOrder(rpgReturnPayload);
 					 if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
-						 rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
+						 rpgReturnResponseHandler.setErrorMessage("[ERROR FATAL] avd/opd:" + rpgReturnResponseHandler.getErrorMessage());
 						 //TODO -->this.setFatalErrorAddRemoveOrders(model, rpgReturnResponseHandler, recordToValidate);
 						 logger.info(rpgReturnResponseHandler.getErrorMessage());
+						 
 					 }
 				 }
 				 //Now break the record in order to fill the return object for further handling on GUI (jQuery)
 				 String[] tmp = record.split("&");
 				 List<String> fields = Arrays.asList(tmp);
 				 JsonTransportDispWorkflowSpecificTripRecord trip = new JsonTransportDispWorkflowSpecificTripRecord();
+				 
+				 String wsopd = "";
 				 for (String field: fields){
 					 if(field.contains("wsavd")){
 						 trip.setTuavd(field.replace("wsavd=", ""));
 					 }else if (field.contains("wstur")){
 						 trip.setTupro(field.replace("wstur=", ""));					 
-					 }/*else if (field.contains("error")){
-						 trip.setErrMsg(field.replace("error", ""));					 
-					 }*/
+					 }else if (field.contains("wsopd")){
+						 
+						 wsopd = field.replace("wsopd=", "");					 
+					 }
+					 
+				 }
+				//error handling
+				 if(strMgr.isNotNull(rpgReturnResponseHandler.getErrorMessage()) ){
+					 trip.setErrMsg(trip.getTuavd() + "/" + wsopd + " -" + rpgReturnResponseHandler.getErrorMessage());
 				 }
 				 result.add(trip);
 			 }	 

@@ -524,8 +524,13 @@
 		  	  success: function(data) {
 		  		var len = data.length;
 		  		for ( var i = 0; i < len; i++) {
+		  			var redirectParams = "&wssavd=" + data[i].tuavd + "&wstur=" + data[i].tupro;
+		  			if(data[i].errMsg != null){
+		  				redirectParams = redirectParams + "&err=" + data[i].errMsg;
+		  			}
 		  			//we send the redirect after all updates in order to refresh...
-		  			window.location = "transportdisp_mainorderlist.do?action=doFind&wssavd=" + data[i].tuavd + "&wstur=" + data[i].tupro;
+		  			window.location = "transportdisp_mainorderlist.do?action=doFind" + redirectParams;
+		  			
 		  		}
 		  	  },
 		  	  error: function() {
