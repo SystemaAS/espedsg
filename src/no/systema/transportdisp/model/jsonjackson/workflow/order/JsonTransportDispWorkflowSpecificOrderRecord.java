@@ -1118,6 +1118,7 @@ public class JsonTransportDispWorkflowSpecificOrderRecord extends JsonAbstractGr
 	public String getVfbelk() {return this.vfbelk;}
 	//END Via-fält
 	
+	
 	private List<JsonTransportDispWorkflowSpecificOrderFraktbrevRecord> fraktbrevList = null;
 	public void setFraktbrevList(List<JsonTransportDispWorkflowSpecificOrderFraktbrevRecord> value) {  this.fraktbrevList = value; }
 	public List<JsonTransportDispWorkflowSpecificOrderFraktbrevRecord> getFraktbrevList() {return this.fraktbrevList;}

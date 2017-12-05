@@ -327,7 +327,7 @@ public class TransportDispMainOrderController {
 				//this.populateMessageNotes(appUser, recordToValidate); (N/A)
 	    		//restore percentage GUI-formatted
 	    		//recordToValidate.setHevalp(percentageFormatter.adjustPercentageNotationToFrontEndOnSpecificOrder(recordToValidate.getHevalp()));
-	    		
+	    		logger.info("FFAVD:" + recordToValidate.getFfavd());
 	    		//set domain objects
 	    		this.setDomainObjectsOnValidationErrors(appUser, recordToValidate, model, parentTrip);
 				returnView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
@@ -626,8 +626,9 @@ public class TransportDispMainOrderController {
 	 * @param recordToValidate
 	 * @param appUser
 	 */
-	private void processOrderLines(JsonTransportDispWorkflowSpecificOrderRecord recordToValidate, SystemaWebUser appUser){
+	private List<JsonTransportDispWorkflowSpecificOrderFraktbrevRecord> processOrderLines(JsonTransportDispWorkflowSpecificOrderRecord recordToValidate, SystemaWebUser appUser){
 		logger.info("Inside:processOrderLines");
+		List<JsonTransportDispWorkflowSpecificOrderFraktbrevRecord> errorList = new ArrayList<JsonTransportDispWorkflowSpecificOrderFraktbrevRecord>();
 		//check the total number of lines in order to input a new linenr
 		int i=1;
 		for(JsonTransportDispWorkflowSpecificOrderFraktbrevRecord fraktbrevRecord : recordToValidate.getFraktbrevList()){
@@ -676,6 +677,8 @@ public class TransportDispMainOrderController {
 						if( !"".equals(fraktbrevContainer.getErrMsg()) ){
 							//Debug
 							logger.info("[ERROR]:" + fraktbrevContainer.getErrMsg());
+							fraktbrevRecord.setErrMsg(fraktbrevContainer.getErrMsg());
+							errorList.add(fraktbrevRecord);
 						}
 					}
 				}
@@ -684,6 +687,7 @@ public class TransportDispMainOrderController {
 			i++;
 			
 		}
+		return errorList;
 		
 	}
 	

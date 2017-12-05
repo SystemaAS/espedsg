@@ -35,6 +35,7 @@ import no.systema.main.validator.LoginValidator;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.io.FileContentRenderer;
+import no.systema.main.util.StringManager;
 import no.systema.main.model.SystemaWebUser;
 
 //TRANSPDISP
@@ -78,6 +79,7 @@ public class TransportDispMainOrderListController {
 	private LoginValidator loginValidator = new LoginValidator();
 	private ControllerAjaxCommonFunctionsMgr controllerAjaxCommonFunctionsMgr;
 	private ReflectionUrlStoreMgr reflectionUrlStoreMgr = new ReflectionUrlStoreMgr();
+	private StringManager strMgr = new StringManager();
 	@PostConstruct
 	public void initIt() throws Exception {
 		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
@@ -145,16 +147,20 @@ public class TransportDispMainOrderListController {
 				//STEP [1]
 		    	//Get all lists
 	    		outputListCurrentOrders = this.getListCurrentOrders(appUser, recordToValidate, model);
-	    		//Put list for upcomming view (PDF, Excel, etc)
+	    		//Put list for upcoming view (PDF, Excel, or ErrorHandling in add/remove orders (method below...)
 				if(outputListCurrentOrders!=null){
 					session.setAttribute(session.getId() + TransportDispConstants.SESSION_LIST_CURRENT_ORDERS_ON_TRIP, outputListCurrentOrders);
 				}
 	    		StringBuffer userAvd = new StringBuffer();
 	    		outputListOpenOrders = this.getListOpenOrders(appUser, recordToValidate, model, userAvd);
+	    		//Put list for upcoming view (PDF, Excel, or ErrorHandling in add/remove orders (method below...)
+	    		if(outputListOpenOrders!=null){
+					session.setAttribute(session.getId() + TransportDispConstants.SESSION_LIST_OPEN_ORDERS_ON_TRIP, outputListOpenOrders);
+				}
 	    		model.put("userAvd", userAvd.toString());
 	    		
 	    		//STEP [2]
-	    		//Get the trip header
+	    		//Get the trip header and economic Matrix
 	    		model.put(TransportDispConstants.DOMAIN_RECORD, new JsonTransportDispWorkflowSpecificTripRecord());
 		 		JsonTransportDispWorkflowSpecificTripContainer container = this.controllerAjaxCommonFunctionsMgr.fetchTripHeading(appUser.getUser(), recordToValidate.getAvd(), recordToValidate.getTur());
 		 		if(container!=null){
@@ -166,13 +172,17 @@ public class TransportDispMainOrderListController {
 	   		 	//--------------------------------------
 				//Final successView with domain objects
 				//--------------------------------------
+		 		String errorFromRedirect = request.getParameter("err");
+		 		if(strMgr.isNotNull(errorFromRedirect)){
+		 			model.put(TransportDispConstants.ASPECT_ERROR_MESSAGE, errorFromRedirect);
+		 		}
 				//drop downs
 				//this.setCodeDropDownMgr(appUser, model);
 				successView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
 	    		//domain and search filter
 				successView.addObject(TransportDispConstants.DOMAIN_LIST_CURRENT_ORDERS, outputListCurrentOrders);
 				successView.addObject(TransportDispConstants.DOMAIN_LIST_OPEN_ORDERS,outputListOpenOrders);
-				//Put list for upcomming view (PDF, Excel, etc)
+				//Put list for upcoming view (PDF, Excel, etc)
 				if(outputListOpenOrders!=null){
 					session.setAttribute(session.getId() + TransportDispConstants.SESSION_LIST, outputListOpenOrders);
 				}
@@ -263,9 +273,36 @@ public class TransportDispMainOrderListController {
 		    	//we must evaluate a return RPG code in order to know if the Update was OK or not
 		    	rpgReturnResponseHandler.evaluateRpgResponseOnAddRemoveOrder(rpgReturnPayload);
 		    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
-		    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on UPDATE: " + rpgReturnResponseHandler.getErrorMessage());
-		    		this.setFatalErrorAddRemoveOrders(model, rpgReturnResponseHandler, recordToValidate);			    		//isValidCreatedRecordTransactionOnRPG = false;
+		    		rpgReturnResponseHandler.setErrorMessage("[ERROR FATAL] avd/opd:" + wsavd +"/"+ wsopd + "-" + rpgReturnResponseHandler.getErrorMessage());
+		    		this.setFatalErrorAddRemoveOrders(model, rpgReturnResponseHandler, recordToValidate);
+		    		
+		    		successView = errorView;
+		    		successView.addObject(TransportDispConstants.DOMAIN_MODEL, model);
+		    		//-------------------------------------------------------------------------------------------------------
+		    		//Now re-populate all elements since we are not able to redirect (we must present the ERROR message ...)
+		    		//-------------------------------------------------------------------------------------------------------
+		    		//STEP [1] get from session
+		    		List sessionCurrentOrdersList = (List)session.getAttribute(session.getId() + TransportDispConstants.SESSION_LIST_CURRENT_ORDERS_ON_TRIP);
+		    		List sessionOpenOrdersList = (List)session.getAttribute(session.getId() + TransportDispConstants.SESSION_LIST_OPEN_ORDERS_ON_TRIP);
+		    		successView.addObject(TransportDispConstants.DOMAIN_LIST_CURRENT_ORDERS, sessionCurrentOrdersList);
+		    		successView.addObject(TransportDispConstants.DOMAIN_LIST_OPEN_ORDERS, sessionOpenOrdersList);
+		    		
+		    		//STEP [2] Get the trip header and economic Matrix
+		    		model.put(TransportDispConstants.DOMAIN_RECORD, new JsonTransportDispWorkflowSpecificTripRecord());
+			 		JsonTransportDispWorkflowSpecificTripContainer container = this.controllerAjaxCommonFunctionsMgr.fetchTripHeading(appUser.getUser(), recordToValidate.getAvd(), recordToValidate.getTur());
+			 		if(container!=null){
+		   			 	for(JsonTransportDispWorkflowSpecificTripRecord  record : container.getGetonetrip()){
+		   			 		model.put(TransportDispConstants.DOMAIN_RECORD, record);		   			 		
+		   			 	}
+	   			 	}
+		    		//put search filter
+		    		successView.addObject("searchFilter", recordToValidate);
+		    		//------------------
+		    		//END re-population
+		    		//------------------
+		    		 
 		    	}
+		    	
 		    	return successView;
 		    }
 		}

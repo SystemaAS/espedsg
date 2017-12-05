@@ -128,6 +128,10 @@ public class JsonTransportDispWorkflowSpecificOrderFraktbrevRecord extends JsonA
 	public void setFfpoen(String value) {  this.ffpoen = value; }
 	public String getFfpoen() {return this.ffpoen;}
 
+	private String errMsg = null;
+	public void setErrMsg(String value) {  this.errMsg = value; }
+	public String getErrMsg() { return this.errMsg;}
+	
 	/**
 	 * Used for java reflection in other classes
 	 * @return

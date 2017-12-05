@@ -106,7 +106,7 @@ import no.systema.transportdisp.util.manager.ControllerAjaxCommonFunctionsMgr;
 
 public class TransportDispAjaxHandlerController {
 	private static final Logger logger = Logger.getLogger(TransportDispAjaxHandlerController.class.getName());
-	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
+	//private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 	private ControllerAjaxCommonFunctionsMgr controllerAjaxCommonFunctionsMgr;
 	
 	/**
@@ -197,6 +197,8 @@ public class TransportDispAjaxHandlerController {
     public @ResponseBody Set<JsonTransportDispWorkflowSpecificOrderFraktbrevRecord> addNewOrderDetailLine
 	  						(@RequestParam String applicationUser, @RequestParam String requestString){
 		 logger.info("Inside: addNewOrderDetailLine");
+		 RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
+		 
 		 Set<JsonTransportDispWorkflowSpecificOrderFraktbrevRecord> result = new HashSet<JsonTransportDispWorkflowSpecificOrderFraktbrevRecord>();
 		 //logger.info(requestString);
 		 if(requestString!=null && !"".equals(requestString)){
@@ -241,6 +243,8 @@ public class TransportDispAjaxHandlerController {
     public @ResponseBody Set<OrderLineValidationObject> validateCurrentOrderDetailLineOrig
 	  						(@RequestParam String applicationUser, @RequestParam String requestString, @RequestParam String lineNr ){
 		 logger.info("Inside: validateCurrentOrderDetailLine");
+		 RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
+		 
 		 Set<OrderLineValidationObject> result = new HashSet<OrderLineValidationObject>();
 		 //logger.info(requestString);
 		 if(requestString!=null && !"".equals(requestString)){
@@ -333,6 +337,7 @@ public class TransportDispAjaxHandlerController {
     public @ResponseBody Set<JsonTransportDispWorkflowSpecificTripRecord> updateMainOrdersLists
 	  						(@RequestParam String applicationUser, @RequestParam String requestString){
 		 logger.info("Inside: updateMainOrdersLists");
+		 RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 		 
 		 Set<JsonTransportDispWorkflowSpecificTripRecord> result = new HashSet<JsonTransportDispWorkflowSpecificTripRecord>();
 		 logger.info(requestString);
@@ -372,7 +377,9 @@ public class TransportDispAjaxHandlerController {
 						 trip.setTuavd(field.replace("wsavd=", ""));
 					 }else if (field.contains("wstur")){
 						 trip.setTupro(field.replace("wstur=", ""));					 
-					 }
+					 }/*else if (field.contains("error")){
+						 trip.setErrMsg(field.replace("error", ""));					 
+					 }*/
 				 }
 				 result.add(trip);
 			 }	 
@@ -390,6 +397,8 @@ public class TransportDispAjaxHandlerController {
     public @ResponseBody Set<JsonTransportDispWorkflowSpecificTripRecord> updatePositionsMainOrdersLists
 	  						(@RequestParam String applicationUser, @RequestParam String requestString){
 		 logger.info("Inside: updatePositionsMainOrdersLists");
+		 RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
+		 
 		 Set<JsonTransportDispWorkflowSpecificTripRecord> result = new HashSet();
 		 logger.info(requestString);
 		 String [] requestRecord = requestString.split("@");
@@ -1428,6 +1437,8 @@ public class TransportDispAjaxHandlerController {
 		    public @ResponseBody Set<JsonTransportDispWorkflowSpecificTripRecord> updateTripListCloseOpenTrip
 			  						(@RequestParam String applicationUser, @RequestParam String requestString){
 				 logger.info("Inside: updateTripListCloseOpenTrip");
+				 RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
+				 
 				 Set<JsonTransportDispWorkflowSpecificTripRecord> result = new HashSet<JsonTransportDispWorkflowSpecificTripRecord>();
 				 
 				 logger.info(requestString);

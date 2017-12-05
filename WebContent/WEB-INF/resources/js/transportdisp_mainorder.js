@@ -2326,7 +2326,9 @@
           width: 520,
           height: 640,
 		  modal: true,
-		  dialogClass: 'main-dialog-class'
+		  dialogClass: 'main-dialog-class',
+		  appendTo: "#transportdispForm"
+		  
 	  });
   });
   //----------------------------

@@ -26,6 +26,10 @@ public class JsonTransportDispWorkflowSpecificTripRecord extends JsonAbstractGra
 	public void setGetdoctrip(Collection<JsonTransportDispWorkflowSpecificTripArchivedDocsRecord> value){ this.getdoctrip = value; }
 	public Collection<JsonTransportDispWorkflowSpecificTripArchivedDocsRecord> getGetdoctrip(){ return getdoctrip; }
 	
+	public String errMsg = null;
+	public void setErrMsg(String value) {  this.errMsg = value; }
+	public String getErrMsg() {return this.errMsg;}
+	
 	
 	private String tust = null;
 	public void setTust(String value) {  this.tust = value; }
