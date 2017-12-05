@@ -115,10 +115,10 @@ public class TdsExportItemsAutoControlMgr {
 	 * Mandatory fields
 	 */
 	public void checkValidMandatoryFields(){
-		if( strMgr.isNotNull(record.getSvev_ulkd()) && strMgr.isNotNull(record.getSvev_vata()) && strMgr.isNotNull(record.getSvev_eup1()) && 
-			strMgr.isNotNull(record.getSvev_brut()) && strMgr.isNotNull(record.getSvev_neto()) && strMgr.isNotNull(record.getSvev_kosl()) && 
-			strMgr.isNotNull(record.getSvev_vasl()) && strMgr.isNotNull(record.getSvev_godm()) && strMgr.isNotNull(record.getSvev_fabl()) &&
-			strMgr.isNotNull(record.getSvev_call()) && strMgr.isNotNull(record.getSvev_stva()) && strMgr.isNotNull(record.getSvev_stva2()) ){
+		if( strMgr.isNotNull(record.getSvev_vata()) && strMgr.isNotNull(record.getSvev_eup1()) && strMgr.isNotNull(record.getSvev_brut()) && 
+			strMgr.isNotNull(record.getSvev_neto()) && strMgr.isNotNull(record.getSvev_kosl()) && strMgr.isNotNull(record.getSvev_vasl()) && 
+			strMgr.isNotNull(record.getSvev_godm()) && strMgr.isNotNull(record.getSvev_fabl()) && strMgr.isNotNull(record.getSvev_call()) && 
+			strMgr.isNotNull(record.getSvev_kota()) && strMgr.isNotNull(record.getSvev_stva()) && strMgr.isNotNull(record.getSvev_stva2()) ){
 			//nothing
 		}else{
 			logger.info("FALSE");

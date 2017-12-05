@@ -35,12 +35,12 @@ public class TdsExportItemsValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svev_eup1", "systema.tds.export.header.error.null.item.svev_eup1");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svev_brut", "systema.tds.export.header.error.null.item.svev_brut");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svev_neto", "systema.tds.export.header.error.null.item.svev_neto");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svev_vasl", "systema.tds.export.header.error.null.item.svev_vasl");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svev_fabl", "systema.tds.export.header.error.null.item.svev_fabl");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svev_kota", "systema.tds.export.header.error.null.item.svev_kota");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svev_kosl", "systema.tds.export.header.error.null.item.svev_kosl");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svev_vasl", "systema.tds.export.header.error.null.item.svev_vasl");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svev_godm", "systema.tds.export.header.error.null.item.svev_godm");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svev_fabl", "systema.tds.export.header.error.null.item.svev_fabl");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svev_call", "systema.tds.export.header.error.null.item.svev_call");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svev_kota", "systema.tds.export.header.error.null.item.svev_kota");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svev_stva", "systema.tds.export.header.error.null.item.svev_stva");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "svev_stva2", "systema.tds.export.header.error.null.item.svev_stva2");
 		
