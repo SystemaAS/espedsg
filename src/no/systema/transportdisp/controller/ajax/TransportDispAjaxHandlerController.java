@@ -365,9 +365,10 @@ public class TransportDispAjaxHandlerController {
 				 if(rpgReturnPayload!=null){
 					 rpgReturnResponseHandler.evaluateRpgResponseOnAddRemoveOrder(rpgReturnPayload);
 					 if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
-						 rpgReturnResponseHandler.setErrorMessage("[ERROR FATAL] avd/opd:" + rpgReturnResponseHandler.getErrorMessage());
 						 //TODO -->this.setFatalErrorAddRemoveOrders(model, rpgReturnResponseHandler, recordToValidate);
-						 logger.info(rpgReturnResponseHandler.getErrorMessage());
+						 String idPrefix = "AVD/OPD:" + rpgReturnResponseHandler.getHeavd() + "/" + rpgReturnResponseHandler.getHeopd() + " - " ;
+						 rpgReturnResponseHandler.setErrorMessage(idPrefix + rpgReturnResponseHandler.getErrorMessage());
+						 //logger.info(rpgReturnResponseHandler.getErrorMessage());
 						 
 					 }
 				 }
@@ -383,16 +384,20 @@ public class TransportDispAjaxHandlerController {
 					 }else if (field.contains("wstur")){
 						 trip.setTupro(field.replace("wstur=", ""));					 
 					 }else if (field.contains("wsopd")){
-						 
 						 wsopd = field.replace("wsopd=", "");					 
 					 }
 					 
 				 }
 				//error handling
 				 if(strMgr.isNotNull(rpgReturnResponseHandler.getErrorMessage()) ){
-					 trip.setErrMsg(trip.getTuavd() + "/" + wsopd + " -" + rpgReturnResponseHandler.getErrorMessage());
+					 trip.setErrMsg(rpgReturnResponseHandler.getErrorMessage());
+					 //we must break the loop otherwise it creates confusion for the ajax call on jQuery ...
+					 result = new HashSet<JsonTransportDispWorkflowSpecificTripRecord>();
+					 result.add(trip);
+					 break;
+				 }else{
+					 result.add(trip);
 				 }
-				 result.add(trip);
 			 }	 
 		 }
 		 return result;

@@ -273,7 +273,7 @@ public class TransportDispMainOrderListController {
 		    	//we must evaluate a return RPG code in order to know if the Update was OK or not
 		    	rpgReturnResponseHandler.evaluateRpgResponseOnAddRemoveOrder(rpgReturnPayload);
 		    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
-		    		rpgReturnResponseHandler.setErrorMessage("[ERROR FATAL] avd/opd:" + wsavd +"/"+ wsopd + "-" + rpgReturnResponseHandler.getErrorMessage());
+		    		rpgReturnResponseHandler.setErrorMessage("AVD/OPD:" + wsavd +"/"+ wsopd + " - " + rpgReturnResponseHandler.getErrorMessage());
 		    		this.setFatalErrorAddRemoveOrders(model, rpgReturnResponseHandler, recordToValidate);
 		    		
 		    		successView = errorView;

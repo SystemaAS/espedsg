@@ -109,7 +109,7 @@ public class RpgReturnResponseHandler {
 			String tmp = rpgRawResponsePayload.replaceAll("\"", "");
 			String tmp2 = tmp.replace("{", "");
 			String cleanRawPayload = tmp2.replace("}", "");
-			
+			//logger.info(cleanRawPayload);
 			String[] record = cleanRawPayload.split(",");
 			List <String>list = Arrays.asList(record);
 			for(String field: list){
@@ -121,7 +121,7 @@ public class RpgReturnResponseHandler {
 							String errorCode = keyValuePair[1];
 							if(errorCode!=null && !"".equals(errorCode.trim())){
 								this.errorMessage = errorCode ;
-								logger.info(this.errorMessage);
+								//logger.info(this.errorMessage);
 							}
 						}
 					}else if(keyValuePair[0].trim().equalsIgnoreCase("user")){
@@ -129,6 +129,13 @@ public class RpgReturnResponseHandler {
 					}else if(keyValuePair[0].trim().equalsIgnoreCase("wstur")){
 						//this.tupro = keyValuePair[0] + ":" + keyValuePair[1]+ ",";
 						this.wstur = keyValuePair[1].trim();
+					}else if(keyValuePair[0].trim().equalsIgnoreCase("wsavd")){
+						//this.tupro = keyValuePair[0] + ":" + keyValuePair[1]+ ",";
+						this.heavd = keyValuePair[1].trim();
+					}else if(keyValuePair[0].trim().equalsIgnoreCase("wsopd")){
+						//this.tupro = keyValuePair[0] + ":" + keyValuePair[1]+ ",";
+						this.heopd = keyValuePair[1].trim();
+						//logger.info(this.heopd);
 					}
 				}
 			}

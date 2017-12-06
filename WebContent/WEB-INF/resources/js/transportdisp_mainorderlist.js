@@ -521,6 +521,7 @@
 		  	  dataType: 'json',
 		  	  cache: false,
 		  	  contentType: 'application/json',
+		  	  async: false, //only way to make synchronous calls. Otherwise will all ajax dependent functions will execute asynchronously
 		  	  success: function(data) {
 		  		var len = data.length;
 		  		for ( var i = 0; i < len; i++) {
