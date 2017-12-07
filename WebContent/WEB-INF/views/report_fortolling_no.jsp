@@ -175,43 +175,6 @@ function getSignaturDesc(id) {
 
 }
 
-var fortolling;	
-function getFortolling(siavd , sitdn) {
-	
-	var fortollingUrl = baseImportDataUrl + '&siavd='+siavd+'&sitdn='+sitdn;
-
-	jq.blockUI({message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-
-	d3.queue()
-		.defer(function(fortollingUrl, callback) {	
-			d3.json(fortollingUrl, function(error, data) {
-				if (error) {
-					jq.unblockUI();
-				}
-	
-				callback(error, data);
-				
-				if (data.dtoList == '') {
-					jq.unblockUI();
-					alert("Ingen data for fortolling.");  
-					return "no data found";
-				} else {
-					fortolling = data.dtoList;
-					console.log("getFortolling fortolling=", fortolling);
-				}
-				
-				jq.unblockUI();
-				
-				//console.log("fortolling=", fortolling);
-			})
-		 }, fortollingUrl)
-		.await(function(error, data) { 
-			console.log("hejsvej");
-			if (error) console.log("error",error);
-		});
-
-}
-
 function load_data() {
 	var runningUrl = baseUrl;
 	var selectedYear = jq('#selectYear').val();
@@ -798,10 +761,6 @@ function load_data() {
 		   }
 		});
 	
-
-		
-		//var baseImportUrl = "/espedsg/tvinnsadimport_edit.do?action=doFetch&avd=1&opd=54946";
-
 	    dcDataTable = dc.dataTable('#data-table');
 		dcDataTable
 		    .dimension(tollAllDim) 
@@ -830,18 +789,10 @@ function load_data() {
 	 		});	    
 		
 		function renderDataTable() {
-		    console.log("start filling dataTable...");
-			
 		    dcDataTable.render();
-
 		    dataTable = setupDataTable();
-
-		    console.log("ready filling dataTable.");
-
 			displayed = true;
-			
 		}
-
 
 		function setupDataTable() {
 			var dataTable =jq('#data-table').DataTable({
@@ -888,7 +839,6 @@ function load_data() {
 			
 		}
 
-		
 		// Add event listener for opening and closing details
 	    jq('body').on('click', 'td.details-control', function () {
 	    	var tr = jq(this).closest('tr');
@@ -901,69 +851,88 @@ function load_data() {
 	        }
 	        else {
 	            // Open this row
-	            row.child( format(row.data()) ).show();
-	            tr.addClass('shown');
+	            viewFortolling(tr);
 	        }
 	    } );		
 		
-		
-		function format ( d ) {
-		    // `d` is the original data object for the row
 
-		    getFortolling(d.avdeling, d.deklarasjonsnr);
-		    
-		    console.log("fortolling",fortolling);
-	//	    console.log("ft.sist",ft.sist);
-		    
-		    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" width="95%">'+
-		        '<tr>'+
-		            '<td>Status:</td>'+
-		            '<td>'+d.type+'</td>'+
-		        '</tr>'+
-		        '<tr>'+
-		            '<td> Oppr.kode :</td>'+
-		            '<td>'+d.type+'</td>'+
-		        '</tr>'+
-		        '<tr>'+
-		            '<td>Extra info:</td>'+
-		            '<td>And any further details here (images etc)...</td>'+
-		        '</tr>'+
-		    '</table>';
+		function viewFortolling(tr) {
+			jq.blockUI({message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+			var row = dataTable.row( tr );
+			var ft = row.data();
+			var fortollingUrl = baseImportDataUrl + '&siavd='+ft.avdeling+'&sitdn='+ft.deklarasjonsnr;
+	
+
+			function addDataToView(error, fortollingData) {
+				if (error) {
+					console.log("error:", error)
+					jq.unblockUI();		
+				}
+				row.child( format(fortollingData) ).show();
+			    tr.addClass('shown');			
+		  	}
+
+			//no anonymous inner function, nice.
+			d3.json(fortollingUrl, addDataToView);
+
+			jq.unblockUI();			
+			
 		}
 		
-/*
- 
- SIST       TEGN            1       1         1        Begge    Status        
-  SIUR       TEGN            1       1        24        Begge    Oppr.kode    
- SIDTY      TEGN            2       2        25        Begge    Deklarasjonstype   
-  SIDP       SONET        2  0       2        27        Begge    Dekl.prosedyre    
-  SIKNS      SONET        8  0       8        29        Begge    Kundenr Selger  
-  SINAS      TEGN           30      30        37        Begge    Navn Selger      
- SINTK      PAKKET       7  0       4       157        Begge    Antall kolli    
-  SISKI      TEGN            1       1       161        Begge    Selg,Kjøper,Ingen    
- SIKDDK     TEGN            1       1       162        Begge    Dagsoppgjør/Kontant      
-  SIVKB      PAKKET       9  0       5       163        Begge    Bruttovekt    
-  SIBEL1     PAKKET      11  2       6       312        Begge    Beløp tollb.frakt 
- SIVAL2     TEGN            3       3       318        Begge    Val.kode A. kost 
- SIBEL2     PAKKET      11  2       6       321        Begge    Beløp A. kost   
-  SILV       TEGN            3       3       372        Begge    Leveringsvilkår kod 
- SIBEL3     PAKKET      13  2       7       414        Begge    Beløp Faktsum 
- SITRT      SONET        7  0       7       426        Begge    Transporttype 
- SITRM      SONET        2  0       2       433        Begge    Transportmåte     
- SIDTG      TEGN           10      10       706        Begge    Dekl. godkj.dato
- SIKDTR     TEGN            1       1       754        Begge    Transportavgift kode
- SIOPD      SONET        7  0       7       902        Begge    Oppdragsnummer    
- 
- 
- */
-		
-		
-		
-		
-		
-		
-		
-		
+		function format ( d ) {
+			//sanity check
+			if (d.dtoList == null) {
+				console.log("no data found");
+				return "no data found";
+			}
+			
+			var ft = d.dtoList[0];
+		    
+		    return '<table width="90%">'+
+		        '<tr>'+
+		            '<td>Status:</td>'+
+		            '<td>'+ft.sist+'</td>'+
+		            '<td>Oppr.kode :</td>'+
+		            '<td>'+ft.siur+'</td>'+
+		            '<td>Deklarasjonstype:</td>'+
+		            '<td>'+ft.sidty+'</td>'+
+		            '<td>Dekl.prosedyre:</td>'+
+		            '<td>'+ft.sidp+'</td>'+
+		            '<td>Kundenr Selger:</td>'+
+		            '<td>'+ft.sikns+'</td>'+
+		            '<td>Navn Selger:</td>'+
+		            '<td>'+ft.sinas+'</td>'+
+	            '</tr>'+
+		        '<tr>'+
+		            '<td>Antall kolli:</td>'+
+		            '<td>'+ft.sintk+'</td>'+
+		            '<td>Dagsoppgjør/Kontant:</td>'+
+		            '<td>'+ft.sikddk+'</td>'+		            
+		            '<td>Kundenr Selger:</td>'+
+		            '<td>'+ft.sikns+'</td>'+
+		            '<td>Navn Selger:</td>'+
+		            '<td>'+ft.sinas+'</td>'+
+		            '<td>Antall kolli:</td>'+
+		            '<td>'+ft.sintk+'</td>'+
+		            '<td>Dagsoppgjør/Kontant:</td>'+
+		            '<td>'+ft.sikddk+'</td>'+	
+		         '</tr>'+
+		        '<tr>'+
+		            '<td>Bruttovekt:</td>'+
+		            '<td>'+ft.sivkb+'</td>'+
+		            '<td>Beløp tollb.frakt:</td>'+
+		            '<td>'+ft.sibel1+'</td>'+		            
+		            '<td>Val.kode A. kost:</td>'+
+		            '<td>'+ft.sival2+'</td>'+
+		            '<td>Beløp A. kost:</td>'+
+		            '<td>'+ft.sibel2+'</td>'+
+		            '<td>Leveringsvilkår kod:</td>'+
+		            '<td>'+ft.silv+'</td>'+
+		            '<td>Beløp Faktsum:</td>'+
+		            '<td>'+ft.sibel3+'</td>'+	
+		        '</tr>'+		        
+		    '</table>';
+		}
 		
 		function getFiltersValues() {
 		    var filters = [
