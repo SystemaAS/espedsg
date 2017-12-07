@@ -31,6 +31,18 @@ public class JsonPostalCodesRecord extends JsonAbstractGrandFatherRecord {
 	public void setSt2lk(String value){ this.st2lk = value;}
 	public String getSt2lk(){ return this.st2lk; }
 	
+	private String avd = null;
+	public void setAvd(String value){ this.avd = value;}
+	public String getAvd(){ return this.avd; }
+	
+	private String oprkod = null;
+	public void setOprkod(String value){ this.oprkod = value;}
+	public String getOprkod(){ return this.oprkod; }
+	
+	private String oprnvn = null;
+	public void setOprnvn(String value){ this.oprnvn = value;}
+	public String getOprnvn(){ return this.oprnvn; }
+	
 	private String wskunpa = null;
 	public void setWskunpa(String value){ this.wskunpa = value;}
 	public String getWskunpa(){ return this.wskunpa; }

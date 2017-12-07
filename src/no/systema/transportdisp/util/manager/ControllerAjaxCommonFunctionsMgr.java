@@ -208,6 +208,7 @@ public class ControllerAjaxCommonFunctionsMgr {
 		}
 		if(exactMatch){
 			urlRequestParamsKeys.append(TransportDispConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "getval=J");
+			urlRequestParamsKeys.append(TransportDispConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "getavd=J");
 		}
 		
 		return urlRequestParamsKeys.toString();

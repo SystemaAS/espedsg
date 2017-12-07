@@ -1144,6 +1144,8 @@
 	 									</c:choose>
 						 			</td>
 						 			<td class="text11" >
+						 				<input type="text" readonly class="inputTextReadOnly" name="trstaf" id="trstaf" size="5" maxlength="1" value="${model.record.trstaf}">
+						 				<%-- OLD with dropdown 
 						 				<c:choose>
 										<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
 								 			<select name="trstaf" id="trstaf">
@@ -1158,10 +1160,13 @@
 											<input type="text" readonly class="inputTextReadOnly" name="trstaf" id="trstaf" size="5" maxlength="1" value="${model.record.trstaf}">
 										</c:otherwise>
 										</c:choose>
+										--%>
 						 			</td>
 						 			<td class="text11" >
 						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" size="20" maxlength="14" name="OWNwppns3" id="OWNwppns3" value="${model.record.wppns3}">
-						 				<img id="viaFromDialogImg" style="vertical-align:top; cursor:pointer;" width="14px" height="14px" src="resources/images/add.png" border="0" alt="Via ekstra">
+						 				<c:if test="${empty model.record.travd1 && empty model.record.tropd1}">
+						 					<img id="viaFromDialogImg" style="vertical-align:top; cursor:pointer;" width="14px" height="14px" src="resources/images/add.png" border="0" alt="Via ekstra">
+						 				</c:if>
 						 			</td>
 						 			
 						 			
@@ -1223,6 +1228,8 @@
 										</c:choose>
 						 			</td>
 						 			<td class="text11" >
+						 				<input  readonly type="text" class="inputTextReadOnly" size="2" maxlength="1" name="trstae" id="trstae" value="${model.record.trstae}">
+						 				<%-- OLD with dropdown 
 						 				<c:choose>
 										<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
 									 		<select name="trstae" id="trstae">
@@ -1237,10 +1244,13 @@
 											 <input  type="text" class="inputTextReadOnly" size="2" maxlength="1" name="trstae" id="trstae" value="${model.record.trstae}">
 										</c:otherwise>
 										</c:choose>
+										--%>
 						 			</td>
 						 			<td class="text11" >
 						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" size="20" maxlength="14" name="OWNwppns4" id="OWNwppns4" value="${model.record.wppns4}">
-						 				<img id="viaFrom2DialogImg" style="vertical-align:top; cursor:pointer;" width="14px" height="14px" src="resources/images/add.png" border="0" alt="Via ekstra">
+						 				<c:if test="${empty model.record.travd2 && empty model.record.tropd2}">
+						 					<img id="viaFrom2DialogImg" style="vertical-align:top; cursor:pointer;" width="14px" height="14px" src="resources/images/add.png" border="0" alt="Via ekstra">
+						 				</c:if>
 						 			</td>
 						 			
 					 			</tr>
@@ -2173,11 +2183,11 @@
 								<table border="0">
 							 		<tr ><td class="text14" colspan="3"><b>Forfrakt&nbsp;&nbsp;DUP-Oppdrag</b></td></tr>
 									<tr>
-										<td class="text12"><span title="ffavd">Via avd</span></td>
+										<td class="text12"><span title="ffavd"><font class="text12RedBold">*</font>Via avd</span></td>
 								 		<td class="text11">
 								 			<c:choose>
 											<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
-								 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" size="5" maxlength="4" name="ffavd" id="ffavd" value="${model.record.ffavd}">
+								 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11MandatoryField" size="5" maxlength="4" name="ffavd" id="ffavd" value="${model.record.ffavd}">
 								 			</c:when>
 								 			<c:otherwise>
 								 				<input readonly type="text" class="inputTextReadOnly" size="5" maxlength="4" name="ffavd" id="ffavd" value="${model.record.ffavd}">
@@ -2188,12 +2198,19 @@
 								 		<td class="text11">
 								 			<c:choose>
 											<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
-								 			<select class="inputTextMediumBlue" name="ffoty" id="ffoty">
-							            		<option value="">-select-</option>
-							 				  	<c:forEach var="record" items="${model.oppdragstypeList}" >
-						                       	 	<option value="${record.opdTyp}"<c:if test="${model.record.ffoty == record.opdTyp}"> selected </c:if> >${record.opdTyp}</option>
-												</c:forEach> 
-											</select>
+												<select class="inputTextMediumBlue" name="ffoty" id="ffoty">
+								            		<option value="">-select-</option>
+								 				  	<c:forEach var="record" items="${model.oppdragstypeList}" >
+								 				  		<c:choose>
+								 				  		<c:when test="${not empty model.record.ffoty}">
+							                       	 		<option value="${record.opdTyp}"<c:if test="${model.record.ffoty == record.opdTyp}"> selected </c:if> >${record.opdTyp}</option>
+							                       	 	</c:when>
+							                       	 	<c:otherwise>
+							                       	 		<option value="${record.opdTyp}"<c:if test="${model.record.heot == record.opdTyp}"> selected </c:if> >${record.opdTyp}</option>
+							                       	 	</c:otherwise>
+							                       	 	</c:choose>
+													</c:forEach> 
+												</select>
 											</c:when>
 											<c:otherwise>
 												<input readonly type="text" class="inputTextReadOnly" size="3" maxlength="2" name="ffoty" id="ffoty" value="${model.record.ffoty}">
@@ -2206,19 +2223,17 @@
 								 			<c:choose>
 											<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
 								 			<select class="inputTextMediumBlue" name="fffrank" id="fffrank">
-							            		<option value="">-select-</option>
-							 				  	<c:choose>
-							            		<c:when test="${not empty model.record.hefr}">
-								            		<c:forEach var="record" items="${model.incotermsList}" >
-								            			<option value="${record.franka}"<c:if test="${model.record.fffrank == record.franka}"> selected </c:if> >${record.franka}</option>
-													</c:forEach> 
+								 				<option value="">-select-</option>
+							            		<c:forEach var="record" items="${model.incotermsList}" >
+						 				  		<c:choose>
+						 				  		<c:when test="${not empty model.record.fffrank}">
+							 				  		<option value="${record.franka}"<c:if test="${model.record.fffrank == record.franka}"> selected </c:if> >${record.franka}</option>
 												</c:when>
 												<c:otherwise>
-													<c:forEach var="record" items="${model.incotermsList}" >
-								            			<option value="${record.franka}"<c:if test="${record.franka=='S'}"> selected </c:if> >${record.franka}</option>
-													</c:forEach>
+													<option value="${record.franka}"<c:if test="${model.record.hefr == record.franka}"> selected </c:if> >${record.franka}</option>
 												</c:otherwise>
 												</c:choose>
+												</c:forEach>
 											</select>
 											</c:when>
 											<c:otherwise>
@@ -2340,11 +2355,11 @@
 								 	
 								 	<tr ><td class="text14" colspan="3"><b>Viderefrakt&nbsp;&nbsp;DUP-Oppdrag</b></td></tr>
 								 	<tr>
-										<td class="text12"><span title="vfavd">Via avd</span></td>
+										<td class="text12"><span title="vfavd"><font class="text12RedBold">*</font>Via avd</span></td>
 								 		<td class="text11">
 								 			<c:choose>
 											<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
-								 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" size="5" maxlength="4" name="vfavd" id="vfavd" value="${model.record.vfavd}">
+								 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11MandatoryField" size="5" maxlength="4" name="vfavd" id="vfavd" value="${model.record.vfavd}">
 								 			</c:when>
 								 			<c:otherwise>
 								 				<input readonly type="text" class="inputTextReadOnly" size="5" maxlength="4" name="vfavd" id="vfavd" value="${model.record.vfavd}">
@@ -2358,7 +2373,14 @@
 								 			<select class="inputTextMediumBlue" name="vfoty" id="vfoty">
 							            		<option value="">-select-</option>
 							 				  	<c:forEach var="record" items="${model.oppdragstypeList}" >
-						                       	 	<option value="${record.opdTyp}"<c:if test="${model.record.vfoty == record.opdTyp}"> selected </c:if> >${record.opdTyp}</option>
+							 				  		<c:choose>
+													<c:when test="${not empty model.record.vfoty}">
+							 				  	 		<option value="${record.opdTyp}"<c:if test="${model.record.vfoty == record.opdTyp}"> selected </c:if> >${record.opdTyp}</option>
+							 				  	 	</c:when>
+							 				  	 	<c:otherwise>
+							 				  	 		<option value="${record.opdTyp}"<c:if test="${model.record.heot == record.opdTyp}"> selected </c:if> >${record.opdTyp}</option>
+							 				  	 	</c:otherwise>
+							 				  	 	</c:choose>
 												</c:forEach> 
 											</select>
 											</c:when>
@@ -2373,19 +2395,16 @@
 											<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
 								 			<select class="inputTextMediumBlue" name="vffrank" id="vffrank">
 							            		<option value="">-select-</option>
-							 				  	<c:choose>
-							            		<c:when test="${not empty model.record.hefr}">
-								            		<c:forEach var="record" items="${model.incotermsList}" >
-								            			<option value="${record.franka}"<c:if test="${model.record.vffrank == record.franka}"> selected </c:if> >${record.franka}</option>
-													</c:forEach> 
-												</c:when>
-												<c:otherwise>
-													<c:forEach var="record" items="${model.incotermsList}" >
-								            			<option value="${record.franka}"<c:if test="${record.franka=='S'}"> selected </c:if> >${record.franka}</option>
-													</c:forEach>
-												</c:otherwise>
-												</c:choose>
-							 				  	
+												<c:forEach var="record" items="${model.incotermsList}" >
+							 				  		<c:choose>						 				  	
+							 				  		<c:when test="${not empty model.record.vffrank}">
+							 				  			<option value="${record.franka}"<c:if test="${model.record.vffrank == record.franka}"> selected </c:if> >${record.franka}</option>
+													</c:when>
+													<c:otherwise>
+														<option value="${record.franka}"<c:if test="${model.record.hefr == record.franka}"> selected </c:if> >${record.franka}</option>
+													</c:otherwise>
+													</c:choose>
+												</c:forEach> 
 											</select>
 											</c:when>
 											<c:otherwise>

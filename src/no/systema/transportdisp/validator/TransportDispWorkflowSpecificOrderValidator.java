@@ -12,6 +12,7 @@ import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDi
 import no.systema.transportdisp.service.html.dropdown.TransportDispDropDownListPopulationService;
 import no.systema.main.validator.DateValidator;
 import no.systema.main.util.NumberFormatterLocaleAware;
+import no.systema.main.util.StringManager;
 /**
  * 
  * @author oscardelatorre
@@ -23,7 +24,7 @@ public class TransportDispWorkflowSpecificOrderValidator implements Validator {
 	private DateValidator dateValidator = new DateValidator();
 	private static Logger logger = Logger.getLogger(TransportDispWorkflowSpecificOrderValidator.class.getName());
 	private NumberFormatterLocaleAware formatter = new NumberFormatterLocaleAware();
-	
+	private StringManager strMgr = new StringManager();
 	/**
 	 * 
 	 */
@@ -245,6 +246,24 @@ public class TransportDispWorkflowSpecificOrderValidator implements Validator {
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hent", "systema.transportdisp.orders.form.error.null.colli.hent");
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hevs1", "systema.transportdisp.orders.form.error.null.goodsdescription.hevs1");
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "hevkt", "systema.transportdisp.orders.form.error.null.weight.hevkt");
+				
+				//DUP validation
+				if(strMgr.isNotNull(record.getHelks()) &&  strMgr.isNotNull(record.getHesdff()) ){
+					if(strMgr.isNotNull(record.getFfavd())){
+						//OK
+					}else{
+						errors.rejectValue("ffavd", "systema.transportdisp.orders.form.error.rule.dup.avd.mandatory");
+					}
+				}
+				if(strMgr.isNotNull(record.getHelkk()) &&  strMgr.isNotNull(record.getHesdvt()) ){
+					if(strMgr.isNotNull(record.getVfavd())){
+						//OK
+					}else{
+						errors.rejectValue("vfavd", "systema.transportdisp.orders.form.error.rule.dup.avd.mandatory");
+					}
+				}
+				
+				
 			}
 		}
 	}

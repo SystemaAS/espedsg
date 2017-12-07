@@ -3,6 +3,16 @@
   var counterIndex = 0;
   var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
   
+  /* avoid this if you can ... Bring likes the default ...
+  jq('#transportdispForm').on("keyup keypress", function(e) {
+	  var code = e.keyCode || e.which; 
+	  //alert(code);
+	  if (code  == 13) {               
+	    e.preventDefault();
+	    return false;
+	  }
+  });
+  */
   jq(function() {
 	  jq("#selectedDate").datepicker({ 
 		  dateFormat: 'yymmdd',
@@ -613,12 +623,33 @@
 			}
 	    });
   });
+  
+  
+  /*
+  jq("#hesdff").blur(function() {
+	  if(mandatoryViaFromFieldsForDupDialog()){
+		  presentDupDialog();
+  	  }else{
+  		renderViaAlert();
+  	  }
+  });
+  jq("#hesdvt").blur(function() {
+	  if(mandatoryViaToFieldsForDupDialog()){
+		  presentDupDialog();
+  	  }else{
+  		renderViaAlert();
+  	  }
+  });
+  */
+  
+  
   jq(function() {
 	    jq('#hesdvt').blur(function() {
 	    		var id = jq('#hesdvt').val();
 	    		if(id!=null && id!=""){
 	    			var countryCode = jq('#helkk').val();
 	    			getCity(CITY_OWNwppns4,id,countryCode);
+	    			
 	    		}else{
 	    			jq('#OWNwppns4').val("");
 	    		}
@@ -723,6 +754,7 @@
 		  applicationUser : jq('#applicationUser').val(),
 		  id : id,
 		  countryCode : countryCode,
+		  async: false,
 		  ajax : 'true'
 	  }, function(data) {
 		var len = data.length;
@@ -742,11 +774,17 @@
 					jq('#OWNwppns3').val(data[i].st2nvn);
 					jq('#helks').val(data[i].st2lk);
 					jq('#hesdff').attr("class","inputTextMediumBlue11");
+					if(jq('#ffavd').val() == ''){
+						jq('#ffavd').val(data[i].avd);
+					}
 					
 				}else if(target==CITY_OWNwppns4){
 					jq('#OWNwppns4').val(data[i].st2nvn);
 					jq('#helkk').val(data[i].st2lk);
 					jq('#hesdvt').attr("class","inputTextMediumBlue11");
+					if(jq('#vfavd').val() == ''){
+						jq('#vfavd').val(data[i].avd);
+					}
 				}
 			}
 		}else{
@@ -964,6 +1002,8 @@
 		  if(value!=''){
 			  value = value.replace(",",".");
 			  sum += Number(value);
+		  }else{
+			  sum += Number(0);
 		  }
 	  });
 	  //this ADR is THE ONLY FIELD not required to block the sum with the Protect checkbox (hestl4)
@@ -1862,12 +1902,24 @@
 	  	  success: function(data) {
 	  		var len = data.length;
 	  		for ( var i = 0; i < len; i++) {
-	  			jq("#fvvt_" + counter).val(data[i].entext);
-	  			jq("#fvlen_" + counter).val(data[i].enlen);
-	  			jq("#fvbrd_" + counter).val(data[i].enbrd);
-	  			jq("#fvhoy_" + counter).val(data[i].enhoy);
-	  			jq("#fvlm_" + counter).val(data[i].enlm);
-	  			jq("#fvlm2_" + counter).val(data[i].enlm2);
+	  			if(jq("#fvvt_" + counter).val() == ''){
+	  				jq("#fvvt_" + counter).val(data[i].entext);
+	  			}
+	  			if(jq("#fvlen_" + counter).val() == ''){
+	  				jq("#fvlen_" + counter).val(data[i].enlen);
+	  			}
+	  			if(jq("#fvbrd_" + counter).val() == ''){
+	  				jq("#fvbrd_" + counter).val(data[i].enbrd);
+	  			}
+	  			if(jq("#fvhoy_" + counter).val() == ''){
+	  				jq("#fvhoy_" + counter).val(data[i].enhoy);
+	  			}
+	  			if(jq("#fvlm_" + counter).val() == ''){
+	  				jq("#fvlm_" + counter).val(data[i].enlm);
+	  			}
+	  			if(jq("#fvlm2_" + counter).val() == ''){
+	  				jq("#fvlm2_" + counter).val(data[i].enlm2);
+	  			}
 	  		}
 	  	  }
 	  });
@@ -1875,6 +1927,7 @@
   //new line
   function searchPackingCodesNewLineOnBlur(element) {
 	  var codeId = jq("#fvpakn").val();
+	  
 	  jq.ajax({
 	  	  type: 'GET',
 	  	  url: 'searchPackingCodes_TransportDisp.do',
@@ -1886,12 +1939,26 @@
 	  	  success: function(data) {
 	  		var len = data.length;
 	  		for ( var i = 0; i < len; i++) {
-	  			jq("#fvvt").val(data[i].entext);
-	  			jq("#fvlen").val(data[i].enlen);
-	  			jq("#fvbrd").val(data[i].enbrd);
-	  			jq("#fvhoy").val(data[i].enhoy);
-	  			jq("#fvlm").val(data[i].enlm);
-	  			jq("#fvlm2").val(data[i].enlm2);
+	  			
+	  			if(jq("#fvvt").val() == ''){
+	  				jq("#fvvt").val(data[i].entext);
+	  			}
+	  			if(jq("#fvlen").val() == ''){
+	  				jq("#fvlen").val(data[i].enlen);
+	  			}
+	  			if(jq("#fvbrd").val() == ''){
+	  				jq("#fvbrd").val(data[i].enbrd);
+	  			}
+	  			if(jq("#fvhoy").val() == ''){
+	  				jq("#fvhoy").val(data[i].enhoy);
+	  			}
+	  			if(jq("#fvlm").val() == ''){
+	  				jq("#fvlm").val(data[i].enlm);
+	  			}
+	  			if(jq("#fvlm2").val() == ''){
+	  				jq("#fvlm2").val(data[i].enlm2);
+	  			}
+	  			
 	  		}
 	  	  }
 	  });
@@ -2327,6 +2394,7 @@
           height: 640,
 		  modal: true,
 		  dialogClass: 'main-dialog-class',
+		  //the form must be appended otherwise the default jQuey dialog behavior (leave the dialog outside the form) will take place...=(
 		  appendTo: "#transportdispForm"
 		  
 	  });
@@ -2335,26 +2403,54 @@
   //Present dialog box onClick 
   //----------------------------
   jq(function() {
-	  /* TOO uncertain ...
-	  jq("#hesdff").blur(function() {
-		  if(jq("#hesdff").val() != ''){
-			  presentDupDialog();
-		  }
-	  });
-	  jq("#hesdvt").blur(function() {
-		  if(jq("#hesdvt").val() != ''){
-			  presentDupDialog();
-		  }
-	  });*/
+	  
+	  
 	  jq("#viaFromDialogImg").click(function() {
-		  presentDupDialog();
+		  if(mandatoryViaFromFieldsForDupDialog()){
+			  presentDupDialog();
+	  	  }else{
+	  		renderViaAlert();
+	  	  }
 	  });
+	 
 	  jq("#viaFrom2DialogImg").click(function() {
-		  presentDupDialog();
+		  if(mandatoryViaToFieldsForDupDialog()){
+			  presentDupDialog();
+	  	  }else{
+	  		  renderViaAlert();
+	  	  }
 	  });
-	  
-	  
   });
+  function mandatoryViaFromFieldsForDupDialog(){
+	  var status = false;
+	  if(jq("#helks").val() != '' && jq("#hesdff").val() != ''){
+		//check if the hesdvt was a valid number (returning a korrekt string ...
+		  if(jq("#OWNwppns3").val() != '?' ){
+			  status = true;
+		  }
+		  
+	  }
+	  return  status;
+  }
+  function mandatoryViaToFieldsForDupDialog(){
+	  var status = false;
+	  if(jq("#helkk").val() != '' && jq("#hesdvt").val() != ''){
+		  //check if the hesdvt was a valid number (returning a korrekt string ...
+		  if(jq("#OWNwppns4").val() != '?' ){
+			  status = true;
+		  }
+	  }
+	  return status;
+  }
+  function renderViaAlert(){
+	  alert("Du må fylle ut Via-felten først...");
+  }
+  
+  /*
+  ---------------------
+  /PRESENT DUP DIALOG
+  ---------------------
+   */
   function presentDupDialog(){
 	//setters (add more if needed)
 	  jq('#dialogDup').dialog( "option", "title", "DUP / Rekvisisjon" );
@@ -2365,8 +2461,11 @@
 			 id: "dialogSaveTU",	
 			 text: "Fortsett",
 			 click: function(){
-				 		//jq('#myForm').submit();
-				 	jq( this ).dialog( "close" ); 
+					 	if( jq('#ffavd').val() != '' && jq('#vfavd').val() != ''){
+					 		jq( this ).dialog( "close" );
+					 	}else{
+					 		alert("Via avd er obligatorisk!");
+					 	}
 		 			}
 		 	 } ]
  	 		/*	
