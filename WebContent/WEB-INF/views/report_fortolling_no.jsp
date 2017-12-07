@@ -37,10 +37,11 @@
 
 
 td.details-control {
-    background: url('/espedsg/resources/images/bulletGreen.gif') no-repeat center center;
+    background: url('/espedsg/resources/images/update.gif') no-repeat center center;
     cursor: pointer;
 }
 
+//Biter inte...
 tr.shown td.details-control {
     background: url('/espedsg/resources/images/bulletRed.gif'') no-repeat center center;
 }
@@ -60,6 +61,9 @@ var merknaderDescUrl = "/syjservicestn/syjsTVI99D.do?user=${user.user}";
 var avdelingDescUrl = "/syjservicesbcore/syjsSYFA14R.do?user=${user.user}";
 var signaturerDescUrl = "/syjservicestn/syjsSYFT10R.do?user=${user.user}";
 
+var baseImportUrl = "/espedsg/tvinnsadimport_edit.do?action=doFetch";  //GUI
+var baseImportDataUrl = "/syjservicesbcore/syjsSADH.do?user=${user.user}";  //Data  
+
 var merknader;
 var avdelinger;
 var signaturer;
@@ -70,7 +74,7 @@ var colorMap = {
         "off_vp": "#f19411"
     };	
 
-//Preload desc for avdeling, merkander
+//Preload desc for avdeling, merknader
 d3.queue()
 	.defer(function(merknaderDescUrl, callback) {
 			d3.json(merknaderDescUrl, function(error, data) {
@@ -90,8 +94,8 @@ d3.queue()
 				
 				//console.log("Desc 954="+_.findWhere(merknader,{e9705:'954'}).e4440);				
 				
-				})
-	 		}, merknaderDescUrl)	
+			})
+	 }, merknaderDescUrl)	
 	.defer(function(avdelingDescUrl, callback) {
 			d3.json(avdelingDescUrl, function(error, data) {
 				if (error) {
@@ -110,8 +114,8 @@ d3.queue()
 				
 				//console.log("Desc 2790="+_.findWhere(avdelinger,{koaavd:'2790'}).koanvn);		
 				
-				})
-	 		}, avdelingDescUrl)	
+			})
+	 }, avdelingDescUrl)	
 	.defer(function(signaturerDescUrl, callback) {
 			d3.json(signaturerDescUrl, function(error, data) {
 				if (error) {
@@ -130,11 +134,11 @@ d3.queue()
 				
 				//console.log("Desc FM="+_.findWhere(signaturer,{ksisig:'FM'}).ksinav);		
 				
-				})
-	 		}, signaturerDescUrl)	
+			})
+	 }, signaturerDescUrl)	
 	.awaitAll(function(error, data) { 
 			if (error) console.log("error",error);
-		});
+	});
 
 
 function getMerknadDesc(id) {
@@ -168,6 +172,43 @@ function getSignaturDesc(id) {
 	} else {
 		return "["+id+" ikke funnet som gyldig tariffør i vedlikehold.]";		
 	}
+
+}
+
+var fortolling;	
+function getFortolling(siavd , sitdn) {
+	
+	var fortollingUrl = baseImportDataUrl + '&siavd='+siavd+'&sitdn='+sitdn;
+
+	jq.blockUI({message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+
+	d3.queue()
+		.defer(function(fortollingUrl, callback) {	
+			d3.json(fortollingUrl, function(error, data) {
+				if (error) {
+					jq.unblockUI();
+				}
+	
+				callback(error, data);
+				
+				if (data.dtoList == '') {
+					jq.unblockUI();
+					alert("Ingen data for fortolling.");  
+					return "no data found";
+				} else {
+					fortolling = data.dtoList;
+					console.log("getFortolling fortolling=", fortolling);
+				}
+				
+				jq.unblockUI();
+				
+				//console.log("fortolling=", fortolling);
+			})
+		 }, fortollingUrl)
+		.await(function(error, data) { 
+			console.log("hejsvej");
+			if (error) console.log("error",error);
+		});
 
 }
 
@@ -759,7 +800,8 @@ function load_data() {
 	
 
 		
-		var baseImportUrl = "/espedsg/tvinnsadimport_edit.do?action=doFetch&avd=1&opd=54946";
+		//var baseImportUrl = "/espedsg/tvinnsadimport_edit.do?action=doFetch&avd=1&opd=54946";
+
 	    dcDataTable = dc.dataTable('#data-table');
 		dcDataTable
 		    .dimension(tollAllDim) 
@@ -824,15 +866,18 @@ function load_data() {
 		            { "data": "edim" }		
 		        ],			
 				destroy : true,
-				"columnDefs" : [ {
-					"targets" : 1,
-				    "render": function ( data, type, row, meta ) {
-				       	//console.log("row",row);
-				     	//console.log("row.deklarasjonsnr",row.deklarasjonsnr);
-				    	//console.log("row.registreringsdato",row.registreringsdato);
-				       return '<a href='+baseImportUrl+'?opd='+data+'>'+data+'</a>';
-				    }					
-				} ],
+				"columnDefs" : [ 
+					{
+						"targets" : 1,
+					    "render": function ( data, type, row, meta ) {
+					       return '<a href='+baseImportUrl+'?avd='+row.avdeling+'&opd='+row.deklarasjonsnr+'>'+data+'</a>';
+					    }
+					},
+			        {
+		            	"targets": [ 0 ],
+		            	"orderable":  false,
+			        } 
+				],
 				"lengthMenu" : [ 75, 100 ],
 				"language": {
 					"url": getLanguage(lang)
@@ -844,36 +889,11 @@ function load_data() {
 		}
 
 		
-		function setupDataTableORG() {
-			var dataTable =jq('#data-table').DataTable({
-				"dom" : '<"top">t<"bottom"f><"clear">',
-				"scrollY" : "200px",
-				"scrollCollapse" : false,
-				destroy : true,
-				"columnDefs" : [ {
-					"targets" : 0,
-				    "render": function ( data, type, row, meta ) {
-				       	console.log("row[7]",row[7]);
-				       return '<a href='+baseImportUrl+'?opd='+data+'>'+data+'</a>';
-				    }					
-				} ],
-				"lengthMenu" : [ 75, 100 ],
-				"language": {
-					"url": getLanguage(lang)
-		        }
-			}); 	
-			
-			return dataTable;
-			
-		}		
-		
-
 		// Add event listener for opening and closing details
 	    jq('body').on('click', 'td.details-control', function () {
-			console.log("anyone here...");
 	    	var tr = jq(this).closest('tr');
 	        var row = dataTable.row( tr );
-	 
+	        
 	        if ( row.child.isShown() ) {
 	            // This row is already open - close it
 	            row.child.hide();
@@ -889,13 +909,19 @@ function load_data() {
 		
 		function format ( d ) {
 		    // `d` is the original data object for the row
-		    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" width="90%">'+
+
+		    getFortolling(d.avdeling, d.deklarasjonsnr);
+		    
+		    console.log("fortolling",fortolling);
+	//	    console.log("ft.sist",ft.sist);
+		    
+		    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" width="95%">'+
 		        '<tr>'+
-		            '<td>Full name:</td>'+
+		            '<td>Status:</td>'+
 		            '<td>'+d.type+'</td>'+
 		        '</tr>'+
 		        '<tr>'+
-		            '<td>Extension number:</td>'+
+		            '<td> Oppr.kode :</td>'+
 		            '<td>'+d.type+'</td>'+
 		        '</tr>'+
 		        '<tr>'+
@@ -904,6 +930,39 @@ function load_data() {
 		        '</tr>'+
 		    '</table>';
 		}
+		
+/*
+ 
+ SIST       TEGN            1       1         1        Begge    Status        
+  SIUR       TEGN            1       1        24        Begge    Oppr.kode    
+ SIDTY      TEGN            2       2        25        Begge    Deklarasjonstype   
+  SIDP       SONET        2  0       2        27        Begge    Dekl.prosedyre    
+  SIKNS      SONET        8  0       8        29        Begge    Kundenr Selger  
+  SINAS      TEGN           30      30        37        Begge    Navn Selger      
+ SINTK      PAKKET       7  0       4       157        Begge    Antall kolli    
+  SISKI      TEGN            1       1       161        Begge    Selg,Kjøper,Ingen    
+ SIKDDK     TEGN            1       1       162        Begge    Dagsoppgjør/Kontant      
+  SIVKB      PAKKET       9  0       5       163        Begge    Bruttovekt    
+  SIBEL1     PAKKET      11  2       6       312        Begge    Beløp tollb.frakt 
+ SIVAL2     TEGN            3       3       318        Begge    Val.kode A. kost 
+ SIBEL2     PAKKET      11  2       6       321        Begge    Beløp A. kost   
+  SILV       TEGN            3       3       372        Begge    Leveringsvilkår kod 
+ SIBEL3     PAKKET      13  2       7       414        Begge    Beløp Faktsum 
+ SITRT      SONET        7  0       7       426        Begge    Transporttype 
+ SITRM      SONET        2  0       2       433        Begge    Transportmåte     
+ SIDTG      TEGN           10      10       706        Begge    Dekl. godkj.dato
+ SIKDTR     TEGN            1       1       754        Begge    Transportavgift kode
+ SIOPD      SONET        7  0       7       902        Begge    Oppdragsnummer    
+ 
+ 
+ */
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		function getFiltersValues() {
@@ -1123,13 +1182,6 @@ window.addEventListener('error', function (e) {
 						    <div class="clear"></div>	
 				        </div> 	
 
-						<div class="col-md-3" id="chart-ring-inputtype">
-						 	<h3 class="text12" align="center">Manuell / EDI</h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="inputtype" style="display: none;"> - <i>tilbakestill filter</i></a>
- 							<div class="clear"></div>			
-				        </div>
-
 				        <div class="col-md-3" id="chart-ring-sisg">
 				        	<h3 class="text12" align="center">Signatur</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
@@ -1170,10 +1222,17 @@ window.addEventListener('error', function (e) {
 				        </div>
 
 						<div class="col-md-3" id="chart-ring-opendays">
-							<h3 class="text12" align="center">Antal dager</h3>
+							<h3 class="text12" align="center">Antall dager</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="opendays" style="display: none;"> - <i>tilbakestill filter</i></a>
 						    <div class="clear"></div>	
+				        </div>
+
+						<div class="col-md-3" id="chart-ring-inputtype">
+						 	<h3 class="text12" align="center">Manuell / EDI</h3>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="inputtype" style="display: none;"> - <i>tilbakestill filter</i></a>
+ 							<div class="clear"></div>			
 				        </div>
 				    </div>
 				  </div>  
@@ -1213,7 +1272,7 @@ window.addEventListener('error', function (e) {
 				       <table class="display" id="data-table" cellspacing="0" width="100%">
 				        <thead>
 				          <tr>
-				           	<th>xXx</th>
+				           	<th></th>
 				            <th>deklarasjonsnr</th>
 				            <th>avdeling</th>
 				            <th>reg. vareposter</th>
@@ -1225,20 +1284,7 @@ window.addEventListener('error', function (e) {
 				            <th>merknad</th>
 				          </tr>
 				        </thead>
-<!-- 
-				        <tfoot>
-				          <tr>
-				            <th>avdeling</th>
-				            <th>deklarasjonsnr</th>
-				            <th>reg. vareposter</th>
-				            <th>off. vareposter</th>
-				            <th>registreringsdato</th>
-				            <th>signatur</th>
-				            <th>mottaker</th>
-				            <th>type</th>
-				          </tr>
-				        </tfoot>				        
- -->
+
 				       </table>
 
 				      <div>

@@ -2,6 +2,7 @@ package no.systema.report.controller;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +31,8 @@ import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.transportdisp.util.TransportDispConstants;
+import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicContainer;
+import no.systema.tvinn.sad.sadimport.url.store.SadImportUrlDataStore;
 import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtsiService;
 import no.systema.tvinn.sad.z.maintenance.main.util.manager.CodeDropDownMgr;
@@ -178,7 +181,9 @@ public class ReportDashboardController {
 		return list;
 	}	
 	
-	
+	private void getIt() {
+		
+	}
 	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
 		codeDropDownMgr.populateCodesHtmlDropDownsFromJsonSignature(this.urlCgiProxyService, maintSadFellesKodtsiService, model, appUser);
 		codeDropDownMgr.populateCodesHtmlDropDownsFromJsonAvdelning(this.urlCgiProxyService, maintMainKodtaService, model, appUser);
