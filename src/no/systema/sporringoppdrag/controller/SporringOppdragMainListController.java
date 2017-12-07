@@ -42,6 +42,7 @@ import no.systema.sporringoppdrag.service.SporringOppdragTopicListService;
 import no.systema.sporringoppdrag.util.SporringOppdragConstants;
 import no.systema.sporringoppdrag.filter.SearchFilterSporringOppdragTopicList;
 import no.systema.sporringoppdrag.validator.SporringOppdragMainListValidator;
+import no.systema.transportdisp.util.TransportDispConstants;
 
 
 /**
@@ -78,7 +79,6 @@ public class SporringOppdragMainListController {
 		logger.info("Inside: doFind");
 		Collection outputList = new ArrayList();
 		Map model = new HashMap();
-		
 		ModelAndView successView = new ModelAndView("sporringoppdrag_mainlist");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		
@@ -119,6 +119,7 @@ public class SporringOppdragMainListController {
 				return successView;
 	    		
 		    }else{
+		    		
 				//----------------------------------------------
 				//get Search Filter and populate (bind) it here
 				//----------------------------------------------
@@ -131,10 +132,16 @@ public class SporringOppdragMainListController {
 						ServletRequestDataBinder binder = new ServletRequestDataBinder(searchFilter);
 			            //binder.registerCustomEditor(...); // if needed
 			            binder.bind(request);
-			            //default search (when applicable)
+			            
+			            
 			            if(searchFilter.getWsdtf()==null || "".equals(searchFilter.getWsdtf())){
-		            		int DEFAULT_NUMBER_OF_MONTHS_BACK = -2;
-		            		searchFilter.setWsdtf(this.dateTimeMgr.getSpecificMonthFrom_CurrentDate_ISO(DEFAULT_NUMBER_OF_MONTHS_BACK));
+			            	//this (asChildwindowInit) will be active only in the first POST from a parent application. It will be remove in this same function below
+			            	if("J".equals(appUser.getIntern())){ 
+			            		int DEFAULT_NUMBER_OF_MONTHS_BACK = -1;
+			            		searchFilter.setWsdtf(this.dateTimeMgr.getSpecificMonthFrom_CurrentDate_ISO(DEFAULT_NUMBER_OF_MONTHS_BACK));			            		
+			            	}else{
+			            		searchFilter.setWsdtf(this.dateTimeMgr.getCurrentDate_ISO());
+			            	}
 			            }
 			            //put the search filter in session in case we are wondering around in other tabs. This should always ensure
 			            //the use of a the already populated filter, until the user makes his changes in the GUI.
@@ -164,9 +171,12 @@ public class SporringOppdragMainListController {
 			    		//-----------------------------------------------------------
 						//now filter the topic list with the search filter (if applicable)
 						//-----------------------------------------------------------
-			    		if(jsonSporringOppdragTopicListContainer!=null){
-			    			outputList = jsonSporringOppdragTopicListContainer.getQryoppdrag();	
-			    			this.setDomainObjectsInView(session, model, jsonSporringOppdragTopicListContainer);
+			    		
+			    		if(jsonSporringOppdragTopicListContainer!=null ){
+			    			//default search (when applicable)
+	    					outputList = jsonSporringOppdragTopicListContainer.getQryoppdrag();	
+	    					this.setDomainObjectsInView(session, model, jsonSporringOppdragTopicListContainer);
+			    		
 			    		}	
 						//--------------------------------------
 						//Final successView with domain objects

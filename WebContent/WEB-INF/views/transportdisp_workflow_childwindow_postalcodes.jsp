@@ -83,6 +83,7 @@
 						    <th class="text11">&nbsp;<spring:message code="systema.transportdisp.workflow.childwindow.postalcodes.label.postalcode"/>&nbsp;</th>   
 		                    <th class="text11">&nbsp;<spring:message code="systema.transportdisp.workflow.childwindow.postalcodes.label.city"/>&nbsp;</th>
 		                    <th class="text11">&nbsp;<spring:message code="systema.transportdisp.workflow.childwindow.postalcodes.label.country"/>&nbsp;</th>
+		                    <%--<th class="text11">&nbsp;Via&nbsp;</th> --%>
 		                </tr> 
 		                </thead>
 		                
@@ -96,12 +97,13 @@
  		                   		   <tr class="text11">
 			                   </c:otherwise>
 			               </c:choose>
-			               <td style="width:20%; cursor:pointer;" class="text11MediumBlue" id="postalcode_${record.st2kod}@country_${record.st2lk}@city_${record.st2nvn}@caller_${model.record.caller}@dt_postalcode_${counter.count}" >
+			               <td style="width:20%; cursor:pointer;" class="text11MediumBlue" id="postalcode_${record.st2kod}@country_${record.st2lk}@city_${record.st2nvn}@caller_${model.record.caller}@viapnr_${record.viapnr}@dt_postalcode_${counter.count}" >
 			               	 &nbsp;<img title="select" valign="bottom" src="resources/images/update.gif" border="0" alt="edit">
 			               	 &nbsp;&nbsp;${record.st2kod}
 		               	  </td>
 			               <td class="text11">&nbsp;${record.st2nvn}</td>
 			               <td class="text11">&nbsp;${record.st2lk}</td>
+			               <%-- <td class="text11">&nbsp;${record.viapnr}</td> --%>
 			            </tr> 
 			            </c:forEach>
 			            </tbody>

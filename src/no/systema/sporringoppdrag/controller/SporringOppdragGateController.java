@@ -51,6 +51,7 @@ public class SporringOppdragGateController {
 			//This is the ONLY place where this session variable is created.
 			//It is destroyed ONLY in the: no.systema.transportdisp.controller.LogoutTransportDispConstants
 			session.setAttribute(TransportDispConstants.SESSION_CHILDWINDOW_FLAG, childWindow);
+			
 		}
 		
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);

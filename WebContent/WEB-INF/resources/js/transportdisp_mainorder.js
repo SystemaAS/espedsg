@@ -774,17 +774,26 @@
 					jq('#OWNwppns3').val(data[i].st2nvn);
 					jq('#helks').val(data[i].st2lk);
 					jq('#hesdff').attr("class","inputTextMediumBlue11");
+					//Via-fields
 					if(jq('#ffavd').val() == ''){
 						jq('#ffavd').val(data[i].avd);
 					}
-					
+					if(data[i].oprkod != ''){
+						jq('#hesdff').val(data[i].st2kod);
+					}
+					//end Via-fields
 				}else if(target==CITY_OWNwppns4){
 					jq('#OWNwppns4').val(data[i].st2nvn);
 					jq('#helkk').val(data[i].st2lk);
 					jq('#hesdvt').attr("class","inputTextMediumBlue11");
+					//Via-fields
 					if(jq('#vfavd').val() == ''){
 						jq('#vfavd').val(data[i].avd);
 					}
+					if(data[i].oprkod != ''){ //change e.g. user input=H1,H2,etc to the correct postnr
+						jq('#hesdvt').val(data[i].st2kod);
+					}
+					//end Via-fields
 				}
 			}
 		}else{

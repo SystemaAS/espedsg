@@ -89,6 +89,8 @@ public final class TransportDispConstants {
 	
 	public static final String SESSION_SEARCH_FILTER = "searchFilter";
 	public static final String SESSION_CHILDWINDOW_FLAG = "cw";
+	public static final String SESSION_CHILDWINDOW_FLAG_INIT = "cwInit";
+	
 	
 
 	//aspects in view (sucha as errors, logs, other

@@ -182,8 +182,12 @@
 			  var countryCode = record[1].replace("country_","");
 			  var city = record[2].replace("city_","");
 			  var caller="init";
+			  var viapnr="init";
 			  if(record.length>3){
 				 caller = record[3].replace("caller_","");
+			  }
+			  if(record.length>4){
+				 viapnr = record[4].replace("viapnr_","");
 			  }
 			  
 			  //addressing a parent field from this child window
@@ -197,11 +201,15 @@
 				  opener.jq('#hesdf').val(postalCode);
 				  opener.jq('#hesdf').removeClass("text11RedBold");
 				  opener.jq('#OWNwppns1').val(city);
+				  
 			  }else if(opener.jq('#hesdff').length && caller=='hesdff'){ //since there are several postnr callers in the same JSP
 				  opener.jq('#helks').val(countryCode);
 				  opener.jq('#hesdff').val(postalCode);
 				  opener.jq('#hesdff').removeClass("text11RedBold");
 				  opener.jq('#OWNwppns3').val(city);
+				  if(viapnr != 'init' &&  viapnr != ''){
+					  opener.jq('#hesdff').val(viapnr); 
+				  }
 			  }
 			  
 			  //close child window
@@ -218,8 +226,12 @@
 			  var countryCode = record[1].replace("country_","");
 			  var city = record[2].replace("city_","");
 			  var caller="init";
+			  var viapnr="init";
 			  if(record.length>3){
 				 caller = record[3].replace("caller_","");
+			  }
+			  if(record.length>4){
+				 viapnr = record[4].replace("viapnr_","");
 			  }
 			  //addressing a parent field from this child window
 			  if(opener.jq('#tustet').length){ //only way to check if field exists. (Trip)
@@ -232,11 +244,15 @@
 				  opener.jq('#hesdt').val(postalCode);
 				  opener.jq('#hesdt').removeClass("text11RedBold");
 				  opener.jq('#OWNwppns2').val(city);
+				  
 			  }else if(opener.jq('#hesdvt').length && caller=='hesdvt'){ //only way to check if field exists.(Order)
 				  opener.jq('#helkk').val(countryCode);
 				  opener.jq('#hesdvt').val(postalCode);
 				  opener.jq('#hesdvt').removeClass("text11RedBold");
 				  opener.jq('#OWNwppns4').val(city);
+				  if(viapnr != 'init' &&  viapnr != ''){
+					  opener.jq('#hesdvt').val(viapnr); 
+				  }
 			  }
 			  //close child window
 			  window.close();

@@ -164,7 +164,7 @@ public class ControllerAjaxCommonFunctionsMgr {
     			if(container!=null){
     				outputList = container.getPostnrlist();
     				for(JsonPostalCodesRecord  record : outputList){
-    				//DEBUG
+    					//DEBUG --> logger.info("XXXXXXXXXX:" + record.getViapnr());
     				}
     			}
 		}	
@@ -206,6 +206,7 @@ public class ControllerAjaxCommonFunctionsMgr {
 			//urlRequestParamsKeys.append(TransportDispConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "wst2kod=" + searchFilterRecord.getSt2kod());
 			urlRequestParamsKeys.append(TransportDispConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sokkod=" + searchFilterRecord.getSt2kod());
 		}
+		
 		if(exactMatch){
 			urlRequestParamsKeys.append(TransportDispConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "getval=J");
 			urlRequestParamsKeys.append(TransportDispConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "getavd=J");
