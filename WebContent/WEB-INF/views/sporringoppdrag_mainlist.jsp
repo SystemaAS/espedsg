@@ -167,11 +167,15 @@
 		 				<td width="50%" valign="top">
 			 			 	<table style="width:98%"  class="tableBorderWithRoundCornersGray" cellspacing="1" cellpadding="0">
 					 		<tr height="5"><td></td></tr>
-						    
+						    <tr>
+						    		<td class="text12" nowrap title="ownFraktbrevsNr">&nbsp;<spring:message code="systema.sporringoppdrag.mainlist.form.search.label.fraktbrevsnr"/></td>
+						    		<td class="text11" colspan="3"><input type="text" class="inputTextMediumBlue" name="ownFraktbrevsNr" id="ownFraktbrevsNr" size="35" maxlength="35" value="${searchFilter.ownFraktbrevsNr}"></td>
+					    	</tr>
+					    	<tr height="1"><td></td></tr>
 						    <tr>
 						    		<td class="text11" nowrap title="wsmrk1">&nbsp;<spring:message code="systema.sporringoppdrag.mainlist.form.search.label.godsmarke"/></td>
 						    		<td class="text11" colspan="3"><input type="text" class="inputTextMediumBlue" name="wsmrk1" id="wsmrk1" size="35" maxlength="35" value="${searchFilter.wsmrk1}"></td>
-						    	</tr>
+					    	</tr>
 						    	
 					    		<tr>
 						    		<td class="text11" nowrap title="fscd/wsfri2">&nbsp;<spring:message code="systema.sporringoppdrag.mainlist.form.search.label.andreRef"/></td>
@@ -186,7 +190,7 @@
 						         	--%>
 						         	<select name="fscd" id="fscd">
 							        	<option value=""><spring:message code="systema.sporringoppdrag.mainlist.form.search.label.select"/>
-							        	<option value="IFB" <c:if test="${searchFilter.fscd == 'IFB'}"> selected </c:if> >Fraktbrevref.	
+							        	<%-- <option value="IFB" <c:if test="${searchFilter.fscd == 'IFB'}"> selected </c:if> >Fraktbrevref. --%>	
 							         	<option value="TLØ" <c:if test="${searchFilter.fscd == 'TLØ'}"> selected </c:if> >Sad/Tvin løpenr (hele el deler eks 2010027  )
 							         	<option value="ORD" <c:if test="${searchFilter.fscd == 'ORD'}"> selected </c:if> >Ordrenummer
 						         	</select> 
@@ -217,7 +221,7 @@
 						    			<input type="text" class="inputTextMediumBlue" name="wsblcn" id="wsblcn" size="17" maxlength="17" value="${searchFilter.wsblcn}">
 						    		</td>
 						    	</tr>
-						    <tr height="35"><td></td></tr>							    
+						    <tr height="10"><td></td></tr>							    
 						 	</table>	
 		 				</td>
 					</tr>

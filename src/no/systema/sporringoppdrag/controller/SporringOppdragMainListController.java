@@ -137,10 +137,11 @@ public class SporringOppdragMainListController {
 			            if(searchFilter.getWsdtf()==null || "".equals(searchFilter.getWsdtf())){
 			            	//this (asChildwindowInit) will be active only in the first POST from a parent application. It will be remove in this same function below
 			            	if("J".equals(appUser.getIntern())){ 
+			            		searchFilter.setWsdtf(this.dateTimeMgr.getCurrentDate_ISO());			            		
+
+			            	}else{
 			            		int DEFAULT_NUMBER_OF_MONTHS_BACK = -1;
 			            		searchFilter.setWsdtf(this.dateTimeMgr.getSpecificMonthFrom_CurrentDate_ISO(DEFAULT_NUMBER_OF_MONTHS_BACK));			            		
-			            	}else{
-			            		searchFilter.setWsdtf(this.dateTimeMgr.getCurrentDate_ISO());
 			            	}
 			            }
 			            //put the search filter in session in case we are wondering around in other tabs. This should always ensure
@@ -259,6 +260,12 @@ public class SporringOppdragMainListController {
 		if(searchFilter.getWsfri2()!=null && !"".equals(searchFilter.getWsfri2())){
 			urlRequestParamsKeys.append(SporringOppdragConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "wsfri2=" + searchFilter.getWsfri2());
 		}
+		//Special treatment for Fraktbrevsnr (earlier handled with fscd and wsfri2 above). We have put this separated to make it more specific to the end-user
+		if(searchFilter.getOwnFraktbrevsNr()!=null && !"".equals(searchFilter.getOwnFraktbrevsNr())){
+			urlRequestParamsKeys.append(SporringOppdragConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "fscd=IFB" + searchFilter.getFscd());
+			urlRequestParamsKeys.append(SporringOppdragConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "wsfri2=" + searchFilter.getOwnFraktbrevsNr());
+		}
+		
 		if(searchFilter.getWsdtfs()!=null && !"".equals(searchFilter.getWsdtfs())){
 			urlRequestParamsKeys.append(SporringOppdragConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "wsdtfs=" + searchFilter.getWsdtfs());
 		}

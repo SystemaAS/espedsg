@@ -77,6 +77,11 @@ public class SearchFilterSporringOppdragTopicList {
 	public void setWsmrk1(String value) {  this.wsmrk1 = value; }
 	public String getWsmrk1() { return this.wsmrk1;}
 	
+	private String ownFraktbrevsNr = null;
+	public void setOwnFraktbrevsNr(String value) {  this.ownFraktbrevsNr = value; }
+	public String getOwnFraktbrevsNr() { return this.ownFraktbrevsNr;}
+	
+	
 	private String fscd = null;
 	public void setFscd(String value) {  this.fscd = value; }
 	public String getFscd() { return this.fscd;}
