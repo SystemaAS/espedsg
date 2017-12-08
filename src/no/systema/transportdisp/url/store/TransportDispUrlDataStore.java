@@ -80,6 +80,9 @@ public final class TransportDispUrlDataStore {
 	static public String TRANSPORT_DISP_BASE_CHILDWINDOW_FRISOKVEI_DOCCODES_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE32R.pgm";
 	//http://gw.systema.no/sycgip/tjge32r.pgm?user=JOVO&kftyp=FSDOKK
 	
+	static public String TRANSPORT_DISP_BASE_CHILDWINDOW_SEND_SMS_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/tjop11hs.pgm";
+	//http://gw.systema.no/sycgip/tjop11hs.pgm?user=JOVO&avd=75&opd=108&type=&smsnr=48052470
+		
 	//---------------------------------------------------
 	//[1] GENERAL CODES - for country (AS400 from TVINN) 
 	//---------------------------------------------------

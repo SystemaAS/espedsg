@@ -63,14 +63,10 @@ import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.
 import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispTranspCarrierRecord;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispCustomerDeliveryAddressContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispCustomerDeliveryAddressRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderRecord;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderFraktbrevContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderFraktbrevRecord;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.frisokvei.JsonTransportDispWorkflowSpecificOrderFrisokveiContainer;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.frisokvei.JsonTransportDispWorkflowSpecificOrderFrisokveiRecord;
 
-
-import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispDangerousGoodsContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispSendSmsContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispDangerousGoodsRecord;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispPackingCodesContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispPackingCodesRecord;
@@ -751,6 +747,45 @@ public class TransportDispAjaxHandlerController {
 				}
 			}
 			//logger.info("**************** List Size:" + result.size());
+			return result;
+	  }
+	  /**
+	   * 
+	   * @param applicationUser
+	   * @param kode
+	   * @return
+	   */
+	  @RequestMapping(value = "sendSMS_TransportDisp.do", method = RequestMethod.GET)
+	  public @ResponseBody Collection<JsonTransportDispSendSmsContainer> sendSMS(@RequestParam String applicationUser, @RequestParam String avd, @RequestParam String opd, @RequestParam String smsnr) {
+		  	Collection<JsonTransportDispSendSmsContainer> result = new ArrayList<JsonTransportDispSendSmsContainer>();
+		  	logger.info("Inside sendSMS...");
+		  
+		  	//http://gw.systema.no/sycgip/tjop11hs.pgm?user=JOVO&avd=75&opd=108&type=&smsnr=48052470
+		  	
+	  		//prepare the access CGI with RPG back-end
+			String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_CHILDWINDOW_SEND_SMS_URL;
+			String urlRequestParamsKeys = "user=" + applicationUser + "&avd=" + avd + "&opd=" + opd + "&smsnr=" + smsnr;
+			
+			logger.info("URL: " + BASE_URL);
+			logger.info("PARAMS: " + urlRequestParamsKeys);
+			logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+			String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+			//Debug -->
+			logger.info(jsonPayload);
+			logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp"); 
+			
+			if(jsonPayload!=null){
+				JsonTransportDispSendSmsContainer container = this.transportDispChildWindowService.getSendSmsContainer(jsonPayload);
+				if(container!=null){
+					result.add(container);
+				}else{
+					String errMsg = "CONTAINER = NULL in Ajax: sendSMS_TransportDisp.do";
+					logger.info(errMsg);
+					container = new JsonTransportDispSendSmsContainer();
+					container.setErrMsg(errMsg);
+				}
+			}
+			
 			return result;
 	  }
 	  /**

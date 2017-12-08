@@ -18,6 +18,8 @@ import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.Jso
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispPackingCodesRecord;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispTollstedCodesContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispTollstedCodesRecord;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispSendSmsContainer;
+
 
 
 import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispAvdContainer;
@@ -285,6 +287,20 @@ public class JsonTransportDispChildWindowMapper extends ObjectMapperAbstractGran
 		for (JsonTransportDispFrisokveiDocCodesRecord record : container.getAwblinelist()){
 			//record.getAdindx();
 		}
+		return container;
+	}
+	
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonTransportDispSendSmsContainer getSendSmsContainer(String utfPayload) throws Exception{
+		//At this point we now have an UTF-8 payload
+		JsonTransportDispSendSmsContainer container = super.getObjectMapper().readValue(utfPayload.getBytes(), JsonTransportDispSendSmsContainer.class); 
+		//logger.info("[JSON-String payload status=OK]  " + container.getGebyrKoder());
+		
 		return container;
 	}
 }

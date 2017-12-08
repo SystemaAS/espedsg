@@ -10,6 +10,7 @@ import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.Jso
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispLoadUnloadPlacesContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispDangerousGoodsContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispPackingCodesContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispSendSmsContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispTollstedCodesContainer;
 
 import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispAvdContainer;
@@ -248,6 +249,21 @@ public class TransportDispChildWindowServiceImpl implements TransportDispChildWi
 		try{
 			JsonTransportDispChildWindowMapper mapper = new JsonTransportDispChildWindowMapper();
 			container = mapper.getFrisokveiDocContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+		
+	}
+	
+	/**
+	 * 
+	 */
+	public JsonTransportDispSendSmsContainer getSendSmsContainer(String utfPayload){
+		JsonTransportDispSendSmsContainer container = null;
+		try{
+			JsonTransportDispChildWindowMapper mapper = new JsonTransportDispChildWindowMapper();
+			container = mapper.getSendSmsContainer(utfPayload);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
