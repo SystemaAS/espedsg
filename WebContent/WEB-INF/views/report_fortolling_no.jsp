@@ -175,6 +175,11 @@ function getSignaturDesc(id) {
 
 }
 
+function popItUp(url) {
+	 var myWindow = window.open(url, "", "top=200px,left=1000px,height=700px,width=1100px,scrollbars=no,status=no,location=no");
+	 
+}	
+
 function load_data() {
 	var runningUrl = baseUrl;
 	var selectedYear = jq('#selectYear').val();
@@ -237,7 +242,7 @@ function load_data() {
 		  d.mottaker =   d.mottaker;
 		  d.edim =   d.edim;
 		});
-	 
+
 		// set crossfilter. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
 		var toll = crossfilter(tollData);	
 		var  all = toll.groupAll();
@@ -767,7 +772,6 @@ function load_data() {
 		    .group(function (d) { return 'dc.js insists on putting a row here so I remove it using JS'; })
 		    .size(Infinity) 
 		    .columns([
-		    	function (d) { return 'dummy'; },
 			  function (d) { return d.deklarasjonsnr; },
 		      function (d) { return d.avdeling; },
 		      function (d) { return d.reg_vareposter; },
@@ -794,18 +798,13 @@ function load_data() {
 			displayed = true;
 		}
 
+    	
 		function setupDataTable() {
 			var dataTable =jq('#data-table').DataTable({
 				"dom" : '<"top">t<"bottom"f><"clear">',
 				"scrollY" : "200px",
 				"scrollCollapse" : false,
 				"columns": [
-					{
-		                "className":      'details-control',
-		                "orderable":      false,
-		                "data":           null,
-		                "defaultContent": ''
-		            },
 		            { "data": "deklarasjonsnr" },
 		            { "data": "avdeling" },
 		            { "data": "reg_vareposter" },
@@ -819,15 +818,24 @@ function load_data() {
 				destroy : true,
 				"columnDefs" : [ 
 					{
-						"targets" : 1,
+						"targets" : 0,
 					    "render": function ( data, type, row, meta ) {
-					       return '<a href='+baseImportUrl+'?avd='+row.avdeling+'&opd='+row.deklarasjonsnr+'>'+data+'</a>';
+					    	if (row.type == 'Import') {
+						    	var url= baseImportUrl+'&avd='+row.avdeling+'&opd='+row.deklarasjonsnr;
+						    	console.log('url', url);
+						    	var href = '<a href="#"'+ ' onclick="javascript:popItUp(\''+url+'\');"'+'>'+data+'</a>';
+						    	console.log('href', href);
+						    	return href;
+					    	} else {
+						    	var url= baseImportUrl+'&avd='+row.avdeling+'&opd='+row.deklarasjonsnr;
+						    	url = 'https://www.youtube.com/embed/SYaJj_OCcTI?list=PLQKID8qVGYAM8GClGfjO6dLll2GRtOHu7';
+						    	console.log('url', url);
+						    	var href = '<a href="#"'+ ' onclick="javascript:popItUp(\''+url+'\');"'+'>Export ikke tilstede enda.</a>';
+						    	console.log('href', href);
+						    	return href;
+					    	}
 					    }
-					},
-			        {
-		            	"targets": [ 0 ],
-		            	"orderable":  false,
-			        } 
+					}
 				],
 				"lengthMenu" : [ 75, 100 ],
 				"language": {
@@ -839,101 +847,6 @@ function load_data() {
 			
 		}
 
-		// Add event listener for opening and closing details
-	    jq('body').on('click', 'td.details-control', function () {
-	    	var tr = jq(this).closest('tr');
-	        var row = dataTable.row( tr );
-	        
-	        if ( row.child.isShown() ) {
-	            // This row is already open - close it
-	            row.child.hide();
-	            tr.removeClass('shown');
-	        }
-	        else {
-	            // Open this row
-	            viewFortolling(tr);
-	        }
-	    } );		
-		
-
-		function viewFortolling(tr) {
-			jq.blockUI({message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-			var row = dataTable.row( tr );
-			var ft = row.data();
-			var fortollingUrl = baseImportDataUrl + '&siavd='+ft.avdeling+'&sitdn='+ft.deklarasjonsnr;
-	
-
-			function addDataToView(error, fortollingData) {
-				if (error) {
-					console.log("error:", error)
-					jq.unblockUI();		
-				}
-				row.child( format(fortollingData) ).show();
-			    tr.addClass('shown');			
-		  	}
-
-			//no anonymous inner function, nice.
-			d3.json(fortollingUrl, addDataToView);
-
-			jq.unblockUI();			
-			
-		}
-		
-		function format ( d ) {
-			//sanity check
-			if (d.dtoList == null) {
-				console.log("no data found");
-				return "no data found";
-			}
-			
-			var ft = d.dtoList[0];
-		    
-		    return '<table width="90%">'+
-		        '<tr>'+
-		            '<td>Status:</td>'+
-		            '<td>'+ft.sist+'</td>'+
-		            '<td>Oppr.kode :</td>'+
-		            '<td>'+ft.siur+'</td>'+
-		            '<td>Deklarasjonstype:</td>'+
-		            '<td>'+ft.sidty+'</td>'+
-		            '<td>Dekl.prosedyre:</td>'+
-		            '<td>'+ft.sidp+'</td>'+
-		            '<td>Kundenr Selger:</td>'+
-		            '<td>'+ft.sikns+'</td>'+
-		            '<td>Navn Selger:</td>'+
-		            '<td>'+ft.sinas+'</td>'+
-	            '</tr>'+
-		        '<tr>'+
-		            '<td>Antall kolli:</td>'+
-		            '<td>'+ft.sintk+'</td>'+
-		            '<td>Dagsoppgjør/Kontant:</td>'+
-		            '<td>'+ft.sikddk+'</td>'+		            
-		            '<td>Kundenr Selger:</td>'+
-		            '<td>'+ft.sikns+'</td>'+
-		            '<td>Navn Selger:</td>'+
-		            '<td>'+ft.sinas+'</td>'+
-		            '<td>Antall kolli:</td>'+
-		            '<td>'+ft.sintk+'</td>'+
-		            '<td>Dagsoppgjør/Kontant:</td>'+
-		            '<td>'+ft.sikddk+'</td>'+	
-		         '</tr>'+
-		        '<tr>'+
-		            '<td>Bruttovekt:</td>'+
-		            '<td>'+ft.sivkb+'</td>'+
-		            '<td>Beløp tollb.frakt:</td>'+
-		            '<td>'+ft.sibel1+'</td>'+		            
-		            '<td>Val.kode A. kost:</td>'+
-		            '<td>'+ft.sival2+'</td>'+
-		            '<td>Beløp A. kost:</td>'+
-		            '<td>'+ft.sibel2+'</td>'+
-		            '<td>Leveringsvilkår kod:</td>'+
-		            '<td>'+ft.silv+'</td>'+
-		            '<td>Beløp Faktsum:</td>'+
-		            '<td>'+ft.sibel3+'</td>'+	
-		        '</tr>'+		        
-		    '</table>';
-		}
-		
 		function getFiltersValues() {
 		    var filters = [
 		        { name: 'type', value: typeChart.filters()},
@@ -1006,7 +919,7 @@ jq(document).ready(function() {
 window.addEventListener('error', function (e) {
 	  var error = e.error;
 	  jq.unblockUI();
-	  console.log("Event e.error",e.error);
+	  console.log("Event e",e);
 
 	  if (e instanceof TypeError) {
 			//what todo  
@@ -1241,7 +1154,6 @@ window.addEventListener('error', function (e) {
 				       <table class="display" id="data-table" cellspacing="0" width="100%">
 				        <thead>
 				          <tr>
-				           	<th></th>
 				            <th>deklarasjonsnr</th>
 				            <th>avdeling</th>
 				            <th>reg. vareposter</th>
