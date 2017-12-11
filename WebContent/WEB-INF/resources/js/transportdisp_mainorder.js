@@ -2542,12 +2542,38 @@
 			 id: "dialogSaveTU",	
 			 text: "Fortsett",
 			 click: function(){
-				 		jq( this ).dialog( "close" );
+				 		if(!isValidViaFromAvd()){
+				 			alert("Forfrakt: Via-avd er obligatorisk");
+				 		}else if(!isValidViaToAvd()){
+				 			alert("Viderefrakt: Via-avd er obligatorisk");
+				 		}else{
+				 			jq( this ).dialog( "close" );
+				 		}
+				 		
 			 		}
 		 	 } ]
 	  });
 	  //open now
 	  jq('#dialogDup').dialog('open');
+  }
+  //check for DUP-dialog if there is any mandatory requirement
+  function isValidViaFromAvd(){
+	  var retval = true;
+	  if(jq("#ffavd").val() == ''){
+		  if(jq("#helks").val() != '' && jq("#hesdff").val() != '' ){
+			  retval = false;
+		  }
+	  }
+	  return retval;
+  }
+  function isValidViaToAvd(){
+	  var retval = true;
+	  if(jq("#vfavd").val() == ''){
+		  if(jq("#helkk").val() != '' && jq("#hesdvt").val() != '' ){
+			  retval = false;
+		  }
+	  }
+	  return retval;
   }
  
   //DUP read-only dialog
