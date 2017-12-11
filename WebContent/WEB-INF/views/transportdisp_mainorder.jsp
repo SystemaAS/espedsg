@@ -258,6 +258,9 @@
 				 			<td class="text12White" >
 								&nbsp;<spring:message code="systema.transportdisp.orders.form.update.label.header.edit"/>	
 								&nbsp;&nbsp;<b>${model.record.heavd}/${model.record.heopd}</b>
+								<c:if test="${not empty model.record.trslag}">
+									&nbsp;<b>${model.record.trslag}</b>
+								</c:if>
 								&nbsp;&nbsp;<img style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="edit">
 								<c:if test="${not empty model.record.hepro}">
 									&nbsp;&nbsp;&nbsp;&nbsp;Turnr&nbsp;${model.record.hepro}
