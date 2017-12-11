@@ -38,6 +38,7 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.DateTimeManager;
 import no.systema.main.util.EncodingTransformer;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.StringManager;
 import no.systema.main.model.SystemaWebUser;
 
 //Trans.Disp
@@ -51,14 +52,13 @@ import no.systema.transportdisp.util.manager.CodeDropDownMgr;
 import no.systema.transportdisp.util.manager.ControllerAjaxCommonFunctionsMgr;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.frisokvei.JsonTransportDispWorkflowSpecificOrderFrisokveiContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.frisokvei.JsonTransportDispWorkflowSpecificOrderFrisokveiRecord;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiGiltighetsListContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiGiltighetsListRecord;
+
 import no.systema.transportdisp.validator.TransportDispWorkflowSpecificFrisokveiValidator;
 
 import no.systema.transportdisp.util.TransportDispConstants;
 import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
-import no.systema.tvinn.sad.util.TvinnSadConstants;
-
-
-
 
 /**
  * Transport disponering Controller - Fri søkvei window
@@ -83,7 +83,7 @@ public class TransportDispWorkflowFrisokveiController {
 	private DateTimeManager dateTimeMgr = new DateTimeManager();
 	
 	private ControllerAjaxCommonFunctionsMgr controllerAjaxCommonFunctionsMgr;
-	
+	private StringManager strMgr = new StringManager();
 	
 	@PostConstruct
 	public void initIt() throws Exception {
@@ -137,7 +137,7 @@ public class TransportDispWorkflowFrisokveiController {
 	 * @return
 	 */
 	@RequestMapping(value="transportdisp_workflow_frisokvei_edit.do",  method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doEditBudget(@ModelAttribute ("record") JsonTransportDispWorkflowSpecificOrderFrisokveiRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView doEditFrisokevei(@ModelAttribute ("record") JsonTransportDispWorkflowSpecificOrderFrisokveiRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
 		
@@ -164,7 +164,7 @@ public class TransportDispWorkflowFrisokveiController {
 		}else{
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
 			
-			if(TvinnSadConstants.ACTION_UPDATE.equals(action)){
+			if(TransportDispConstants.ACTION_UPDATE.equals(action)){
 				logger.info("[INFO] doUpdate action ...");
 				TransportDispWorkflowSpecificFrisokveiValidator validator = new TransportDispWorkflowSpecificFrisokveiValidator();
 				
@@ -193,29 +193,61 @@ public class TransportDispWorkflowFrisokveiController {
 						MODE = "A";
 						logger.info("[INFO] CREATE new line in process...");
 					}
-					
-					//-------------------------------
-					//Execute back-end Update/Create
-					//-------------------------------
-					JsonTransportDispWorkflowSpecificOrderFrisokveiContainer container = this.executeUpdateLine(appUser, recordToValidate, MODE, avd, opd);
-					if(container!=null){
-	    				if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
-	    					logger.info("[ERROR] Back-end Error: " + container.getErrMsg());
-	    					this.populateAspectsOnBackendError(appUser, container.getErrMsg(), recordToValidate, model, session);
+					//------------------------------------------------
+					//STEP [1] Series of back-end-validation steps ...
+					//------------------------------------------------
+					boolean isValidUpdate = false;
+					//We now must validate valid codes in the s.k. giltighetslista ... if any
+					JsonTransportDispFrisokveiGiltighetsListContainer giltighetsListContainer = this.getGiltihetsList(appUser, recordToValidate, avd, opd);
+					if(giltighetsListContainer.getGyldigliste()!=null && giltighetsListContainer.getGyldigliste().size() > 0 ){
+						//[A]there is at least some record. We must check some match with the end-user record...
+						JsonTransportDispFrisokveiGiltighetsListContainer singleRecordGiltighetsListContainer = this.validateCodeTowardsGiltihetsList(appUser, recordToValidate, avd, opd);
+						if(strMgr.isNotNull(singleRecordGiltighetsListContainer.getErrMsg())){
+							//DO SOMETHING
+							logger.info("[ERROR] Back-end Error: " + singleRecordGiltighetsListContainer.getErrMsg());
+	    					this.populateAspectsOnBackendError(appUser, singleRecordGiltighetsListContainer.getErrMsg(), recordToValidate, model, session);
 	    					//fetch item lines
 	    					this.fetchItemLines(appUser, avd, opd, model, session);
-	    					
-	    			    	errorView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
+	    					errorView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
 	    					return errorView;
-	    				}else{
-	    					//succefully done!
-	    		    		logger.info("[INFO] Valid Update -- Record successfully updated, OK ");
-	    				}
-	    			}
-					logger.info("[INFO] UPDATE code: " + recordToValidate.getFskode() + " end process. ");
+						}else{
+							isValidUpdate = true;
+						}
+					}else{
+						//There is no giltighets-list to check to. Meaning that any value will be accepted. Unless and error has occurred.
+						if(strMgr.isNotNull(giltighetsListContainer.getErrMsg())){
+							logger.info("[ERROR] Back-end Error: " + giltighetsListContainer.getErrMsg());
+						}else{
+							isValidUpdate = true;
+						}
+					}
+					//----------------------------------------------
+					//STEP [2] Go on with the Update (if applicable)
+					//----------------------------------------------
+					if(isValidUpdate){
+						//-------------------------------
+						//Execute back-end Update/Create
+						//-------------------------------
+						JsonTransportDispWorkflowSpecificOrderFrisokveiContainer container = this.executeUpdateLine(appUser, recordToValidate, MODE, avd, opd);
+						if(container!=null){
+		    				if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
+		    					logger.info("[ERROR] Back-end Error: " + container.getErrMsg());
+		    					this.populateAspectsOnBackendError(appUser, container.getErrMsg(), recordToValidate, model, session);
+		    					//fetch item lines
+		    					this.fetchItemLines(appUser, avd, opd, model, session);
+		    					
+		    			    	errorView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
+		    					return errorView;
+		    				}else{
+		    					//succefully done!
+		    		    		logger.info("[INFO] Valid Update -- Record successfully updated, OK ");
+		    				}
+		    			}
+						logger.info("[INFO] UPDATE code: " + recordToValidate.getFskode() + " end process. ");
+					}
 				}
 				
-			}else if(TvinnSadConstants.ACTION_DELETE.equals(action)){
+			}else if(TransportDispConstants.ACTION_DELETE.equals(action)){
 				String DELETE_MODE = "D";
 				JsonTransportDispWorkflowSpecificOrderFrisokveiContainer container = this.executeUpdateLine(appUser, recordToValidate, DELETE_MODE, avd, opd);
 				if(container!=null){
@@ -246,8 +278,7 @@ public class TransportDispWorkflowFrisokveiController {
 	 * @param opd
 	 * @return
 	 */
-	private JsonTransportDispWorkflowSpecificOrderFrisokveiContainer executeUpdateLine(SystemaWebUser appUser, JsonTransportDispWorkflowSpecificOrderFrisokveiRecord recordToValidate, String mode,
-										String avd, String opd){
+	private JsonTransportDispWorkflowSpecificOrderFrisokveiContainer executeUpdateLine(SystemaWebUser appUser, JsonTransportDispWorkflowSpecificOrderFrisokveiRecord recordToValidate, String mode,String avd, String opd){
 		JsonTransportDispWorkflowSpecificOrderFrisokveiContainer retval = null;
 		
 		logger.info("[INFO] EXECUTE Update(D/A/U) line nr:" + recordToValidate.getFskode() + " start process... ");
@@ -296,6 +327,103 @@ public class TransportDispWorkflowFrisokveiController {
 	}
 	/**
 	 * 
+	 * @param list
+	 * @param codeToMatch
+	 * @return
+	 */
+	private boolean isValidGiltihetsKode(Collection<JsonTransportDispFrisokveiGiltighetsListRecord> list, String codeToMatch){
+		boolean retval = false; 
+		if(list!=null && list.size()>0){
+			for(JsonTransportDispFrisokveiGiltighetsListRecord record : list){
+				if(codeToMatch.equals(record.getCofri())){
+					retval = true;
+				}
+			}
+		}else{
+			//if the list is empty and without errors then the user could save whatever text he/she wants.
+			retval = true;
+		}
+		return retval;
+	}
+	/**
+	 * 
+	 * @param appUser
+	 * @param recordToValidate
+	 * @param mode
+	 * @param avd
+	 * @param opd
+	 * @return
+	 */
+	private JsonTransportDispFrisokveiGiltighetsListContainer getGiltihetsList(SystemaWebUser appUser, JsonTransportDispWorkflowSpecificOrderFrisokveiRecord recordToValidate, String avd, String opd){
+		JsonTransportDispFrisokveiGiltighetsListContainer retval = null;
+		
+		logger.info("[INFO] getGiltihetsList:" + recordToValidate.getFskode() + " start process... ");
+		String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_FETCH_MAIN_ORDER_FRISOKVEI_VALID_LIST_URL;
+    	//add URL-parameters
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+		urlRequestParams.append("&avd=" + avd);
+		urlRequestParams.append("&opd=" + opd);
+		urlRequestParams.append("&kode=" + recordToValidate.getFskode());
+		
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams);
+		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//Debug -->
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	
+		if(jsonPayload!=null){
+			JsonTransportDispFrisokveiGiltighetsListContainer container = this.transportDispChildWindowService.getOrderFrisokveiContainerGiltighetsLista(jsonPayload);
+			retval = container;
+		}
+		return retval;
+	}
+	/**
+	 * 
+	 * @param appUser
+	 * @param recordToValidate
+	 * @param avd
+	 * @param opd
+	 * @return
+	 */
+	private JsonTransportDispFrisokveiGiltighetsListContainer validateCodeTowardsGiltihetsList(SystemaWebUser appUser, JsonTransportDispWorkflowSpecificOrderFrisokveiRecord recordToValidate, String avd, String opd){
+		JsonTransportDispFrisokveiGiltighetsListContainer retval = null;
+		
+		logger.info("[INFO] Validating code towards giltighetsList:" + recordToValidate.getFskode() + " start process... ");
+		String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_FETCH_MAIN_ORDER_FRISOKVEI_VALID_LIST_URL;
+    	//add URL-parameters
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+		urlRequestParams.append("&avd=" + avd);
+		urlRequestParams.append("&opd=" + opd);
+		urlRequestParams.append("&kode=" + recordToValidate.getFskode());
+		urlRequestParams.append("&cofri=" + recordToValidate.getFssok());
+
+		
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams);
+		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		//Debug -->
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	
+		if(jsonPayload!=null){
+			JsonTransportDispFrisokveiGiltighetsListContainer container = this.transportDispChildWindowService.getOrderFrisokveiContainerGiltighetsLista(jsonPayload);
+			retval = container;
+			if(container.getErrMsg()!=null){
+				logger.info(container.getErrMsg());
+			}
+		}
+		return retval;
+	}
+
+	
+	
+	/**
+	 * 
 	 * @param appUser
 	 * @param avd
 	 * @param opd
@@ -333,7 +461,7 @@ public class TransportDispWorkflowFrisokveiController {
 	 * @param session
 	 */
 	private void populateAspectsOnBackendError(SystemaWebUser appUser, String errorMessage, JsonTransportDispWorkflowSpecificOrderFrisokveiRecord recordToValidate, Map model, HttpSession session ){
-		model.put(TvinnSadConstants.ASPECT_ERROR_MESSAGE, "Kode/sokText:[" + recordToValidate.getFskode() + " " +  recordToValidate.getFssok() + "] " +  errorMessage);
+		model.put(TransportDispConstants.ASPECT_ERROR_MESSAGE, "Kode/sokText:[" + recordToValidate.getFskode() + " " +  recordToValidate.getFssok() + "] " +  errorMessage);
 		
     	//return objects on validation errors
 		model.put("record", recordToValidate);

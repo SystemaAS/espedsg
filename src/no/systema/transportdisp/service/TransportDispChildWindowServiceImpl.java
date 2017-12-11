@@ -4,8 +4,13 @@
 package no.systema.transportdisp.service;
 
 import no.systema.main.model.jsonjackson.general.postalcodes.JsonPostalCodesContainer;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import no.systema.main.mapper.jsonjackson.general.PostalCodesMapper;
 import no.systema.transportdisp.mapper.jsonjackson.JsonTransportDispChildWindowMapper;
+import no.systema.transportdisp.mapper.jsonjackson.JsonTransportDispWorkflowSpecificOrderFrisokveiMapper;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispCustomerContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispLoadUnloadPlacesContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispDangerousGoodsContainer;
@@ -24,6 +29,7 @@ import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwi
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.childwindow.JsonTransportDispGebyrCodeContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiCodesContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiDocCodesContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiGiltighetsListContainer;
 
 /**
  * 
@@ -270,5 +276,22 @@ public class TransportDispChildWindowServiceImpl implements TransportDispChildWi
 		return container;
 		
 	}
+	
+	/**
+	 * 
+	 */
+	public JsonTransportDispFrisokveiGiltighetsListContainer getOrderFrisokveiContainerGiltighetsLista(String utfPayload){
+		JsonTransportDispFrisokveiGiltighetsListContainer container = null;
+		try{
+			JsonTransportDispWorkflowSpecificOrderFrisokveiMapper mapper = new JsonTransportDispWorkflowSpecificOrderFrisokveiMapper();
+			container = mapper.getContainerGiltighetsLista(utfPayload);
+		}catch(Exception e){
+			StringWriter errors = new StringWriter();
+			e.printStackTrace(new PrintWriter(errors));
+		}
+		
+		return container;
+	}
+	
 	
 }

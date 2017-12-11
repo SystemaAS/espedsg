@@ -256,7 +256,10 @@ public final class TransportDispUrlDataStore {
 	//http://gw.systema.no/sycgip/TJGE28R.pgm?user=JOVO&avd=75&opd=155651
 	static public String TRANSPORT_DISP_BASE_WORKFLOW_UPDATE_MAIN_ORDER_FRISOKVEI_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE29R.pgm";
 	//http://gw.systema.no/sycgip/tjge29R.pgm?user=JOVO&avd=75&opd=155651&mode=A&fskode=IFB&fssok=test&fsdokk=...	
-		
+	static public String TRANSPORT_DISP_BASE_WORKFLOW_FETCH_MAIN_ORDER_FRISOKVEI_VALID_LIST_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE28RG.pgm";
+	//http://gw.systema.no/sycgip/tjge28RG.pgm?user=JOVO&Avd=75&opd=108&kode=AVD
+	
+	
 	
 	//----------------------------------------------------------------------------------------------------------
 	// Post Update service call (in order to use some last-resource pgm)

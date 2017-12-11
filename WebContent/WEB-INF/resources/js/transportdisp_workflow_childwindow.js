@@ -404,6 +404,22 @@
 	  });
 	});
 	
+	jq(function() {
+		jq('#frisokveiCodesGiltighetsList').on('click', 'td', function(){
+		  var id = this.id;
+		  var record = id.split('@');
+	  	  var kode = record[0].replace("kode", "");
+		  var text = record[1].replace("text", "");
+		  //alert(callerLineCounter);
+		  //addressing a parent field from this child window
+		  opener.jq('#fssok').val(kode);
+		  opener.jq('#fssok').focus();
+		  //close child window
+		  window.close();
+		  
+	  });
+	});
+	
 	//Select frie sokeveier codes
 	jq(function() {
 		jq('#frisokveiDocCodesList').on('click', 'td', function(){
@@ -585,6 +601,12 @@
     		jq('#frisokveiCodesList_filter').val()
         ).draw();
     }
+    function filterFrisokveiCodesGiltighetsList (){
+        jq('#frisokveiCodesGiltighetsList').DataTable().search(
+    		jq('#frisokveiCodesGiltighetsList_filter').val()
+        ).draw();
+    }
+    
     function filterFrisokveiDocCodesList (){
         jq('#frisokveiDocCodesList').DataTable().search(
     		jq('#frisokveiDocCodesList_filter').val()
@@ -764,6 +786,18 @@
 	  //event on input field for search
 	  jq('input.frisokveiDocCodesList_filter').on( 'keyup click', function () {
 		  filterFrisokveiDocCodesList();
+	  });
+	  
+	  //--------------------------------------
+	  //tables [frie søkeveier giltihetslist]
+	  //--------------------------------------
+	  jq('#frisokveiCodesGiltighetsList').dataTable( {
+		  "dom": '<"top"f>rt<"bottom"><"clear">',
+		  "lengthMenu": [ 50, 75, 100 ]
+	  });
+	  //event on input field for search
+	  jq('input.frisokveiCodesGiltighetsList_filter').on( 'keyup click', function () {
+		  filterFrisokveiCodesGiltighetsList();
 	  });
 	  
 	  //------------------------------

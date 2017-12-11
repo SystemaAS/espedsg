@@ -70,13 +70,20 @@
 	  //frisokvei koder child window search
 	  jq('#fskodeIdLink').click(function() {
 		jq('#fskodeIdLink').attr('target','_blank');  
-		window.open('transportdisp_workflow_childwindow_frisokveicodes.do?action=doFind',"frisokveiCodesWin","top=300px,left=50px,height=600px,width=550px,scrollbars=no,status=no,location=no");
+		window.open('transportdisp_workflow_childwindow_frisokveicodes.do?action=doFind',"frisokveiCodesWin","top=300px,left=50px,height=600px,width=650px,scrollbars=no,status=no,location=no");
+	  });
+	  //frisokvei giltighetskoder
+	  jq('#fsverdiIdLink').click(function() {
+			jq('#fsverdiIdLink').attr('target','_blank');  
+			window.open('transportdisp_workflow_childwindow_frisokveicodes_giltihetslist.do?action=doFind&avd=' + jq('#avd').val() + '&opd=' + jq('#opd').val() + '&kode=' + jq('#fskode').val(),"frisokveiCodesWin","top=300px,left=100px,height=600px,width=650px,scrollbars=no,status=no,location=no");
 	  });
 	  //frisokvei dok.koder child window search
 	  jq('#fsdokkIdLink').click(function() {
 		jq('#fsdokkIdLink').attr('target','_blank');  
-		window.open('transportdisp_workflow_childwindow_frisokveidoccodes.do?action=doFind',"frisokveiDocCodesWin","top=300px,left=150px,height=600px,width=550px,scrollbars=no,status=no,location=no");
+		window.open('transportdisp_workflow_childwindow_frisokveidoccodes.do?action=doFind',"frisokveiDocCodesWin","top=300px,left=150px,height=600px,width=650px,scrollbars=no,status=no,location=no");
 	  });
+	  
+	  
   });
   
   /*
@@ -171,7 +178,7 @@
   //Fetch specific line
   //-------------------
   function getItemData(record) {
-		var FIELD_SEPARATOR = "_";
+		var FIELD_SEPARATOR = "@";
 	  	var htmlValue = record.id;
 	  	var applicationUser = jq('#applicationUser').val();
 	  	//alert(htmlValue);

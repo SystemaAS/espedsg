@@ -38,6 +38,7 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.DateTimeManager;
 import no.systema.main.util.EncodingTransformer;
 import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.StringManager;
 import no.systema.main.model.SystemaWebUser;
 
 //Trans.Disp
@@ -74,6 +75,10 @@ import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.Jso
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiCodesRecord;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiDocCodesContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiDocCodesRecord;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiGiltighetsListContainer;
+import no.systema.transportdisp.model.jsonjackson.workflow.order.childwindow.JsonTransportDispFrisokveiGiltighetsListRecord;
+
+
 
 
 import no.systema.transportdisp.model.jsonjackson.workflow.triplist.childwindow.JsonTransportDispAvdContainer;
@@ -114,7 +119,7 @@ public class TransportDispWorkflowControllerChildWindow {
 	private static final Logger logger = Logger.getLogger(TransportDispWorkflowControllerChildWindow.class.getName());
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
 	private DateTimeManager dateTimeManager = new DateTimeManager();
-	
+	private StringManager strMgr = new StringManager();
 	//customer
 	private final String DATATABLE_AVD_LIST = "avdList";
 	private final String DATATABLE_BILNR_LIST = "bilNrList";
@@ -131,6 +136,8 @@ public class TransportDispWorkflowControllerChildWindow {
 	private final String DATATABLE_COUNTRYCODE_LIST = "countryCodeList";
 	private final String DATATABLE_FRISOKVEI_CODES_LIST = "frisokveiCodesList";
 	private final String DATATABLE_FRISOKVEI_DOCCODES_LIST = "frisokveiDocCodesList";
+	private final String DATATABLE_FRISOKVEI_CODES_GILTIGHETS_LIST = "frisokveiCodesGiltihetsList";
+	
 	
 	
 	
@@ -1353,6 +1360,76 @@ public class TransportDispWorkflowControllerChildWindow {
 				}
 		    	
     			model.put(this.DATATABLE_FRISOKVEI_CODES_LIST, outputList);
+    			model.put(TransportDispConstants.DOMAIN_CONTAINER, recordToValidate);
+    			successView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
+    			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+    			return successView;
+				
+		    }
+			
+		}
+	}
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="transportdisp_workflow_childwindow_frisokveicodes_giltihetslist.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindFrisokveiCodesGiltighetsList(@ModelAttribute ("record") JsonTransportDispFrisokveiGiltighetsListRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindFrisokveiCodesGiltighetsList");
+		Collection<JsonTransportDispFrisokveiGiltighetsListRecord> outputList = new ArrayList();
+		Map model = new HashMap();
+		String kode = request.getParameter("kode");
+		String avd = request.getParameter("avd");
+		String opd = request.getParameter("opd");
+		
+		ModelAndView successView = new ModelAndView("transportdisp_workflow_childwindow_frisokveicodes_giltighetslist");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//this.setCodeDropDownMgr(appUser, model);
+	    		model.put(TransportDispConstants.DOMAIN_CONTAINER, recordToValidate);
+				successView.addObject(TransportDispConstants.DOMAIN_MODEL, model);
+				return successView;
+	    		
+		    }else{
+		    	String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_FETCH_MAIN_ORDER_FRISOKVEI_VALID_LIST_URL;
+		    	StringBuffer urlRequestParamsKeys = new StringBuffer();
+		    	urlRequestParamsKeys.append("user=" + appUser.getUser());
+		    	if(strMgr.isNotNull(kode)){
+		    		urlRequestParamsKeys.append("&avd=" + avd);
+		    		urlRequestParamsKeys.append("&opd=" + opd);
+		    		urlRequestParamsKeys.append("&kode=" + kode);
+		    	}
+				
+		    	logger.info("URL: " + BASE_URL);
+				logger.info("PARAMS: " + urlRequestParamsKeys);
+				logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+				String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys.toString());
+				//Debug -->
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+				logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+				
+				if(jsonPayload!=null){
+					JsonTransportDispFrisokveiGiltighetsListContainer container = this.transportDispChildWindowService.getOrderFrisokveiContainerGiltighetsLista(jsonPayload);
+		    			if(container!=null){
+		    				outputList = container.getGyldigliste();
+		    			}
+				}
+		    	
+    			model.put(this.DATATABLE_FRISOKVEI_CODES_GILTIGHETS_LIST, outputList);
     			model.put(TransportDispConstants.DOMAIN_CONTAINER, recordToValidate);
     			successView.addObject(TransportDispConstants.DOMAIN_MODEL , model);
     			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");

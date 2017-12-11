@@ -77,11 +77,12 @@
 							<td class="ownScrollableSubWindow" style="width:90%; height:15em;">
 								<table width="100%" cellspacing="0" border="0" cellpadding="0">
 									<tr class="tableHeaderField" height="20" valign="left">
-										<td align="center" width="4%" class="tableHeaderFieldFirst" >&nbsp;<span title="fskode">Kode&nbsp;</span></td>
-										<td align="center" width="2%" class="tableHeaderField" >&nbsp;<span title="todo">Oppd.&nbsp;</span></td>
-										<td class="tableHeaderField" >&nbsp;<span title="fssok">Søketekst&nbsp;</span></td>  
+										<td align="center" width="2%" class="tableHeaderFieldFirst" >&nbsp;<span title="todo">Oppd.&nbsp;</span></td>
+										<td align="center" width="4%" class="tableHeaderField" >&nbsp;<span title="fskode">Kode&nbsp;</span></td>
+										<td align="left" class="tableHeaderField" >&nbsp;<span title="fskode">Kodetekst&nbsp;</span></td>
+										<td class="tableHeaderField" >&nbsp;<span title="fssok">Søketekst/verdi</span></td>  
 										<td width="4%" class="tableHeaderField" >&nbsp;<span title="krav">Krav&nbsp;</span></td>
-					                    <td class="tableHeaderField" >&nbsp;<span title="fsdokk">Dok.kode&nbsp;</span></td>
+					                    <td class="tableHeaderField" width="4%" >&nbsp;<span title="fsdokk">Dok.kode&nbsp;</span></td>
 					        			<td align="center" width="2%" class="tableHeaderField" >&nbsp;Slett&nbsp;</td>
 					               </tr> 
 					               
@@ -95,9 +96,8 @@
 							                       <tr class="tableOddRow" height="20" >
 							                   </c:otherwise>
 							               </c:choose>
-							               <td align="center" width="4%" class="tableCellFirst" align="center">&nbsp;${record.fskode}</td>
-							               <td align="center" width="2%" class="tableCell" >
-							     				<a id="recordUpdate_${record.fskode}_${record.fssok}" href="#" onClick="getItemData(this);">
+							               <td align="center" width="2%" class="tableCellFirst" >
+							     				<a id="recordUpdate_${record.fskode}@${record.fssok}" href="#" onClick="getItemData(this);">
 							     					<c:choose>
 								     					<c:when test="${not empty record.fskode}">
 						               						<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
@@ -108,6 +108,9 @@
 					               					</c:choose>
 					               				</a>
 						               	   </td>
+						               	   <td align="center" width="4%" class="tableCell" align="center"><b>${record.fskode}</b></td>
+						               	   <td align="left" class="tableCell" align="center">&nbsp;${record.kfsotx}</td>
+						               	   
 							               <td class="tableCell" >&nbsp;${record.fssok}</td>
 							               <td align="center" width="2%" class="tableCell" >
 							               		<c:choose>
@@ -121,7 +124,7 @@
 						               					</c:otherwise>
 					               					</c:choose>
 							               	</td>
-							               <td class="tableCell" >&nbsp;${record.fsdokk}</td>
+							               <td class="tableCell" width="4%" >&nbsp;${record.fsdokk}</td>
 							               <%-- DELETE cell --%>							           
 							               <td width="2%" class="tableCell" align="center">
 							               	   <c:if test="${not empty record.fskode && not empty record.fssok}">
@@ -231,7 +234,11 @@
 	 											<img id="imgFrisokveiCodesSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 	 										</a>
 							            </td>
-							            <td class="text12" align="left">&nbsp;<font class="text14RedBold" >*</font><span title="fssok">&nbsp;Søketekst</span></td>
+							            <td class="text12" align="left">&nbsp;<font class="text14RedBold" >*</font><span title="fssok">&nbsp;Søketekst/Verdi</span>
+							            	<a tabindex=-1 id="fsverdiIdLink">
+	 											<img id="imgFrisokveiDocCodesGiltighetslistSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+	 										</a>
+							            </td>
 					            		<td class="text12" align="left">&nbsp;<span title="fsdokk">&nbsp;Dok.kode</span>
 					            			<a tabindex=-1 id="fsdokkIdLink">
 	 											<img id="imgFrisokveiDocCodesSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
