@@ -2395,6 +2395,59 @@
   //---------------------------
   //Initialize <div> here
   jq(function() { 
+	  //events before the dialog is created/opened
+	  jQuery("#dialogDup").on("dialogopen", function (event, ui) {
+		  if(jq("#helks").val() == '' || jq("#hesdff").val() == '' ){
+			  jq("#ffavd").attr("readonly", true); 
+			  jq("#ffoty").attr("disabled", true); 
+			  jq("#fffrank").attr("disabled", true); 
+			  jq("#ffftxt").attr("readonly", true); 
+			  jq("#ffmodul").attr("readonly", true); 
+			  jq("#ffpkod").attr("readonly", true); 
+			  jq("#ffbel").attr("readonly", true); 
+			  jq("#ffbelk").attr("readonly", true); 
+			  jq("#ffbnr").attr("readonly", true); 
+			  jq("#fftran").attr("readonly", true);
+			  jq("#ffkomm").attr("readonly", true);
+		  }else{
+			  jq("#ffavd").attr("readonly", false);
+			  jq("#ffoty").attr("disabled", false); 
+			  jq("#fffrank").attr("disabled", false); 
+			  jq("#ffftxt").attr("readonly", false); 
+			  jq("#ffmodul").attr("readonly", false); 
+			  jq("#ffpkod").attr("readonly", false); 
+			  jq("#ffbel").attr("readonly", false); 
+			  jq("#ffbelk").attr("readonly", false); 
+			  jq("#ffbnr").attr("readonly", false); 
+			  jq("#fftran").attr("readonly", false);
+			  jq("#ffkomm").attr("readonly", false);
+		  }
+		  if(jq("#helkk").val() == '' || jq("#hesdvt").val() == '' ){
+			  jq("#vfavd").attr("readonly", true); 
+			  jq("#vfoty").attr("disabled", true); 
+			  jq("#vffrank").attr("disabled", true); 
+			  jq("#vfftxt").attr("readonly", true); 
+			  jq("#vfmodul").attr("readonly", true); 
+			  jq("#vfpkod").attr("readonly", true); 
+			  jq("#vfbel").attr("readonly", true); 
+			  jq("#vfbelk").attr("readonly", true); 
+			  jq("#vfbnr").attr("readonly", true); 
+			  jq("#vftran").attr("readonly", true);
+			  jq("#vfkomm").attr("readonly", true);
+		  }else{
+			  jq("#vfavd").attr("readonly", false);
+			  jq("#vfoty").attr("disabled", false); 
+			  jq("#vffrank").attr("disabled", false); 
+			  jq("#vfftxt").attr("readonly", false); 
+			  jq("#vfmodul").attr("readonly", false); 
+			  jq("#vfpkod").attr("readonly", false); 
+			  jq("#vfbel").attr("readonly", false); 
+			  jq("#vfbelk").attr("readonly", false); 
+			  jq("#vfbnr").attr("readonly", false); 
+			  jq("#vftran").attr("readonly", false);
+			  jq("#vfkomm").attr("readonly", false);
+		  }
+	  });
 	  jq("#dialogDup").dialog({
 		  autoOpen: false,
 		  maxWidth:550,
@@ -2407,11 +2460,25 @@
 		  appendTo: "#transportdispForm"
 		  
 	  });
+	  jq("#dialogDupReadOnly").dialog({
+		  autoOpen: false,
+		  maxWidth:550,
+          maxHeight: 650,
+          width: 520,
+          height: 640,
+		  modal: true,
+		  dialogClass: 'main-dialog-class',
+		  //the form must be appended otherwise the default jQuey dialog behavior (leave the dialog outside the form) will take place...=(
+		  //appendTo: "#transportdispForm"
+		  
+	  });
   });
+  
   //----------------------------
   //Present dialog box onClick 
   //----------------------------
   jq(function() {
+	  //Via 1
 	  jq("#viaFromDialogImg").click(function() {
 		  if(mandatoryViaFromFieldsForDupDialog()){
 			  presentDupDialog();
@@ -2419,13 +2486,22 @@
 	  		renderViaAlert();
 	  	  }
 	  });
+	  //Read only dialog
+	  jq("#viaFromDialogImgReadOnly").click(function() {
+		  presentDupDialogReadOnly();
+	  });
 	 
+	  //Via 2
 	  jq("#viaFrom2DialogImg").click(function() {
 		  if(mandatoryViaToFieldsForDupDialog()){
 			  presentDupDialog();
 	  	  }else{
 	  		  renderViaAlert();
 	  	  }
+	  });
+	  //Read-only dialog
+	  jq("#viaFrom2DialogImgReadOnly").click(function() {
+		  presentDupDialogReadOnly();
 	  });
   });
   function mandatoryViaFromFieldsForDupDialog(){
@@ -2435,7 +2511,6 @@
 		  if(jq("#OWNwppns3").val() != '?' ){
 			  status = true;
 		  }
-		  
 	  }
 	  return  status;
   }
@@ -2453,11 +2528,10 @@
 	  alert("Du må fylle ut Via-felten først...");
   }
   
-  /*
-  ---------------------
-  /PRESENT DUP DIALOG
-  ---------------------
-   */
+
+  //---------------------
+  //PRESENT DUP DIALOG
+  //---------------------
   function presentDupDialog(){
 	//setters (add more if needed)
 	  jq('#dialogDup').dialog( "option", "title", "DUP / Rekvisisjon" );
@@ -2468,48 +2542,39 @@
 			 id: "dialogSaveTU",	
 			 text: "Fortsett",
 			 click: function(){
-					 	if( jq('#ffavd').val() != '' && jq('#vfavd').val() != ''){
-					 		jq( this ).dialog( "close" );
-					 	}else{
-					 		alert("Via avd er obligatorisk!");
-					 	}
-		 			}
+				 		jq( this ).dialog( "close" );
+			 		}
 		 	 } ]
- 	 		/*	
-  			{
-		 	 id: "dialogCancelTU",
-		 	 text: "Lukk", 
-			 click: function(){
-				 		//back to initial state of form elements on modal dialog
-				 		//jq("#dialogSaveTU").button("option", "disabled", true);
-				 		//jq("#selectedType").val("");
-				 		jq( this ).dialog( "close" ); 
-			 		} 
- 	 		 } ] 
- 	 		 */
 	  });
-	  //init values
-	  //jq("#dialogSaveTU").button("option", "disabled", true);
 	  //open now
 	  jq('#dialogDup').dialog('open');
   }
-  //Events for the drop downs (some kind of "implicit validation" since all drop downs are mandatory)
-  /*
-  jq(function() {
-	  jq("#selectedType").change(function() {
-		  if(jq("#selectedType").val()!=''){
-			  jq("#dialogSaveTU").button("option", "disabled", false);
-			  
-		  }else{
-			  jq("#dialogSaveTU").button("option", "disabled", true);
-		  }
+ 
+  //DUP read-only dialog
+  function presentDupDialogReadOnly(){
+	//setters (add more if needed)
+	  jq('#dialogDupReadOnly').dialog( "option", "title", "DUP / Rekvisisjon" );
+	  //deal with buttons for this modal window
+	  jq('#dialogDupReadOnly').dialog({
+		 buttons: [ 
+            {
+			 id: "dialogSaveTU",	
+			 text: "Lukk",
+			 click: function(){
+				 		jq( this ).dialog( "close" );
+		 			}
+		 	 } ]
 	  });
-	  
-  });*/
+	  //open now
+	  jq('#dialogDupReadOnly').dialog('open');
+  }
+  
   //-------------------------------------------
   //END Model dialog: "DUP"
   //-------------------------------------------
 
+  
+  
   
   //-----------------------------
   //START Model dialog: "SMS"

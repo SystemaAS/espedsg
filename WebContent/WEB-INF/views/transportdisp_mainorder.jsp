@@ -603,9 +603,9 @@
 						    				
 										&nbsp;<span title="wsbotm"><spring:message code="systema.transportdisp.orders.form.update.label.booking.time"/></span>
 						 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" name="wsbotm" id="wsbotm" size="4" maxlength="4" value="${model.record.wsbotm}">
-						 				&nbsp;<span title="hestn7"><spring:message code="systema.transportdisp.orders.form.update.label.prebooking"/></span>
-						 				<input type="text" class="inputTextMediumBlue11 tableCell" <c:if test="${not empty model.record.hestn7}">style="background-color:#FEEFB3; color:red; font-weight:bold;"</c:if> name="hestn7" id="hestn7" size="1" maxlength="1" value="${model.record.hestn7}">
-						 				
+						 				&nbsp;<span title="hestn7"><font <c:if test="${model.record.hestn7 == 'P'}"> style="font-weight:bold;"   </c:if>><spring:message code="systema.transportdisp.orders.form.update.label.prebooking"/></font></span>
+						 				<%-- <input type="text" class="inputTextMediumBlue11 tableCell" <c:if test="${not empty model.record.hestn7}">style="background-color:#FEEFB3; color:red; font-weight:bold;"</c:if> name="hestn7" id="hestn7" size="1" maxlength="1" value="${model.record.hestn7}"> --%>
+						 				<input style="width:14px; height:14px;" type="checkbox" id="hestn7" name="hestn7" value="P" <c:if test="${model.record.hestn7 == 'P'}"> checked </c:if>>
 						 			</td>	
 						 		</tr>
 							</table>
@@ -1166,9 +1166,14 @@
 						 			</td>
 						 			<td class="text11" >
 						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" size="20" maxlength="14" name="OWNwppns3" id="OWNwppns3" value="${model.record.wppns3}">
-						 				<c:if test="${empty model.record.travd1 && empty model.record.tropd1}">
+						 				<c:choose>
+						 				<c:when test="${empty model.record.travd1 && empty model.record.tropd1}">
 						 					<img id="viaFromDialogImg" style="vertical-align:top; cursor:pointer;" width="14px" height="14px" src="resources/images/add.png" border="0" alt="Via ekstra">
-						 				</c:if>
+						 				</c:when>
+						 				<c:otherwise>
+						 					<img id="viaFromDialogImgReadOnly" style="vertical-align:top; cursor:pointer;" width="12px" height="12px" src="resources/images/info4.png" border="0" alt="Via ekstra">
+						 				</c:otherwise>
+						 				</c:choose>
 						 			</td>
 						 			
 						 			
@@ -1250,9 +1255,14 @@
 						 			</td>
 						 			<td class="text11" >
 						 				<input readonly tabindex=-1 type="text" class="inputTextReadOnly" size="20" maxlength="14" name="OWNwppns4" id="OWNwppns4" value="${model.record.wppns4}">
-						 				<c:if test="${empty model.record.travd2 && empty model.record.tropd2}">
+						 				<c:choose>
+						 				<c:when test="${empty model.record.travd2 && empty model.record.tropd2}">
 						 					<img id="viaFrom2DialogImg" style="vertical-align:top; cursor:pointer;" width="14px" height="14px" src="resources/images/add.png" border="0" alt="Via ekstra">
-						 				</c:if>
+						 				</c:when>
+						 				<c:otherwise>
+						 					<img id="viaFrom2DialogImgReadOnly" style="vertical-align:top; cursor:pointer;" width="12px" height="12px" src="resources/images/info4.png" border="0" alt="Via ekstra">
+						 				</c:otherwise>
+						 				</c:choose>
 						 			</td>
 						 			
 					 			</tr>
@@ -2591,6 +2601,179 @@
 			</div>
 		</td>
 		</tr>
+		
+		
+		
+		<%-- -------------------------- --%>	
+ 		<%-- DUP dialog    --%>	
+ 		<%-- -------------------------- --%>	
+			 <tr>
+				<td>
+					<div id="dialogDupReadOnly" title="Dialog">
+								<table border="0">
+							 		<tr ><td class="text14" colspan="3"><b>Forfrakt&nbsp;&nbsp;DUP-Oppdrag</b></td></tr>
+									<tr>
+										<td class="text12"><span title="ffavd">Via avd</span></td>
+								 		<td class="text11">
+								 			<input readonly type="text" class="inputTextReadOnly" size="5" maxlength="4" name="ffavd" id="ffavd" value="${model.record.ffavd}">
+								 			
+								 		</td>
+								 		<td class="text12"><span title="ffoty">Opd.type</span></td>
+								 		<td class="text11">
+								 			<input readonly type="text" class="inputTextReadOnly" size="3" maxlength="2" name="ffoty" id="ffoty" value="${model.record.ffoty}">
+											
+								 		</td>
+								 		<td class="text12"><span title="fffrank">Frankatur</span></td>
+								 		<td class="text11">
+								 			<input readonly type="text" class="inputTextReadOnly" size="4" maxlength="3" name="fffrank" id="fffrank" value="${model.record.fffrank}">
+											
+								 		</td>
+								 	</tr>
+								 	<tr>		
+							 			<td class="text12"><span title="ffftxt">Fritext</span></td>
+							 			<td class="text11">
+							 				<input readonly type="text" class="inputTextReadOnly" size="2" maxlength="1" name="ffftxt" id="ffftxt" value="${model.record.ffftxt}">
+							 				
+							 			</td>
+							 			<td class="text12"><span title="ffmodul">Modul</span></td>
+							 			<td class="text11">
+							 				<input readonly type="text" class="inputTextReadOnly" size="2" maxlength="1" name="ffmodul" id="ffmodul" value="${model.record.ffmodul}">
+							 				
+							 			</td>
+							 			<td class="text12"><span title="ffpkod">Prod.kode</span></td>
+							 			<td class="text11">
+							 				<input readonly type="text" class="inputTextReadOnly" size="2" maxlength="1" name="ffpkod" id="ffpkod" value="${model.record.ffpkod}">
+							 				
+							 			</td>
+								 	</tr>
+								 	<tr height="10"><td class="text12" ></td></tr>
+								 	<tr>
+								 		<td colspan="10">
+								 		<table class="tableBorderWithRoundCorners3D">
+								 			<tr height="3"><td></td></tr>
+								 			<tr height="10"><td colspan="3" class="text12" ><b>...Eller lag Rekvisisjon</b></td></tr>
+									 		<tr>		
+								 			<td class="text12"><span title="ffbnr">Bilnr</span></td>
+								 			<td class="text11" colspan="2" >
+								 				<input readonly type="text" class="inputTextReadOnly" size="9" maxlength="8" name="ffbnr" id="ffbnr" value="${model.record.ffbnr}">
+								 				
+								 			</td>
+								 			<td class="text12"><span title="fftran">Transportør</span></td>
+								 			<td class="text11" colspan="2" >
+								 				<input readonly type="text" class="inputTextReadOnly" size="9" maxlength="8" name="fftran" id="fftran" value="${model.record.fftran}">
+								 				
+								 			</td>
+								 			</tr>
+								 			<tr>
+								 			<td class="text12"><span title="ffkomm">Kommentar</span></td>
+								 			<td class="text11" colspan="6" >
+								 				<input readonly type="text" class="inputTextReadOnly" size="36" maxlength="35" name="ffkomm" id="ffkomm" value="${model.record.ffkomm}">
+								 				
+								 			</td>
+								 			</tr>
+								 			<tr height="3"><td></td></tr>
+							 			</table>
+							 			</td>
+							 		</tr>
+								 	<tr height="5"><td class="text12" ></td></tr>
+								 	<tr>		
+							 			<td class="text12"><span title="ffbel">Beløp</span></td>
+							 			<td class="text11" colspan="3" >
+							 				<input readonly type="text" class="inputTextReadOnly" size="15" maxlength="15" name="ffbel" id="ffbel" value="${model.record.ffbel}">
+							 				
+							 				&nbsp;&nbsp;<span title="ffbelk"><font class="text12">A/E</font></span>
+							 				<input readonly type="text" class="inputTextReadOnly" size="3" maxlength="2" name="ffbelk" id="ffbelk" value="${model.record.ffbelk}">
+							 				
+							 			</td>
+								 	</tr>
+								 	
+								 	<tr height="12"><td colspan="10" ></td></tr>
+									<tr height="1"><td colspan="10" style="border-bottom:2px solid;border-color:#FFFFFF;" class="text"></td></tr>
+									<tr height="12"><td colspan="10" ></td></tr>
+								 	
+								 	<tr ><td class="text14" colspan="3"><b>Viderefrakt&nbsp;&nbsp;DUP-Oppdrag</b></td></tr>
+								 	<tr>
+										<td class="text12"><span title="vfavd">Via avd</span></td>
+								 		<td class="text11">
+								 			<input readonly type="text" class="inputTextReadOnly" size="5" maxlength="4" name="vfavd" id="vfavd" value="${model.record.vfavd}">
+								 			
+								 		</td>
+								 		<td class="text12"><span title="vfoty">Opd.type</span></td>
+								 		<td class="text11">
+								 			<input readonly type="text" class="inputTextReadOnly" size="4" maxlength="2" name="vfoty" id="vfoty" value="${model.record.vfoty}">
+											
+								 		</td>
+								 		<td class="text12"><span title="vffrank">Frankatur</span></td>
+								 		<td class="text11">
+								 			<input readonly type="text" class="inputTextReadOnly" size="4" maxlength="3" name="vffrank" id="vffrank" value="${model.record.vffrank}">
+								 		</td>
+								 	
+								 	</tr>
+								 	<tr>		
+							 			<td class="text12"><span title="vfftxt">Fritext</span></td>
+							 			<td class="text11">
+							 				<input readonly type="text" class="inputTextReadOnly" size="2" maxlength="1" name="vfftxt" id="vfftxt" value="${model.record.vfftxt}">
+							 				
+							 			</td>
+							 				
+							 			<td class="text12"><span title="vfmodul">Modul</span></td>
+							 			<td class="text11">
+							 				<input readonly type="text" class="inputTextReadOnly" size="2" maxlength="1" name="vfmodul" id="vfmodul" value="${model.record.vfmodul}">
+							 				
+							 			</td>
+							 			<td class="text12"><span title="vfpkod">Prod.kode</span></td>
+							 			<td class="text11">
+							 				<input readonly type="text" class="inputTextReadOnly" size="2" maxlength="1" name="vfpkod" id="vfpkod" value="${model.record.vfpkod}">
+							 				
+							 			</td>
+								 	</tr>
+								 	<tr height="10"><td class="text12" ></td></tr>	
+								 	<tr>	
+								 		<td colspan="10">
+								 		<table class="tableBorderWithRoundCorners3D">
+								 			<tr height="3"><td></td></tr>
+								 			<tr height="10"><td colspan="3" class="text12" ><b>...Eller lag Rekvisisjon</b></td></tr>
+										 	<tr>			
+								 			<td class="text12"><span title="vfbnr">Bilnr</span></td>
+								 			<td class="text11" colspan="2" >
+								 				<input readonly type="text" class="inputTextReadOnly" size="9" maxlength="8" name="vfbnr" id="vfbnr" value="${model.record.vfbnr}">
+								 				
+								 			</td>
+								 			<td class="text12"><span title="vftran">Transportør</span></td>
+								 			<td class="text11" colspan="2" >
+								 				<input readonly type="text" class="inputTextReadOnly" size="9" maxlength="8" name="vftran" id="vftran" value="${model.record.vftran}">
+								 				
+								 			</td>
+								 			</tr>
+								 			<tr>		
+								 			<td class="text12"><span title="vfkomm">Kommentar</span></td>
+								 			<td class="text11" colspan="6" >
+								 				<input readonly type="text" class="inputTextReadOnly" size="36" maxlength="35" name="vfkomm" id="vfkomm" value="${model.record.vfkomm}">
+								 				
+								 			</td>
+									 		</tr>
+									 		<tr height="3"><td></td></tr>
+							 			</table>
+							 			</td>
+								 	</tr>
+								 	
+								 	<tr height="5"><td class="text12" ></td></tr>
+								 	<tr>		
+							 			<td class="text12"><span title="vfbel">Beløp</span></td>
+							 			<td class="text11" colspan="4" >
+							 				<input readonly type="text" class="inputTextReadOnly" size="15" maxlength="15" name="vfbel" id="vfbel" value="${model.record.vfbel}">
+							 				
+							 				&nbsp;&nbsp;<span title="vfbelk"><font class="text12">A/E</font></span>
+							 				<input readonly type="text" class="inputTextReadOnly" size="3" maxlength="2" name="vfbelk" id="vfbelk" value="${model.record.vfbelk}">
+							 				
+							 			</td>
+							 			
+								 	</tr>	
+								</table>
+							</div>
+						</td>
+					</tr> 
+			
 		
 	
 </table>	
