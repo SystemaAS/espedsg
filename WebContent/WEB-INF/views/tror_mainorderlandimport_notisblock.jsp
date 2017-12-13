@@ -66,7 +66,7 @@
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_logging.do?avd=${recordOrderTrorLandImport.heavd}&sign=${recordOrderTrorLandImport.hesg}&opd=${recordOrderTrorLandImport.heopd}">
 					<img style="vertical-align: bottom" src="resources/images/log-icon.png" width="16" hight="16" border="0" alt="show log">
-					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.logging.tab"/></font>
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.logging.tab"/></font>&nbsp;<font class="text10Orange">F7</font>
 					
 				</a>
 			</td>
@@ -74,7 +74,7 @@
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_archive.do?avd=${recordOrderTrorLandImport.heavd}&sign=${recordOrderTrorLandImport.hesg}&opd=${recordOrderTrorLandImport.heopd}">
 					<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
-					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.archive.tab"/></font>
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.archive.tab"/></font>&nbsp;<font class="text10Orange">F8</font>
 				</a>
 			</td>
 			<c:if test="${recordOrderTrorLandImport.hepk1 == 'J' || recordOrderTrorLandImport.hepk1 == 'P'}">
@@ -82,7 +82,7 @@
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_freightbill_edit.do?dfavd=${recordOrderTrorLandImport.heavd}&sign=${recordOrderTrorLandImport.hesg}&dfopd=${recordOrderTrorLandImport.heopd}">
 						<img style="vertical-align: bottom" src="resources/images/fraktbrev.png" width="16" hight="16" border="0" alt="show freight doc">
-						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.fraktbrev.tab"/></font>
+						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.fraktbrev.tab"/></font>&nbsp;<font class="text10Orange">F3</font>
 					</a>
 				</td>
 			</c:if>	
@@ -90,7 +90,7 @@
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_more.do?avd=${recordOrderTrorLandImport.heavd}&sign=${recordOrderTrorLandImport.hesg}&opd=${recordOrderTrorLandImport.heopd}">
 					<img style="vertical-align: bottom" src="resources/images/sort_down.png" width="10" hight="10" border="0" alt="show more">
-					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.more.tab"/></font>
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.more.tab"/></font>&nbsp;<font class="text10Orange">F24</font>
 				</a>
 			</td>	
 			<td width="50%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
@@ -136,10 +136,11 @@
 							 	<input type="hidden" name="opd" id="opd" value="${model.opd}"/>
 							 	<input type="hidden" name="avd" id="avd" value="${model.avd}"/>
 							 	<input type="hidden" name="sign" id="sign" value="${model.sign}"/>
-							 	<%-- F-key shortcuts need this hidden keys --%>
-							 	<input type="hidden" name="heopd" id="heopd" value="${model.opd}"/>
-							 	<input type="hidden" name="heavd" id="heavd" value="${model.avd}"/>
-							 	
+							 	<%--for F-Keys shortcuts. Used only in trorFkeys_...js --%>
+								<input type="hidden" name="fkeysavd" id="fkeysavd" value='${recordOrderTrorLandImport.heavd}'>
+								<input type="hidden" name="fkeysopd" id="fkeysopd" value='${recordOrderTrorLandImport.heopd}'>
+								<input type="hidden" name="fkyessign" id="fkyessign" value='${recordOrderTrorLandImport.hesg}'>
+					
 						
 								<table width="80%" cellspacing="0" border="0" cellpadding="0">
 									<tr>

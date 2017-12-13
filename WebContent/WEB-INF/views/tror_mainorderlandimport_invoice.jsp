@@ -71,7 +71,7 @@
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_logging.do?avd=${recordOrderTrorLandImport.heavd}&sign=${recordOrderTrorLandImport.hesg}&opd=${recordOrderTrorLandImport.heopd}">
 					<img style="vertical-align: bottom" src="resources/images/log-icon.png" width="16" hight="16" border="0" alt="show log">
-					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.logging.tab"/></font>
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.logging.tab"/></font>&nbsp;<font class="text10Orange">F7</font>
 					
 				</a>
 			</td>
@@ -79,7 +79,7 @@
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_archive.do?avd=${recordOrderTrorLandImport.heavd}&sign=${recordOrderTrorLandImport.hesg}&opd=${recordOrderTrorLandImport.heopd}">
 					<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
-					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.archive.tab"/></font>
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.archive.tab"/></font>&nbsp;<font class="text10Orange">F8</font>
 					
 				</a>
 			</td>	
@@ -88,7 +88,7 @@
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 					<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_freightbill_edit.do?dfavd=${recordOrderTrorLandImport.heavd}&sign=${recordOrderTrorLandImport.hesg}&dfopd=${recordOrderTrorLandImport.heopd}">
 						<img style="vertical-align: bottom" src="resources/images/fraktbrev.png" width="16" hight="16" border="0" alt="show freight doc">
-						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.fraktbrev.tab"/></font>
+						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.fraktbrev.tab"/></font>&nbsp;<font class="text10Orange">F3</font>
 					</a>
 				</td>
 			</c:if>	
@@ -96,7 +96,7 @@
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_more.do?avd=${recordOrderTrorLandImport.heavd}&sign=${recordOrderTrorLandImport.hesg}&opd=${recordOrderTrorLandImport.heopd}">
 					<img style="vertical-align: bottom" src="resources/images/sort_down.png" width="10" hight="10" border="0" alt="show more">
-					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.more.tab"/></font>
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.more.tab"/></font>&nbsp;<font class="text10Orange">F24</font>
 				</a>
 			</td>
 						
@@ -402,10 +402,14 @@
 				 	<input type="hidden" name="fali" id="fali" value='${model.record.fali}'/>
 				 	<input type="hidden" name="heavd" id="heavd" value='${recordOrderTrorLandImport.heavd}'>
 	 				<input type="hidden" name="heopd" id="heopd" value='${recordOrderTrorLandImport.heopd}'>
-								
-				 	<input type="hidden" name="lineId" id="lineId" value="">
+					<input type="hidden" name="lineId" id="lineId" value="">
 				 	<%-- <input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" /> --%>
-				 	
+				 	<%--for F-Keys shortcuts. Used only in trorFkeys_...js --%>
+					<input type="hidden" name="fkeysavd" id="fkeysavd" value='${recordOrderTrorLandImport.heavd}'>
+					<input type="hidden" name="fkeysopd" id="fkeysopd" value='${recordOrderTrorLandImport.heopd}'>
+					<input type="hidden" name="fkyessign" id="fkyessign" value='${recordOrderTrorLandImport.hesg}'>
+						
+				
 				 	<%-- Topic ITEM CREATE --%>
 	 				<table width="100%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">

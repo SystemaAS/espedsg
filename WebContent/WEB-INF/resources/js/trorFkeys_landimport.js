@@ -34,39 +34,61 @@
   		 var f13 = 124;
   		 var f24 = 135;
 	  
-  		 var charCode = (evt.which) ? evt.which : event.keyCode;
-  		 //debug ->
-  		 //alert(charCode);
-  		 if (charCode == f10){
-  			 //Faktura link
-  			setBlockUIKeys();
-  			window.location.href = "tror_mainorderlandimport_invoice.do?action=doFetch&heavd=" + jq('#heavd').val() + "&heopd=" + jq('#heopd').val(); 
-  		 
-  		 }else if (charCode == f9){
-  			 //Notisblock link 
-  			setBlockUIKeys();
-  			window.location.href = "editNotisblock.do?action=doFetch&subsys=tror_li&avd=" + jq('#heavd').val() + "&opd=" + jq('#heopd').val() + "&sign=" + jq('#hesg').val(); 
-  		 
-  		 }else if (charCode == f2){
-  			 //Orderlist link 
-  			setBlockUIKeys();
-  			window.location.href = "tror_mainorderlist.do?action=doFind"; 
-  		 
-  		 }else if (charCode == f4){
-  			 //Order link 
-  			setBlockUIKeys();
-  			window.location.href = "tror_mainorderlandimport.do?action=doFetch&heavd=" + jq('#heavd').val() + "&heopd=" + jq('#heopd').val();
-  		 
-  		 }else if (charCode == f5){
-  			 //Fraktbrev
-   			setBlockUIKeys();
-   			window.location.href = "tror_mainorderlandimport_freightbill_edit.do?dfavd=" + jq('#heavd').val() + "&sign=" + jq('#hesg').val() + "&dfopd=" + jq('#heopd').val();
-   		 
-   		 }else if (charCode == f24){
-  			 //More 
-   			 setBlockUIKeys();
-   			 window.location.href = "tror_mainorderlandimport_more.do?avd=" + jq('#heavd').val() + "&sign=" + jq('#hesg').val() + "&opd=" + jq('#heopd').val();
-    		 
-		 }
+  		 //check shiftKey (Apple machines do use this ...	
+  		 if(event.shiftKey){
+  			var charCode = (evt.which) ? evt.which : event.keyCode; 
+  			//alert(charCode);
+  			if (charCode == f12){ //shift + F12 = F24 --> in apple
+  	  			 //More 
+  	   			 setBlockUIKeys();
+  	   			 window.location.href = "tror_mainorderlandimport_more.do?avd=" + jq('#fkeysavd').val() + "&sign=" + jq('#fkyessign').val() + "&opd=" + jq('#fkyesopd').val();	 
+  			}
+  			
+  		 }else{
+	  		 var charCode = (evt.which) ? evt.which : event.keyCode;
+	  		 //debug ->
+	  		 //alert(charCode);
+	  		 if (charCode == f10){
+	  			 //Faktura link
+	  			setBlockUIKeys();
+	  			window.location.href = "tror_mainorderlandimport_invoice.do?action=doFetch&heavd=" + jq('#fkeysavd').val() + "&heopd=" + jq('#fkeysopd').val(); 
+	  		 
+	  		 }else if (charCode == f9){
+	  			 //Notisblock link 
+	  			setBlockUIKeys();
+	  			window.location.href = "editNotisblock.do?action=doFetch&subsys=tror_li&avd=" + jq('#fkeysavd').val() + "&opd=" + jq('#fkeysopd').val() + "&sign=" + jq('#fkeyssign').val(); 
+	  		 
+	  		 }else if (charCode == f7){
+	  			 //EDI-logg link 
+	  			 setBlockUIKeys();
+	  			 window.location.href = "tror_mainorderlandimport_logging.do?avd=" + jq('#fkeysavd').val() + + "&sign=" + jq('#fkeysign').val() + "&opd=" + jq('#fkeysopd').val() ; 
+		  		 
+		  	}else if (charCode == f8){
+	  			 //Archive link 
+	  			 setBlockUIKeys();
+	  			window.location.href = "tror_mainorderlandimport_archive.do?avd=" + jq('#fkeysavd').val() + + "&sign=" + jq('#fkeyssign').val() + "&opd=" + jq('#fkeysopd').val() ; 
+		  		 
+		  	}else if (charCode == f2){
+	  			 //Orderlist link 
+	  			setBlockUIKeys();
+	  			window.location.href = "tror_mainorderlist.do?action=doFind"; 
+	  		 
+	  		 }else if (charCode == f4){
+	  			 //Order link 
+	  			setBlockUIKeys();
+	  			window.location.href = "tror_mainorderlandimport.do?action=doFetch&heavd=" + jq('#fkeysavd').val() + "&heopd=" + jq('#fkeysopd').val();
+	  		 
+	  		 }else if (charCode == f3){
+	  			 //Fraktbrev
+	   			setBlockUIKeys();
+	   			window.location.href = "tror_mainorderlandimport_freightbill_edit.do?dfavd=" + jq('#fkeysavd').val() + "&sign=" + jq('#fkeyssign').val() + "&opd=" + jq('#fkeysopd').val();
+	   		 
+	   		
+	  		 }else if (charCode == f24){ 
+  	  			 //More 
+  	   			 setBlockUIKeys();
+  	   			 window.location.href = "tror_mainorderlandimport_more.do?avd=" + jq('#fkeysavd').val() + "&sign=" + jq('#fkeyssign').val() + "&opd=" + jq('#fkeysopd').val();	 
+  			}
+  		 }	 
   	 });
   	
