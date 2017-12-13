@@ -35,21 +35,32 @@
   	  //START get totals from Fakt.tab
   	  jq('#getFakturaListSumButton').click(function() { 
   		  getFakturaSum();
+  		jq('#dkeh_28b').focus();
 	  });
   	  jq('#getFakturaListSum2Button').click(function() { 
   		  getFakturaSum();
+  		jq('#dkeh_221b').focus();
 	  });
   	  
   	  
   	  function getFakturaSum(){
-  		if(jq('#fakturaListTotSum').val()!='' && jq('#fakturaListTotValidCurrency').val()!='' ){  
+  		if(jq('#fakturaListTotSum').val() != '' && jq('#fakturaListTotValidCurrency').val() != '' ){  
 	  		jq('#dkeh_222').val(jq('#fakturaListTotSum').val());
 	  		jq('#dkeh_221').val(jq('#fakturaListTotValidCurrency').val());	
 	  		//jq('#KURS???').val(jq('#finansOpplysningarTotKurs').val());
 	  		
 	  		//for backwards compatibility meaning: ref till fakturalista
-  			jq('#dkeh_28b').val("FLERE FAKTURAER");
-  			jq('#dkeh_221b').focus();
+	  		if(jq('#fakturaListTotFaktnr').val() != ''){
+	  			if(jq('#dkeh_28b').val() == ''){
+	  				jq('#dkeh_28b').val(jq('#fakturaListTotFaktnr').val());
+	  			}	  			
+	  		}else{
+	  			if(jq('#dkeh_28b').val() == ''){
+	  				jq('#dkeh_28b').val("FLERE FAKTURAER");
+	  			}  			
+	  		}
+  			
+  			
   			
   		} 
   	  }

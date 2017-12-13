@@ -30,4 +30,8 @@ public class JsonSkatExportSpecificTopicFaktTotalRecord {
 	public void setTot_mrn(String value) {  this.tot_mrn = value; }
 	public String getTot_mrn() {return this.tot_mrn;}
 	
+	private String tot_fatx = null;
+	public void setTot_fatx(String value) {  this.tot_fatx = value; }
+	public String getTot_fatx() {return this.tot_fatx;}
+	
 }

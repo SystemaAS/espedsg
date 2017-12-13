@@ -44,5 +44,9 @@ public class SkatExportSpecificTopicTotalItemLinesObject {
 	public void setFakturaListMrn(String value) {  this.fakturaListMrn = value; }
 	public String getFakturaListMrn() { return this.fakturaListMrn; }
 	
+	private String fakturaListTotFaktnr = null;
+	public void setFakturaListTotFaktnr(String value) {  this.fakturaListTotFaktnr = value; }
+	public String getFakturaListTotFaktnr() { return this.fakturaListTotFaktnr; }
+	
 	
 }

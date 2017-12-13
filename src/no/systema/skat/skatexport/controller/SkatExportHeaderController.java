@@ -187,6 +187,7 @@ public class SkatExportHeaderController {
 				totalItemLinesObject.setFakturaListTotSum(sumFaktTotalRecord.getTot_fabl());
 				totalItemLinesObject.setFakturaListTotKurs(sumFaktTotalRecord.getTot_vaku());
 				totalItemLinesObject.setFakturaListMrn(sumFaktTotalRecord.getTot_mrn());
+				totalItemLinesObject.setFakturaListTotFaktnr(sumFaktTotalRecord.getTot_fatx());
 				
 				//-------------
 				//FETCH RECORD
@@ -243,6 +244,7 @@ public class SkatExportHeaderController {
 						recordToValidate.setSumOfAntalKolliInItemLines(totalItemLinesObject.getSumOfAntalKolliInItemLines());
 						recordToValidate.setSumOfAntalItemLines(totalItemLinesObject.getSumOfAntalItemLines());
 						recordToValidate.setSumTotalAmountItemLines(totalItemLinesObject.getSumTotalAmountItemLines());
+						
 						
 					}else{
 						recordToValidate.setDkeh_syav(avd);
@@ -1569,6 +1571,7 @@ public class SkatExportHeaderController {
 			record.setFakturaListTotSum(totalItemLinesObject.getFakturaListTotSum());
 			record.setFakturaListTotKurs(totalItemLinesObject.getFakturaListTotKurs());
 			record.setFakturaListMrn(totalItemLinesObject.getFakturaListMrn());
+			record.setFakturaListTotFaktnr(totalItemLinesObject.getFakturaListTotFaktnr());
 			
 			
 			model.put(SkatConstants.DOMAIN_RECORD, record);

@@ -1021,6 +1021,7 @@
 							            <input readonly type="text" class="inputTextReadOnly"  name="fakturaListTotValidCurrency" id="fakturaListTotValidCurrency" size="5" value='${ model.record.fakturaListTotValidCurrency}'>
 							            &nbsp;<button title="Hente summen fra Fakturaer" name="getFakturaListSumButton" id="getFakturaListSumButton" class="buttonGrayWithGreenFrame" type="button" >Hente summen</button>
 							            <input type="hidden" name="fakturaListTotKurs" id="fakturaListTotKurs" value='${ model.record.fakturaListTotKurs}'>
+							            <input type="hidden" name="fakturaListTotFaktnr" id="fakturaListTotFaktnr" value='${ model.record.fakturaListTotFaktnr}'>
 							            </td>
 							        </tr>
 							         
