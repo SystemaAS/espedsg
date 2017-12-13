@@ -32,6 +32,7 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.transportdisp.util.TransportDispConstants;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicContainer;
+import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicListContainer;
 import no.systema.tvinn.sad.sadimport.url.store.SadImportUrlDataStore;
 import no.systema.tvinn.sad.util.TvinnSadConstants;
 import no.systema.tvinn.sad.z.maintenance.felles.service.MaintSadFellesKodtsiService;
@@ -120,6 +121,51 @@ public class ReportDashboardController {
 			}
 		}
 	}	
+	
+
+	@RequestMapping(value="report_dashboard_toSadImport.do")
+	public ModelAndView doViewImportDetails(HttpSession session, HttpServletRequest request){
+		String opd = request.getParameter("opd");
+		String avd = request.getParameter("avd");
+		String sysg = request.getParameter("sysg");
+
+		SystemaWebUser appUser = (SystemaWebUser) session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_TVINN_SAD_IMPORT);
+		appUser.setAuthorizedTvinnSadUserAS400("Y");
+		appUser.setTvinnSadSign(sysg);
+
+		ModelAndView successView = null;
+
+		if (appUser == null || "".equals(appUser)) {
+			return this.loginView;
+		} else {
+			successView = new ModelAndView("redirect:tvinnsadimport_edit.do?action=doFetch" + "&avd=" + avd + "&opd=" + opd + "&sysg=" + sysg);
+		}
+
+		return successView;
+	}
+	
+	@RequestMapping(value = "report_dashboard_toSadExport.do")
+	public ModelAndView doViewExportDetails(HttpSession session, HttpServletRequest request) {
+		String opd = request.getParameter("opd");
+		String avd = request.getParameter("avd");
+		String sysg = request.getParameter("sysg");
+
+		SystemaWebUser appUser = (SystemaWebUser) session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_TVINN_SAD_EXPORT);
+		appUser.setAuthorizedTvinnSadUserAS400("Y");
+		appUser.setTvinnSadSign(sysg);
+
+		ModelAndView successView = null;
+
+		if (appUser == null || "".equals(appUser)) {
+			return this.loginView;
+		} else {
+			successView = new ModelAndView("redirect:tvinnsadexport_edit.do?action=doFetch" + "&avd=" + avd + "&opd=" + opd + "&sysg=" + sysg);
+		}
+
+		return successView;
+	}
 	
 	
 	private List<ChildWindowKode> getCodeList(SystemaWebUser appUser, String caller) {

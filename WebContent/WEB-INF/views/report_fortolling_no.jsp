@@ -61,8 +61,8 @@ var merknaderDescUrl = "/syjservicestn/syjsTVI99D.do?user=${user.user}";
 var avdelingDescUrl = "/syjservicesbcore/syjsSYFA14R.do?user=${user.user}";
 var signaturerDescUrl = "/syjservicestn/syjsSYFT10R.do?user=${user.user}";
 
-var baseImportUrl = "/espedsg/tvinnsadimport_edit.do?action=doFetch";  //GUI
-var baseImportDataUrl = "/syjservicesbcore/syjsSADH.do?user=${user.user}";  //Data  
+var baseImportUrl = "/espedsg/report_dashboard_toSadImport.do?action=doFetch";  //GUI
+var baseExportUrl = "/espedsg/report_dashboard_toSadExport.do?action=doFetch";  //GUI
 
 var merknader;
 var avdelinger;
@@ -821,16 +821,15 @@ function load_data() {
 						"targets" : 0,
 					    "render": function ( data, type, row, meta ) {
 					    	if (row.type == 'Import') {
-						    	var url= baseImportUrl+'&avd='+row.avdeling+'&opd='+row.deklarasjonsnr;
+						    	var url= baseImportUrl+'&avd='+row.avdeling+'&opd='+row.deklarasjonsnr+'&sysg=${user.signatur}';
 						    	console.log('url', url);
 						    	var href = '<a href="#"'+ ' onclick="javascript:popItUp(\''+url+'\');"'+'>'+data+'</a>';
 						    	console.log('href', href);
 						    	return href;
 					    	} else {
-						    	var url= baseImportUrl+'&avd='+row.avdeling+'&opd='+row.deklarasjonsnr;
-						    	url = 'https://www.youtube.com/embed/SYaJj_OCcTI?list=PLQKID8qVGYAM8GClGfjO6dLll2GRtOHu7';
+						    	var url= baseExportUrl+'&avd='+row.avdeling+'&opd='+row.deklarasjonsnr+'&sysg=${user.signatur}';
 						    	console.log('url', url);
-						    	var href = '<a href="#"'+ ' onclick="javascript:popItUp(\''+url+'\');"'+'>Export ikke tilstede enda.</a>';
+						    	var href = '<a href="#"'+ ' onclick="javascript:popItUp(\''+url+'\');"'+'>'+data+'</a>';
 						    	console.log('href', href);
 						    	return href;
 					    	}
