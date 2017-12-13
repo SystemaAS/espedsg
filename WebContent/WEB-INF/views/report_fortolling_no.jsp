@@ -35,19 +35,6 @@
 
 .col-md-4 { margin-right: -30px; margin-left: 15px;  }
 
-
-td.details-control {
-    background: url('/espedsg/resources/images/update.gif') no-repeat center center;
-    cursor: pointer;
-}
-
-//Biter inte...
-tr.shown td.details-control {
-    background: url('/espedsg/resources/images/bulletRed.gif'') no-repeat center center;
-}
-
-
-
 </style>
 
 <script type="text/javascript">
@@ -60,13 +47,14 @@ var baseUrl = "/syjservicesbcore/syjsFORTOLLING_DB.do?user=${user.user}";
 var merknaderDescUrl = "/syjservicestn/syjsTVI99D.do?user=${user.user}";
 var avdelingDescUrl = "/syjservicesbcore/syjsSYFA14R.do?user=${user.user}";
 var signaturerDescUrl = "/syjservicestn/syjsSYFT10R.do?user=${user.user}";
-
-var baseImportUrl = "/espedsg/report_dashboard_toSadImport.do?action=doFetch";  //GUI
-var baseExportUrl = "/espedsg/report_dashboard_toSadExport.do?action=doFetch";  //GUI
+var avsnittDescUrl = "/syjservicesbcore/syjsSADKAA.do?user=${user.user}";
+var baseImportUrl = "/espedsg/report_dashboard_toSadImport.do?action=doFetch";
+var baseExportUrl = "/espedsg/report_dashboard_toSadExport.do?action=doFetch";
 
 var merknader;
 var avdelinger;
 var signaturer;
+var avsnitter;
 
 var colorMap = {
         "fortollinger": "#69c",
@@ -136,6 +124,26 @@ d3.queue()
 				
 			})
 	 }, signaturerDescUrl)	
+	.defer(function(avsnittDescUrl, callback) {
+			d3.json(avsnittDescUrl, function(error, data) {
+				if (error) {
+					jq.unblockUI();
+				}
+
+				callback(error, data);
+
+				if (data.dtoList == '') {
+					jq.unblockUI();
+					alert('Ingen data for avsnitt.');  
+					return "no data found";
+				} else {
+					avsnitter = data.dtoList;
+				}
+				
+				console.log(" 1 Desc XV="+_.findWhere(avsnitter,{sadkaa02:'XV'}).sadkaa03);		
+				
+			})
+	 }, avsnittDescUrl)		 
 	.awaitAll(function(error, data) { 
 			if (error) console.log("error",error);
 	});
@@ -155,14 +163,11 @@ function getMerknadDesc(id) {
 function getAvdelingDesc(id) {
 	var cadaquienconsucacaenloscalzones = ''+id+'';
 	var desc =  _.findWhere(avdelinger,{koaavd:cadaquienconsucacaenloscalzones});
-	//console.log("desc",desc);
-
 	if (desc != null && desc != "") {
 		return desc.koanvn;
 	} else {
 		return "["+id+" ikke funnet som avdeling i vedlikehold.]";		
 	}
-
 }
 
 function getSignaturDesc(id) {
@@ -173,6 +178,15 @@ function getSignaturDesc(id) {
 		return "["+id+" ikke funnet som gyldig tariffør i vedlikehold.]";		
 	}
 
+}
+
+function getAvsnittDesc(id) {
+	var desc =  _.findWhere(avsnitter,{sadkaa02:id});		
+	if (desc != null && desc != "") {
+		return desc.sadkaa03;
+	} else {
+		return "["+id+" ikke funnet.]";		
+	}
 }
 
 function popItUp(url) {
@@ -241,6 +255,7 @@ function load_data() {
 		  d.signatur =   d.signatur;
 		  d.mottaker =   d.mottaker;
 		  d.edim =   d.edim;
+		  d.avsnitt = d.avsnitt;
 		});
 
 		// set crossfilter. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
@@ -257,8 +272,8 @@ function load_data() {
 		var  sisgDim  = toll.dimension(function(d) {return d.signatur;});
 		var  typeDim  = toll.dimension(function(d) {return d.type;});
 		var  edimDim  = toll.dimension(function(d) {return d.edim;});
+		var  avsnittDim  = toll.dimension(function(d) {return d.avsnitt;});
 		var  inputTypeDim  = toll.dimension(function(d) {return "EDI";}); //TODO
-		var  kapittelDim  = toll.dimension(function(d) {return "XXX";});  //TODO
 		var  openDaysDim  = toll.dimension(function(d) {return "YYY";});  //TODO
 		//Charts 
 		var  typeChart   = dc.pieChart("#chart-ring-type");
@@ -267,7 +282,7 @@ function load_data() {
 		var  sisgChart   = dc.pieChart('#chart-ring-sisg');
 		var  edimChart   = dc.pieChart('#chart-ring-edim');
 		var  inputTypeChart   = dc.pieChart('#chart-ring-inputtype'); //TODO
-		var  kapittelChart   = dc.pieChart('#chart-ring-kapittel');   //TODO
+		var  avsnittChart   = dc.pieChart('#chart-ring-avsnitt'); 
 		var  openDaysChart   = dc.pieChart('#chart-ring-opendays');   //TODO
 		var  varuposterChart = dc.barChart("#chart-varuposter");
 		var  dataCount = dc.dataCount('#data-count')	 
@@ -281,8 +296,8 @@ function load_data() {
 		var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  typeDimGroup = typeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  edimDimGroup = edimDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+		var  avsnittDimGroup = avsnittDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  inputTypeDimGroup = inputTypeDim.group().reduceSum(function(d) {return d;});  //TODO
-		var  kapittelDimGroup = kapittelDim.group().reduceSum(function(d) {return d;});  //TODO
 		var  openDaysDimGroup = openDaysDim.group().reduceSum(function(d) {return d;});  //TODO
 		//Group reduce
 	    var dateDimGroup =  dateDim.group().reduce(   
@@ -393,22 +408,39 @@ function load_data() {
 	            ].join('\n');	
 		});			
 		
-		kapittelChart //TODO
+		avsnittChart
 		    .width(300)
 		    .height(300)
-		    .dimension(kapittelDim)
-		    .group(kapittelDimGroup)
+		    .dimension(avsnittDim)
+		    .group(avsnittDimGroup)
+		    .slicesCap(25)
 		    .externalRadiusPadding(50)
+		    .legend(dc.legend().y(10).itemHeight(8).gap(3))
 		    .innerRadius(30)
+		    .renderLabel(true)
 		    .on("filtered", getFiltersValues)
+			.on('renderlet', function (chart) {
+					var legends = chart.selectAll(".dc-legend-item");
+			   		legends
+			   			.append('title').text(function (d) {
+						  	var percentage;
+						  	percentage = d.data / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
+				            return [
+				                d.name + ':',
+				                getAvsnittDesc(d.name),     
+				                percentageFormat(percentage)
+				            ].join('\n');	
+			   			});
+             })	
 		    .emptyTitle('tom')
 		    .title(function (d) {
 			  	var percentage;
-			  	percentage = 45;
+			  	percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
 	            return [
 	                d.key + ':',
+	                getAvsnittDesc(d.key),     
 	                percentageFormat(percentage)
-	            ].join('\n');	
+	            ].join('\n');		
 		});			
 	
 		openDaysChart  //TODO
@@ -698,8 +730,8 @@ function load_data() {
 			edimChart.filterAll();
 			dc.redrawAll();
 		});	
-		d3.selectAll('a#kapittel').on('click', function () {
-			kapittelChart.filterAll();
+		d3.selectAll('a#avsnitt').on('click', function () {
+			avsnittChart.filterAll();
 			dc.redrawAll();
 		});			
 		d3.selectAll('a#inputtype').on('click', function () {
@@ -743,7 +775,7 @@ function load_data() {
 	        var saveData = data.map(function(obj) {
 	            return {avdeling: obj.avdeling, deklarasjonsnr: obj.deklarasjonsnr, reg_vareposter: obj.reg_vareposter, 
 	            		off_vareposter: obj.off_vareposter, registreringsdato: obj.registreringsdato,
-	            		signatur: obj.signatur, mottaker: obj.mottaker, merknad: obj.edim};
+	            		signatur: obj.signatur, mottaker: obj.mottaker, merknad: obj.edim, avsnitt: obj.avsnitt};
 	        });
 	       
 			var blob = new Blob([d3.tsv.format(saveData)], {type: "application/ms-excel;charset=utf-8"});  // text/csv
@@ -780,7 +812,8 @@ function load_data() {
 		      function (d) { return d.signatur ; },
 		      function (d) { return d.mottaker ; },
 		      function (d) { return d.type ; },
-		      function (d) { return d.edim ; }
+		      function (d) { return d.edim ; },
+		      function (d) { return d.avsnitt ; }
 		    ])
 		    .on('renderlet', function (table) {
 		      	// each time table is rendered remove nasty extra row dc.js insists on adding
@@ -813,7 +846,8 @@ function load_data() {
 		            { "data": "signatur" },
 		            { "data": "mottaker" },
 		            { "data": "type" },
-		            { "data": "edim" }		
+		            { "data": "edim" },
+		            { "data": "avsnitt" }		
 		        ],			
 				destroy : true,
 				"columnDefs" : [ 
@@ -822,15 +856,11 @@ function load_data() {
 					    "render": function ( data, type, row, meta ) {
 					    	if (row.type == 'Import') {
 						    	var url= baseImportUrl+'&avd='+row.avdeling+'&opd='+row.deklarasjonsnr+'&sysg=${user.signatur}';
-						    	console.log('url', url);
 						    	var href = '<a href="#"'+ ' onclick="javascript:popItUp(\''+url+'\');"'+'>'+data+'</a>';
-						    	console.log('href', href);
 						    	return href;
 					    	} else {
 						    	var url= baseExportUrl+'&avd='+row.avdeling+'&opd='+row.deklarasjonsnr+'&sysg=${user.signatur}';
-						    	console.log('url', url);
 						    	var href = '<a href="#"'+ ' onclick="javascript:popItUp(\''+url+'\');"'+'>'+data+'</a>';
-						    	console.log('href', href);
 						    	return href;
 					    	}
 					    }
@@ -1080,10 +1110,10 @@ window.addEventListener('error', function (e) {
 						    <div class="clear"></div>		
 				     	</div>
 
-						<div class="col-md-3" id="chart-ring-kapittel">
-						 	<h3 class="text12" align="center">Kapittel</h3>
+						<div class="col-md-3" id="chart-ring-avsnitt">
+						 	<h3 class="text12" align="center">Avsnitt</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="kapittel" style="display: none;"> - <i>tilbakestill filter</i></a>
+						    <a class="reset" id="avsnitt" style="display: none;"> - <i>tilbakestill filter</i></a>
  							<div class="clear"></div>			
 				        </div>
  
@@ -1162,6 +1192,7 @@ window.addEventListener('error', function (e) {
 				            <th>mottaker</th>
 				            <th>type</th>
 				            <th>merknad</th>
+				            <th>avsnitt</th>
 				          </tr>
 				        </thead>
 
