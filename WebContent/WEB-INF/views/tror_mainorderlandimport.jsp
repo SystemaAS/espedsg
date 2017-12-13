@@ -80,7 +80,7 @@
 						<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 							<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_freightbill_edit.do?dfavd=${model.record.heavd}&sign=${model.record.hesg}&dfopd=${model.record.heopd}">
 								<img style="vertical-align: bottom" src="resources/images/fraktbrev.png" width="16" hight="16" border="0" alt="show freight doc">
-								<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.fraktbrev.tab"/></font>
+								<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.fraktbrev.tab"/></font>&nbsp;<font class="text10Orange">F3</font>
 							</a>
 						</td>
 					</c:if>
@@ -88,7 +88,7 @@
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_more.do?avd=${model.record.heavd}&sign=${model.record.hesg}&opd=${model.record.heopd}">
 							<img style="vertical-align: bottom" src="resources/images/sort_down.png" width="10" hight="10" border="0" alt="show more">
-							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.more.tab"/></font>
+							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.more.tab"/></font>&nbsp;<font class="text10Orange">F24</font>
 						</a>
 					</td>
 					

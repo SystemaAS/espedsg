@@ -30,7 +30,15 @@
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
 	  });
   	  
+  	  //START get totals from Fakt.tab
   	  jq('#getFakturaListSumButton').click(function() { 
+  		  getFakturaSum();
+	  });
+  	  /* TODO in JSP (as in export ...)
+  	  jq('#getFakturaListSum2Button').click(function() { 
+  		  getFakturaSum();
+	  });*/
+  	  function getFakturaSum(){
   		if(jq('#fakturaListTotSum').val()!='' && jq('#fakturaListTotValidCurrency').val()!='' ){  
 	  		jq('#dkih_222').val(jq('#fakturaListTotSum').val());
 	  		jq('#dkih_221').val(jq('#fakturaListTotValidCurrency').val());	
@@ -39,8 +47,9 @@
 	  		//for backwards compatibility meaning: ref till fakturalista
   			jq('#dkih_28b').val("FLERE FAKTURAER");
   			
-  		}
-	  });
+  		} 
+  	  }
+  	  //END get totals from Fakt.tab
   	  
   	  //----------------
   	  //CUSTOMER search

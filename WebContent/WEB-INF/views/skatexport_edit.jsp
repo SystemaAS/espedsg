@@ -204,7 +204,7 @@
 							<input type="hidden" name="testAvdFlag" id="testAvdFlag" value='${isTestAvd}'>
 						</font>
 					</c:if>
-					&nbsp;&nbsp;&nbsp;<input id="updateProformaCheckbox" type="checkbox" name="dkeh_prof" id="dkeh_prof" value="1" <c:if test="${not empty model.record.dkeh_prof}"> checked </c:if>  ><font class="text12MediumBlue">Proformaangivelse</font>
+					&nbsp;&nbsp;&nbsp;<input id="updateProformaCheckbox" type="checkbox" name="dkeh_prof" id="dkeh_prof" value="1" <c:if test="${not empty model.record.dkeh_prof}"> checked </c:if> ><span title="dkeh_prof"><font class="text12MediumBlue">Proformaangivelse</font></span>
 					<div id=updateProformaIcon style="display:inline;">
 						<a tabindex=-1 id="updateProformaLink" runat="server" href="#">
 							<img src="resources/images/update.gif" border="0" alt="edit">
@@ -604,13 +604,14 @@
 			 				</td>
 		 				</tr>
 		 				<tr>
-			 				<td class="text12" align="right">
-				 				<span title="dkeh_221b" id="v_dkeh_221b" class="validation">Kurs&nbsp;</span>
+			 				<td class="text12" align="left">
+				 				<span title="dkeh_221b" id="v_dkeh_221b" class="validation">&nbsp;Kurs&nbsp;</span>
 				 			</td>
 				 			<td class="text12" align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="dkeh_221b" id="dkeh_221b" size="20" maxlength="20" value="${model.record.dkeh_221b}"></td>
 				 			<td class="text12" align="left" >&nbsp;
 					 			<span title="dkeh_221c">Faktor</span>
 					 			<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dkeh_221c" id="dkeh_221c" size="8" maxlength="7" value="${model.record.dkeh_221c}">
+					 			&nbsp;<button title="Hente summen fra Fakturaer" name="getFakturaListSum2Button" id="getFakturaListSum2Button" class="buttonGrayWithGreenFrame" type="button" >Hente summen</button>
 				 			</td>
 		 				</tr>
 		 				<tr height="2"><td></td></tr>
@@ -1014,7 +1015,7 @@
 							        </tr>
 							        <tr>
 							            <td colspan="5" class="text12" align="left" >&nbsp;
-							            <span title="fakturaListTotSum/fakturaListTotValidCurrency"></span>Fakturasum. fra Fakturaer&nbsp;</span>
+							            <span title="fakturaListTotSum/fakturaListTotValidCurrency">Fakturasum. fra Fakturaer&nbsp;</span>
 							            <input readonly type="text" class="inputTextReadOnly"  name="fakturaListTotSum" id="fakturaListTotSum" size="15" value='${ model.record.fakturaListTotSum}'>
 							            &nbsp;&nbsp;
 							            <input readonly type="text" class="inputTextReadOnly"  name="fakturaListTotValidCurrency" id="fakturaListTotValidCurrency" size="5" value='${ model.record.fakturaListTotValidCurrency}'>

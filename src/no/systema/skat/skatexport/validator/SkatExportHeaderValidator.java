@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 
 import no.systema.main.util.DateTimeManager;
+import no.systema.main.util.StringManager;
 import no.systema.main.validator.DateValidator;
 import no.systema.skat.skatexport.model.jsonjackson.topic.JsonSkatExportSpecificTopicRecord;
 import no.systema.skat.skatexport.model.jsonjackson.topic.items.JsonSkatExportSpecificTopicItemContainer;
@@ -24,6 +25,7 @@ import no.systema.skat.skatexport.model.jsonjackson.topic.items.JsonSkatExportSp
  *
  */
 public class SkatExportHeaderValidator implements Validator {
+	StringManager strMgr = new StringManager();
 	
 	final String ANG_ART_20_ALU = "20";
 	final String ANG_ART_21_FOU = "21";
@@ -73,8 +75,11 @@ public class SkatExportHeaderValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_r012", "systema.skat.export.header.error.null.dkeh_r012");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_a1", "systema.skat.export.header.error.null.dkeh_a1");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_17a", "systema.skat.export.header.error.null.dkeh_17a");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_dtm1", "systema.skat.export.header.error.null.dkeh_dtm1");
+			if( strMgr.isNull((record.getDkeh_prof())) ){
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_dtm1", "systema.skat.export.header.error.null.dkeh_dtm1");
+			}
+			
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_25", "systema.skat.export.header.error.null.dkeh_25");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_26", "systema.skat.export.header.error.null.dkeh_26");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_08b", "systema.skat.export.header.error.null.dkeh_08b");
@@ -96,8 +101,11 @@ public class SkatExportHeaderValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_r012", "systema.skat.export.header.error.null.dkeh_r012");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_a1", "systema.skat.export.header.error.null.dkeh_a1");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_17a", "systema.skat.export.header.error.null.dkeh_17a");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_dtm1", "systema.skat.export.header.error.null.dkeh_dtm1");
+			if( strMgr.isNull((record.getDkeh_prof())) ){
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_dtm1", "systema.skat.export.header.error.null.dkeh_dtm1");
+			}
+			
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_25", "systema.skat.export.header.error.null.dkeh_25");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_26", "systema.skat.export.header.error.null.dkeh_26");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_02a", "systema.skat.export.header.error.null.dkeh_02a");
@@ -136,8 +144,12 @@ public class SkatExportHeaderValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_r012", "systema.skat.export.header.error.null.dkeh_r012");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_a1", "systema.skat.export.header.error.null.dkeh_a1");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_17a", "systema.skat.export.header.error.null.dkeh_17a");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_dtm1", "systema.skat.export.header.error.null.dkeh_dtm1");
+			if( strMgr.isNull((record.getDkeh_prof())) ){
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_21", "systema.skat.export.header.error.null.dkeh_21");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_dtm1", "systema.skat.export.header.error.null.dkeh_dtm1");
+			}
+			
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_25", "systema.skat.export.header.error.null.dkeh_25");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_26", "systema.skat.export.header.error.null.dkeh_26");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_08b", "systema.skat.export.header.error.null.dkeh_08b");
@@ -147,7 +159,6 @@ public class SkatExportHeaderValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_08f", "systema.skat.export.header.error.null.dkeh_08f");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_s29", "systema.skat.export.header.error.null.dkeh_s29");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_06", "systema.skat.export.header.error.null.dkeh_06");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_21", "systema.skat.export.header.error.null.dkeh_21");
 			
 			//Fakt.belopp and related fields
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_221", "systema.skat.export.header.error.null.dkeh_221");
@@ -159,8 +170,11 @@ public class SkatExportHeaderValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_r012", "systema.skat.export.header.error.null.dkeh_r012");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_a1", "systema.skat.export.header.error.null.dkeh_a1");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_17a", "systema.skat.export.header.error.null.dkeh_17a");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_dtm1", "systema.skat.export.header.error.null.dkeh_dtm1");
+			if( strMgr.isNull((record.getDkeh_prof())) ){
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_dtm1", "systema.skat.export.header.error.null.dkeh_dtm1");
+			}
+			
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_25", "systema.skat.export.header.error.null.dkeh_25");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_26", "systema.skat.export.header.error.null.dkeh_26");
 			//Motdager
@@ -180,7 +194,9 @@ public class SkatExportHeaderValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_r012", "systema.skat.export.header.error.null.dkeh_r012");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_a1", "systema.skat.export.header.error.null.dkeh_a1");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_17a", "systema.skat.export.header.error.null.dkeh_17a");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
+			if( strMgr.isNull((record.getDkeh_prof())) ){
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
+			}
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_dtm2", "systema.skat.export.header.error.null.dkeh_dtm2");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_25", "systema.skat.export.header.error.null.dkeh_25");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_26", "systema.skat.export.header.error.null.dkeh_26");
@@ -201,7 +217,6 @@ public class SkatExportHeaderValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_r011", "systema.skat.export.header.error.null.dkeh_r011");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_r012", "systema.skat.export.header.error.null.dkeh_r012");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_a1", "systema.skat.export.header.error.null.dkeh_a1");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_dtm1", "systema.skat.export.header.error.null.dkeh_dtm1");
 			//Afsender
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_02a", "systema.skat.export.header.error.null.dkeh_02a");
 			//Motdager
@@ -214,7 +229,11 @@ public class SkatExportHeaderValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_17a", "systema.skat.export.header.error.null.dkeh_17a");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_ind", "systema.skat.export.header.error.null.dkeh_ind");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_s29", "systema.skat.export.header.error.null.dkeh_s29");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
+			if( strMgr.isNull((record.getDkeh_prof())) ){
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_dtm1", "systema.skat.export.header.error.null.dkeh_dtm1");
+				
+			}
 			//Proviant
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_ftx1", "systema.skat.export.header.error.null.dkeh_ftx1");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_ftx2", "systema.skat.export.header.error.null.dkeh_ftx2");
@@ -270,7 +289,6 @@ public class SkatExportHeaderValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_a1", "systema.skat.export.header.error.null.dkeh_a1");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_r011", "systema.skat.export.header.error.null.dkeh_r011");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_r012", "systema.skat.export.header.error.null.dkeh_r012");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_dtm1", "systema.skat.export.header.error.null.dkeh_dtm1");
 			/*
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_gis1", "systema.skat.export.header.error.null.dkeh_gis1");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_gis2", "systema.skat.export.header.error.null.dkeh_gis2");
@@ -281,7 +299,11 @@ public class SkatExportHeaderValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_s131", "systema.skat.export.header.error.null.dkeh_s131");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_s29", "systema.skat.export.header.error.null.dkeh_s29");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_06", "systema.skat.export.header.error.null.dkeh_06");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
+			if( strMgr.isNull((record.getDkeh_prof())) ){
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_dtm1", "systema.skat.export.header.error.null.dkeh_dtm1");
+				
+			}
 			//Motdager
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_08b", "systema.skat.export.header.error.null.dkeh_08b");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_08c", "systema.skat.export.header.error.null.dkeh_08c");
@@ -298,7 +320,9 @@ public class SkatExportHeaderValidator implements Validator {
 			
 		}else if(this.ANG_ART_50_IE507.equals(record.getDkeh_aart())){
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_ajou", "systema.skat.export.header.error.null.dkeh_ajou");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
+			if( strMgr.isNull((record.getDkeh_prof())) ){
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
+			}
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_uvp", "systema.skat.export.header.error.null.dkeh_uvp");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_treo", "systema.skat.export.header.error.null.dkeh_treo");
 			/*
@@ -323,7 +347,9 @@ public class SkatExportHeaderValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_26", "systema.skat.export.header.error.null.dkeh_26");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_s29", "systema.skat.export.header.error.null.dkeh_s29");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_06", "systema.skat.export.header.error.null.dkeh_06");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
+			if( strMgr.isNull((record.getDkeh_prof())) ){
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
+			}
 			//Fakt.belopp and related fields
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_221", "systema.skat.export.header.error.null.dkeh_221");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_221b", "systema.skat.export.header.error.null.dkeh_221b");
@@ -350,7 +376,9 @@ public class SkatExportHeaderValidator implements Validator {
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_26", "systema.skat.export.header.error.null.dkeh_26");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_s29", "systema.skat.export.header.error.null.dkeh_s29");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_06", "systema.skat.export.header.error.null.dkeh_06");
-			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
+			if( strMgr.isNull((record.getDkeh_prof())) ){
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_29", "systema.skat.export.header.error.null.dkeh_29");
+			}
 			//Fakt.belopp and related fields
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_221", "systema.skat.export.header.error.null.dkeh_221");
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dkeh_221b", "systema.skat.export.header.error.null.dkeh_221b");

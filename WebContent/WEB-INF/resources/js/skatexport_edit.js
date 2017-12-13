@@ -31,7 +31,17 @@
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
 	  });
   	  
+  	  
+  	  //START get totals from Fakt.tab
   	  jq('#getFakturaListSumButton').click(function() { 
+  		  getFakturaSum();
+	  });
+  	  jq('#getFakturaListSum2Button').click(function() { 
+  		  getFakturaSum();
+	  });
+  	  
+  	  
+  	  function getFakturaSum(){
   		if(jq('#fakturaListTotSum').val()!='' && jq('#fakturaListTotValidCurrency').val()!='' ){  
 	  		jq('#dkeh_222').val(jq('#fakturaListTotSum').val());
 	  		jq('#dkeh_221').val(jq('#fakturaListTotValidCurrency').val());	
@@ -39,9 +49,13 @@
 	  		
 	  		//for backwards compatibility meaning: ref till fakturalista
   			jq('#dkeh_28b').val("FLERE FAKTURAER");
+  			jq('#dkeh_221b').focus();
   			
-  		}
-	  });
+  		} 
+  	  }
+  	  //END get totals from Fakt.tab
+  	  
+  	
   	  
   	  
   	  	//----------------

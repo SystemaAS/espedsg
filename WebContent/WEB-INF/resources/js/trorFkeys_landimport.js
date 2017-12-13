@@ -30,8 +30,9 @@
   		 var f10 = 121;
   		 var f11 = 122; 
   		 var f12 = 123;
-  		 
-  		 var f18 = 80;
+  		 //
+  		 var f13 = 124;
+  		 var f24 = 135;
 	  
   		 var charCode = (evt.which) ? evt.which : event.keyCode;
   		 //debug ->
@@ -56,6 +57,16 @@
   			setBlockUIKeys();
   			window.location.href = "tror_mainorderlandimport.do?action=doFetch&heavd=" + jq('#heavd').val() + "&heopd=" + jq('#heopd').val();
   		 
-  		 }
+  		 }else if (charCode == f5){
+  			 //Fraktbrev
+   			setBlockUIKeys();
+   			window.location.href = "tror_mainorderlandimport_freightbill_edit.do?dfavd=" + jq('#heavd').val() + "&sign=" + jq('#hesg').val() + "&dfopd=" + jq('#heopd').val();
+   		 
+   		 }else if (charCode == f24){
+  			 //More 
+   			 setBlockUIKeys();
+   			 window.location.href = "tror_mainorderlandimport_more.do?avd=" + jq('#heavd').val() + "&sign=" + jq('#hesg').val() + "&opd=" + jq('#heopd').val();
+    		 
+		 }
   	 });
   	
