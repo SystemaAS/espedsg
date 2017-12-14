@@ -252,6 +252,7 @@ function load_data() {
 		  d.reg_vareposter = +d.reg_vareposter;
 		  d.off_vareposter = +d.off_vareposter;
 		  d.registreringsdato = +d.registreringsdato; 
+		  d.deklarasjonsdato = +d.deklarasjonsdato;
 		  d.signatur =   d.signatur;
 		  d.mottaker =   d.mottaker;
 		  d.edim =   d.edim;
@@ -273,8 +274,25 @@ function load_data() {
 		var  typeDim  = toll.dimension(function(d) {return d.type;});
 		var  edimDim  = toll.dimension(function(d) {return d.edim;});
 		var  avsnittDim  = toll.dimension(function(d) {return d.avsnitt;});
+	    var openDaysDim = toll.dimension(function (d) {
+	        var deklDato = d.deklarasjonsdato;
+	        var regDato = d.registreringsdato;
+	        if (deklDato == 0) {
+	        	return 'Ikke ferdig';
+	        }
+			var antallDager = deklDato - regDato;
+	        if (antallDager <= 1) {   //1
+	            return '1';
+	        } else if (antallDager > 1 && month <= 4) { //2-4
+	            return '2-4';
+	        } else if (antallDager > 4 && antallDager <= 9) { //4-9
+	            return '4-9';
+	        } else {
+	            return 'mer enn 10'; //> 10
+	        }
+	    });		
+		
 		var  inputTypeDim  = toll.dimension(function(d) {return "EDI";}); //TODO
-		var  openDaysDim  = toll.dimension(function(d) {return "YYY";});  //TODO
 		//Charts 
 		var  typeChart   = dc.pieChart("#chart-ring-type");
 		var  yearChart   = dc.pieChart("#chart-ring-year");
@@ -283,7 +301,7 @@ function load_data() {
 		var  edimChart   = dc.pieChart('#chart-ring-edim');
 		var  inputTypeChart   = dc.pieChart('#chart-ring-inputtype'); //TODO
 		var  avsnittChart   = dc.pieChart('#chart-ring-avsnitt'); 
-		var  openDaysChart   = dc.pieChart('#chart-ring-opendays');   //TODO
+		var  openDaysChart   = dc.pieChart('#chart-ring-opendays');
 		var  varuposterChart = dc.barChart("#chart-varuposter");
 		var  dataCount = dc.dataCount('#data-count')	 
 		var  antallDisplay = dc.numberDisplay("#antall");	
@@ -298,7 +316,7 @@ function load_data() {
 		var  edimDimGroup = edimDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  avsnittDimGroup = avsnittDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  inputTypeDimGroup = inputTypeDim.group().reduceSum(function(d) {return d;});  //TODO
-		var  openDaysDimGroup = openDaysDim.group().reduceSum(function(d) {return d;});  //TODO
+		var  openDaysDimGroup = openDaysDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		//Group reduce
 	    var dateDimGroup =  dateDim.group().reduce(   
 	            /* callback for when data is added to the current filter results */
@@ -454,7 +472,7 @@ function load_data() {
 		    .emptyTitle('tom')
 		    .title(function (d) {
 			  	var percentage;
-			  	percentage = 45;
+			  	percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
 	            return [
 	                d.key + ':',
 	                percentageFormat(percentage)
@@ -1117,25 +1135,18 @@ window.addEventListener('error', function (e) {
  							<div class="clear"></div>			
 				        </div>
  
-						<div class="col-md-3" id="chart-ring-type">
-						 	<h3 class="text12" align="center">Import / Eksport</h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span>
-						    </span>
-						    <a class="reset" id="type" style="display: none;"> - <i>tilbakestill filter</i></a>
-  						    <div class="clear"></div>					 	
-				        </div>				     	
 	
-						<div class="col-md-3" id="chart-ring-year">
-							<h3 class="text12" align="center">År</h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="year" style="display: none;"> - <i>tilbakestill filter</i></a>
-						    <div class="clear"></div>	
-				        </div>
-
 						<div class="col-md-3" id="chart-ring-opendays">
 							<h3 class="text12" align="center">Antall dager</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="opendays" style="display: none;"> - <i>tilbakestill filter</i></a>
+						    <div class="clear"></div>	
+				        </div>
+
+						<div class="col-md-3" id="chart-ring-year">
+							<h3 class="text12" align="center">År</h3>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="year" style="display: none;"> - <i>tilbakestill filter</i></a>
 						    <div class="clear"></div>	
 				        </div>
 
@@ -1145,6 +1156,14 @@ window.addEventListener('error', function (e) {
 						    <a class="reset" id="inputtype" style="display: none;"> - <i>tilbakestill filter</i></a>
  							<div class="clear"></div>			
 				        </div>
+
+						<div class="col-md-3" id="chart-ring-year">
+							<h3 class="text12" align="center">År</h3>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="year" style="display: none;"> - <i>tilbakestill filter</i></a>
+						    <div class="clear"></div>	
+				        </div>
+
 				    </div>
 				  </div>  
    
