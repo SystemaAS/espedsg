@@ -140,7 +140,7 @@ d3.queue()
 					avsnitter = data.dtoList;
 				}
 				
-				console.log(" 1 Desc XV="+_.findWhere(avsnitter,{sadkaa02:'XV'}).sadkaa03);		
+				//console.log(" 1 Desc XV="+_.findWhere(avsnitter,{sadkaa02:'XV'}).sadkaa03);		
 				
 			})
 	 }, avsnittDescUrl)		 
@@ -257,13 +257,13 @@ function load_data() {
 		  d.mottaker =   d.mottaker;
 		  d.edim =   d.edim;
 		  d.avsnitt = d.avsnitt;
+		  d.inputtype = d.inputtype;
 		});
 
 		// set crossfilter. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
 		var toll = crossfilter(tollData);	
 		var  all = toll.groupAll();
 		tolldataSize = toll.size();
-		
 		//Dimensions
 		var  tollAllDim = toll.dimension(function(d) {return d;});	
 		var  dateDim  = toll.dimension(function(d) {return d.date;});
@@ -274,32 +274,38 @@ function load_data() {
 		var  typeDim  = toll.dimension(function(d) {return d.type;});
 		var  edimDim  = toll.dimension(function(d) {return d.edim;});
 		var  avsnittDim  = toll.dimension(function(d) {return d.avsnitt;});
-	    var openDaysDim = toll.dimension(function (d) {
-	        var deklDato = d.deklarasjonsdato;
-	        var regDato = d.registreringsdato;
-	        if (deklDato == 0) {
-	        	return 'Ikke ferdig';
-	        }
-			var antallDager = deklDato - regDato;
-	        if (antallDager <= 1) {   //1
-	            return '1';
-	        } else if (antallDager > 1 && month <= 4) { //2-4
-	            return '2-4';
-	        } else if (antallDager > 4 && antallDager <= 9) { //4-9
-	            return '4-9';
-	        } else {
-	            return 'mer enn 10'; //> 10
-	        }
+	    var  openDaysDim = toll.dimension(function (d) {
+		        var deklDato = d.deklarasjonsdato;
+		        var regDato = d.registreringsdato;
+		        if (deklDato == 0) {
+		        	return 'Ikke ferdig';
+		        }
+				var antallDager = deklDato - regDato;
+		        if (antallDager <= 1) {   //1
+		            return '1';
+		        } else if (antallDager > 1 && antallDager <= 4) { //2-4
+		            return '2-4';
+		        } else if (antallDager > 4 && antallDager <= 9) { //4-9
+		            return '4-9';
+		        } else {
+		            return 'mer enn 10'; //> 10
+		        }
 	    });		
-		
-		var  inputTypeDim  = toll.dimension(function(d) {return "EDI";}); //TODO
+		var  inputTypeDim  = toll.dimension(function(d) {
+	        var inputType = d.inputtype;
+	        if (inputType != null && inputType != "") {
+	        	return 'EDI';
+	        } else {
+	        	return 'Manuell';
+	        }
+		});	
 		//Charts 
 		var  typeChart   = dc.pieChart("#chart-ring-type");
 		var  yearChart   = dc.pieChart("#chart-ring-year");
 		var  avdChart   = dc.pieChart('#chart-ring-avd');
 		var  sisgChart   = dc.pieChart('#chart-ring-sisg');
 		var  edimChart   = dc.pieChart('#chart-ring-edim');
-		var  inputTypeChart   = dc.pieChart('#chart-ring-inputtype'); //TODO
+		var  inputTypeChart   = dc.pieChart('#chart-ring-inputtype');
 		var  avsnittChart   = dc.pieChart('#chart-ring-avsnitt'); 
 		var  openDaysChart   = dc.pieChart('#chart-ring-opendays');
 		var  varuposterChart = dc.barChart("#chart-varuposter");
@@ -315,7 +321,7 @@ function load_data() {
 		var  typeDimGroup = typeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  edimDimGroup = edimDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  avsnittDimGroup = avsnittDim.group().reduceSum(function(d) {return d.reg_vareposter;});
-		var  inputTypeDimGroup = inputTypeDim.group().reduceSum(function(d) {return d;});  //TODO
+		var  inputTypeDimGroup = inputTypeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  openDaysDimGroup = openDaysDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		//Group reduce
 	    var dateDimGroup =  dateDim.group().reduce(   
@@ -401,14 +407,14 @@ function load_data() {
 		    .emptyTitle('tom')
 		    .title(function (d) {
 			  	var percentage;
-			  	percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
+			  	percentage = d.value / d3.sum(typeDimGroup.all(), function(d){ return d.value; })
 	            return [
 	                d.key + ':',
 	                percentageFormat(percentage)
 	            ].join('\n');	
 			});	
 	
-		inputTypeChart  //TODO
+		inputTypeChart 
 		    .width(300)
 		    .height(300)
 		    .dimension(inputTypeDim)
@@ -419,7 +425,7 @@ function load_data() {
 		    .emptyTitle('tom')
 		    .title(function (d) {
 			  	var percentage;
-			  	percentage = 45;
+			  	percentage = d.value / d3.sum(inputTypeDimGroup.all(), function(d){ return d.value; })
 	            return [
 	                d.key + ':',
 	                percentageFormat(percentage)
@@ -442,7 +448,7 @@ function load_data() {
 			   		legends
 			   			.append('title').text(function (d) {
 						  	var percentage;
-						  	percentage = d.data / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
+						  	percentage = d.data / d3.sum(avsnittDimGroup.all(), function(d){ return d.value; })
 				            return [
 				                d.name + ':',
 				                getAvsnittDesc(d.name),     
@@ -453,7 +459,7 @@ function load_data() {
 		    .emptyTitle('tom')
 		    .title(function (d) {
 			  	var percentage;
-			  	percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
+			  	percentage = d.value / d3.sum(avsnittDimGroup.all(), function(d){ return d.value; })
 	            return [
 	                d.key + ':',
 	                getAvsnittDesc(d.key),     
@@ -461,7 +467,7 @@ function load_data() {
 	            ].join('\n');		
 		});			
 	
-		openDaysChart  //TODO
+		openDaysChart 
 		    .width(300)
 		    .height(300)
 		    .dimension(openDaysDim)
@@ -472,7 +478,7 @@ function load_data() {
 		    .emptyTitle('tom')
 		    .title(function (d) {
 			  	var percentage;
-			  	percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
+			  	percentage = d.value / d3.sum(openDaysDimGroup.all(), function(d){ return d.value; })
 	            return [
 	                d.key + ':',
 	                percentageFormat(percentage)
@@ -490,7 +496,7 @@ function load_data() {
 		    .emptyTitle('tom')
 		    .title(function (d) {
 			  	var percentage;
-			  	percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
+			  	percentage = d.value / d3.sum(yearDimGroup.all(), function(d){ return d.value; })
 	            return [
 	                d.key + ':',
 	                percentageFormat(percentage)
@@ -548,7 +554,7 @@ function load_data() {
 			   		legends
 			   			.append('title').text(function (d) {
 						  	var percentage;
-						  	percentage = d.data / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
+						  	percentage = d.data / d3.sum(sisgDimGroup.all(), function(d){ return d.value; })
 				            return [
 				                d.name + ':',
 				                getSignaturDesc(d.name),     
@@ -560,7 +566,7 @@ function load_data() {
 		    .othersLabel("Andre") 
 		    .title(function (d) {
 			  	var percentage, desc;
-			  	percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
+			  	percentage = d.value / d3.sum(sisgDimGroup.all(), function(d){ return d.value; })
 	            return [
 	                d.key + ':',
 	                getSignaturDesc(d.key),     
@@ -583,7 +589,7 @@ function load_data() {
 			   		legends
 			   			.append('title').text(function (d) {
 							var name, desc,percentage ;
-							percentage = d.data / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
+							percentage = d.data / d3.sum(edimDimGroup.all(), function(d){ return d.value; })
 							if (d.name == 'OK') {
 								name = 'OK';
 								desc = '';
@@ -611,7 +617,7 @@ function load_data() {
 			.emptyTitle('tom')
 			.title(function (d) {
 				var key, desc,percentage ;
-				percentage = d.value / d3.sum(avdDimGroup.all(), function(d){ return d.value; })
+				percentage = d.value / d3.sum(edimDimGroup.all(), function(d){ return d.value; })
 				if (d.key == 'OK') {
 					key = 'OK';
 					desc = '';
@@ -1143,12 +1149,13 @@ window.addEventListener('error', function (e) {
 						    <div class="clear"></div>	
 				        </div>
 
-						<div class="col-md-3" id="chart-ring-year">
-							<h3 class="text12" align="center">År</h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="year" style="display: none;"> - <i>tilbakestill filter</i></a>
-						    <div class="clear"></div>	
-				        </div>
+						<div class="col-md-3" id="chart-ring-type">
+						 	<h3 class="text12" align="center">Import / Eksport</h3>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span>
+						    </span>
+						    <a class="reset" id="type" style="display: none;"> - <i>tilbakestill filter</i></a>
+  						    <div class="clear"></div>					 	
+				        </div>	
 
 						<div class="col-md-3" id="chart-ring-inputtype">
 						 	<h3 class="text12" align="center">Manuell / EDI</h3>
