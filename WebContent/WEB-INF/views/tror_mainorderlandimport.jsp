@@ -333,6 +333,9 @@
 							 				<td class="text14" width="15px" >&nbsp;</td>
 							 				<td class="text14" >
 							 					&nbsp;<font class="text16RedBold" >*</font><span title="heavd"><spring:message code="systema.tror.orders.form.update.label.avdelning"/></span>
+							 					<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_avd.do?action=doFind&ctype=tror_landimport','customerWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
+		 											<img id="imgAvdList" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+		 										</a>
 							 				</td>
 							 				<td class="text14">
 												<select autofocus name="heavd" id="heavd" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" >

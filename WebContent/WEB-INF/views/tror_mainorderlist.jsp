@@ -181,7 +181,22 @@
 					        </td>
 				    		<td><input type="text" class="inputText" name="orderNr" id="orderNr" size="8" maxlength="7" value='${searchFilterTror.orderNr}'></td>
 					        <td><input type="text" class="inputText" name="date" id="date" size="9" maxlength="8" value='${searchFilterTror.date}'></td>
-					        <td><input type="text" class="inputText" name="status" id="status" size="3" maxlength="1" value='${searchFilterTror.status}'>&nbsp;</td>
+					        <td>
+					        	<select name="status" id="status">
+			            			<option value="">-vælg-</option>
+			            			<option value=" " <c:if test="${searchFilterTror.status == ' '}"> selected </c:if> >Åpent</option>
+			            			<option value="U" <c:if test="${searchFilterTror.status == 'U'}"> selected </c:if> >U</option>
+									<option value="K" <c:if test="${searchFilterTror.status == 'K'}"> selected </c:if> >K</option>
+									<option value="C" <c:if test="${searchFilterTror.status == 'C'}"> selected </c:if> >C</option>
+									<option value="F" <c:if test="${searchFilterTror.status == 'F'}"> selected </c:if> >F</option>
+									<option value="G" <c:if test="${searchFilterTror.status == 'G'}"> selected </c:if> >G</option>
+									<option value="T" <c:if test="${searchFilterTror.status == 'T'}"> selected </c:if> >T</option>
+									<option value="O" <c:if test="${searchFilterTror.status == 'O'}"> selected </c:if> >O</option>
+									<option value="S" <c:if test="${searchFilterTror.status == 'S'}"> selected </c:if> >S</option>
+									<option value="X" <c:if test="${searchFilterTror.status == 'X'}"> selected </c:if> >X</option>
+									<option value="M" <c:if test="${searchFilterTror.status == 'M'}"> selected </c:if> >M</option>
+								</select>
+					        </td>
 					        
 					        <td>
 					        	<select class="inputTextMediumBlue" name="ttype" id="ttype">
@@ -234,7 +249,6 @@
 						<th width="2%" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sign"/></th>  
 						<th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.turnr"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.date"/></th>
-	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.statusUpdate"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.status"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.delsystem"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.godsnr"/></th>
@@ -255,6 +269,7 @@
 	                    <%-- Transmission 
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.transmit"/></th>
 	                    --%>
+	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.statusUpdate"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.delete"/></th>
 	                    
 	                </tr> 
@@ -279,89 +294,12 @@
     		    			</c:if>
 			           </td>
 		               <td title="${record.heopd}" class="text11MediumBlue" id="opd_${record.heopd}@${counter.count}" >
-			           		<div id="opd${record.heopd}_linkcontainer${counter.count}" >
-			           			<c:choose>
-			           			<c:when test="${empty record.hest || record.hest == 'U' || record.hest == 'O' || record.hest == 'F' }">
-									<c:if test="${ record.heur == 'A' }">
-						           		<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
-						           			onClick="setBlockUI(this);" href="tror_mainorderlandimport.do?action=doFetch&heavd=${record.heavd}&heopd=${record.heopd}&status=${Xrecord.status}">
-			    		    				<font class="text11MediumBlue"><b>${record.heopd}</b></font>
-			    		    			</a>
-		    		    			</c:if>
-		    		    			<c:if test="${ record.heur == 'B' }">
-		    		    				<%--
-		    		    				<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
-						           			onClick="setBlockUI(this);" href="TODOtror_mainorderlandexport.do?action=doFetch&heavd=${record.heavd}&heopd=${record.heopd}&status=${Xrecord.status}">
-			    		    				<font class="text11MediumBlue"><b>${record.heopd}</b></font>
-			    		    			</a>
-			    		    			 --%>
-		    		    				<font class="text11"><b>${record.heopd}</b></font>
-			    		    			
-		    		    			</c:if>
-		    		    			<c:if test="${ record.heur == 'C' }">
-		    		    				<%--
-		    		    				<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
-						           			onClick="setBlockUI(this);" href="TODOtror_mainorderairimport.do?action=doFetch&heavd=${record.heavd}&heopd=${record.heopd}&status=${Xrecord.status}">
-			    		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
-			    		    				<font class="text11MediumBlue"><b>${record.heopd}</b></font>
-			    		    			</a>
-			    		    			--%>
-			    		    			<font class="text11"><b>${record.heopd}</b></font>
-		    		    			</c:if>
-		    		    			<c:if test="${ record.heur == 'D' }">
-		    		    				<%--
-		    		    				<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
-						           			onClick="setBlockUI(this);" href="TODOtror_mainorderairexport.do?action=doFetch&heavd=${record.heavd}&heopd=${record.heopd}&status=${Xrecord.status}">
-			    		    				<font class="text11MediumBlue"><b>${record.heopd}</b></font>
-			    		    			</a>
-			    		    			--%>
-			    		    			<font class="text11"><b>${record.heopd}</b></font>
-		    		    			</c:if>	    		    		
-	    		    			</c:when>
-	    		    			<c:otherwise>
-	    		    				<font class="text11"><b>${record.heopd}</b></font>
-	    		    			</c:otherwise>
-	    		    			</c:choose>
-    		    			</div>
+		               		<font class="text11"><b>${record.heopd}</b></font>
 			           </td>
-			           
 			           <td width="2%" align="center" class="text11MediumBlue">&nbsp;${record.hesg}</td>
 			           <td align="center" class="text11MediumBlue">&nbsp;${record.hepro}</td>
 			           <td align="center" class="text11MediumBlue">&nbsp;${record.hedtop}</td>
-			           <td width="2%" align="center" class="text11MediumBlue">
-			           		<img class="updateStatus" id="updateStatus${counter.count}" style="vertical-align: middle; cursor:pointer;" src="resources/images/changeStatus.png" width="12px" height="12px" border="0" alt="change status">
-			           		<%-- change status dialog --%>
-							<div style="display: none;" class="clazz_dialog" id="dialogUpdateStatus${counter.count}" title="Dialog">
-							 	<form action="tror_mainorderlandimport_updateStatus.do" name="updateStatusForm${counter.count}" id="updateStatusForm${counter.count}" >
-							 	<input type="hidden" name="currentAvd${counter.count}" id="currentAvd${counter.count}" value='${record.heavd}'>
-							 	<input type="hidden" name="currentOpd${counter.count}" id="currentOpd${counter.count}" value='${record.heopd}'>
-								<p class="text12" >Change status as needed.</p>
-								<table>
-									<tr>
-										<td class="text12" align="left" >
-											Status
-										</td>
-										<td class="text12MediumBlue">
-											<select name="selectedStatus${counter.count}" id="selectedStatus${counter.count}">
-						            			<option value="">-vælg-</option>
-						            			<option value=" ">Åpent</option>
-						            			<option value="U">U</option>
-												<option value="K">K</option>
-												<option value="C">C</option>
-												<option value="F">F</option>
-												<option value="G">G</option>
-												<option value="T">T</option>
-												<option value="O">O</option>
-												<option value="S">S</option>
-												<option value="X">X</option>
-												<option value="M">M</option>
-											</select>	
-										</td>
-									</tr>
-								</table>
-								</form>
-							</div>
-			           </td>
+			           
 			           <td width="2%" align="center" class="text11MediumBlue">&nbsp;<b><font style="color: orangered">${record.hest}</font></b></td>
 			           <td nowrap align="left" class="text11MediumBlue">
 							<c:if test="${ record.heur == 'A' }">
@@ -413,152 +351,38 @@
 		               				</c:choose>	
 		               			</c:if>
 		               </td>
-		               
-		               <%-- START Print 
-	                    <td class="tableCellEbookingPrint" align="center">
-	                    	<%-- only those status that have a real state. Status=null is not allowed to print 
-	                    	<c:if test="${not empty record.status}"> 
-		                    	<a id="fraktbrevLinkId_${record.unik}" href="javascript:void(0);" onClick="TODOprintDocument(this);" >
-		                    		<img onMouseOver="showPop('fraktbrev_info${counter.count}');" onMouseOut="hidePop('fraktbrev_info${counter.count}');"style="vertical-align:bottom;" src="resources/images/fraktbrev2.gif" height="14px" width="14px" border="0" alt="send">
-				               		<c:choose>
-				               			<c:when test="${record.hepk1 == 'Y'}">
-				               				<img title="must be printed" style="vertical-align:middle;" src="resources/images/bulletRed.gif" border="0" alt="not printed yet">
-				               			</c:when>
-				               			<c:otherwise>
-				               				<c:if test="${record.hepk1 == 'P'}">
-				               					<img title="already printed" style="vertical-align:middle;" src="resources/images/bulletGreen.gif" border="0" alt="print">
-				               				</c:if>
-				               				<c:if test="${record.hepk1 != 'P'}">
-				               					<img title="not printed yet" style="vertical-align:middle;" src="resources/images/bulletYellow.gif" border="0" alt="print">
-				               				</c:if>
-				               			</c:otherwise>
-					               	</c:choose>	
-								</a>
-								<div class="text11" style="position: relative;" align="left">
-									<span style="position:absolute; left:0px; top:0px;" id="fraktbrev_info${counter.count}" class="popupWithInputText"  >
-										<font class="text11">
-						           			<b>Fraktbrev</b>
-					           			</font>
-									</span>
-								</div>
-							</c:if>
-	                    </td>
-	                    <td class="tableCellEbookingPrint" align="center">
-	                    	<c:if test="${not empty record.status}">
-		                    	<a id="cmrLinkId_${record.unik}" href="javascript:void(0);" onClick="TODOprintDocument(this);">
-		                    		<img onMouseOver="showPop('cmr_info${counter.count}');" onMouseOut="hidePop('cmr_info${counter.count}');"style="vertical-align:bottom;" src="resources/images/fraktbrev2.gif" height="14px" width="14px" border="0" alt="send">
-				               		<c:choose>
-				               			<c:when test="${record.hepk2 == 'Y'}">
-				               				<img title="must be printed" style="vertical-align:middle;" src="resources/images/bulletRed.gif" border="0" alt="not printed yet">
-				               			</c:when>
-				               			<c:otherwise>
-				               				<c:if test="${record.hepk2 == 'P'}">
-				               					<img title="already printed" style="vertical-align:middle;" src="resources/images/bulletGreen.gif" border="0" alt="print">
-											</c:if>
-											<c:if test="${record.hepk2 != 'P'}">
-				               					<img title="not printed yet" style="vertical-align:middle;" src="resources/images/bulletYellow.gif" border="0" alt="print">
-				               				</c:if>
-				               			</c:otherwise>
-				               		</c:choose>
-								</a>
-								<div class="text11" style="position: relative;" align="left">
-									<span style="position:absolute; left:0px; top:0px;" id="cmr_info${counter.count}" class="popupWithInputText"  >
-										<font class="text11">
-						           			<b>CMR fraktbrev</b>
-					           			</font>
-									</span>
-								</div>
-							</c:if>
-	                    </td>
-	                    <td class="tableCellEbookingPrint" align="center">
-	                    	<c:if test="${not empty record.status}">
-		                    	<a id="merkPdfLinkId_${record.unik}" href="javascript:void(0);" onClick="TODOprintDocument(this);">
-		                    		<img onMouseOver="showPop('merkPDF_info${counter.count}');" onMouseOut="hidePop('merkPDF_info${counter.count}');"style="vertical-align:bottom;" src="resources/images/fraktbrev2.gif" height="14px" width="14px" border="0" alt="print">
-			               			<c:choose>
-				               			<c:when test="${record.hepk3 == 'Y'}">
-				               				<img title="must be printed" style="vertical-align:middle;" src="resources/images/bulletRed.gif" border="0" alt="not printed yet">
-				               			</c:when>
-				               			<c:otherwise>
-				               				<c:if test="${record.hepk3 == 'P'}">
-				               					<img title="already printed" style="vertical-align:middle;" src="resources/images/bulletGreen.gif" border="0" alt="print">
-											</c:if>
-											<c:if test="${record.hepk3 != 'P'}">
-				               					<img title="not printed yet" style="vertical-align:middle;" src="resources/images/bulletYellow.gif" border="0" alt="print">
-				               				</c:if>
-				               			</c:otherwise>
-				               		</c:choose>
-								</a>
-								<div class="text11" style="position: relative;" align="left">
-									<span style="position:absolute; left:0px; top:0px;" id="merkPDF_info${counter.count}" class="popupWithInputText"  >
-										<font class="text11">
-						           			<b>Merk PDF</b>
-					           			</font>
-									</span>
-								</div>
-							</c:if>
-	                    </td>
-	                    <td class="tableCellEbookingPrint" align="center">
-	                    	<c:if test="${not empty record.status}">
-		                    	<a id="merkZplLinkId_${record.unik}" href="javascript:void(0);" onClick="TODOprintDocument(this);">
-		                    		<img onMouseOver="showPop('merkZPL_info${counter.count}');" onMouseOut="hidePop('merkZPL_info${counter.count}');"style="vertical-align:bottom;" src="resources/images/fraktbrev2.gif" height="14px" width="14px" border="0" alt="print">
-									<c:choose>
-				               			<c:when test="${record.hepk3 == 'Y'}">
-				               				<img title="must be printed" style="vertical-align:middle;" src="resources/images/bulletRed.gif" border="0" alt="not printed yet">
-				               			</c:when>
-				               			<c:otherwise>
-				               				<c:if test="${record.hepk3 == 'P'}">
-				               					<img title="already printed" style="vertical-align:middle;" src="resources/images/bulletGreen.gif" border="0" alt="print">
-											</c:if>
-											<c:if test="${record.hepk3 != 'P'}">
-				               					<img title="not printed yet" style="vertical-align:middle;" src="resources/images/bulletYellow.gif" border="0" alt="print">
-				               				</c:if>
-				               			</c:otherwise>
-				               		</c:choose>
-								</a>
-								<div class="text11" style="position: relative;" align="left">
-									<span style="position:absolute; left:0px; top:0px;" id="merkZPL_info${counter.count}" class="popupWithInputText"  >
-										<font class="text11">
-						           			<b>Merk ZPL</b>
-					           			</font>
-									</span>
-								</div>
-							</c:if>
-	                    </td>
-	                    <%-- END Print --%>
-		               
-		               <%--
-		               <td align="center" class="text11MediumBlue">
-		               		<c:choose>
-			               		<c:when test="${Xrecord.status == 'E'}">
-			               			<c:choose>
-			               			<c:when test="${Xrecord.hepk1 != 'Y' && Xrecord.hepk2 != 'Y' && Xrecord.hepk3 != 'Y'}">
-					               		<a style="cursor:pointer;" onClick="setBlockUI(this);" href="TODOebooking_mainorderlist_send_order.do?heunik=${Xrecord.unik}">
-					               			<span title="Bookingen kan sendes">
-					               			<img src="resources/images/send-file.png" height="18px" width="18px" border="0" alt="send">
-					               			</span>
-					               		</a>
-				               		</c:when>
-				               		<c:otherwise>
-				               			<img title="Must be printed first (fraktbrev,cmr,etc)" src="resources/images/info3.png" height="12px" width="12px" border="0" alt="must print">
-				               		</c:otherwise>
-				               		</c:choose>
-			               		</c:when>
-			               		<c:otherwise>
-			               			<c:if test="${Xrecord.status == 'P'}">
-			               				<span title="Bookingen er plukket">
-			               					<img src="resources/images/complete-icon.png" height="12px" width="12px" border="0" alt="completed">
-			               				</span>
-			               			</c:if>
-			               			<c:if test="${empty Xrecord.status}">
-			               				<span title="Booking er sendt inn men ennå ikke plukket til oppdrag">
-			               					<img src="resources/images/engines.png" height="16px" width="16px" border="0" alt="in process">
-			               				</span>
-			               			</c:if>
-			               		</c:otherwise>
-		               		</c:choose>
-		               </td>
-		                --%>
-		                
+		               <td width="2%" align="center" class="text11MediumBlue">
+			           		<img class="updateStatus" id="updateStatus${counter.count}" style="vertical-align: middle; cursor:pointer;" src="resources/images/changeStatus.png" width="12px" height="12px" border="0" alt="change status">
+			           		<%-- change status dialog --%>
+							<div style="display: none;" class="clazz_dialog" id="dialogUpdateStatus${counter.count}" title="Dialog">
+							 	<form action="tror_mainorderlandimport_updateStatus.do" name="updateStatusForm${counter.count}" id="updateStatusForm${counter.count}" >
+							 	<input type="hidden" name="currentAvd${counter.count}" id="currentAvd${counter.count}" value='${record.heavd}'>
+							 	<input type="hidden" name="currentOpd${counter.count}" id="currentOpd${counter.count}" value='${record.heopd}'>
+								<p class="text12" >&nbsp;Oppdatere status</p>
+								<table>
+									<tr>
+										<td class="text12" align="left" >Status</td>
+										<td class="text12MediumBlue">
+											<select name="selectedStatus${counter.count}" id="selectedStatus${counter.count}">
+						            			<option value="">-vælg-</option>
+						            			<option value=" ">Åpent</option>
+						            			<option value="U">U</option>
+												<option value="K">K</option>
+												<option value="C">C</option>
+												<option value="F">F</option>
+												<option value="G">G</option>
+												<option value="T">T</option>
+												<option value="O">O</option>
+												<option value="S">S</option>
+												<option value="X">X</option>
+												<option value="M">M</option>
+											</select>	
+										</td>
+									</tr>
+								</table>
+								</form>
+							</div>
+			           </td> 
 		               <td align="center" class="text11MediumBlue">
 		               		<c:if test="${empty record.hest || record.hest == 'U' || record.hest == 'O' || record.hest == 'F' }">
 		               			<c:if test="${ record.heur == 'A'  }">

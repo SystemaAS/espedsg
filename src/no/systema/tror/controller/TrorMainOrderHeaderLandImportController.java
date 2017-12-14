@@ -1365,7 +1365,6 @@ public class TrorMainOrderHeaderLandImportController {
 	public void setTrorDropDownListPopulationService (TrorDropDownListPopulationService value){ this.trorDropDownListPopulationService = value; }
 	public TrorDropDownListPopulationService getTrorDropDownListPopulationService(){ return this.trorDropDownListPopulationService; }
 	
-	
 	@Qualifier ("maintMainKodtaService")
 	private MaintMainKodtaService maintMainKodtaService;
 	@Autowired

@@ -98,8 +98,8 @@
 		  autoOpen: false,
 		  maxWidth:400,
           maxHeight: 220,
-          width: 400,
-          height: 220,
+          width: 300,
+          height: 200,
 		  modal: true
 	  });
   });
@@ -203,7 +203,7 @@
 		  var id = this.id;
 		  counterIndex = id.replace("updateStatus","");
 		  //setters (add more if needed)
-		  jq('#dialogUpdateStatus'+counterIndex).dialog( "option", "title", "Update Status "  + jq('#currentOpd'+counterIndex).val() );
+		  jq('#dialogUpdateStatus'+counterIndex).dialog( "option", "title", "Oppdatere Status "  + jq('#currentOpd'+counterIndex).val() );
 		  
 		  //deal with buttons for this modal window
 		  jq('#dialogUpdateStatus'+counterIndex).dialog({

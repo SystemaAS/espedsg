@@ -34,6 +34,10 @@ import no.systema.main.validator.LoginValidator;
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.TrorConstants;
 import no.systema.tvinn.sad.z.maintenance.sadimport.url.store.TvinnSadMaintenanceImportUrlDataStoreGyldigeKoder;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaRecord;
+import no.systema.z.main.maintenance.service.MaintMainKodtaService;
+import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.tvinn.sad.z.maintenance.nctsexport.service.MaintNctsExportTrkodfService;
 import no.systema.tvinn.sad.z.maintenance.nctsexport.url.store.TvinnNctsMaintenanceExportUrlDataStore;
 import no.systema.tvinn.sad.z.maintenance.sadimport.model.jsonjackson.dbtable.gyldigekoder.JsonMaintSadImportKodts4Container;
@@ -928,7 +932,14 @@ public class TrorMainOrderHeaderControllerChildWindow {
 		    }
 		}
 	}
-	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="tror_mainorder_childwindow_loadunloadplaces.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
 	public ModelAndView doFindLoadUnload(@ModelAttribute ("record") JsonTrorLosseLasteStedRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
@@ -1003,6 +1014,117 @@ public class TrorMainOrderHeaderControllerChildWindow {
 		    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
 		    		return loginView;
 		    	}
+		    }
+		}
+	}
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tror_mainorder_childwindow_avd.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindAvd(@ModelAttribute ("record") JsonMaintMainKodtaRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindAvd");
+		Collection outputList = new ArrayList();
+		Map model = new HashMap();
+		ModelAndView successView = new ModelAndView("tror_mainorder_childwindow_avd");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//to catch the sender since there could be more then one caller field
+		String ctype = request.getParameter("ctype");
+		model.put("ctype", ctype);
+		
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_FRAKTKALKULATOR);
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			
+			//-----------
+			//Validation
+			//-----------
+			/*FraktkalkulatorChildWindowSearchCustomerValidator validator = new FraktkalkulatorChildWindowSearchCustomerValidator();
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+		    validator.validate(recordToValidate, bindingResult);
+		    */
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//this.setCodeDropDownMgr(appUser, model);
+	    		model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+				successView.addObject(TrorConstants.DOMAIN_MODEL, model);
+				return successView;
+	    		
+		    }else{
+		    	
+		    	String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA14R_GET_LIST_URL;
+				String urlRequestParams = "user=" + appUser.getUser();
+				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		    	logger.info("URL: " + BASE_URL);
+		    	logger.info("URL PARAMS: " + urlRequestParams);
+		    	String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+		    	//extract
+		    	List<JsonMaintMainKodtaRecord> list = new ArrayList();
+		    	if(jsonPayload!=null){
+					//lists
+		    		JsonMaintMainKodtaContainer container = this.maintMainKodtaService.getList(jsonPayload);
+			        if(container!=null){
+			        	list = (List)container.getList();
+			        }
+		    	}
+		  
+				model.put(TrorConstants.RESOURCE_MODEL_KEY_AVD_LIST, list);
+				successView.addObject(TrorConstants.DOMAIN_MODEL , model);
+		    	
+				return successView;
+		    	
+		    	
+		    	
+		    	
+				/* OLD template
+	    		//prepare the access CGI with RPG back-end
+	    		String BASE_URL = TvinnSadMaintenanceImportUrlDataStoreGyldigeKoder.TVINN_SAD_MAINTENANCE_IMPORT_BASE_SAD002_KODTS4R_GET_LIST_URL;
+	    		String urlRequestParamsKeys = "user=" + appUser.getUser();
+	    		logger.info("URL: " + BASE_URL);
+	    		logger.info("PARAMS: " + urlRequestParamsKeys);
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+	    		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+	    		//Debug -->
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    
+	    		if(jsonPayload!=null){
+	    			JsonMaintSadImportKodts4Container container = null;
+	    			try{
+	    				container = this.maintSadImportKodts4Service.getList(jsonPayload);
+	    			}catch(Exception e){
+	    				e.printStackTrace();
+	    			}
+	    			//go on
+		    		if(container!=null){
+		    			List<JsonMaintSadImportKodts4Record> list = new ArrayList<JsonMaintSadImportKodts4Record>();
+		    			for(JsonMaintSadImportKodts4Record  record : container.getList()){
+		    				//logger.info("ID:" + record.getVmtran());
+		    				//logger.info("NAME:" + record.getVmnavn());
+		    				list.add(record);
+		    			}
+		    			model.put(TrorConstants.RESOURCE_MODEL_KEY_TRANSPORTTYPE_CODE_LIST, list);
+		    			model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+		    		}
+	    			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
+	    			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+	    			return successView;
+	    			
+		    	}else{
+		    		logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+		    		return loginView;
+		    	}
+		    	*/
 		    }
 		}
 	}
@@ -1085,6 +1207,13 @@ public class TrorMainOrderHeaderControllerChildWindow {
 	@Required
 	public void setTrorDropDownListPopulationService (TrorDropDownListPopulationService value){ this.trorDropDownListPopulationService = value; }
 	public TrorDropDownListPopulationService getTrorDropDownListPopulationService(){ return this.trorDropDownListPopulationService; }
+	
+	@Qualifier ("maintMainKodtaService")
+	private MaintMainKodtaService maintMainKodtaService;
+	@Autowired
+	@Required
+	public void setMaintMainKodtaService (MaintMainKodtaService value){ this.maintMainKodtaService = value; }
+	public MaintMainKodtaService getMaintMainKodtaService(){ return this.maintMainKodtaService; }
 	
 	@Qualifier ("maintSadImportKodts4Service")
 	private MaintSadImportKodts4Service maintSadImportKodts4Service;
