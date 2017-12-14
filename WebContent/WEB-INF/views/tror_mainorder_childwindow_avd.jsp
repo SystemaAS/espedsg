@@ -20,7 +20,7 @@
 		<tr height="20"><td colspan="2"></td></tr>
 		<tr>
 		<td valign="top">
-		<form action="tror_mainorder_childwindow_transporttypes.do?action=doFind" name="searchTransportForm" id="searchTransportForm" method="post">
+		<form action="tror_mainorder_childwindow_avd.do?action=doFind" name="searchAvdForm" id="searchAvdForm" method="post">
 			<input type="hidden" name="ctype" id="ctype" value="${model.ctype}">
 			<%-- =====================================================  --%>
           	<%-- Here we have the search [Customer] popup window --%>
@@ -34,9 +34,9 @@
 					--%>
 					 
 					<tr class="text12" >
-					<td class="ownScrollableSubWindowDynamicWidthHeight" width="100%" style="height:50em;">
+					<td class="ownScrollableSubWindowDynamicWidthHeight" width="100%" style="height:40em;">
 					<%-- this is the datatables grid (content)--%>
-					<table id="transporttypesList" class="display compact cell-border" width="100%">
+					<table id="avdList" class="display compact cell-border" width="100%">
 						<thead>
 						<tr style="background-color:#EEEEEE">
 							<th width="2%" align="center" class="text11">&nbsp;<spring:message code="systema.tror.childwindow.avd.label"/></th>   
@@ -48,7 +48,7 @@
 		                <c:forEach var="record" items="${model.avdList}" varStatus="counter">    
 			               <tr class="text11" >
 			               
-			               <td class="text11MediumBlue" style="cursor:pointer;" id="id_${record.koakon}@name_${record.koanvn}@counter_${counter.count}">${record.koakon}</td>
+			               <td class="text11MediumBlue" style="cursor:pointer;" id="id_${record.koakon}@name_${record.koanvn}@ctype_${model.ctype}@counter_${counter.count}">${record.koakon}</td>
 			               <td class="text11" >&nbsp;${record.koanvn}</td>
 			            </tr> 
 			            </c:forEach>

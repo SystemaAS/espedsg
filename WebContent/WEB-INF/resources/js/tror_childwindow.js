@@ -33,7 +33,33 @@
 	    
   	});
   	
-  //Customer
+  	//avd-childwindow
+	jq(function() {
+		jq('#avdList').on('click', 'td', function(){
+			var id = this.id;
+			  var record = id.split('@');
+			  var id = record[0].replace("id_","");
+			  var name = record[1].replace("name_","");
+			  var caller= jq("#ctype").val()
+			  /*if(record.length>3){
+				 caller = record[3].replace("caller_","");
+			  }*/
+			  
+			  //addressing a parent field from this child window
+			  if( caller =='tror_landimport'){ 
+				  opener.jq('#heavd').val(id);
+				  jq('#heavd').focus();
+			  }else if(caller =='todo'){ 
+				  //opener.jq('#heavd').val(id);
+			  }
+			  
+			  //close child window
+			  window.close();
+	  });
+	});
+  	
+  	
+	//Customer
 	jq(function() {
 		jq('#customerList').on('click', 'td', function(){
 		  var id = this.id;
@@ -554,6 +580,12 @@
     		jq('#produktList_filter').val()
         ).draw();
     }
+    
+    function filterAvdList (){
+        jq('#avdList').DataTable().search(
+    		jq('#avdList_filter').val()
+        ).draw();
+    }
     function filterTransporttypesList (){
         jq('#transporttypesList').DataTable().search(
     		jq('#transporttypesList_filter').val()
@@ -681,7 +713,21 @@
 	  
 	  
 	  
-	//-----------------------
+	  //-----------------------
+	  //tables [avd]
+	  //-----------------------
+	  jq('#avdList').dataTable( {
+		  "dom": '<"top"fli>rt<"bottom"p><"clear">',
+		  "lengthMenu": [ 15, 75, 100 ],
+		  "language": { "url": getLanguage(lang) }
+	  });
+	  //event on input field for search
+	  jq('input.avdList_filter').on( 'keyup click', function () {
+		  filterAvdList();
+	  });
+	  
+	  
+	  //-----------------------
 	  //tables [Tranporttyp]
 	  //-----------------------
 	  jq('#transporttypesList').dataTable( {
