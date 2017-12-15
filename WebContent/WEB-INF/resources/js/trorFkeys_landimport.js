@@ -49,12 +49,12 @@
 	  		 var charCode = (evt.which) ? evt.which : event.keyCode;
 	  		 //debug ->
 	  		 //alert(charCode);
-	  		 if (charCode == f10){
+	  		 if (charCode == f9){
 	  			 //Faktura link
 	  			setBlockUIKeys();
 	  			window.location.href = "tror_mainorderlandimport_invoice.do?action=doFetch&heavd=" + jq('#fkeysavd').val() + "&heopd=" + jq('#fkeysopd').val(); 
 	  		 
-	  		 }else if (charCode == f9){
+	  		 }else if (charCode == f10){
 	  			 //Notisblock link 
 	  			setBlockUIKeys();
 	  			window.location.href = "editNotisblock.do?action=doFetch&subsys=tror_li&avd=" + jq('#fkeysavd').val() + "&opd=" + jq('#fkeysopd').val() + "&sign=" + jq('#fkeyssign').val(); 
