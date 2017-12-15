@@ -264,6 +264,10 @@
 	  });  //end dialog
 	}	  
 	
+	jq(document).ready(function() {
+	     //In order for F-Keys to work in tabs ... 
+	     jq('#fask').focus();
+	});
 	//-------------------
     //Datatables jquery
     //-------------------

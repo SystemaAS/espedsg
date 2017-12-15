@@ -96,7 +96,7 @@
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_more.do?avd=${recordOrderTrorLandImport.heavd}&sign=${recordOrderTrorLandImport.hesg}&opd=${recordOrderTrorLandImport.heopd}">
 					<img style="vertical-align: bottom" src="resources/images/sort_down.png" width="10" hight="10" border="0" alt="show more">
-					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.more.tab"/></font>&nbsp;<font class="text10Orange">F24</font>
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.more.tab"/></font>
 				</a>
 			</td>
 						
@@ -532,7 +532,7 @@
 											</select>
 							            </td>
 							            <td class="text12" align="left">
-						            		<input autofocus type="text" class="inputText" name="wtnr" id="wtnr" size="5" maxlength="5" value="${model.record.wtnr}">
+						            		<input type="text" class="inputText" name="wtnr" id="wtnr" size="5" maxlength="5" value="${model.record.wtnr}">
 							            </td>
 										<td class="text12Grey" align="left" >
 							 				<input type="text" onKeyPress="return numberKey(event)" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="fabelv" id="fabelv" size="10" maxlength="8" value="${model.record.fabelv}">

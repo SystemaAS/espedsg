@@ -88,10 +88,8 @@
 					</c:if>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tab" align="center" nowrap>
-						<a class="text14" onClick="setBlockUI(this);" href="TODOtror_mainorderlandimport_more.do?avd=${recordOrderTrorLandImport.heavd}&sign=${recordOrderTrorLandImport.hesg}&opd=${recordOrderTrorLandImport.heopd}">
-							<img style="vertical-align: bottom" src="resources/images/sort_down.png" width="10" hight="10" border="0" alt="show more">
-							<font class="tabLink">&nbsp;<spring:message code="systema.tror.order.more.tab"/></font>&nbsp;<font class="text10Orange">F24</font>
-						</a>
+						<img style="vertical-align: bottom" src="resources/images/sort_down.png" width="10" hight="10" border="0" alt="show more">
+						<font class="tabLink">&nbsp;<spring:message code="systema.tror.order.more.tab"/></font>						
 					</td>
 					
 				</c:otherwise>

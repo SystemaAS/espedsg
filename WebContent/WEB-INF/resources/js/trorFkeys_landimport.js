@@ -38,11 +38,12 @@
   		 if(event.shiftKey){
   			var charCode = (evt.which) ? evt.which : event.keyCode; 
   			//alert(charCode);
+  			/* Edge has F24 as OS-command on browser
   			if (charCode == f12){ //shift + F12 = F24 --> in apple
   	  			 //More 
   	   			 setBlockUIKeys();
   	   			 window.location.href = "tror_mainorderlandimport_more.do?avd=" + jq('#fkeysavd').val() + "&sign=" + jq('#fkyessign').val() + "&opd=" + jq('#fkyesopd').val();	 
-  			}
+  			}*/
   			
   		 }else{
 	  		 var charCode = (evt.which) ? evt.which : event.keyCode;
@@ -84,11 +85,11 @@
 	   			window.location.href = "tror_mainorderlandimport_freightbill_edit.do?dfavd=" + jq('#fkeysavd').val() + "&sign=" + jq('#fkeyssign').val() + "&dfopd=" + jq('#fkeysopd').val();
 	   		 
 	   		
-	  		 }else if (charCode == f24){ 
+	  		 }/*else if (charCode == f24){ //Edge har detta som OS-command
   	  			 //More 
   	   			 setBlockUIKeys();
   	   			 window.location.href = "tror_mainorderlandimport_more.do?avd=" + jq('#fkeysavd').val() + "&sign=" + jq('#fkeyssign').val() + "&opd=" + jq('#fkeysopd').val();	 
-  			}
+  			}*/
   		 }	 
   	 });
   	
