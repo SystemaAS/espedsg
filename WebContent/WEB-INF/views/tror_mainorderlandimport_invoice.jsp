@@ -513,7 +513,7 @@
 							        <tr>
 						        		<td align="left">
 						        			
-						        			<select autofocus required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="fask" id="fask">
+						        			<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="fask" id="fask">
 						 						<option value="">-velg-</option>
 							 				  	<option value="A"<c:if test="${model.record.fask == 'A'}"> selected </c:if> >A</option>
 												<option value="F"<c:if test="${model.record.fask == 'F'}"> selected </c:if> >F</option>
@@ -532,7 +532,7 @@
 											</select>
 							            </td>
 							            <td class="text12" align="left">
-						            		<input type="text" class="inputText" name="wtnr" id="wtnr" size="5" maxlength="5" value="${model.record.wtnr}">
+						            		<input autofocus type="text" class="inputText" name="wtnr" id="wtnr" size="5" maxlength="5" value="${model.record.wtnr}">
 							            </td>
 										<td class="text12Grey" align="left" >
 							 				<input type="text" onKeyPress="return numberKey(event)" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="fabelv" id="fabelv" size="10" maxlength="8" value="${model.record.fabelv}">

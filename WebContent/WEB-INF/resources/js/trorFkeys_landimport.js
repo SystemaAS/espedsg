@@ -81,7 +81,7 @@
 	  		 }else if (charCode == f3){
 	  			 //Fraktbrev
 	   			setBlockUIKeys();
-	   			window.location.href = "tror_mainorderlandimport_freightbill_edit.do?dfavd=" + jq('#fkeysavd').val() + "&sign=" + jq('#fkeyssign').val() + "&opd=" + jq('#fkeysopd').val();
+	   			window.location.href = "tror_mainorderlandimport_freightbill_edit.do?dfavd=" + jq('#fkeysavd').val() + "&sign=" + jq('#fkeyssign').val() + "&dfopd=" + jq('#fkeysopd').val();
 	   		 
 	   		
 	  		 }else if (charCode == f24){ 
