@@ -158,7 +158,7 @@ public class TrorMainOrderHeaderLandImportController {
 		String action = request.getParameter("action");
 		boolean isValidRecord = true;
 		
-		//TODO String orderStatus = recordToValidate.getStatus(); //Since this is not comming from the back-end
+		String orderStatus = recordToValidate.getHest(); //Since this is not comming from the back-end
 		
 		//logger.info("ORDER TOTALS STRING:" +  orderLineTotalsString);
 		//special case on Create New comming from the order list "Create new order"
@@ -187,8 +187,8 @@ public class TrorMainOrderHeaderLandImportController {
 		    		logger.info("[ERROR Validation] record does not validate)");
 		    		isValidRecord = false;
 		    		//set always status as in list (since we do not get this value from back-end)
-					//TODO recordToValidate.setStatus(orderStatus);
-		    		
+					recordToValidate.setHest(orderStatus);
+		    		model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
 			    }else{
 			    	//adjust some db-fields
 			    	this.adjustFields(recordToValidate);

@@ -496,8 +496,15 @@
 												</div>
 		 										
 		 									</td>
-		 									<td class="text12" >	
-						 						<input type="text" class="inputTextMediumBlue" name="hekna" id="hekna" size="9" maxlength="8" value="${model.record.hekna}">
+		 									<td class="text12" >
+		 										<c:choose>
+						 						<c:when test="${'0' != model.record.hekna}">	
+						 							<input type="text" class="inputTextMediumBlue" name="hekna" id="hekna" size="9" maxlength="8" value="${model.record.hekna}">
+						 						</c:when>
+						 						<c:otherwise>
+						 							<input type="text" class="inputTextMediumBlue" name="hekna" id="hekna" size="9" maxlength="8" value="">
+						 						</c:otherwise>
+						 						</c:choose>
 						 					</td>
 						 					<td class="text12" title="henaa">	
 						 						<input type="text" class="inputTextReadOnly" name="henaa" id="henaa" size="20" maxlength="30" value="${model.record.henaa}">
@@ -529,8 +536,15 @@
 													</span>	
 												</div>
 		 									</td>
-		 									<td class="text12" >	
-							 					<input type="text" class="inputTextMediumBlue" name="heknt" id="heknt" size="9" maxlength="8" value="${model.record.heknt}">
+		 									<td class="text12" >
+		 										<c:choose>
+						 						<c:when test="${'0' != model.record.heknt}">	
+							 						<input type="text" class="inputTextMediumBlue" name="heknt" id="heknt" size="9" maxlength="8" value="${model.record.heknt}">
+							 					</c:when>
+							 					<c:otherwise>
+							 						<input type="text" class="inputTextMediumBlue" name="heknt" id="heknt" size="9" maxlength="8" value="">
+							 					</c:otherwise>
+							 					</c:choose>
 							 				</td>
 							 				<td class="text12" title="ownheknt">	
 							 					<input type="text" class="inputTextReadOnly" name="ownheknt" id="ownheknt" size="30" maxlength="30" value="${Xmodel.record.ownTODO}">
@@ -714,7 +728,16 @@
 					 				</td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text12" ><input type="text" class="inputTextMediumBlue" name="hekns" id="hekns" size="10" maxlength="8" value="${model.record.hekns}"></td>
+				 					<td class="text12" >
+				 						<c:choose>
+						 				<c:when test="${'0' != model.record.hekns}">
+				 							<input type="text" class="inputTextMediumBlue" name="hekns" id="hekns" size="10" maxlength="8" value="${model.record.hekns}">
+				 						</c:when>
+				 						<c:otherwise>
+				 							<input type="text" class="inputTextMediumBlue" name="hekns" id="hekns" size="10" maxlength="8" value="">
+				 						</c:otherwise>
+				 						</c:choose>
+				 					</td>
 								 	<td class="text12" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenas" id="whenas" size="50" value="${XXmodel.record.heknsNavn}&nbsp;-&nbsp;${XXmodel.record.heknsPnSt}"></td>
 				 				</tr>
 								<tr height="5"><td ></td></tr>
@@ -866,7 +889,16 @@
 					 				</td>	
 					 			</tr>
 					 			<tr>	
-				 					<td class="text12"><input type="text" class="inputTextMediumBlue" name="heknk" id="heknk" size="10" maxlength="8" value="${model.record.heknk}"></td>
+				 					<td class="text12">
+				 						<c:choose>
+						 				<c:when test="${'0' != model.record.heknk}">
+				 							<input type="text" class="inputTextMediumBlue" name="heknk" id="heknk" size="10" maxlength="8" value="${model.record.heknk}">
+				 						</c:when>
+				 						<c:otherwise>
+				 							<input type="text" class="inputTextMediumBlue" name="heknk" id="heknk" size="10" maxlength="8" value="">
+				 						</c:otherwise>
+				 						</c:choose>
+				 					</td>
 				 					<td class="text12" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenak" id="whenak" size="50" value="${Xmodel.record.heknkNavn}&nbsp;-&nbsp;${Xmodel.record.heknkPnSt}"></td>
 				 				</tr>
 				 				<tr height="5"><td ></td></tr>
