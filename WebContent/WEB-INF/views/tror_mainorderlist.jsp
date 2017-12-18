@@ -252,8 +252,8 @@
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.status"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.delsystem"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.godsnr"/></th>
-	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sender"/></th>
-	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.receiver"/></th>
+	                    <th width="20%" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.sender"/></th>
+	                    <th width="20%" class="text12"><spring:message code="systema.tror.orders.open.list.search.label.receiver"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.antall"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.weight"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.m3"/></th>
@@ -320,8 +320,8 @@
 	           				</c:if>
 			           </td>
 		               <td align="left" class="text11MediumBlue">&nbsp;${record.hegn}</td>
-		               <td align="left" class="text11MediumBlue">&nbsp;${record.henas}</td>
-		               <td align="left" class="text11MediumBlue">&nbsp;${record.henak}</td>
+		               <td width="20%" align="left" class="text11MediumBlue">&nbsp;${record.henas}</td>
+		               <td width="20%" align="left" class="text11MediumBlue">&nbsp;${record.henak}</td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${record.hent}</td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${record.hevkt}</td>
 		               <td align="center" class="text11MediumBlue">&nbsp;${record.hem3}</td>
