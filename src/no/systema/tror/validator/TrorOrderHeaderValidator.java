@@ -80,7 +80,8 @@ public class TrorOrderHeaderValidator implements Validator {
 			
 			//Fakturapart
 			if( (strMgr.isNotNull(record.getHeknsf())) && (strMgr.isNotNull(record.getHeknkf())) ){
-				errors.rejectValue("heknsf", "systema.tror.orders.form.update.error.rule.both.invoicees.invalid");
+				//Removed after Trond's mail. It should be possible to have both invoice parts ...
+				//errors.rejectValue("heknsf", "systema.tror.orders.form.update.error.rule.both.invoicees.invalid");
 			}else{
 				if( (strMgr.isNotNull(record.getHeknsf())) || (strMgr.isNotNull(record.getHeknkf())) ){
 					//OK (at least one)

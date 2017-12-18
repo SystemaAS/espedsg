@@ -170,7 +170,7 @@
 		<c:if test="${not empty model.record.heopd}">
 			<tr>
 				<td valign="bottom" >
-					<span style="position:absolute; left:1360px; top:160px; width:550px; height:800px;" id="economyMatrixInfo" class="popupFloating"  >
+					<span style="position:absolute; left:1460px; top:160px; width:550px; height:800px;" id="economyMatrixInfo" class="popupFloating"  >
 		           		<div class="text10" align="left">
 		           		<table align="left" class="popupFloatingWithRoundCorners3D">
 						    <tr height="2"><td></td></tr>
