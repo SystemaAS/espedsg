@@ -28,6 +28,9 @@ import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.service.UrlCgiProxyService;
+import no.systema.main.util.JsonDebugger;
+import no.systema.main.util.StringManager;
+
 
 
 import no.systema.transportdisp.model.jsonjackson.workflow.order.invoice.JsonTransportDispWorkflowSpecificOrderInvoiceContainer;
@@ -45,7 +48,10 @@ import no.systema.transportdisp.util.manager.ControllerAjaxCommonFunctionsMgr;
 import no.systema.tror.model.jsonjackson.frisokvei.JsonTrorOrderHeaderFrisokveiContainer;
 import no.systema.tror.service.TrorMainOrderHeaderService;
 import no.systema.tror.url.store.TrorUrlDataStore;
-
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
+import no.systema.z.main.maintenance.service.MaintMainCundfService;
+import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.tror.model.jsonjackson.budget.JsonTrorOrderHeaderBudgetContainer; 
 import no.systema.tror.model.jsonjackson.budget.JsonTrorOrderHeaderBudgetRecord; 
 /**
@@ -63,10 +69,9 @@ public class TrorMainOrderHeaderLandImportAjaxHandlerController {
 	private static final Logger logger = Logger.getLogger(TrorMainOrderHeaderLandImportAjaxHandlerController.class.getName());
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 	private ControllerAjaxCommonFunctionsMgr controllerAjaxCommonFunctionsMgr;
+	private StringManager strMgr = new StringManager();
+	private static final JsonDebugger jsonDebugger = new JsonDebugger(800);
 	
-	
-	  
-	  
 	  /**
 	   * Gets a specific invoice line
 	   * This method is to be ported to a real Landimport module (migration project).
@@ -109,6 +114,44 @@ public class TrorMainOrderHeaderLandImportAjaxHandlerController {
 			 return result;
 		}
 		
+		/**
+		 * 
+		 * @param applicationUser
+		 * @param id
+		 * @return
+		 */
+		@RequestMapping(value = "getCustomer_Landimport.do", method = RequestMethod.GET)
+	    public @ResponseBody Collection<JsonMaintMainCundfRecord> getCustomer
+		  						(@RequestParam String applicationUser, @RequestParam String id){
+			 logger.info("Inside: getCustomer_Landimport");
+			 Collection<JsonMaintMainCundfRecord> result = new ArrayList<JsonMaintMainCundfRecord>();
+			 
+			 //logger.info(requestString);
+			 if(strMgr.isNotNull(id)){
+				 String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_GET_LIST_URL;
+				 	
+				 String urlRequestParamsKeys = "user=" + applicationUser + "&kundnr=" + id;
+				 logger.info("URL: " + BASE_URL);
+				 logger.info("PARAMS: " + urlRequestParamsKeys);
+				 logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+				 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+				 //debugger
+				 logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+				 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+				 if(jsonPayload!=null){
+					 jsonPayload = jsonPayload.replaceFirst("Customerlist", "customerlist");
+					 JsonMaintMainCundfContainer container = this.maintMainCundfService.getList(jsonPayload);
+					 if(container!=null){
+						 result = container.getList();
+						 for(JsonMaintMainCundfRecord  record : result){
+							 //logger.info("CUSTOMER via AJAX: " + record.getKnavn() + " NUMBER:" + record.getKundnr());
+							 //logger.info("KPERS: " + record.getKpers() + " TLF:" + record.getTlf());
+						 }
+					 }
+				 }
+			 }
+			 return result;
+		}
 		/**
 		 * 
 		 * @param applicationUser
@@ -438,6 +481,12 @@ public class TrorMainOrderHeaderLandImportAjaxHandlerController {
 	  public void setTrorMainOrderHeaderService (TrorMainOrderHeaderService value){ this.trorMainOrderHeaderService=value; }
 	  public TrorMainOrderHeaderService getTrorMainOrderHeaderService(){return this.trorMainOrderHeaderService;}
 		
+	  @Qualifier 
+	  private MaintMainCundfService maintMainCundfService;
+	  @Autowired
+	  @Required	
+	  public void setMaintMainCundfService(MaintMainCundfService value){this.maintMainCundfService = value;}
+	  public MaintMainCundfService getMaintMainCundfService(){ return this.maintMainCundfService; }
 		
 	  
 }

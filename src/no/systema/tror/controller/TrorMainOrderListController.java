@@ -38,6 +38,7 @@ import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.StringManager;
+import no.systema.main.util.DateTimeManager;
 import no.systema.main.validator.LoginValidator;
 import no.systema.transportdisp.filter.SearchFilterTransportDispWorkflowShippingPlanningOrdersList;
 import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
@@ -80,6 +81,7 @@ public class TrorMainOrderListController {
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 	private StringManager strMgr = new StringManager();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
+	private DateTimeManager dateTimeMgr = new DateTimeManager();
 	@PostConstruct
 	public void initIt() throws Exception {
 		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
@@ -145,6 +147,10 @@ public class TrorMainOrderListController {
 	            	if(sessionFilter!=null){
 	            		//Use the session filter when applicable
 	            		recordToValidate = sessionFilter;
+	            	}else{
+	            		//set defaults as first time in html page
+	            		int defaultNrOfDaysBack = -10;
+	            		recordToValidate.setDate(dateTimeMgr.getNewDateFromNow(defaultNrOfDaysBack));
 	            	}
 	            }
 		    		

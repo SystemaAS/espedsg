@@ -576,10 +576,11 @@
   //INIT CUSTOMER Object
   //-----------------------
   var map = {};
+  var NOT_EXISTS = "NOT EXISTS";
   //init the customer object in javascript (will be put into a map)
   var customer = new Object();
   //fields
-  customer.kundnr = "";customer.knavn = "";customer.adr1 = "";
+  customer.kundnr = "";customer.knavn = "";customer.adr1 = "";customer.postnr = "";
   customer.adr2 = "";customer.adr3 = ""; customer.land = ""; customer.auxnavn=""; customer.auxtlf=""; customer.auxmail="";
   //--------------------------------------------------------------------------------------
   //Extra behavior for Customer number ( without using (choose from list) extra roundtrip)
@@ -587,7 +588,9 @@
   jq(function() {  
 	  	//SHIPPER/CONSIGNOR
 	    jq('#hekns').blur(function() {
-	    	//getConsignor();
+	    	if( (jq('#henas').val() == '' && jq('#heads1').val() == '') || jq('#henas').val() == NOT_EXISTS ){
+	    		getConsignor();
+	    	}
 		});
 	    //must be done since CustomValidity is HTML 5 and not jQuery
 	    //otherwise the validation is never removed (when the value was setted via jQuery in some event)
@@ -607,10 +610,9 @@
 	    function getConsignor(){
 	    	var hekns = jq('#hekns').val();
     		if(hekns!=null && hekns!=""){
-	    		jq.getJSON('TODOsearchCustomer_Ebooking.do', {
+	    		jq.getJSON('getCustomer_Landimport.do', {
 				applicationUser : jq('#applicationUser').val(),
-				customerName : "",
-				customerNumber : jq('#hekns').val(),
+				id : jq('#hekns').val(),
 				ajax : 'true'
 	    		}, function(data) {
 					//alert("Hello");
@@ -618,14 +620,14 @@
 					for ( var i = 0; i < len; i++) {
 						customer = new Object();
 						customer.kundnr = data[i].kundnr;
-						customer.knavn = data[i].navn;
-						customer.auxnavn = data[i].auxnavn;
-						customer.adr1 = data[i].gateAdr;
-						customer.adr2 = data[i].adresse2;
-						customer.adr3 = data[i].postnrSted;
-						customer.land = data[i].land;
-						customer.auxtlf = data[i].auxtlf;
-						customer.auxmail = data[i].auxmail;
+						customer.knavn = data[i].knavn;
+						customer.postnr = data[i].postnr;
+						customer.adr1 = data[i].adr1;
+						customer.adr2 = data[i].adr2;
+						customer.adr3 = data[i].adr3;
+						customer.land = data[i].syland;
+						//customer.auxtlf = data[i].auxtlf;
+						//customer.auxmail = data[i].auxmail;
 						map[customer.kundnr] = customer;
 					}
 					if(len > 0){
@@ -636,43 +638,49 @@
 						jq('#whenas').val(seller);
 		    			//now check ids (name and address in order to overdrive (when applicable)
 						var name = jq('#henas').val().trim();
-		    			//var address = jq('#heads1').val().trim();
-		    			//only if name is empty
-		    			//if(name==''){
-							jq('#hekns').val(customer.kundnr);
-							jq('#whenas').val(seller);
-							if(customer.auxnavn!=''){
-								jq('#henas').val(customer.auxnavn);
-							}else{
-								//fallback 
-								jq('#henas').val(jq('#whenas').val());
-							}
-							jq('#heads1').val(customer.adr1);
-							jq('#heads2').val(customer.adr2);
-							jq('#heads3').val(customer.adr3 + " " +  customer.land);
-							jq('#wsscont').val("");
-							jq('#wsstlf').val(customer.auxtlf);
-							jq('#wssmail').val(customer.auxmail);
-							//Form field on "Fra"
-							jq('#helka').val(customer.land);
-							//Fra sted
-							if(jq('#heads3').val()!=''){
-				  				var tmp = jq('#heads3').val();
-				  				var postNr = tmp.substring(0,4);
-				  				jq('#hesdf').val(postNr);
-				  			}
-		    			//}	
+		    			
+		    			jq('#hekns').val(customer.kundnr);
+		    			jq('#henas').val(seller);
+						
+						jq('#heads1').val(customer.adr1);
+						jq('#heads2').val(customer.adr2);
+						jq('#heads3').val(customer.adr3 + " " +  customer.postnr);
+						jq('#whenas').val(seller + " - " + jq('#heads3').val());
+						//init some records
+						jq('#heans').val("0");
+						jq('#hekdfs').val("");
+						//Form field on "Fra"
+						jq('#helka').val(customer.land);
+						jq('#hesdf').val(customer.postnr);
+				  		//Fakturapart
+						jq('#heknsf').val(jq('#hekns').val());
+						jq('#whenasf').val(jq('#whenas').val());
+		    			
+						
 					}else{
 						//init fields
-						//jq('#hekns').val("");
+						jq('#hekns').focus();
 						jq('#whenas').val("");
 						//
-						jq('#henas').val("NOT EXISTS");
+						jq('#henas').val(NOT_EXISTS);
 						jq('#henas').addClass( "isa_error" );
 						//
 						jq('#heads1').val("");
 						jq('#heads2').val("");
 						jq('#heads3').val("");
+						jq('#whenas').val("");
+						//
+						jq('#heans').val("0");
+						jq('#hekdfs').val("");
+						
+						//Form field on "Fra"
+						jq('#helka').val("");
+						jq('#hesdf').val("");
+						//fakturapart
+						jq('#heknsf').val("");
+						jq('#whenasf').val("");
+						
+						
 					}
 	    		});
     		}
@@ -681,7 +689,9 @@
 	    
 	    //CONSIGNEE
 	    jq('#heknk').blur(function() {
-	    	//getConsignee();
+	    	if( (jq('#henak').val() == '' && jq('#headk1').val() == '') || jq('#henak').val() == NOT_EXISTS ){
+	    		getConsignee();
+	    	}
 		});
 	    //must be done since CustomValidity is HTML 5 and not jQuery
 	    //otherwise the validation is never removed (when the value was setted via jQuery in some event)
@@ -696,75 +706,78 @@
 	  		}
 	  	});
 	    function getConsignee(){
-	    	var heknk = jq('#heknk').val();
-    		if(heknk!=null && heknk!=""){
-				jq.getJSON('TODOsearchCustomer_Ebooking.do', {
+	    	var hekns = jq('#heknk').val();
+    		if(hekns!=null && hekns!=""){
+	    		jq.getJSON('getCustomer_Landimport.do', {
 				applicationUser : jq('#applicationUser').val(),
-				customerName : "",
-				customerNumber : jq('#heknk').val(),
+				id : jq('#heknk').val(),
 				ajax : 'true'
-				}, function(data) {
+	    		}, function(data) {
 					//alert("Hello");
 					var len = data.length;
 					for ( var i = 0; i < len; i++) {
 						customer = new Object();
 						customer.kundnr = data[i].kundnr;
-						customer.knavn = data[i].navn;
-						customer.adr1 = data[i].gateAdr;
-						customer.adr2 = data[i].adresse2;
-						customer.adr3 = data[i].postnrSted;
-						customer.land = data[i].land;
-						customer.auxnavn = data[i].auxnavn;
-						customer.auxtlf = data[i].auxtlf;
-						customer.auxmail = data[i].auxmail;
+						customer.knavn = data[i].knavn;
+						customer.postnr = data[i].postnr;
+						customer.adr1 = data[i].adr1;
+						customer.adr2 = data[i].adr2;
+						customer.adr3 = data[i].adr3;
+						customer.land = data[i].syland;
+						//customer.auxtlf = data[i].auxtlf;
+						//customer.auxmail = data[i].auxmail;
 						map[customer.kundnr] = customer;
 					}
 					if(len > 0){
 						jq('#henak').removeClass( "isa_error" );
 						
-						var buyer = customer.knavn;
-						jq('#whenak').val(buyer);
-						
+						//always show seller
+						var seller = customer.knavn;
+						jq('#whenak').val(seller);
+		    			//now check ids (name and address in order to overdrive (when applicable)
 						var name = jq('#henak').val().trim();
-	    				//var address = jq('#headk1').val().trim();
-	    				//only if name is empty
-	    				//if(name==''){
-							jq('#heknk').val(customer.kundnr);
-							jq('#whenak').val(buyer);
-							if(customer.auxnavn!=''){
-								jq('#henak').val(customer.auxnavn);
-							}else{
-								//fallback
-								jq('#henak').val(jq('#whenak').val());
-							}
-							jq('#headk1').val(customer.adr1);
-							jq('#headk2').val(customer.adr2);
-							jq('#headk3').val(customer.adr3 + " " + customer.land);
-							jq('#wskcont').val("");
-							jq('#wsktlf').val(customer.auxtlf);
-							jq('#wskmail').val(customer.auxmail);
-							//Form field on "Til"
-							jq('#hetri').val(customer.land);
-							//Til sted
-							if(jq('#headk3').val()!=''){
-				  				var tmp = jq('#headk3').val();
-				  				var postNr = tmp.substring(0,4);
-				  				jq('#hesdt').val(postNr);
-				  			}
-	    				//}
+		    			
+		    			jq('#heknk').val(customer.kundnr);
+		    			jq('#henak').val(seller);
+						
+						jq('#headk1').val(customer.adr1);
+						jq('#headk2').val(customer.adr2);
+						jq('#headk3').val(customer.adr3 + " " +  customer.postnr);
+						jq('#whenak').val(seller + " - " + jq('#headk3').val());
+						//init some records
+						jq('#heank').val("0");
+						jq('#hekdfk').val("");
+						//Form field on "Fra"
+						jq('#hetri').val(customer.land);
+						jq('#hesdt').val(customer.postnr);
+				  		//Fakturapart
+						jq('#heknkf').val(jq('#heknk').val());
+						jq('#whenakf').val(jq('#whenak').val());
+		    			
 					}else{
 						//init fields
-						//jq('#heknk').val("");
+						jq('#heknk').focus();
 						jq('#whenak').val("");
 						//
-						jq('#henak').val("NOT EXISTS");
+						jq('#henak').val(NOT_EXISTS);
 						jq('#henak').addClass( "isa_error" );
 						//
 						jq('#headk1').val("");
 						jq('#headk2').val("");
 						jq('#headk3').val("");
+						jq('#whenak').val("");
+						//
+						jq('#heank').val("0");
+						jq('#hekdfk').val("");
+						//Form field on "Fra"
+						jq('#hetri').val("");
+						jq('#hesdt').val("");
+						//fakturapart
+						jq('#heknkf').val("");
+						jq('#whenakf').val("");
+						
 					}
-				});
+	    		});
     		}
 	    }
 	    //---------------------------------------------

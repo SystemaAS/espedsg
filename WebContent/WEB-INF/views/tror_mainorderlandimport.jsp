@@ -302,6 +302,17 @@
 					<input type="hidden" name="action" id="action" value='doUpdate'>
 					<input type="hidden" name="selectedType" id="selectedType" value='${model.selectedType}'>
 					<input type="hidden" name="heur" id="heur" value='${model.record.heur}'> <%--delsystem --%>
+					<c:choose>
+					<c:when test="${empty model.record.hedtr || model.record.hedtr == '0' }">
+						<jsp:useBean id="now" class="java.util.Date" />
+						<fmt:formatDate var="today" value="${now}" pattern="yyyyMMdd" />
+						<input type="hidden" name="hedtr" id="hedtr" value='${today}'> <%--log time (today) --%>
+					</c:when>
+					<c:otherwise>
+						<input type="hidden" name="hedtr" id="hedtr" value='${model.record.hedtr}'> <%--log time at the time of the registration --%>
+					</c:otherwise>
+					</c:choose>
+					
 					
 					<c:if test="${not empty model.record.heopd}">
 						<%--for F-Keys shortcuts. Used only in trorFkeys_...js --%>
@@ -727,22 +738,21 @@
 						
 						<tr>
 				 			<td valign="top" width="50%" >
-				 			 <table style="width:98%" class="tableBorderWithRoundCornersGray" cellspacing="1" cellpadding="0" border="0">
+				 			 <table style="width:97%" class="tableBorderWithRoundCornersGray" cellspacing="1" cellpadding="0" border="0">
 						 		<tr height="10"><td ></td></tr>
 						 		<tr>
-					 				<td class="text12">
+						 			<td class="text12">
 					 					&nbsp;<span title="hekns"><spring:message code="systema.tror.orders.form.update.label.shipper.id"/>&nbsp;</span>
 					 					<a tabindex="-1" id="trorSellerIdLink" >
- 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
  										</a>
 					 				</td>
 					 				<td class="text12">
 					 					&nbsp;<span title="whenas"><spring:message code="systema.tror.orders.form.update.label.shipper.seller"/>&nbsp;</span>
-					 	
 					 				</td>
 					 			</tr>
-					 			<tr>	
-				 					<td class="text12" >
+					 			<tr>
+					 				<td class="text12" >
 				 						<c:choose>
 						 				<c:when test="${'0' != model.record.hekns}">
 				 							<input type="text" class="inputTextMediumBlue" name="hekns" id="hekns" size="10" maxlength="8" value="${model.record.hekns}">
@@ -752,7 +762,8 @@
 				 						</c:otherwise>
 				 						</c:choose>
 				 					</td>
-								 	<td class="text12" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenas" id="whenas" size="50" value="${XXmodel.record.heknsNavn}&nbsp;-&nbsp;${XXmodel.record.heknsPnSt}"></td>
+					 				
+								 	<td colspan="4" class="text12" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenas" id="whenas" size="50" value="${XXmodel.record.heknsNavn}&nbsp;-&nbsp;${XXmodel.record.heknsPnSt}"></td>
 				 				</tr>
 								<tr height="5"><td ></td></tr>
 						 		<tr>
@@ -775,15 +786,77 @@
 					 			<tr>	
 					 				<td class="text12">&nbsp;<span title="heads2"><spring:message code="systema.tror.orders.form.update.label.shipper.adr2"/></span></td>
 					 				<td class="text12">&nbsp;<span title="heads3"><spring:message code="systema.tror.orders.form.update.label.shipper.adr3"/></span></td>
+		 							<td class="text12">&nbsp;
+			 							<img onMouseOver="showPop('heans_info');" onMouseOut="hidePop('heans_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+						 				<span title="heans">Avt.nr.</span>
+						 				<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute; left:0px; top:0px; width:250px" id="heans_info" class="popupWithInputText"  >
+												<font class="text11">
+							           			<b>Avt.nr.</b>
+							           			<div>
+							           			<p>Hver kunde kan ha 10 forskjellige avtaler (0-9).</p>
+												Dersom det ikke tastes avtalenr forsøker systemet å hente fram avtale 0 for kunden.
+												Har ikke kunden (selger-)avtale på det avtalenr som tastes, går systemet til "hvem belastes hva
+							           			
+							           			</div>
+						           			</font>
+										</span>
+										</div>
+		 							
+		 							
+		 							
+		 							</td>
+					 				<td class="text12">&nbsp;
+					 					<img onMouseOver="showPop('hekdfs_info');" onMouseOut="hidePop('hekdfs_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+						 				<span title="hekdfs">Fakt.mot selger?</span>
+						 				<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute; left:0px; top:0px; width:250px" id="hekdfs_info" class="popupWithInputText"  >
+												<font class="text11">
+							           			<b>Fakt.mot selger ?</b>
+							           			<div>
+							           			<p>Tast en <b>X</b> i dette feltet dersom du ønsker at selger ikke skal faktureres. 
+							           			En <b>E</b> i feltet vil medføre at selgers avtale blir benyttet, ikke selgers fakturamottagers avtale som er det vanlige. 
+							           			En <b>B</b> i feltet vil medføre at "motpartens" (kjøpers/kjøpers fmots) avtale brukes.
+							           			</p>
+							           			</div>
+						           			</font>
+										</span>
+										</div>
+					 				</td>
+					 				<td class="text12" width="100px">&nbsp;</td>
 					 			</tr>
 								<tr>	
 				 					<td class="text12" >
-				 					<input type="text" class="inputTextMediumBlueUPPERCASE" name="heads2" id="heads2" size="25" maxlength="30" value="${model.record.heads2}">
+				 						<input type="text" class="inputTextMediumBlueUPPERCASE" name="heads2" id="heads2" size="25" maxlength="30" value="${model.record.heads2}">
 				 					</td>
 				 					<td class="text12"><input type="text" class="inputTextMediumBlue" name="heads3" id="heads3" size="25" maxlength="30" value="${model.record.heads3}"></td>
+				 					<td class="text12">
+				 						<select class="inputTextMediumBlue" name="heans" id="heans" >
+				 							  <option value="0" <c:if test="${ empty model.record.heans || model.record.heans == '0' }"> selected </c:if> >0</option>
+											  <option value="1" <c:if test="${ model.record.heans == '1' }"> selected </c:if> >1</option>
+											  <option value="2" <c:if test="${ model.record.heans == '2' }"> selected </c:if> >2</option>
+											  <option value="3" <c:if test="${ model.record.heans == '3' }"> selected </c:if> >3</option>
+											  <option value="4" <c:if test="${ model.record.heans == '4' }"> selected </c:if> >4</option>
+											  <option value="5" <c:if test="${ model.record.heans == '5' }"> selected </c:if> >5</option>
+											  <option value="6" <c:if test="${ model.record.heans == '6' }"> selected </c:if> >6</option>
+											  <option value="7" <c:if test="${ model.record.heans == '7' }"> selected </c:if> >7</option>
+											  <option value="8" <c:if test="${ model.record.heans == '8' }"> selected </c:if> >8</option>
+											  <option value="9" <c:if test="${ model.record.heans == '9' }"> selected </c:if> >9</option>
+										</select>
+				 					</td>
+				 					<td class="text12">
+				 						<select class="inputTextMediumBlue" name="hekdfs" id="hekdfs" >
+				 							  <option value="" <c:if test="${ empty model.record.hekdfs }"> selected </c:if> >-velg-</option>	
+						 					  <option value="X" <c:if test="${ model.record.hekdfs == 'X' }"> selected </c:if> >X</option>
+											  <option value="E" <c:if test="${ model.record.hekdfs == 'E' }"> selected </c:if> >E</option>
+											  <option value="B" <c:if test="${ model.record.hekdfs == 'B' }"> selected </c:if> >B</option>
+											  
+										</select>
+				 					</td>
+				 					<td class="text12" width="100px">&nbsp;</td>
 				 				</tr>
 				 				
-				 				<tr height="15"><td ></td></tr>	
+				 				<tr height="5"><td ></td></tr>	
 				 				<%--
 				 				<tr>	
 				 					<td class="text12">
@@ -830,7 +903,7 @@
 			 						</td>
 								</tr>
 				 				<tr>
-				 					<td colspan="2">
+				 					<td colspan="4">
 				 					<table class="tableBorderWithRoundCornersLightGray">
 					 					<tr>
 							 				<td class="text12">
@@ -889,7 +962,7 @@
 							 </table>
 						 	</td>
 						 	<td valign="top" width="50%">
-				 			 <table style="width:98%" class="tableBorderWithRoundCornersGray" cellspacing="1" cellpadding="0">
+				 			 <table style="width:97%" class="tableBorderWithRoundCornersGray" cellspacing="1" cellpadding="0">
 					 			<tr height="10"><td ></td></tr>
 						 		<tr>
 					 				<td class="text12">
@@ -913,7 +986,7 @@
 				 						</c:otherwise>
 				 						</c:choose>
 				 					</td>
-				 					<td class="text12" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenak" id="whenak" size="50" value="${Xmodel.record.heknkNavn}&nbsp;-&nbsp;${Xmodel.record.heknkPnSt}"></td>
+				 					<td colspan="4" class="text12" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenak" id="whenak" size="50" value="${Xmodel.record.heknkNavn}&nbsp;-&nbsp;${Xmodel.record.heknkPnSt}"></td>
 				 				</tr>
 				 				<tr height="5"><td ></td></tr>
 						 		<tr>
@@ -936,13 +1009,74 @@
 					 			<tr>	
 					 				<td class="text12">&nbsp;<span title="headk2"><spring:message code="systema.tror.orders.form.update.label.consignee.adr2"/></span></td>
 					 				<td class="text12">&nbsp;<span title="headk3"><spring:message code="systema.tror.orders.form.update.label.consignee.adr3"/></span></td>
+					 				<td class="text12">
+					 					<img onMouseOver="showPop('heank_info');" onMouseOut="hidePop('heank_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+						 				<span title="heank">Avt.nr.</span>
+						 				<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute; left:0px; top:0px; width:250px" id="heank_info" class="popupWithInputText"  >
+												<font class="text11">
+							           			<b>Avt.nr.</b>
+							           			<div>
+							           			<p>Hver kunde kan ha 10 forskjellige avtaler (0-9).</p>
+												Dersom det ikke tastes avtalenr forsøker systemet å hente fram avtale 0 for kunden.
+												Har ikke kunden (selger-)avtale på det avtalenr som tastes, går systemet til "hvem belastes hva
+							           			
+							           			</div>
+						           			</font>
+										</span>
+										</div>
+					 				</td>
+					 				<td class="text12">&nbsp;
+					 					<img onMouseOver="showPop('hekdfk_info');" onMouseOut="hidePop('hekdfk_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+						 				<span title="hekdfk">Fakt.mot selger?</span>
+						 				<div class="text11" style="position: relative;" align="left">
+											<span style="position:absolute; left:0px; top:0px; width:250px" id="hekdfk_info" class="popupWithInputText"  >
+												<font class="text11">
+							           			<b>Fakt.mot selger ?</b>
+							           			<div>
+							           			<p>Tast en <b>X</b> i dette feltet dersom du ønsker at selger ikke skal faktureres. 
+							           			En <b>E</b> i feltet vil medføre at selgers avtale blir benyttet, ikke selgers fakturamottagers avtale som er det vanlige. 
+							           			En <b>B</b> i feltet vil medføre at "motpartens" (kjøpers/kjøpers fmots) avtale brukes.
+							           			</p>
+							           			</div>
+						           			</font>
+										</span>
+										</div>
+					 				</td>
+					 				<td class="text12" width="100px">&nbsp;</td>
+					 				
 					 			</tr>
 								<tr>	
 				 					<td class="text12"><input type="text" class="inputTextMediumBlue" name="headk2" id="headk2" size="25" maxlength="30" value="${model.record.headk2}"></td>
 				 					<td class="text12"><input type="text" class="inputTextMediumBlue" name="headk3" id="headk3" size="25" maxlength="30" value="${model.record.headk3}"></td>
+				 					
+					 				<td class="text12">
+				 						<select class="inputTextMediumBlue" name="heank" id="heank" >
+				 							  <option value="0" <c:if test="${ empty model.record.heank || model.record.heank == '0' }"> selected </c:if> >0</option>
+											  <option value="1" <c:if test="${ model.record.heank == '1' }"> selected </c:if> >1</option>
+											  <option value="2" <c:if test="${ model.record.heank == '2' }"> selected </c:if> >2</option>
+											  <option value="3" <c:if test="${ model.record.heank == '3' }"> selected </c:if> >3</option>
+											  <option value="4" <c:if test="${ model.record.heank == '4' }"> selected </c:if> >4</option>
+											  <option value="5" <c:if test="${ model.record.heank == '5' }"> selected </c:if> >5</option>
+											  <option value="6" <c:if test="${ model.record.heank == '6' }"> selected </c:if> >6</option>
+											  <option value="7" <c:if test="${ model.record.heank == '7' }"> selected </c:if> >7</option>
+											  <option value="8" <c:if test="${ model.record.heank == '8' }"> selected </c:if> >8</option>
+											  <option value="9" <c:if test="${ model.record.heank == '9' }"> selected </c:if> >9</option>
+										</select>
+				 					</td>
+				 					<td class="text12">
+				 						<select class="inputTextMediumBlue" name="hekdfk" id="hekdfk" >
+				 							  <option value="" <c:if test="${ empty model.record.hekdfk }"> selected </c:if> >-velg-</option>	
+						 					  <option value="X" <c:if test="${ model.record.hekdfk == 'X' }"> selected </c:if> >X</option>
+											  <option value="E" <c:if test="${ model.record.hekdfk == 'E' }"> selected </c:if> >E</option>
+											  <option value="B" <c:if test="${ model.record.hekdfk == 'B' }"> selected </c:if> >B</option>
+										</select>
+				 					</td>
+				 					<td class="text12" width="100px">&nbsp;</td>
+					 				
 				 				</tr>
 				 				
-				 				<tr height="15"><td ></td></tr>
+				 				<tr height="5"><td ></td></tr>
 				 				<%--
 				 				<tr>	
 				 					<td class="text12"><img onMouseOver="showPop('herfk_info');" onMouseOut="hidePop('herfk_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -985,7 +1119,7 @@
 				 					</td>
 								</tr>
 				 				<tr>
-				 					<td colspan="2">
+				 					<td colspan="4">
 				 					<table class="tableBorderWithRoundCornersLightGray">
 					 					<tr>
 							 				<td class="text12">
