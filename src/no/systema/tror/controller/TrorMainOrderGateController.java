@@ -120,7 +120,7 @@ public class TrorMainOrderGateController {
 		ModelAndView successView = null;
 		
 		if("A".equals(selectedTypeWithCreateNew)){
-			successView = new ModelAndView("redirect:tror_mainorderlandimport.do?action=doInit");
+			successView = new ModelAndView("redirect:tror_mainorderlandimport.do?action=doInit&heavd=" + recordToValidate.getHeavd());
 		}else if("B".equals(selectedTypeWithCreateNew)){
 			successView = new ModelAndView("redirect:tror_mainorderlandexport.do?action=doInit");
 		}else if("C".equals(selectedTypeWithCreateNew)){

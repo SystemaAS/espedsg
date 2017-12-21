@@ -427,13 +427,22 @@
 					<table>
 						<tr>
 							<td class="text12MediumBlue">Type&nbsp;
-								<select class="inputTextMediumBlue11MandatoryField" name="selectedType" id="selectedType">
+								<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="selectedType" id="selectedType">
 									<option value="A"><spring:message code="systema.tror.order.suborder.landimport"/></option>
 									<option value="B"><spring:message code="systema.tror.order.suborder.landexport"/></option>
 									<option value="C"><spring:message code="systema.tror.order.suborder.airimport"/></option>
 									<option value="D"><spring:message code="systema.tror.order.suborder.airexport"/></option>
 								</select>
 								&nbsp;&nbsp;<div style="display:inline;" id="imagePreview"></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="text12MediumBlue">Avd&nbsp;&nbsp;
+								<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="heavd" id="heavd" >
+			 						<c:forEach var="record" items="${model.avdList}" >
+				 				  		<option value="${record.koakon}"<c:if test="${model.record.heavd == record.koakon}"> selected </c:if> >${record.koakon}</option>
+									</c:forEach>  
+								</select>
 							</td>
 						</tr>
 					</table>

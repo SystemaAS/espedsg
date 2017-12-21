@@ -8,6 +8,7 @@ import no.systema.tror.mapper.jsonjackson.order.invoice.JsonTrorOrderLandImportI
 
 import no.systema.tror.model.jsonjackson.order.invoice.JsonTrorOrderLandImportInvoiceContainer;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
+import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderDummyContainer;
 
 /**
  * 
@@ -18,6 +19,19 @@ import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
  */
 public class TrorMainOrderHeaderLandimportServiceImpl implements TrorMainOrderHeaderLandimportService {
 
+	/**
+	 * Gets defualt values from HEDUMMY/MEMBER (TABLE)
+	 */
+	public JsonTrorOrderHeaderDummyContainer getOrderHeaderDummyContainer(String utfPayload){
+		JsonTrorOrderHeaderDummyContainer container = null;
+		try{
+			JsonTrorOrderHeaderMapperLandimport mapper = new JsonTrorOrderHeaderMapperLandimport();
+			container = mapper.getDummyContainer(utfPayload);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
+	}
 	/**
 	 * 
 	 */

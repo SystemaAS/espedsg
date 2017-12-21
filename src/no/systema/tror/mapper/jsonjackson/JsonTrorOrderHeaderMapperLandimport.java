@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper; 
 //application library
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
+import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderDummyContainer;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecordStatus;
 
@@ -40,6 +41,7 @@ public class JsonTrorOrderHeaderMapperLandimport {
 		
 		return container;
 	}
+	
 	/**
 	 * 
 	 * @param utfPayload
@@ -53,6 +55,24 @@ public class JsonTrorOrderHeaderMapperLandimport {
 		JsonTrorOrderHeaderContainer container = mapper.readValue(utfPayload.getBytes(), JsonTrorOrderHeaderContainer.class); 
 		logger.info("[JSON-String payload status=OK]  " + container.getUser());
 		for (JsonTrorOrderHeaderRecordStatus record : container.getList()){
+			//DEBUG
+		}
+		
+		return container;
+	}
+	/**
+	 * 
+	 * @param utfPayload
+	 * @return
+	 * @throws Exception
+	 */
+	public JsonTrorOrderHeaderDummyContainer getDummyContainer(String utfPayload) throws Exception{
+		ObjectMapper mapper = new ObjectMapper();  
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		//At this point we now have an UTF-8 payload
+		JsonTrorOrderHeaderDummyContainer container = mapper.readValue(utfPayload.getBytes(), JsonTrorOrderHeaderDummyContainer.class); 
+		logger.info("[JSON-String payload status=OK]  " + container.getUser());
+		for (JsonTrorOrderHeaderRecord record : container.getList()){
 			//DEBUG
 		}
 		

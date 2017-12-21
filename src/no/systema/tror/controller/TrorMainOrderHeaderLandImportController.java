@@ -63,6 +63,7 @@ import no.systema.tror.util.manager.CodeDropDownMgr;
 import no.systema.tror.util.manager.LandImportManager;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecordStatus;
+import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderDummyContainer;
 
 //import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevRecord;
 //import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteContainer;
@@ -135,7 +136,8 @@ public class TrorMainOrderHeaderLandImportController {
 			return loginView;
 		}else{
 			
-			this.setDefaultValues(recordToValidate, appUser);
+			recordToValidate = this.getDefaultValuesFromDbDummy(recordToValidate, appUser);
+			this.adjustDefaultValues(recordToValidate, appUser);
 			model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
 			this.setCodeDropDownMgr(appUser, model);
 			
@@ -339,11 +341,60 @@ public class TrorMainOrderHeaderLandImportController {
 	 * @param recordToValidate
 	 * @param appUser
 	 */
-	private void setDefaultValues(JsonTrorOrderHeaderRecord recordToValidate, SystemaWebUser appUser ){
-		recordToValidate.setHesg(appUser.getSignatur());
+	private void adjustDefaultValues(JsonTrorOrderHeaderRecord recordToValidate, SystemaWebUser appUser ){
+		//signatur
+		if(strMgr.isNull(recordToValidate.getHesg())){
+			recordToValidate.setHesg(appUser.getSignatur());
+		}else{
+			if(!recordToValidate.getHesg().equals(appUser.getSignatur())) {
+				recordToValidate.setHesg(appUser.getSignatur());
+			}
+		}
+		//this values must be changed
+		recordToValidate.setHeopd(null);
 		recordToValidate.setHedtop(dateMgr.getCurrentDate_ISO());
+		recordToValidate.setHedtr(dateMgr.getCurrentDate_ISO());
 		recordToValidate.setHeur(this.DELSYSTEM_LAND_IMPORT);
 		
+	}
+	
+	/**
+	 * 
+	 * @param appUser
+	 * @param recordToValidate
+	 * @return
+	 */
+	private JsonTrorOrderHeaderRecord getDefaultValuesFromDbDummy(JsonTrorOrderHeaderRecord recordToValidate, SystemaWebUser appUser ){
+			
+		JsonTrorOrderHeaderRecord record = new JsonTrorOrderHeaderRecord();
+		
+		final String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_SPECIFIC_DEFAULT_BILIMPORT_VALUES_FROM_DBDUMMY_URL;
+		//add URL-parameters
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+		urlRequestParams.append("&heavd=" + recordToValidate.getHeavd() );
+			
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + BASE_URL);
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+    	//Debug --> 
+    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	if(jsonPayload!=null){
+    		JsonTrorOrderHeaderDummyContainer container = this.trorMainOrderHeaderLandimportService.getOrderHeaderDummyContainer(jsonPayload);
+    		//model.put(TrorConstants.DOMAIN_CONTAINER_OPEN_ORDERS, container);
+    		if(container!=null){
+    			if(container.getList()!=null){
+	    			for( JsonTrorOrderHeaderRecord headerRecord: container.getList()){
+	    				record = headerRecord;
+	    				
+		    		}
+    			}
+    		}
+    	}		
+	
+		return record;
 	}
 	/**
 	 * Special split on Goods no.
@@ -1235,6 +1286,8 @@ public class TrorMainOrderHeaderLandImportController {
     	
 		return record;
 	}
+	
+	
 	
 	/**
 	 * 
