@@ -4,11 +4,13 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.util.*;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
@@ -71,11 +73,13 @@ import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderDummyContainer;
 
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
+import no.systema.jservices.common.dao.TrackfDao;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportService;
 import no.systema.tror.service.TrorMainOrderHeaderService;
 import no.systema.tror.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tror.validator.TrorOrderHeaderValidator;
+import no.systema.tror.validator.TrorOrderTrackfValidator;
 import no.systema.tvinn.sad.z.maintenance.nctsexport.service.MaintNctsExportTrkodfService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
@@ -107,8 +111,15 @@ public class TrorMainOrderHeaderLandImportController {
 	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
 	private StringManager strMgr = new StringManager();
 	private DateTimeManager dateMgr = new DateTimeManager();
+	
 	//private ReflectionUrlStoreMgr reflectionUrlStoreMgr = new ReflectionUrlStoreMgr();
 	private final String DELSYSTEM_LAND_IMPORT = "A";
+	String TRACK_TRACE_ACTION_UPDATE = "doUpdate";
+	String TRACK_TRACE_CREATE = null;
+	String TRACK_TRACE_STATUS_STR = "STR"; //STARTED
+	String TRACK_TRACE_STATUS_CHG = "CHG"; //CHANGED
+	
+	
 	
 	@PostConstruct
 	public void initIt() throws Exception {
@@ -156,6 +167,7 @@ public class TrorMainOrderHeaderLandImportController {
 	public ModelAndView doMainOrderEdit(@ModelAttribute ("record") JsonTrorOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
+		
 		
 		String action = request.getParameter("action");
 		boolean isValidRecord = true;
@@ -206,6 +218,8 @@ public class TrorMainOrderHeaderLandImportController {
 						
 						if(dmlRetval==0){
 							logger.info("[INFO] Record successfully updated, OK ");
+							TrackfDao trackfDao = this.prepareTrackfDao(recordToValidate, this.TRACK_TRACE_STATUS_CHG);
+							this.logTrackAndTraceGeneral(appUser, trackfDao, this.TRACK_TRACE_ACTION_UPDATE, this.TRACK_TRACE_CREATE);
 							//logger.info("[START]: process children <meessageNotes>, <itemLines>, etc update... ");
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
 				    		// TODO this.processNewMessageNotes(model, recordToValidate, appUser, request, null );
@@ -218,6 +232,8 @@ public class TrorMainOrderHeaderLandImportController {
 						if(dmlRetval==0){
 							//TODO orderStatus = "E"; //since we do not get the value from back-end
 							logger.info("[INFO] Record successfully created, OK ");
+							TrackfDao trackfDao = this.prepareTrackfDao(recordToValidate, this.TRACK_TRACE_STATUS_STR);
+							this.logTrackAndTraceGeneral(appUser, trackfDao, this.TRACK_TRACE_ACTION_UPDATE, this.TRACK_TRACE_CREATE);
 							//logger.info("[START]: process children <meessageNotes>, etc create... ");
 							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
 				    		// TODO this.processNewMessageNotes(model, recordToValidate, appUser, request, "doCreate" );
@@ -307,6 +323,88 @@ public class TrorMainOrderHeaderLandImportController {
 		}
 		
 	}
+	
+	/**
+	 * 
+	 * @param appUser
+	 * @param recordToLog
+	 * @param action
+	 * @param updateId
+	 * @return
+	 */
+	public int logTrackAndTraceGeneral(SystemaWebUser appUser, TrackfDao recordToLog, String action, String updateId){
+		int retval = 0;
+		
+		//Params
+		StringBuffer params = new StringBuffer();
+		//params.append("&bnr=" + lineId);
+		params.append("&ttavd=" + recordToLog.getTtavd());
+		params.append("&ttopd=" + recordToLog.getTtopd());
+		logger.info("ACTION: " + action);
+		
+		logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+		StringBuffer errMsg = new StringBuffer();
+		int dmlRetval = 0;
+		
+		if (TrorConstants.ACTION_UPDATE.equals(action)) {
+			if (updateId != null && !"".equals(updateId)) {
+				//logger.info("UPDATE!!!");
+				//To implement? -->dmlRetval = this.landImportMgr.updateRecord(appUser, recordToLog, TrorConstants.MODE_UPDATE, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
+			} else {
+				//logger.info("CREATE NEW!!!"); Will always be the case... as for today (20171221)
+				dmlRetval = this.landImportMgr.updateRecord(appUser, recordToLog, TrorConstants.MODE_ADD, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
+			}
+		} else if (TrorConstants.ACTION_DELETE.equals(action)) {
+			//logger.info("DELETE !!!");
+			//To implement? -->dmlRetval = this.landImportMgr.updateRecord(appUser, recordToLog, TrorConstants.MODE_DELETE, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
+		}
+		// check for Update errors
+		if (dmlRetval < 0) {
+			retval = TrorConstants.ERROR_CODE;
+			logger.info("ERROR FATAL: Track and Trace log has not been updated. Check the method: logTrackAndTraceGeneral on ...Controller");
+		}
+		return retval;
+	}
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param status  STR=STARTED, CHG=CHANGED although all records are new. Every record is a log in time and space (timestamp)
+	 * @return
+	 */
+	private TrackfDao prepareTrackfDao(JsonTrorOrderHeaderRecord recordToValidate, String status){
+		int today = Integer.parseInt(dateMgr.getCurrentDate_ISO("yyyyMMdd"));
+		int now = Integer.parseInt(dateMgr.getCurrentDate_ISO("HHmmss"));
+		
+		TrackfDao dao = new TrackfDao();
+		//keys
+		dao.setTtuser(recordToValidate.getHesg());
+		dao.setTtavd(Integer.parseInt(recordToValidate.getHeavd()));
+		dao.setTtopd(Integer.parseInt(recordToValidate.getHeopd()));
+		dao.setTtacti(status);
+		//time stamps
+		dao.setTtdate(today);
+		dao.setTtdatl(today);
+		dao.setTttime(now);
+		dao.setTttiml(now);
+		//
+		if(this.TRACK_TRACE_STATUS_STR.equals(status)){
+			dao.setTttext("Order entered");
+		}else{
+			dao.setTttexl("Ordre opprettet");
+		}
+		dao.setTtmanu("X");//meaning "not manual"
+		
+		
+		
+		
+		
+		
+		
+		
+		return dao;
+	}
+	
 	/**
 	 * 
 	 * @param appUser
@@ -342,6 +440,7 @@ public class TrorMainOrderHeaderLandImportController {
 	 * @param appUser
 	 */
 	private void adjustDefaultValues(JsonTrorOrderHeaderRecord recordToValidate, SystemaWebUser appUser ){
+		
 		//signatur
 		if(strMgr.isNull(recordToValidate.getHesg())){
 			recordToValidate.setHesg(appUser.getSignatur());
@@ -350,13 +449,16 @@ public class TrorMainOrderHeaderLandImportController {
 				recordToValidate.setHesg(appUser.getSignatur());
 			}
 		}
+		
 		//this values must be changed
 		recordToValidate.setHeopd(null);
 		recordToValidate.setHedtop(dateMgr.getCurrentDate_ISO());
 		recordToValidate.setHedtr(dateMgr.getCurrentDate_ISO());
 		recordToValidate.setHeur(this.DELSYSTEM_LAND_IMPORT);
-		
+		//split godsnr
+		this.splitGodsnr(recordToValidate);
 	}
+	
 	
 	/**
 	 * 

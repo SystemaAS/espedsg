@@ -54,6 +54,8 @@ import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.TrorConstants;
 import no.systema.tror.util.manager.CodeDropDownMgr;
+import no.systema.tror.util.manager.LandImportManager;
+
 
 
 
@@ -79,6 +81,7 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 	private LoginValidator loginValidator = new LoginValidator();
 	private DateTimeManager dateTimeMgr = new DateTimeManager();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
+	private LandImportManager landImportMgr = new LandImportManager();
 	//
 	private StringManager strMgr = new StringManager();
 	
@@ -198,14 +201,14 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 				if (TrorConstants.ACTION_UPDATE.equals(action)) {
 					if (updateId != null && !"".equals(updateId)) {
 						//logger.info("UPDATE!!!");
-						dmlRetval = this.updateRecord(appUser, recordToValidate, TrorConstants.MODE_UPDATE, errMsg);
+						dmlRetval = this.landImportMgr.updateRecord(appUser, recordToValidate, TrorConstants.MODE_UPDATE, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
 					} else {
 						//logger.info("CREATE NEW!!!");
-						dmlRetval = this.updateRecord(appUser, recordToValidate, TrorConstants.MODE_ADD, errMsg);
+						dmlRetval = this.landImportMgr.updateRecord(appUser, recordToValidate, TrorConstants.MODE_ADD, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
 					}
 				} else if (TrorConstants.ACTION_DELETE.equals(action)) {
 					//logger.info("DELETE !!!");
-					dmlRetval = this.updateRecord(appUser, recordToValidate, TrorConstants.MODE_DELETE, errMsg);
+					dmlRetval = this.landImportMgr.updateRecord(appUser, recordToValidate, TrorConstants.MODE_DELETE, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
 				}
 				// check for Update errors
 				if (dmlRetval < 0) {
@@ -285,6 +288,7 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 	 * @param errMsg
 	 * @return
 	 */
+	/*
 	private int updateRecord(SystemaWebUser appUser, TrackfDao record, String mode, StringBuffer errMsg) {
 		//Locale locale = VkundControllerUtil.getLocale(appUser.getUsrLang(), "svew");
 		int retval = 0;
@@ -292,7 +296,7 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 		jsonReader.set(new JsonDtoContainer<TrackfDao>());
 		String BASE_URL = TrorUrlDataStore.TROR_BASE_UPDATE_TRACK_AND_TRACE_URL;
 		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=" + mode + "&lang=" + appUser.getUsrLang();
-		String urlRequestParams = urlRequestParameterMapper.getUrlParameterValidString(record);
+		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString(record);
 		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
 
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
@@ -311,7 +315,7 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 
 		return retval;
 	}	
-	
+	*/
 	/**
 	 * 
 	 * @param appUser

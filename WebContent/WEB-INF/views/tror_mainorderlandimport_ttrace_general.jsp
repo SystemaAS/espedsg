@@ -78,9 +78,10 @@
 								<table id="tblMain" class="display compact cell-border" >
 									<thead>
 									<tr style="background-color:#DDDDDD">
-										
+										<th align="center" width="2%" class="text12">&nbsp;Endre&nbsp;</th>
+					        			<th align="center" width="2%" class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.avd"/>&nbsp;</th>
+					        			<th align="center" width="2%" class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.opd"/>&nbsp;</th>
 					        			<th align="center" width="2%" class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.fbrev"/>&nbsp;</th>
-					        			<th align="center" width="2%" class="text12">&nbsp;Endre&nbsp;</th>
 					        			<th class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.date"/>&nbsp;</th>
 					                    <th align="center" width="5%" class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.time"/>&nbsp;</th>   
 					                    <th align="center" width="5%" class="text12">&nbsp;<spring:message code="systema.tror.orders.tt.logging.list.label.kode"/>&nbsp;</th>
@@ -94,13 +95,7 @@
 					               <tbody>
 					               	 <c:forEach items="${model.list}" var="record" varStatus="counter">    
 						               <tr class="tableRow" height="20" >
-						                   
-						               	<td class="text11">
-						               		<c:if test="${record.ttfbnr > 0}">
-						               		${record.ttfbnr}
-						               		</c:if>
-						               	</td>
-						               	<td align="center" class="text11" >
+						                <td align="center" class="text11" >
 						               		<c:if test="${not empty record.ttdate && not empty record.tttime}">
 						               	   		<c:if test="${record.ttmanu == 'J'}">
 								               	<a style="cursor:pointer;" id="recordUpdate_avd_${record.ttavd}@opd_${record.ttopd}@date_${record.ttdate}@time_${record.tttime}" onClick="getItemData(this);">
@@ -108,7 +103,23 @@
 						               			</a>
 						               			</c:if>
 					               			</c:if>
-							            </td>   			
+							            </td>   	
+						                <td class="text11">
+						               		<c:if test="${record.ttavd > 0}">
+						               		${record.ttavd}
+						               		</c:if>
+						               	</td>
+						               	<td class="text11">
+						               		<c:if test="${record.ttopd > 0}">
+						               		${record.ttopd}
+						               		</c:if>
+						               	</td>   
+						               	<td class="text11">
+						               		<c:if test="${record.ttfbnr > 0}">
+						               		${record.ttfbnr}
+						               		</c:if>
+						               	</td>
+						               			
 						               	<td class="text11" >${record.ttdate}</td>
 						               	<td align="right" class="text11" >${record.tttime}</td>
 						               	<td class="text11" >${record.ttacti}</td>

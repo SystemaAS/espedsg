@@ -633,6 +633,7 @@
 					if(len > 0){
 						jq('#henas').removeClass( "isa_error" );
 						
+				  		
 						//always show seller
 						var seller = customer.knavn;
 						jq('#whenas').val(seller);
@@ -640,9 +641,10 @@
 						var name = jq('#henas').val().trim();
 		    			
 		    			jq('#hekns').val(customer.kundnr);
-		    			jq('#henas').val(seller);
+		    			
+		    			jq('#henas').val(seller);refreshCustomValidity(jq('#henas')[0]);
+		    			jq('#heads1').val(customer.adr1);refreshCustomValidity(jq('#heads1')[0]);
 						
-						jq('#heads1').val(customer.adr1);
 						jq('#heads2').val(customer.adr2);
 						jq('#heads3').val(customer.adr3 + " " +  customer.postnr);
 						jq('#whenas').val(seller + " - " + jq('#heads3').val());
@@ -650,9 +652,9 @@
 						jq('#heans').val("0");
 						jq('#hekdfs').val("");
 						//Form field on "Fra"
-						jq('#helka').val(customer.land);
-						jq('#hesdf').val(customer.postnr);
-				  		//Fakturapart
+						jq('#helka').val(customer.land); refreshCustomValidity(jq('#helka')[0]);
+						jq('#hesdf').val(customer.postnr); refreshCustomValidity(jq('#hesdf')[0]);
+						//Fakturapart
 						jq('#heknsf').val(jq('#hekns').val());
 						jq('#whenasf').val(jq('#whenas').val());
 		    			
@@ -738,9 +740,9 @@
 						var name = jq('#henak').val().trim();
 		    			
 		    			jq('#heknk').val(customer.kundnr);
-		    			jq('#henak').val(seller);
+		    			jq('#henak').val(seller); refreshCustomValidity(jq('#henak')[0]);
+						jq('#headk1').val(customer.adr1);refreshCustomValidity(jq('#headk1')[0]);
 						
-						jq('#headk1').val(customer.adr1);
 						jq('#headk2').val(customer.adr2);
 						jq('#headk3').val(customer.adr3 + " " +  customer.postnr);
 						jq('#whenak').val(seller + " - " + jq('#headk3').val());
@@ -748,8 +750,8 @@
 						jq('#heank').val("0");
 						jq('#hekdfk').val("");
 						//Form field on "Fra"
-						jq('#hetri').val(customer.land);
-						jq('#hesdt').val(customer.postnr);
+						jq('#hetri').val(customer.land);refreshCustomValidity(jq('#hetri')[0]);
+						jq('#hesdt').val(customer.postnr);refreshCustomValidity(jq('#hesdt')[0]);
 				  		//Fakturapart
 						jq('#heknkf').val(jq('#heknk').val());
 						jq('#whenakf').val(jq('#whenak').val());
