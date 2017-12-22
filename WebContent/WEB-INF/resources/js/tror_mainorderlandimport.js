@@ -1018,6 +1018,38 @@
 			  "packingCodesWin", "top=300px,left=450px,height=600px,width=800px,scrollbars=no,status=no,location=no");
   }
   
+  //Oppdragstype olika dokumentkrav
+  jq(function() {
+	  jq('#heot').change(function() {
+		  var id = jq('#heot').val();
+		  if(id!=''){
+			  jq.getJSON('getOppdragsTypeDocuments_Landimport.do', {
+				  applicationUser : jq('#applicationUser').val(),
+				  id : id,
+				  ajax : 'true'
+			  }, function(data) {
+				 var len = data.length;
+				 if(len==1){ //must be a single-valid value
+					for ( var i = 0; i < len; i++) {
+						//console.log(data[i].ko2fb);
+						jq('#hepk3').val(data[i].ko2kk);
+						jq('#hepk4').val(data[i].ko2ti);
+						//fraktbrev checkbox
+						if("J" == data[i].ko2fb){
+							jq('#hepk1').prop('checked', true);
+						}else{
+							jq('#hepk1').prop('checked', false);
+						}
+						
+						
+					}
+				 }
+			  
+			  });
+		  }
+	  });
+  });
+  
   //------------------------
   //SUM fields Item lines
   //----------------------

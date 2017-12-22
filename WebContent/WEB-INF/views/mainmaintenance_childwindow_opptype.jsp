@@ -54,7 +54,15 @@
 						<thead>
 						<tr style="background-color:#EEEEEE">
 							<th class="text11" >&nbsp;Kode.&nbsp;</th>
-		                    <th class="text11" >&nbsp;Tekst&nbsp;</th>
+							<th class="text11" >&nbsp;Tekst&nbsp;</th>
+							<th class="text11" >&nbsp;Fr.brev&nbsp;</th>
+		                    <th class="text11" >&nbsp;Forp.SAD&nbsp;</th>
+		                    <th class="text11" >&nbsp;Kj.kvitt.&nbsp;</th>
+		                    <th class="text11" >&nbsp;Toll.Imp&nbsp;</th>
+		                    <th class="text11" >&nbsp;Fr.brev Imp&nbsp;</th>
+		                    <th class="text11" >&nbsp;Toll.Eksp.&nbsp;</th>
+		                    <th class="text11" >&nbsp;B.of land.&nbsp;</th>
+		                    <th class="text11" >&nbsp;CMR&nbsp;</th>
 		                    
 		                </tr> 
 		                </thead>
@@ -66,6 +74,16 @@
 				               		<img title="select" style="vertical-align:top;" src="resources/images/bebullet.gif" border="0" alt="edit">&nbsp;${record.ko2kod}
 				               	</td>
 			               	   <td class="text11">&nbsp;${record.ko2ntx}</td>
+			               	   
+			               	   <td class="text11">&nbsp;${record.ko2fb}</td>
+			               	   <td class="text11">&nbsp;${record.ko2fps}</td>
+			               	   <td class="text11">&nbsp;${record.ko2kk}</td>
+			               	   <td class="text11">&nbsp;${record.ko2ti}</td>
+			               	   <td class="text11">&nbsp;${record.ko2fi}</td>
+			               	   <td class="text11">&nbsp;${record.ko2te}</td>
+			               	   <td class="text11">&nbsp;${record.ko2bi}</td>
+			               	   <td class="text11">&nbsp;${record.ko2cm}</td>
+			               	   
 			               </tr> 
 			            </c:forEach>
 			            </tbody>

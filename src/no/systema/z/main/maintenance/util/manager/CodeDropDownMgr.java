@@ -140,7 +140,7 @@ public class CodeDropDownMgr {
 	 * @param applicationUser
 	 */
 	public void populateOppdragsTypeHtmlDropDowns(UrlCgiProxyService urlCgiProxyService,
-			MaintMainKodtot2Service maintMainKodtot2Service, Map model, String applicationUser) {
+		MaintMainKodtot2Service maintMainKodtot2Service, Map model, String applicationUser) {
 
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_DROPDOWN_SYFA61R_GET_OPPTYPE_LIST_URL;
 		StringBuffer urlRequestParams = new StringBuffer();

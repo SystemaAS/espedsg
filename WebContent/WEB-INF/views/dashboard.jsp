@@ -4,7 +4,6 @@
 <!-- ================== special login header ==================-->
 <jsp:include page="/WEB-INF/views/headerDashboard.jsp" />
 <!-- =====================end header ==========================-->
-<SCRIPT type="text/javascript" src="resources/js/dashboard.js?ver=${user.versionEspedsg}"></SCRIPT>
 
 		<%-- Applications' menu --%>
 		<tr height="400" >

@@ -50,8 +50,12 @@ import no.systema.tror.service.TrorMainOrderHeaderService;
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtot2Container;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtot2Record;
 import no.systema.z.main.maintenance.service.MaintMainCundfService;
+import no.systema.z.main.maintenance.service.MaintMainKodtot2Service;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
+import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.tror.model.jsonjackson.budget.JsonTrorOrderHeaderBudgetContainer; 
 import no.systema.tror.model.jsonjackson.budget.JsonTrorOrderHeaderBudgetRecord; 
 /**
@@ -416,35 +420,38 @@ public class TrorMainOrderHeaderLandImportAjaxHandlerController {
 			 }
 			 return daoList; 
 			
-			 /*
-			 logger.info("Inside: getTrackAndTraceGeneralDetailLine");
-			 List<JsonTrorOrderHeaderBudgetRecord> result = new ArrayList<JsonTrorOrderHeaderBudgetRecord>();
-			 //logger.info(requestString);
-			 if(requestString!=null && !"".equals(requestString)){
-			 	 final String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_MAIN_ORDER_BUDGET_URL;
-			 	 
-				 //add URL-parameters
-				 String urlRequestParams = requestString;
-				 logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-				 logger.info("URL: " + BASE_URL);
-				 logger.info("URL PARAMS: " + urlRequestParams);
-				 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-				 
-				 if(jsonPayload!=null){
-					 JsonTrorOrderHeaderBudgetContainer container = this.trorMainOrderHeaderService.getBudgetContainer(jsonPayload);
-		    		if(container!=null){
-		    			List<JsonTrorOrderHeaderBudgetRecord> list = new ArrayList();
-		    			for(JsonTrorOrderHeaderBudgetRecord  record : container.getBudgetLines()){
-		    				logger.info(record.getBubnr());
-		    				list.add(record);
-		    			}
-		    			result = list;
-		    		}
-		    	  }
-			 }
-			 return result;
-			 */
-		}		
+			
+		}
+		
+		/**
+		 * 
+		 * @param applicationUser
+		 * @param id
+		 * @return
+		 */
+		@RequestMapping(value = "getOppdragsTypeDocuments_Landimport.do", method = RequestMethod.GET)
+		public @ResponseBody List<JsonMaintMainKodtot2Record> getOppdragsTypeDocuments (@RequestParam String applicationUser, @RequestParam String id){
+		
+			String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_DROPDOWN_SYFA61R_GET_OPPTYPE_LIST_URL;
+			StringBuffer urlRequestParams = new StringBuffer();
+			urlRequestParams.append("user=" + applicationUser + "&ko2kod=" + id);
+
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+			logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+			logger.info("URL PARAMS: " + urlRequestParams);
+			String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+			// extract
+			List<JsonMaintMainKodtot2Record> list = new ArrayList();
+			if (jsonPayload != null) {
+				// lists
+				JsonMaintMainKodtot2Container container = this.maintMainKodtot2Service.getList(jsonPayload);
+				if (container != null) {
+					list = (List) container.getList();
+				}
+			}
+			return list;
+	  }	
+		
 	  //SERVICES
 	  @Qualifier ("urlCgiProxyService")
 	  private UrlCgiProxyService urlCgiProxyService;
@@ -488,5 +495,12 @@ public class TrorMainOrderHeaderLandImportAjaxHandlerController {
 	  public void setMaintMainCundfService(MaintMainCundfService value){this.maintMainCundfService = value;}
 	  public MaintMainCundfService getMaintMainCundfService(){ return this.maintMainCundfService; }
 		
-	  
+	  @Qualifier 
+		private MaintMainKodtot2Service maintMainKodtot2Service;
+		@Autowired
+		@Required	
+		public void setMaintMainKodtot2Service(MaintMainKodtot2Service value){this.maintMainKodtot2Service = value;}
+		public MaintMainKodtot2Service getMaintMainKodtot2Service(){ return this.maintMainKodtot2Service; }
+		
+		
 }
