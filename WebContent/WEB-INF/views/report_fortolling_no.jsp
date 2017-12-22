@@ -249,7 +249,7 @@ function load_data() {
 		  d.month = monthNameFormat(d.date);
 		  d.avdeling = d.avdeling;
 		  d.deklarasjonsnr= d.deklarasjonsnr;
-		  d.reg_vareposter = +d.reg_vareposter;
+		 // d.reg_vareposter = +d.reg_vareposter;
 		  d.off_vareposter = +d.off_vareposter;
 		  d.registreringsdato = +d.registreringsdato; 
 		  d.deklarasjonsdato = +d.deklarasjonsdato;
@@ -315,35 +315,41 @@ function load_data() {
 		var  antalloff_vareposterDisplay = dc.numberDisplay("#antalloff_vareposter");	
 		var  dcDataTable;
 		//Groups
-		var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.reg_vareposter;});
-		var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.reg_vareposter;});
-		var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.reg_vareposter;});
-		var  typeDimGroup = typeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
-		var  edimDimGroup = edimDim.group().reduceSum(function(d) {return d.reg_vareposter;});
-		var  avsnittDimGroup = avsnittDim.group().reduceSum(function(d) {return d.reg_vareposter;});
-		var  inputTypeDimGroup = inputTypeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
-		var  openDaysDimGroup = openDaysDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+		var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.deklarasjonsnr;});
+		var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.deklarasjonsnr;});
+		var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.deklarasjonsnr;});
+		var  typeDimGroup = typeDim.group().reduceSum(function(d) {return d.deklarasjonsnr;});
+		var  edimDimGroup = edimDim.group().reduceSum(function(d) {return d.deklarasjonsnr;});
+		var  avsnittDimGroup = avsnittDim.group().reduceSum(function(d) {return d.deklarasjonsnr;});
+		var  inputTypeDimGroup = inputTypeDim.group().reduceSum(function(d) {return d.deklarasjonsnr;});
+		var  openDaysDimGroup = openDaysDim.group().reduceSum(function(d) {return d.deklarasjonsnr;});
 		//Group reduce
 	    var dateDimGroup =  dateDim.group().reduce(   
 	            /* callback for when data is added to the current filter results */
 	            function (p, v) {
 	                ++p.count;
-	                p.sum_reg_vareposter += v.reg_vareposter;   
-	                p.sum_off_vareposter  += v.off_vareposter;    
+	               // p.sum_reg_vareposter += v.reg_vareposter;   
+	                if(v.off_vareposter > p.sum_off_vareposter) {
+	                	p.sum_off_vareposter  = v.off_vareposter
+	                }
+	               //p.sum_off_vareposter  += v.off_vareposter;    
 	                return p;
 	            },
 	            /* callback for when data is removed from the current filter results */
 	            function (p, v) {
 	                --p.count;
-	                p.sum_reg_vareposter -= v.reg_vareposter;   
-	                p.sum_off_vareposter -= v.off_vareposter;   
+	               // p.sum_reg_vareposter -= v.reg_vareposter;   
+	                if(v.off_vareposter > p.sum_off_vareposter) {
+	                	p.sum_off_vareposter  = v.off_vareposter
+	                }
+	                //p.sum_off_vareposter -= v.off_vareposter;   
 	                return p;
 	            },
 	            /* initialize p */
 	            function () {
 	                return {
 	                    count: 0,
-	                    sum_reg_vareposter: 0,
+	                   // sum_reg_vareposter: 0,
 	                    sum_off_vareposter: 0
 	                };
 	            }
@@ -352,20 +358,26 @@ function load_data() {
 	    var monthDimGroup =  monthDim.group().reduce(   
 	            function (p, v) {
 	                ++p.count;
-	                p.sum_reg_vareposter += v.reg_vareposter;   
-	                p.sum_off_vareposter  += v.off_vareposter;     
+	               // p.sum_reg_vareposter += v.reg_vareposter;   
+	                if(v.off_vareposter > p.sum_off_vareposter) {
+	                	p.sum_off_vareposter  = v.off_vareposter
+	                }
+	                //p.sum_off_vareposter  += v.off_vareposter;     
 	                return p;
 	            },
 	            function (p, v) {
 	                --p.count;
-	                p.sum_reg_vareposter -= v.reg_vareposter;   
-	                p.sum_off_vareposter  -= v.off_vareposter;     
+	                //p.sum_reg_vareposter -= v.reg_vareposter;   
+	                if(v.off_vareposter > p.sum_off_vareposter) {
+	                	p.sum_off_vareposter  = v.off_vareposter
+	                }
+	                //p.sum_off_vareposter  -= v.off_vareposter;     
 	                return p;
 	            },
 	            function () {
 	                return {
 	                    count: 0,
-	                    sum_reg_vareposter: 0,
+	                    //sum_reg_vareposter: 0,
 	                    sum_off_vareposter: 0
 	                };
 	            }
@@ -374,24 +386,41 @@ function load_data() {
 	    var omsetningsGroup =  tollAllDim.group().reduce(  
 	            /* callback for when data is added to the current filter results */
 	            function (p, v) {
+	            	p._deklnr = 0;
 	                ++p.count;
-	                p.sum_reg_vareposter += v.reg_vareposter;   
-	                p.sum_off_vareposter  += v.off_vareposter;
+	                //p.sum_reg_vareposter += v.reg_vareposter;   
+	                if(v.off_vareposter > p.sum_off_vareposter) {
+	                	p.sum_off_vareposter  = v.off_vareposter
+	                }
+	                if(p._deklnr != v.deklarasjonsnr) {
+	                	++p.count_fortollinger;
+	                	p._deklnr = v.deklarasjonsnr;
+	                }
+	                //p.sum_off_vareposter  += v.off_vareposter;
 	                return p;
 	            },
 	            /* callback for when data is removed from the current filter results */
 	            function (p, v) {
+	            	p._deklnr = 0;
 	                --p.count;
-	                p.sum_reg_vareposter -= v.reg_vareposter; 
-	                p.sum_off_vareposter -= v.off_vareposter;   
+	                //p.sum_reg_vareposter -= v.reg_vareposter; 
+	                if(v.off_vareposter < p.sum_off_vareposter) {
+	                	p.sum_off_vareposter  = v.off_vareposter
+	                }
+	                if(p._deklnr != v.deklarasjonsnr) {
+	                	--p.count_fortollinger;
+	                	p._deklnr = v.deklarasjonsnr;
+	                }
+	                //p.sum_off_vareposter -= v.off_vareposter;   
 	                return p;
 	            },
 	            /* initialize p */
 	            function () {
 	                return {
 	                    count: 0,
-	                    sum_reg_vareposter: 0,
-	                    sum_off_vareposter: 0
+	                    count_fortollinger: 0,
+	                    sum_off_vareposter: 0,
+	                    _deklnr: 0
 	                };
 	            }
 	    );  
@@ -642,15 +671,8 @@ function load_data() {
 		     .group(omsetningsGroup)  
 		     .formatNumber(d3.format(".g"))
 			 .valueAccessor(function (p) {
-				 return p.value.count;
+				 return p.value.count_fortollinger;  
 			  });
-		
-		antallreg_vareposterDisplay
-			.group(omsetningsGroup)  
-			.formatNumber(d3.format(".g"))
-			.valueAccessor(function (p) {
-					return p.value.sum_reg_vareposter;
-			});
 		
 		antalloff_vareposterDisplay
 			.group(omsetningsGroup)  
@@ -659,7 +681,13 @@ function load_data() {
 					return p.value.sum_off_vareposter;
 			});	
 
-
+		antallreg_vareposterDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.valueAccessor(function (p) {
+					return p.value.count;
+			});
+		
 		varuposterChart
 			.width(1200)
 			.height(500)
@@ -689,19 +717,20 @@ function load_data() {
 			.renderHorizontalGridLines(true)
 			.renderTitle(true)
 			.title(function (d) {
-				var diffPercentage = ((d.value.sum_reg_vareposter - d.value.sum_off_vareposter )  / d.value.sum_reg_vareposter );
+				//var diffPercentage = ((d.value.sum_reg_vareposter - d.value.sum_off_vareposter )  / d.value.sum_reg_vareposter );
+				var diffPercentage = ((d.value.count - d.value.sum_off_vareposter )  / d.count );
 			   	 return [
 			   		 d.key.substr(3) + ':',
-			   			'Fortollinger: ' + d.value.count,
+			   			'Fortollinger TODO: ' + d.value.count,
 			   		    'Offisielle varuposter: ' + d.value.sum_off_vareposter,
-			            'Registrerte varuposter: ' + d.value.sum_reg_vareposter ,
+			            'Registrerte varuposter: ' + d.value.count ,  //sum_reg_vareposter
 			            'Sammenslåtte varuposter: ' + percentageFormat(diffPercentage)
 			        ].join('\n');
 			})	
 			.group(monthDimGroup, 'fortollinger') 
 	        //Antall fortollinger
 	       .valueAccessor(function (d) {
-					return d.value.count; 
+					return d.value.count; //TODO
 			}) 
 			//Antall off. varuposter
 			.stack(monthDimGroup,'off_vp' ,function (d) {
@@ -709,7 +738,8 @@ function load_data() {
 	        })
 	        //Antall off. varuposter
 	        .stack(monthDimGroup, 'reg_vp',function (d) {
-	        	var diffRegAndOff =  d.value.sum_reg_vareposter - d.value.sum_off_vareposter;   //ex. 100-80=20
+	        	//var diffRegAndOff =  d.value.sum_reg_vareposter - d.value.sum_off_vareposter;   //ex. 100-80=20
+	        	var diffRegAndOff =  d.value.count - d.value.sum_off_vareposter;   //ex. 100-80=20
 	        	return diffRegAndOff;
 	        })
 			.on('pretransition', function (chart) {
@@ -790,15 +820,14 @@ function load_data() {
 			  .html({
 	            some: '<strong>%filter-count</strong> valgt ut av <strong>%total-count</strong> fortollinger' +
 	                ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>tilbakestill alt</a>',
-	            all: 'Alle <strong>%total-count</strong> fortollinger for utvalg. Vennligst klikk på grafen for å bruke filtre.'
+	            all: 'Alle <strong>%total-count</strong> vareposter for utvalg. Vennligst klikk på grafen for å bruke filtre.'
 	          });      
 		      
 		d3.select('#download').on('click', function() {
 			var today = new Date();
 	        var data = tollAllDim.top(Infinity);
 	        var saveData = data.map(function(obj) {
-	            return {avdeling: obj.avdeling, deklarasjonsnr: obj.deklarasjonsnr, reg_vareposter: obj.reg_vareposter, 
-	            		off_vareposter: obj.off_vareposter, registreringsdato: obj.registreringsdato,
+	            return {avdeling: obj.avdeling, deklarasjonsnr: obj.deklarasjonsnr, registreringsdato: obj.registreringsdato,
 	            		signatur: obj.signatur, mottaker: obj.mottaker, merknad: obj.edim, avsnitt: obj.avsnitt};
 	        });
 	       
@@ -830,8 +859,6 @@ function load_data() {
 		    .columns([
 			  function (d) { return d.deklarasjonsnr; },
 		      function (d) { return d.avdeling; },
-		      function (d) { return d.reg_vareposter; },
-		      function (d) { return d.off_vareposter; },
 		      function (d) { return d.registreringsdato; },
 		      function (d) { return d.signatur ; },
 		      function (d) { return d.mottaker ; },
@@ -864,8 +891,6 @@ function load_data() {
 				"columns": [
 		            { "data": "deklarasjonsnr" },
 		            { "data": "avdeling" },
-		            { "data": "reg_vareposter" },
-		            { "data": "off_vareposter" },		            
 		            { "data": "registreringsdato" },
 		            { "data": "signatur" },
 		            { "data": "mottaker" },
@@ -1186,16 +1211,16 @@ window.addEventListener('error', function (e) {
    
 				  <div class="row">
 					<div class="col-md-12" id="showTable">
-  						<h3><a id="showTable"><font class="text12">Vis Fortollinger, filtrert</font>
+  						<h3><a id="showTable"><font class="text12">Vis Vareposter, filtrert</font>
   						&nbsp;<img onMouseOver="showPop('vis_fortoll_info');" onMouseOut="hidePop('vis_fortoll_info');" width="12px" height="12px" src="resources/images/info3.png">
 		 				</a></h3>
 		 				<div class="text11" style="position: relative;" align="left">
 		 				<span style="position:absolute; top:2px; width:250px;" id="vis_fortoll_info" class="popupWithInputText text11"  >
 				           		<b>
-				           			Vis Fortollinger, filtrert
+				           			Vis Vareposter, filtrert
 				 	          	</b><br><br>
-				           		Bruk detaljer dersom det finnes intresse att se spesifikke fortollinger.
-				           		Hvis et stort antall fortollinger er utvalgt, ytelse kan oppleves som mindre bra.
+				           		Bruk detaljer dersom det finnes intresse att se spesifikke vareposter.
+				           		Hvis et stort antall vareposter er utvalgt, ytelse kan oppleves som mindre bra.
 								<br><br>
 						</span>
 						</div>
@@ -1211,8 +1236,6 @@ window.addEventListener('error', function (e) {
 				          <tr>
 				            <th>deklarasjonsnr</th>
 				            <th>avdeling</th>
-				            <th>reg. vareposter</th>
-				            <th>off. vareposter</th>
 				            <th>registreringsdato</th>
 				            <th>signatur</th>
 				            <th>mottaker</th>
