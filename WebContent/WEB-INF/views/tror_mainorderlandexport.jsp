@@ -340,7 +340,7 @@
 							 			<tr>
 							 				<td width="5px" class="text14" >&nbsp;</td>
 							 				<td class="text14"><spring:message code="systema.tror.orders.form.update.label.delsystem"/></td>
-							 				<td class="text14" ><b><spring:message code="systema.tror.order.suborder.landimport"/></b></td>
+							 				<td class="text14" ><b><spring:message code="systema.tror.order.suborder.landexport"/></b></td>
 							 				<td class="text14" width="15px" >&nbsp;</td>
 							 				<td class="text14" >
 							 					&nbsp;<font class="text16RedBold" >*</font><span title="heavd"><spring:message code="systema.tror.orders.form.update.label.avdelning"/></span>
@@ -379,7 +379,7 @@
 										 			<tr>
 											 		<td width="5px" class="text14" >&nbsp;</td>
 											 		<td align="left" class="text14" style="vertical-align:bottom;" ><span title="heur"><spring:message code="systema.tror.orders.form.update.label.delsystem"/></span></td>
-									 				<td class="text14" ><b><spring:message code="systema.tror.order.suborder.landimport"/></b></td>
+									 				<td class="text14" ><b><spring:message code="systema.tror.order.suborder.landexport"/></b></td>
 									 				
 									 				
 									 				<td width="5px" class="text14" >&nbsp;</td>
