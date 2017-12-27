@@ -36,14 +36,14 @@
 				<c:when test="${empty model.record.heopd}">
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tab" align="center" nowrap>
-						<img style="vertical-align:middle;" src="resources/images/lorry_green.png" width="18px" height="18px" border="0" alt="create new">
+						<img style="vertical-align:middle;" src="resources/images/lorry_blue.png" width="18px" height="18px" border="0" alt="create new">
 						<font class="tabLink"><spring:message code="systema.tror.createnew.order.tab"/></font>
 					</td>
 				</c:when>
 				<c:otherwise>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tab" align="center" nowrap>
-						<img style="vertical-align:middle;" src="resources/images/lorry_green.png" width="18px" height="18px" border="0" alt="update">
+						<img style="vertical-align:middle;" src="resources/images/lorry_blue.png" width="18px" height="18px" border="0" alt="update">
 						<font class="tabLink"><spring:message code="systema.tror.order.tab"/></font><font class="text12">&nbsp;${model.record.heavd}/${model.record.heopd}</font>&nbsp;<font class="text10Orange">F4</font>
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
