@@ -43,7 +43,7 @@
 	    			 			style="background-image:url('${user.banner}');background-repeat:no-repeat;" 
 	    			 		</c:when>  
 	    			 		<c:otherwise>
-	    			 			style="background-image:url('resources/images/${user.banner}');background-repeat:no-repeat;" 
+	    			 			<%-- %>style="background-image:url('resources/images/${user.banner}');background-repeat:no-repeat;" --%> 
 	    			 		</c:otherwise>
     			 		</c:choose>
     			 		>
