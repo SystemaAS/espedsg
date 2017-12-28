@@ -10,7 +10,7 @@
 	<SCRIPT type="text/javascript" src="resources/js/jquery.calculator.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/jquery-ui-timepicker-addon.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/transportdispglobal_edit.js?ver=${user.versionEspedsg}"></SCRIPT>			
-	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderlandimport_frisokvei.js?ver=${user.versionEspedsg}"></SCRIPT>
+	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderland_frisokvei.js?ver=${user.versionEspedsg}"></SCRIPT>
 	<%-- for dialog popup --%>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	
@@ -180,7 +180,7 @@
 			<tr height="5"><td class="text12" align="left" ></td></tr>
            	<tr>
 	 			<td >
-	 				<form action="tror_mainorderlandimport_frisokvei_edit.do" name="trorUpdateItemForm" id="trorUpdateItemForm" method="post">
+	 				<form action="tror_mainorderland_frisokvei_edit.do" name="trorUpdateItemForm" id="trorUpdateItemForm" method="post">
 				 	<%--Required key parameters from the Topic parent --%>
 				 	<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
 				 	<input type="hidden" name="action" id="action" value='doUpdate'/>

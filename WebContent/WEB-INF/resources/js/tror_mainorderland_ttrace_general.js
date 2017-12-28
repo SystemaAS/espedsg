@@ -173,7 +173,7 @@
       		jq( this ).dialog( "close" );
 	            //do delete
 	            jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-	            window.location = "tror_mainorderlandimport_ttrace_general_edit.do?action=doDelete" + "&ttavd=" + avd + "&ttopd=" + opd + "&ttdate=" + date + "&tttime=" + time;
+	            window.location = "tror_mainorderland_ttrace_general_edit.do?action=doDelete" + "&ttavd=" + avd + "&ttopd=" + opd + "&ttdate=" + date + "&tttime=" + time;
 	        },
 	        Avbryt: function() {
 	            jq( this ).dialog( "close" );

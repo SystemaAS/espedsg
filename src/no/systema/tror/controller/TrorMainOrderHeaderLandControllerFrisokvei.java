@@ -69,8 +69,8 @@ import no.systema.tror.util.TrorConstants;
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class TrorMainOrderHeaderLandimportControllerFrisokvei {
-	private static final Logger logger = Logger.getLogger(TrorMainOrderHeaderLandimportControllerFrisokvei.class.getName());
+public class TrorMainOrderHeaderLandControllerFrisokvei {
+	private static final Logger logger = Logger.getLogger(TrorMainOrderHeaderLandControllerFrisokvei.class.getName());
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	
@@ -96,7 +96,7 @@ public class TrorMainOrderHeaderLandimportControllerFrisokvei {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_frisokvei.do", method={RequestMethod.GET} )
+	@RequestMapping(value="tror_mainorderland_frisokvei.do", method={RequestMethod.GET} )
 	public ModelAndView doInit(@ModelAttribute ("record") JsonTrorOrderHeaderFrisokveiRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
@@ -108,7 +108,7 @@ public class TrorMainOrderHeaderLandimportControllerFrisokvei {
 		
 		logger.info("ACTION: " + action);
 		//ModelAndView successView = new ModelAndView("transportdisp_mainorder_invoice");
-		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_frisokvei");
+		ModelAndView successView = new ModelAndView("tror_mainorderland_frisokvei");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		
 		//check user (should be in session already)
@@ -132,7 +132,7 @@ public class TrorMainOrderHeaderLandimportControllerFrisokvei {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_frisokvei_edit.do",  method={RequestMethod.GET, RequestMethod.POST} )
+	@RequestMapping(value="tror_mainorderland_frisokvei_edit.do",  method={RequestMethod.GET, RequestMethod.POST} )
 	public ModelAndView doEditBudget(@ModelAttribute ("record") JsonTrorOrderHeaderFrisokveiRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
@@ -149,8 +149,8 @@ public class TrorMainOrderHeaderLandimportControllerFrisokvei {
 		if(opd!=null && !"".equals(opd)){ params.append("&opd=" + opd); }
 		
 		logger.info("ACTION: " + action);
-		ModelAndView successView = new ModelAndView("redirect:tror_mainorderlandimport_frisokvei.do?action=doFind" + params.toString() );
-		ModelAndView errorView = new ModelAndView("tror_mainorderlandimport_frisokvei");
+		ModelAndView successView = new ModelAndView("redirect:tror_mainorderland_frisokvei.do?action=doFind" + params.toString() );
+		ModelAndView errorView = new ModelAndView("tror_mainorderland_frisokvei");
 		
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		

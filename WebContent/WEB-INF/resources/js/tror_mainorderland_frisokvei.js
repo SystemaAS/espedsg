@@ -247,7 +247,7 @@
       		jq( this ).dialog( "close" );
 	            //do delete
 	            jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-	            window.location = "tror_mainorderlandimport_frisokvei_edit.do?action=doDelete" + "&avd=" + avd + "&opd=" + opd + "&fskode=" + kode + "&fssok=" + sok;
+	            window.location = "tror_mainorderland_frisokvei_edit.do?action=doDelete" + "&avd=" + avd + "&opd=" + opd + "&fskode=" + kode + "&fssok=" + sok;
 	        },
 	        Avbryt: function() {
 	            jq( this ).dialog( "close" );
