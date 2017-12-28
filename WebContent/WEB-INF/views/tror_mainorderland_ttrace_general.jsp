@@ -201,7 +201,7 @@
 			<tr height="5"><td class="text12" align="left" ></td></tr>
            	<tr>
 	 			<td >
-	 				<form action="tror_mainorderlandimport_ttrace_general_edit.do" name="trorUpdateTracktForm" id="trorUpdateTracktForm" method="post">
+	 				<form action="tror_mainorderland_ttrace_general_edit.do" name="trorUpdateTracktForm" id="trorUpdateTracktForm" method="post">
 				 	<%--Required key parameters from the Topic parent --%>
 				 	<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
 				 	<input type="hidden" name="action" id="action" value='doUpdate'/>
