@@ -57,13 +57,13 @@ import no.systema.main.model.SystemaWebUser;
 
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.manager.CodeDropDownMgr;
-import no.systema.tror.model.jsonjackson.order.invoice.JsonTrorOrderLandImportInvoiceContainer;
-import no.systema.tror.model.jsonjackson.order.invoice.JsonTrorOrderLandImportInvoiceReadyMarkContainer;
-import no.systema.tror.model.jsonjackson.order.invoice.JsonTrorOrderLandImportInvoiceRecord;
+import no.systema.tror.model.jsonjackson.order.invoice.JsonTrorOrderLandExportInvoiceContainer;
+import no.systema.tror.model.jsonjackson.order.invoice.JsonTrorOrderLandExportInvoiceReadyMarkContainer;
+import no.systema.tror.model.jsonjackson.order.invoice.JsonTrorOrderLandExportInvoiceRecord;
 
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
-import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportService;
+import no.systema.tror.service.landexport.TrorMainOrderHeaderLandexportService;
 import no.systema.tror.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tvinn.sad.util.TvinnSadConstants;
 
@@ -72,16 +72,16 @@ import no.systema.tvinn.sad.util.TvinnSadConstants;
  * Tror - Order Header Controller 
  * 
  * @author oscardelatorre
- * @date Aug 28, 2017
+ * @date Dec 28, 2017
  * 
  */
 
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class TrorMainOrderHeaderLandImportControllerInvoice {
+public class TrorMainOrderHeaderLandExportControllerInvoice {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(1500);
-	private static Logger logger = Logger.getLogger(TrorMainOrderHeaderLandImportControllerInvoice.class.getName());
+	private static Logger logger = Logger.getLogger(TrorMainOrderHeaderLandExportControllerInvoice.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
@@ -109,12 +109,12 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_invoice.do", method={RequestMethod.GET, RequestMethod.POST} )
+	@RequestMapping(value="tror_mainorderlandexport_invoice.do", method={RequestMethod.GET, RequestMethod.POST} )
 	public ModelAndView doGetInvoice(@ModelAttribute ("record") JsonTrorOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
 		
-		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_invoice");
+		ModelAndView successView = new ModelAndView("tror_mainorderlandexport_invoice");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		String parentTrip = recordToValidate.getHepro();
 		
@@ -151,10 +151,10 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 			  	logger.debug(this.jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 	    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 	    		if(jsonPayload!=null){
-	    			JsonTrorOrderLandImportInvoiceContainer container = this.trorMainOrderHeaderLandimportService.getOrderInvoiceContainer(jsonPayload);
+	    			JsonTrorOrderLandExportInvoiceContainer container = this.trorMainOrderHeaderLandexportService.getOrderInvoiceContainer(jsonPayload);
 	    			if(container!=null){
 	    				//ready mark status
-	    				JsonTrorOrderLandImportInvoiceReadyMarkContainer readyMarkContainer = this.getReadyMark(appUser, recordToValidate.getHeavd(), recordToValidate.getHeopd());
+	    				JsonTrorOrderLandExportInvoiceReadyMarkContainer readyMarkContainer = this.getReadyMark(appUser, recordToValidate.getHeavd(), recordToValidate.getHeopd());
 	    				container.setReadyMarkStatus(readyMarkContainer.getStatus());
 	    				//logger.info("AAAAAAA:" + container.getReadyMarkStatus());
 	    				//set domain object
@@ -187,8 +187,8 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	 * @param opd
 	 * @return
 	 */
-	private JsonTrorOrderLandImportInvoiceReadyMarkContainer getReadyMark(SystemaWebUser appUser, String avd, String opd ){
-		JsonTrorOrderLandImportInvoiceReadyMarkContainer retval = null;
+	private JsonTrorOrderLandExportInvoiceReadyMarkContainer getReadyMark(SystemaWebUser appUser, String avd, String opd ){
+		JsonTrorOrderLandExportInvoiceReadyMarkContainer retval = null;
 		
 		logger.info(" Ready mark start process... ");
 		String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_WORKFLOW_UPDATE_STATUS_READYMARK_MAIN_ORDER_INVOICE_URL;
@@ -209,7 +209,7 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	
 		if(jsonPayload!=null){
 			JsonTransportDispWorkflowSpecificOrderInvoiceReadyMarkContainer tmpContainer = this.transportDispWorkflowSpecificOrderService.getOrderInvoiceReadyMarkContainer(jsonPayload);
-			JsonTrorOrderLandImportInvoiceReadyMarkContainer container = new JsonTrorOrderLandImportInvoiceReadyMarkContainer();
+			JsonTrorOrderLandExportInvoiceReadyMarkContainer container = new JsonTrorOrderLandExportInvoiceReadyMarkContainer();
 			//handover since we do not have an own implementation yet. We are borrowing from TranspDisp
 			try{
 				BeanUtils.copyProperties(container, tmpContainer);
@@ -231,7 +231,7 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_invoice_edit.do",  method={RequestMethod.GET, RequestMethod.POST} )
+	@RequestMapping(value="tror_mainorderlandexport_invoice_edit.do",  method={RequestMethod.GET, RequestMethod.POST} )
 	public ModelAndView doEditInvoice(@ModelAttribute ("record") JsonTransportDispWorkflowSpecificOrderInvoiceRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
@@ -242,8 +242,8 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 		logger.info("ACTION: " + action);
 		
 		//ModelAndView successView = new ModelAndView("transportdisp_mainorder_invoice");
-		ModelAndView successView = new ModelAndView("redirect:tror_mainorderlandimport_invoice.do?action=doFind&heavd=" + heavd + "&heopd=" + heopd + "&itemsType=O");
-		ModelAndView errorView = new ModelAndView("tror_mainorderlandimport_invoice");
+		ModelAndView successView = new ModelAndView("redirect:tror_mainorderlandexport_invoice.do?action=doFind&heavd=" + heavd + "&heopd=" + heopd + "&itemsType=O");
+		ModelAndView errorView = new ModelAndView("tror_mainorderlandexport_invoice");
 		
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		
@@ -431,22 +431,22 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	 * @param container
 	 * @param session
 	 */
-	private void setDomainObjectsInView(Map model, JsonTrorOrderLandImportInvoiceContainer container, HttpSession session){
-		List<JsonTrorOrderLandImportInvoiceRecord> list = new ArrayList<JsonTrorOrderLandImportInvoiceRecord>();
+	private void setDomainObjectsInView(Map model, JsonTrorOrderLandExportInvoiceContainer container, HttpSession session){
+		List<JsonTrorOrderLandExportInvoiceRecord> list = new ArrayList<JsonTrorOrderLandExportInvoiceRecord>();
 		//could be two options
 		if(container.getInvoiceLineUpdate()!=null){
-			for (JsonTrorOrderLandImportInvoiceRecord record: container.getInvoiceLineUpdate()){
+			for (JsonTrorOrderLandExportInvoiceRecord record: container.getInvoiceLineUpdate()){
 				//DEBUG logger.info("A RECORD:" + record.getFask());
 				list.add(record);
 			}
 		}else if(container.getInvoiceLines()!=null){
-			for (JsonTrorOrderLandImportInvoiceRecord record: container.getInvoiceLines()){
+			for (JsonTrorOrderLandExportInvoiceRecord record: container.getInvoiceLines()){
 				//DEBUG logger.info("A RECORD:" + record.getFask());
 				list.add(record);
 			}
 		}
 		//[1] Sort the list after: fask(code part (S,K,X,etc) and fafakt(inv.nr)
-		Collections.sort(list, new JsonTrorOrderLandImportInvoiceRecord.OrderByCodeAndInvoiceNr());
+		Collections.sort(list, new JsonTrorOrderLandExportInvoiceRecord.OrderByCodeAndInvoiceNr());
 		if(list!=null){
 			//logger.info("TripleAAA:" + list.size());
 		}
@@ -477,8 +477,8 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	 * @param listGroupsMap
 	 * @return
 	 */
-	private List<JsonTrorOrderLandImportInvoiceRecord> getListWithTotals(Map<Integer, List<JsonTrorOrderLandImportInvoiceRecord>> listGroupsMap){
-		List<JsonTrorOrderLandImportInvoiceRecord> listWithTotals = new ArrayList<JsonTrorOrderLandImportInvoiceRecord>();
+	private List<JsonTrorOrderLandExportInvoiceRecord> getListWithTotals(Map<Integer, List<JsonTrorOrderLandExportInvoiceRecord>> listGroupsMap){
+		List<JsonTrorOrderLandExportInvoiceRecord> listWithTotals = new ArrayList<JsonTrorOrderLandExportInvoiceRecord>();
 		int TWO_DECIMALS = 2;
 		boolean DECIMAL_THOUSAND_FORMAT = false;
 		String LOCALE_NORWAY = "no";
@@ -489,9 +489,9 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	    while (it.hasNext()) {
 	        Map.Entry pair = (Map.Entry)it.next();
 	        //logger.info(pair.getKey() + " = " + pair.getValue());
-	        List<JsonTrorOrderLandImportInvoiceRecord> group = (List<JsonTrorOrderLandImportInvoiceRecord>)pair.getValue();
+	        List<JsonTrorOrderLandExportInvoiceRecord> group = (List<JsonTrorOrderLandExportInvoiceRecord>)pair.getValue();
 	        Double fablnTotal = 0.00D;
-	        for (JsonTrorOrderLandImportInvoiceRecord groupRecord : group){
+	        for (JsonTrorOrderLandExportInvoiceRecord groupRecord : group){
 	        	if(groupRecord.getFabeln()!=null && !"".equals(groupRecord.getFabeln())){
 	        		if(groupRecord.getFabeln().contains("-")){
 	        			//negative sign on back-end (credit note)
@@ -555,13 +555,13 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	 * @param list
 	 * @return
 	 */
-	private Map<Integer,List<JsonTrorOrderLandImportInvoiceRecord>> setListGroups(List<JsonTrorOrderLandImportInvoiceRecord> list){
-		Map<Integer,List<JsonTrorOrderLandImportInvoiceRecord>> map = new HashMap<Integer, List<JsonTrorOrderLandImportInvoiceRecord>>();
-		List<JsonTrorOrderLandImportInvoiceRecord> newList = new ArrayList<JsonTrorOrderLandImportInvoiceRecord>();
+	private Map<Integer,List<JsonTrorOrderLandExportInvoiceRecord>> setListGroups(List<JsonTrorOrderLandExportInvoiceRecord> list){
+		Map<Integer,List<JsonTrorOrderLandExportInvoiceRecord>> map = new HashMap<Integer, List<JsonTrorOrderLandExportInvoiceRecord>>();
+		List<JsonTrorOrderLandExportInvoiceRecord> newList = new ArrayList<JsonTrorOrderLandExportInvoiceRecord>();
 		String previousCode = "";
 		int index = 0;
 		Integer mapIndex = 0;
-		for (JsonTrorOrderLandImportInvoiceRecord record: list){
+		for (JsonTrorOrderLandExportInvoiceRecord record: list){
 			//logger.info("Inside:" + record.getFabeln());
 			if (index==0){
 				previousCode = record.getFask() + record.getFafakt();
@@ -585,7 +585,7 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 					map.put(mapIndex, newList);
 					//init new list with this very current record
 					mapIndex++;
-					newList = new ArrayList<JsonTrorOrderLandImportInvoiceRecord>();
+					newList = new ArrayList<JsonTrorOrderLandExportInvoiceRecord>();
 					newList.add(record);
 					map.put(mapIndex, newList);
 				}
@@ -599,8 +599,8 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	 * 
 	 * @return
 	 */
-	private JsonTrorOrderLandImportInvoiceRecord addTotalRecord(){
-		JsonTrorOrderLandImportInvoiceRecord record = new JsonTrorOrderLandImportInvoiceRecord();
+	private JsonTrorOrderLandExportInvoiceRecord addTotalRecord(){
+		JsonTrorOrderLandExportInvoiceRecord record = new JsonTrorOrderLandExportInvoiceRecord();
 		record.setFaVT(this.INVOICE_ITEM_LINE_GROUP_TOTAL_RECORD_LEGEND);
 		return record;
 	}
@@ -614,12 +614,12 @@ public class TrorMainOrderHeaderLandImportControllerInvoice {
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
-	@Qualifier ("trorMainOrderHeaderLandimportService")
-	private TrorMainOrderHeaderLandimportService trorMainOrderHeaderLandimportService;
+	@Qualifier ("trorMainOrderHeaderLandexportService")
+	private TrorMainOrderHeaderLandexportService trorMainOrderHeaderLandexportService;
 	@Autowired
 	@Required
-	public void setTrorMainOrderHeaderLandimportService (TrorMainOrderHeaderLandimportService value){ this.trorMainOrderHeaderLandimportService = value; }
-	public TrorMainOrderHeaderLandimportService getTrorMainOrderHeaderLandimportService(){ return this.trorMainOrderHeaderLandimportService; }
+	public void setTrorMainOrderHeaderLandexportService (TrorMainOrderHeaderLandexportService value){ this.trorMainOrderHeaderLandexportService = value; }
+	public TrorMainOrderHeaderLandexportService getTrorMainOrderHeaderLandexportService(){ return this.trorMainOrderHeaderLandexportService; }
 	
 	
 	@Qualifier ("trorDropDownListPopulationService")

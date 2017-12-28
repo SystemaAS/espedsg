@@ -56,6 +56,8 @@ import no.systema.tvinn.sad.sadimport.filter.SearchFilterSadImportTopicList;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicListContainer;
 import no.systema.tvinn.sad.sadimport.service.SadImportTopicListService;
 import no.systema.tvinn.sad.sadimport.url.store.SadImportUrlDataStore;
+import no.systema.tvinn.sad.sadexport.url.store.SadExportUrlDataStore;
+
 import no.systema.tvinn.sad.util.TvinnSadConstants;
 //import no.systema.tror.util.RpgReturnResponseHandler;
 import no.systema.tror.util.TrorConstants;
@@ -269,7 +271,7 @@ public class TrorMainOrderListController {
 	 * @return
 	 */
 	@RequestMapping(value="tror_mainorderlist_toSadImport.do")
-	public ModelAndView doOppdregSadHandover(HttpSession session, HttpServletRequest request){
+	public ModelAndView doOppdregSadImportHandover(HttpSession session, HttpServletRequest request){
 		
 		//---------------------------------
 		//Crucial request parameters (Keys
@@ -320,6 +322,65 @@ public class TrorMainOrderListController {
 	    			}else{
 	    				//String extRefNr=request.getParameter("selectedExtRefNr"); //Domino ref in Dachser Norway AS
 	    				successView = new ModelAndView("redirect:tvinnsadimport_doFetchTopicFromTransportUppdrag.do?actionGS=doUpdate" + "&selectedAvd=" + avd + "&selectedOpd=" + opd );
+	    			}
+	    		}
+	    	}	
+		}
+		return successView;
+	}
+	
+	@RequestMapping(value="tror_mainorderlist_toSadExport.do")
+	public ModelAndView doOppdregSadExportHandover(HttpSession session, HttpServletRequest request){
+		
+		//---------------------------------
+		//Crucial request parameters (Keys
+		//---------------------------------
+		String opd = request.getParameter("opd");
+		String avd = request.getParameter("avd");
+		String sign = request.getParameter("sign");
+				
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_TVINN_SAD_EXPORT);
+		appUser.setAuthorizedTvinnSadUserAS400("Y");
+		appUser.setTvinnSadSign(sign);
+		
+		ModelAndView successView = null;
+		
+		Map model = new HashMap();
+		
+		if(appUser==null || "".equals(appUser)){
+			return this.loginView;
+		}else{
+			//---------------------------
+			//get BASE URL = RPG-PROGRAM
+            //---------------------------
+			String BASE_URL = SadExportUrlDataStore.SAD_EXPORT_BASE_TOPICLIST_URL;
+			
+			//-------------------
+			//add URL-parameter 
+			//-------------------
+			//add URL-parameters
+    		StringBuffer urlRequestParams = new StringBuffer(); 
+    		urlRequestParams.append("user=" + appUser.getUser());
+    		urlRequestParams.append("&avd=" + avd + "&opd=" + opd);
+    		
+    		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+	    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+	    	logger.info("URL PARAMS: " + urlRequestParams);
+	    	
+	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+
+			//Debug --> 
+	    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	if(jsonPayload!=null){
+	    		JsonSadImportTopicListContainer container = this.sadImportTopicListService.getSadImportTopicListContainer(jsonPayload);
+	    		if(container!=null){
+	    			if(container.getOrderList()!=null && container.getOrderList().size()>0){
+	    				successView = new ModelAndView("redirect:tvinnsadexport_edit.do?action=doFetch" + "&avd=" + avd + "&opd=" + opd + "&sysg=" + sign );
+	    			}else{
+	    				//String extRefNr=request.getParameter("selectedExtRefNr"); //Domino ref in Dachser Norway AS
+	    				successView = new ModelAndView("redirect:tvinnsadexport_doFetchTopicFromTransportUppdrag.do?actionGS=doUpdate" + "&selectedAvd=" + avd + "&selectedOpd=" + opd );
 	    			}
 	    		}
 	    	}	
