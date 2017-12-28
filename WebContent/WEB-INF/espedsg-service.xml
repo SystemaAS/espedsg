@@ -282,6 +282,9 @@ http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 	<!-- Land import -->
 	<bean id="trorMainOrderHeaderLandimportService" class="no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportServiceImpl"/>
 	<bean id="trorMainOrderHeaderLandimportChildwindowService" class="no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportChildwindowServiceImpl"/>
+	<!-- Land export -->
+	<bean id="trorMainOrderHeaderLandexportService" class="no.systema.tror.service.landexport.TrorMainOrderHeaderLandexportServiceImpl"/>
+	<bean id="trorMainOrderHeaderLandexportChildwindowService" class="no.systema.tror.service.landexport.TrorMainOrderHeaderLandexportChildwindowServiceImpl"/>
 	
     
 	<!-- ==============================  -->

@@ -54,7 +54,7 @@ import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.TrorConstants;
 import no.systema.tror.util.manager.CodeDropDownMgr;
-import no.systema.tror.util.manager.LandImportManager;
+import no.systema.tror.util.manager.LandImportExportManager;
 
 
 
@@ -64,15 +64,15 @@ import no.systema.tror.util.manager.LandImportManager;
  * Tror Controller - Track&Trace window
  * 
  * @author oscardelatorre
- * @date Sep 20, 2017
+ * @date Dec 28, 2017
  * 
  */
 
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
-	private static final Logger logger = Logger.getLogger(TrorMainOrderHeaderLandimportControllerTrackTraceGeneral.class.getName());
+public class TrorMainOrderHeaderLandexportControllerTrackTraceGeneral {
+	private static final Logger logger = Logger.getLogger(TrorMainOrderHeaderLandexportControllerTrackTraceGeneral.class.getName());
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	//
@@ -81,7 +81,7 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 	private LoginValidator loginValidator = new LoginValidator();
 	private DateTimeManager dateTimeMgr = new DateTimeManager();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
-	private LandImportManager landImportMgr = new LandImportManager();
+	private LandImportExportManager landImportExportMgr = new LandImportExportManager();
 	//
 	private StringManager strMgr = new StringManager();
 	
@@ -101,7 +101,7 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_ttrace_general.do", method={RequestMethod.GET, RequestMethod.POST} )
+	@RequestMapping(value="tror_mainorderlandexport_ttrace_general.do", method={RequestMethod.GET, RequestMethod.POST} )
 	public ModelAndView doInit( @ModelAttribute ("record") TrackfDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
@@ -110,7 +110,7 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 		
 		logger.info("ACTION: " + action);
 		//ModelAndView successView = new ModelAndView("transportdisp_mainorder_invoice");
-		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_ttrace_general");
+		ModelAndView successView = new ModelAndView("tror_mainorderlandexport_ttrace_general");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		
 		//check user (should be in session already)
@@ -152,7 +152,7 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_ttrace_general_edit.do",  method={RequestMethod.GET, RequestMethod.POST} )
+	@RequestMapping(value="tror_mainorderlandexport_ttrace_general_edit.do",  method={RequestMethod.GET, RequestMethod.POST} )
 	public ModelAndView doEditTrackAndTraceGeneral(@ModelAttribute ("record") TrackfDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
@@ -167,8 +167,8 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 		params.append("&ttopd=" + recordToValidate.getTtopd());
 		
 		logger.info("ACTION: " + action);
-		ModelAndView successView = new ModelAndView("redirect:tror_mainorderlandimport_ttrace_general.do?action=doFind" + params.toString() );
-		ModelAndView errorView = new ModelAndView("tror_mainorderlandimport_ttrace_general");
+		ModelAndView successView = new ModelAndView("redirect:tror_mainorderlandexport_ttrace_general.do?action=doFind" + params.toString() );
+		ModelAndView errorView = new ModelAndView("tror_mainorderlandexport_ttrace_general");
 		
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		
@@ -201,14 +201,14 @@ public class TrorMainOrderHeaderLandimportControllerTrackTraceGeneral {
 				if (TrorConstants.ACTION_UPDATE.equals(action)) {
 					if (updateId != null && !"".equals(updateId)) {
 						//logger.info("UPDATE!!!");
-						dmlRetval = this.landImportMgr.updateRecord(appUser, recordToValidate, TrorConstants.MODE_UPDATE, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
+						dmlRetval = this.landImportExportMgr.updateRecord(appUser, recordToValidate, TrorConstants.MODE_UPDATE, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
 					} else {
 						//logger.info("CREATE NEW!!!");
-						dmlRetval = this.landImportMgr.updateRecord(appUser, recordToValidate, TrorConstants.MODE_ADD, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
+						dmlRetval = this.landImportExportMgr.updateRecord(appUser, recordToValidate, TrorConstants.MODE_ADD, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
 					}
 				} else if (TrorConstants.ACTION_DELETE.equals(action)) {
 					//logger.info("DELETE !!!");
-					dmlRetval = this.landImportMgr.updateRecord(appUser, recordToValidate, TrorConstants.MODE_DELETE, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
+					dmlRetval = this.landImportExportMgr.updateRecord(appUser, recordToValidate, TrorConstants.MODE_DELETE, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
 				}
 				// check for Update errors
 				if (dmlRetval < 0) {

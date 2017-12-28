@@ -40,7 +40,7 @@ import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.RpgReturnResponseHandler;
 import no.systema.tror.util.TrorConstants;
 import no.systema.tror.util.manager.CodeDropDownMgr;
-import no.systema.tror.util.manager.LandImportManager;
+import no.systema.tror.util.manager.LandImportExportManager;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.z.main.maintenance.validator.MaintMainCundfValidator;
@@ -69,7 +69,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	private StringManager strMgr = new StringManager();
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
-	private LandImportManager landImportMgr = new LandImportManager();
+	private LandImportExportManager landImportMgr = new LandImportExportManager();
 	
 	/**
 	 * 

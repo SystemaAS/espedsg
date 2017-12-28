@@ -35,7 +35,7 @@
 	  		window.open('tror_mainorderlandexport_frisokvei.do?avd='+ jq('#heavd').val() + '&opd=' + jq('#heopd').val() + "&tur=" + jq('#hepro').val(), 'frisokveiWin','top=120px,left=100px,height=800px,width=1000px,scrollbars=no,status=no,location=no');
 	  	});
 	  	jq('#trackAndTraceButton').click(function() {
-	  		window.open('tror_mainorderlandexport_ttrace_general.do?ttavd='+ jq('#heavd').val() + '&ttopd=' + jq('#heopd').val() + "&tur=" + jq('#hepro').val(), 'ttraceGeneralWin','top=120px,left=100px,height=800px,width=1100px,scrollbars=no,status=no,location=no');
+	  		window.open('tror_mainorderland_ttrace_general.do?ttavd='+ jq('#heavd').val() + '&ttopd=' + jq('#heopd').val() + "&tur=" + jq('#hepro').val(), 'ttraceGeneralWin','top=120px,left=100px,height=800px,width=1100px,scrollbars=no,status=no,location=no');
 	  	})
   });
   

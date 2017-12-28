@@ -62,7 +62,7 @@ import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.TrorConstants;
 import no.systema.tror.util.RpgReturnResponseHandler;
 import no.systema.tror.util.manager.CodeDropDownMgr;
-import no.systema.tror.util.manager.LandImportManager;
+import no.systema.tror.util.manager.LandImportExportManager;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecordStatus;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderDummyContainer;
@@ -103,7 +103,7 @@ public class TrorMainOrderHeaderLandImportController {
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
 	//
-	private LandImportManager landImportMgr = new LandImportManager();
+	private LandImportExportManager landImportMgr = new LandImportExportManager();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();

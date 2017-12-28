@@ -10,7 +10,7 @@
 	<SCRIPT type="text/javascript" src="resources/js/jquery.calculator.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/jquery-ui-timepicker-addon.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/transportdispglobal_edit.js?ver=${user.versionEspedsg}"></SCRIPT>			
-	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderlandimport_ttrace_general.js?ver=${user.versionEspedsg}"></SCRIPT>
+	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderland_ttrace_general.js?ver=${user.versionEspedsg}"></SCRIPT>
 	<%-- for dialog popup --%>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	
@@ -191,7 +191,7 @@
            	<%-- ------------------------------------------------- --%>
            	<tr>
 	 			<td class="text12" align="left" >
-					<form name="createNewLineForm" id="createNewLineForm" method="post" action="tror_mainorderlandimport_ttrace_general.do">
+					<form name="createNewLineForm" id="createNewLineForm" method="post" action="tror_mainorderland_ttrace_general.do">
 						<input type="hidden" name="ttavd" id="ttavd" value='${model.record.ttavd}'>
 						<input type="hidden" name="ttopd" id="ttopd" value='${model.record.ttopd}'>
 						<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" id="submit" value='Lage ny'>

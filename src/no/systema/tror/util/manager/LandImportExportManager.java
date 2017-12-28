@@ -20,10 +20,10 @@ import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.J
 import no.systema.tvinn.sad.z.maintenance.nctsexport.service.MaintNctsExportTrkodfService;
 import no.systema.tvinn.sad.z.maintenance.nctsexport.url.store.TvinnNctsMaintenanceExportUrlDataStore;
 
-public class LandImportManager {
+public class LandImportExportManager {
 	
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(1500);
-	private static Logger logger = Logger.getLogger(LandImportManager.class.getName());
+	private static Logger logger = Logger.getLogger(LandImportExportManager.class.getName());
 	/**
 	 * UnitOfMeasure
 	 * 

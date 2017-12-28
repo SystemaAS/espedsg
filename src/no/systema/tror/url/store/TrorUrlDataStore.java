@@ -21,6 +21,7 @@ public class TrorUrlDataStore {
 	static public String TROR_BASE_FETCH_SPECIFIC_ORDER_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsHEADF.do";
 	//http://localhost:8080/syjservicesbcore/syjsSYHEDUMMY_URAR.do?user=OSCAR&heavd=1
 	static public String TROR_BASE_FETCH_SPECIFIC_DEFAULT_BILIMPORT_VALUES_FROM_DBDUMMY_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYHEDUMMY_URAR.do";
+	static public String TROR_BASE_FETCH_SPECIFIC_DEFAULT_BILEXPORT_VALUES_FROM_DBDUMMY_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYHEDUMMY_URBR.do";
 			
 	/**
 	 * @Example SELECT http://gw.systema.no:8080/syjservicestror/syjsKODTVA.do?user=OSCAR

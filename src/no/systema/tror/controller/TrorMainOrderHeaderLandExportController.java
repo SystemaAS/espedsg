@@ -1,16 +1,9 @@
 package no.systema.tror.controller;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.lang.reflect.Field;
+
+
 import java.util.*;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
@@ -20,49 +13,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.springframework.web.bind.ServletRequestDataBinder;
-
 
 //application imports
 import no.systema.main.context.TdsAppContext;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.general.notisblock.NotisblockService;
 import no.systema.main.validator.LoginValidator;
-import no.systema.skat.util.SkatConstants;
 import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderTrackAndTraceLoggingContainer;
 import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderTrackAndTraceLoggingRecord;
-import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderArchivedDocsContainer;
 import no.systema.transportdisp.model.jsonjackson.workflow.order.JsonTransportDispWorkflowSpecificOrderArchivedDocsRecord;
-import no.systema.transportdisp.service.TransportDispWorkflowSpecificOrderService;
 import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
-import no.systema.main.url.store.MainUrlDataStore;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.MessageNoteManager;
 import no.systema.main.util.NumberFormatterLocaleAware;
 import no.systema.main.util.DateTimeManager;
 import no.systema.main.util.StringManager;
-
-import no.systema.main.util.io.FileContentRenderer;
 import no.systema.main.model.SystemaWebUser;
-import no.systema.main.model.jsonjackson.general.notisblock.JsonNotisblockContainer;
-
-
-//eBooking
+//
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.TrorConstants;
 import no.systema.tror.util.RpgReturnResponseHandler;
 import no.systema.tror.util.manager.CodeDropDownMgr;
-import no.systema.tror.util.manager.LandImportManager;
+import no.systema.tror.util.manager.LandImportExportManager;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecordStatus;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderDummyContainer;
@@ -75,11 +55,10 @@ import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
 import no.systema.jservices.common.dao.TrackfDao;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
-import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportService;
+import no.systema.tror.service.landexport.TrorMainOrderHeaderLandexportService;
 import no.systema.tror.service.TrorMainOrderHeaderService;
 import no.systema.tror.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tror.validator.TrorOrderHeaderValidator;
-import no.systema.tror.validator.TrorOrderTrackfValidator;
 import no.systema.tvinn.sad.z.maintenance.nctsexport.service.MaintNctsExportTrkodfService;
 import no.systema.tvinn.sad.z.maintenance.sadimport.service.gyldigekoder.MaintSadImportKodts4Service;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
@@ -103,7 +82,7 @@ public class TrorMainOrderHeaderLandExportController {
 	private ApplicationContext context;
 	private LoginValidator loginValidator = new LoginValidator();
 	//
-	private LandImportManager landImportMgr = new LandImportManager();
+	private LandImportExportManager landImportExportMgr = new LandImportExportManager();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
@@ -113,7 +92,7 @@ public class TrorMainOrderHeaderLandExportController {
 	private DateTimeManager dateMgr = new DateTimeManager();
 	
 	//private ReflectionUrlStoreMgr reflectionUrlStoreMgr = new ReflectionUrlStoreMgr();
-	private final String DELSYSTEM_LAND_IMPORT = "A";
+	private final String DELSYSTEM_LAND_EXPORT = "B";
 	String TRACK_TRACE_ACTION_UPDATE = "doUpdate";
 	String TRACK_TRACE_CREATE = null;
 	String TRACK_TRACE_STATUS_STR = "STR"; //STARTED
@@ -349,14 +328,14 @@ public class TrorMainOrderHeaderLandExportController {
 		if (TrorConstants.ACTION_UPDATE.equals(action)) {
 			if (updateId != null && !"".equals(updateId)) {
 				//logger.info("UPDATE!!!");
-				//To implement? -->dmlRetval = this.landImportMgr.updateRecord(appUser, recordToLog, TrorConstants.MODE_UPDATE, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
+				//To implement? -->dmlRetval = this.landExportMgr.updateRecord(appUser, recordToLog, TrorConstants.MODE_UPDATE, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
 			} else {
 				//logger.info("CREATE NEW!!!"); Will always be the case... as for today (20171221)
-				dmlRetval = this.landImportMgr.updateRecord(appUser, recordToLog, TrorConstants.MODE_ADD, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
+				dmlRetval = this.landImportExportMgr.updateRecord(appUser, recordToLog, TrorConstants.MODE_ADD, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
 			}
 		} else if (TrorConstants.ACTION_DELETE.equals(action)) {
 			//logger.info("DELETE !!!");
-			//To implement? -->dmlRetval = this.landImportMgr.updateRecord(appUser, recordToLog, TrorConstants.MODE_DELETE, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
+			//To implement? -->dmlRetval = this.landExportMgr.updateRecord(appUser, recordToLog, TrorConstants.MODE_DELETE, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
 		}
 		// check for Update errors
 		if (dmlRetval < 0) {
@@ -422,7 +401,7 @@ public class TrorMainOrderHeaderLandExportController {
 			if(index>=0){
 				String uom = record.getHevs1().substring(0,index);
 				//Check if uom is valid
-				if(this.landImportMgr.findUnitOfMeasure(this.urlCgiProxyService, this.maintNctsExportTrkodfService, appUser, uom)){
+				if(this.landImportExportMgr.findUnitOfMeasure(this.urlCgiProxyService, this.maintNctsExportTrkodfService, appUser, uom)){
 					model.put(UNITOFMEASURE_1, uom);
 					model.put(UNITOFMEASURE_1_LENGTH, uom.length());
 					logger.info("UOM!!!!!!!!!!!!!!!!:" + uom);
@@ -454,7 +433,7 @@ public class TrorMainOrderHeaderLandExportController {
 		recordToValidate.setHeopd(null);
 		recordToValidate.setHedtop(dateMgr.getCurrentDate_ISO());
 		recordToValidate.setHedtr(dateMgr.getCurrentDate_ISO());
-		recordToValidate.setHeur(this.DELSYSTEM_LAND_IMPORT);
+		recordToValidate.setHeur(this.DELSYSTEM_LAND_EXPORT);
 		//split godsnr
 		this.splitGodsnr(recordToValidate);
 	}
@@ -470,7 +449,7 @@ public class TrorMainOrderHeaderLandExportController {
 			
 		JsonTrorOrderHeaderRecord record = new JsonTrorOrderHeaderRecord();
 		
-		final String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_SPECIFIC_DEFAULT_BILIMPORT_VALUES_FROM_DBDUMMY_URL;
+		final String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_SPECIFIC_DEFAULT_BILEXPORT_VALUES_FROM_DBDUMMY_URL;
 		//add URL-parameters
 		StringBuffer urlRequestParams = new StringBuffer();
 		urlRequestParams.append("user=" + appUser.getUser());
@@ -484,7 +463,7 @@ public class TrorMainOrderHeaderLandExportController {
     	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
     	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
     	if(jsonPayload!=null){
-    		JsonTrorOrderHeaderDummyContainer container = this.trorMainOrderHeaderLandimportService.getOrderHeaderDummyContainer(jsonPayload);
+    		JsonTrorOrderHeaderDummyContainer container = this.trorMainOrderHeaderLandexportService.getOrderHeaderDummyContainer(jsonPayload);
     		//model.put(TrorConstants.DOMAIN_CONTAINER_OPEN_ORDERS, container);
     		if(container!=null){
     			if(container.getList()!=null){
@@ -675,7 +654,7 @@ public class TrorMainOrderHeaderLandExportController {
 	    	
 	    	if(jsonPayload!=null){
 	    		
-	    		JsonTrorOrderHeaderContainer container = this.trorMainOrderHeaderLandimportService.getOrderHeaderContainerStatusUpdate(jsonPayload);
+	    		JsonTrorOrderHeaderContainer container = this.trorMainOrderHeaderLandexportService.getOrderHeaderContainerStatusUpdate(jsonPayload);
 	    		if(container!=null){
 	    			for(JsonTrorOrderHeaderRecordStatus record : container.getList()){
 	    				logger.info("Status:" + record.getStatus());
@@ -1321,7 +1300,7 @@ public class TrorMainOrderHeaderLandExportController {
     	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
     	
     	if(jsonPayload!=null){
-    		JsonTrorOrderHeaderContainer container = this.trorMainOrderHeaderLandimportService.getOrderHeaderContainer(jsonPayload);
+    		JsonTrorOrderHeaderContainer container = this.trorMainOrderHeaderLandexportService.getOrderHeaderContainer(jsonPayload);
     		if(container!=null){
     			if(this.strMgr.isNotNull(container.getErrMsg()) && !"null".equals(container.getErrMsg()) ) {
     				rpgReturnResponseHandler = new RpgReturnResponseHandler(); //init
@@ -1375,7 +1354,7 @@ public class TrorMainOrderHeaderLandExportController {
     	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
     	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
     	if(jsonPayload!=null){
-    		JsonTrorOrderHeaderContainer container = this.trorMainOrderHeaderLandimportService.getOrderHeaderContainer(jsonPayload);
+    		JsonTrorOrderHeaderContainer container = this.trorMainOrderHeaderLandexportService.getOrderHeaderContainer(jsonPayload);
     		model.put(TrorConstants.DOMAIN_CONTAINER_OPEN_ORDERS, container);
     		if(container!=null){
     			if(container.getDtoList()!=null){
@@ -1496,12 +1475,12 @@ public class TrorMainOrderHeaderLandExportController {
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 	
-	@Qualifier ("trorMainOrderHeaderLandimportService")
-	private TrorMainOrderHeaderLandimportService trorMainOrderHeaderLandimportService;
+	@Qualifier ("trorMainOrderHeaderLandexportService")
+	private TrorMainOrderHeaderLandexportService trorMainOrderHeaderLandexportService;
 	@Autowired
 	@Required
-	public void setTrorMainOrderHeaderLandimportService (TrorMainOrderHeaderLandimportService value){ this.trorMainOrderHeaderLandimportService = value; }
-	public TrorMainOrderHeaderLandimportService getTrorMainOrderHeaderLandimportService(){ return this.trorMainOrderHeaderLandimportService; }
+	public void setTrorMainOrderHeaderLandexportService (TrorMainOrderHeaderLandexportService value){ this.trorMainOrderHeaderLandexportService = value; }
+	public TrorMainOrderHeaderLandexportService getTrorMainOrderHeaderLandexportService(){ return this.trorMainOrderHeaderLandexportService; }
 	
 	
 	
