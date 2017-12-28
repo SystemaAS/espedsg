@@ -51,7 +51,7 @@
   
   jq(function() {
 	  jq('#updCancelButton').click(function() {
-  		window.open('tror_mainorderlandimport_budget.do?avd='+ jq('#avd').val() + '&opd=' + jq('#opd').val() + "&tur=" + jq('#hepro').val(), 'budgetWin','top=120px,left=100px,height=800px,width=1600px,scrollbars=no,status=no,location=no');
+  		window.open('tror_mainorderland_budget.do?avd='+ jq('#avd').val() + '&opd=' + jq('#opd').val() + "&tur=" + jq('#hepro').val(), 'budgetWin','top=120px,left=100px,height=800px,width=1600px,scrollbars=no,status=no,location=no');
 	  });
   });
   
@@ -278,7 +278,7 @@
       		jq( this ).dialog( "close" );
 	            //do delete
 	            jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-	            window.location = "tror_mainorderlandimport_budget_edit.do?action=doDelete" + "&bubnr=" + bubnr + "&avd=" + avd + "&opd=" + opd + "&tur=" + tur;
+	            window.location = "tror_mainorderland_budget_edit.do?action=doDelete" + "&bubnr=" + bubnr + "&avd=" + avd + "&opd=" + opd + "&tur=" + tur;
 	        },
 	        Avbryt: function() {
 	            jq( this ).dialog( "close" );

@@ -65,7 +65,7 @@ import no.systema.tvinn.sad.util.TvinnSadConstants;
 
 
 /**
- * Tror Landimport Controller - Budget window
+ * Tror Landimport & Landexport Controller - Budget window
  * 
  * @author oscardelatorre
  * @date Sep 18, 2017
@@ -75,9 +75,9 @@ import no.systema.tvinn.sad.util.TvinnSadConstants;
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class TrorMainOrderHeaderLandImportControllerBudget {
+public class TrorMainOrderHeaderLandControllerBudget {
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
-	private static final Logger logger = Logger.getLogger(TrorMainOrderHeaderLandImportControllerBudget.class.getName());
+	private static final Logger logger = Logger.getLogger(TrorMainOrderHeaderLandControllerBudget.class.getName());
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(2000);
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	
@@ -104,7 +104,7 @@ public class TrorMainOrderHeaderLandImportControllerBudget {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_budget.do", method={RequestMethod.GET} )
+	@RequestMapping(value="tror_mainorderland_budget.do", method={RequestMethod.GET} )
 	public ModelAndView doInit(@ModelAttribute ("record") JsonTrorOrderHeaderBudgetRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
@@ -118,7 +118,7 @@ public class TrorMainOrderHeaderLandImportControllerBudget {
 		logger.info("ACTION: " + action);
 		logger.info("parentTrip:" + parentTrip);
 		//ModelAndView successView = new ModelAndView("transportdisp_mainorder_invoice");
-		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_budget");
+		ModelAndView successView = new ModelAndView("tror_mainorderland_budget");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		
 		//check user (should be in session already)
@@ -182,7 +182,7 @@ public class TrorMainOrderHeaderLandImportControllerBudget {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_budget_edit.do",  method={RequestMethod.GET, RequestMethod.POST} )
+	@RequestMapping(value="tror_mainorderland_budget_edit.do",  method={RequestMethod.GET, RequestMethod.POST} )
 	public ModelAndView doEditBudget(@ModelAttribute ("record") JsonTrorOrderHeaderBudgetRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
@@ -213,8 +213,8 @@ public class TrorMainOrderHeaderLandImportControllerBudget {
 		}
 		
 		logger.info("ACTION: " + action);
-		ModelAndView successView = new ModelAndView("redirect:tror_mainorderlandimport_budget.do?action=doFind" + params.toString() );
-		ModelAndView errorView = new ModelAndView("tror_mainorderlandimport_budget");
+		ModelAndView successView = new ModelAndView("redirect:tror_mainorderland_budget.do?action=doFind" + params.toString() );
+		ModelAndView errorView = new ModelAndView("tror_mainorderland_budget");
 		
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
 		

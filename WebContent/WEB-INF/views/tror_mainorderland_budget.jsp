@@ -10,7 +10,7 @@
 	<SCRIPT type="text/javascript" src="resources/js/jquery.calculator.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/jquery-ui-timepicker-addon.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/trorglobal_edit.js?ver=${user.versionEspedsg}"></SCRIPT>			
-	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderlandimport_budget.js?ver=${user.versionEspedsg}"></SCRIPT>
+	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderland_budget.js?ver=${user.versionEspedsg}"></SCRIPT>
 	<%-- for dialog popup --%>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	
@@ -234,7 +234,7 @@
            	<%-- ------------------------------------------------- --%>
            	<tr>
 	 			<td >
-	 				<form action="tror_mainorderlandimport_budget_edit.do" name="budgetUpdateItemForm" id="budgetUpdateItemForm" method="post">
+	 				<form action="tror_mainorderland_budget_edit.do" name="budgetUpdateItemForm" id="budgetUpdateItemForm" method="post">
 				 	<%--Required key parameters from the Topic parent --%>
 				 	<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
 				 	<input type="hidden" name="action" id="action" value='doUpdate'/>
