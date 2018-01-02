@@ -390,8 +390,11 @@ public class TrorMainOrderHeaderLandImportController {
 		//
 		if(this.TRACK_TRACE_STATUS_STR.equals(status)){
 			dao.setTttext("Order entered");
-		}else{
-			dao.setTttexl("Ordre opprettet");
+			dao.setTttexl("Ordre registrert");
+			
+		}else if(this.TRACK_TRACE_STATUS_CHG.equals(status)){
+			dao.setTttext("Order is changed");
+			dao.setTttexl("Oppdrag er endret");
 		}
 		dao.setTtmanu("X");//meaning "not manual"
 		

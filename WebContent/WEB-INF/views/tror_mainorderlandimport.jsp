@@ -1032,11 +1032,11 @@
 						 				<div class="text11" style="position: relative;" align="left">
 											<span style="position:absolute; left:0px; top:0px; width:250px" id="hekdfk_info" class="popupWithInputText"  >
 												<font class="text11">
-							           			<b>Fakt.mot selger ?</b>
+							           			<b>Fakt.mot Kjøper ?</b>
 							           			<div>
-							           			<p>Tast en <b>X</b> i dette feltet dersom du ønsker at selger ikke skal faktureres. 
-							           			En <b>E</b> i feltet vil medføre at selgers avtale blir benyttet, ikke selgers fakturamottagers avtale som er det vanlige. 
-							           			En <b>B</b> i feltet vil medføre at "motpartens" (kjøpers/kjøpers fmots) avtale brukes.
+							           			<p>Tast en <b>X</b> i dette feltet dersom du ønsker at kjøper ikke skal faktureres. 
+							           			En <b>E</b> i feltet vil medføre at kjøpers avtale blir benyttet, ikke selgers fakturamottagers avtale som er det vanlige. 
+							           			En <b>B</b> i feltet vil medføre at "motpartens" (selgers/kjøpers fmots) avtale brukes.
 							           			</p>
 							           			</div>
 						           			</font>

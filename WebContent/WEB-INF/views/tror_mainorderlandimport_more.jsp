@@ -187,12 +187,9 @@
 									</a>
 								</td>
 								<td width="12%" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-									<font class="tabDisabledLinkMinor">&nbsp;...</font>&nbsp;
-									<%--
-									<a id="alinkMainMaintFritextGate" href="TODOmainmaintenancecundf_fritekst_edit.do">
-										<font class="tabDisabledLinkMinor">&nbsp;...</font>&nbsp;						
+									<a id="alinkMainMaintFritextGate" href="tror_mainorderland_ttrace_general.do?ttavd=${recordOrderTrorLandImport.heavd}&ttopd=${recordOrderTrorLandImport.heopd}">
+										<font class="tabDisabledLinkMinor">&nbsp;<spring:message code="systema.tror.order.more.tab.tracktracegrl.subtab"/></font>&nbsp;					
 									</a>
-									 --%>
 								</td>
 								
 							 	<td width="70%" class="tabFantomSpace" align="center" nowrap></td>

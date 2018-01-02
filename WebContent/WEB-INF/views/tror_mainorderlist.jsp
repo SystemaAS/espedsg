@@ -33,7 +33,7 @@
 				
 				<a tabindex=-1 id="createNewOrderTabIdLink" style="display:block;" runat="server" href="#">
 					<img style="vertical-align:middle;" src="resources/images/add.png" width="12px" height="12px" border="0" alt="create new">
-					<font class="tabDisabledLink"><spring:message code="systema.ebooking.createnew.order.tab"/></font>
+					<font class="tabDisabledLink"><spring:message code="systema.tror.createnew.order.tab"/></font>
 				</a>
 				
 			</td>

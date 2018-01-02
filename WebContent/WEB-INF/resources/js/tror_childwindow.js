@@ -476,7 +476,7 @@
 		  var name = record[1].replace("name_", "");
 		  var caller= jq("#ctype").val();
 		  
-		  if ( caller =='tror_landimport'){ 
+		  if ( caller =='tror_landimport' || caller =='tror_landexport'){ 
 			  opener.jq('#hesdl').val(name);
 			  opener.jq('#hesdl').focus();
 			  

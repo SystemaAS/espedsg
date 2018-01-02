@@ -86,7 +86,11 @@ public class TrorOrderHeaderValidator implements Validator {
 				if( (strMgr.isNotNull(record.getHeknsf())) || (strMgr.isNotNull(record.getHeknkf())) ){
 					//OK (at least one)
 				}else{
-					errors.rejectValue("heknsf", "systema.tror.orders.form.update.error.rule.sendersOrReceiversInvoicee.mustExist");
+					if( !"X".equals(record.getHekdfs()) && !"X".equals(record.getHekdfk()) ){
+						errors.rejectValue("heknsf", "systema.tror.orders.form.update.error.rule.sendersOrReceiversInvoicee.mustExist");
+					}else{
+						//OK ... according to CB/TH
+					}
 				}
 			}
 			

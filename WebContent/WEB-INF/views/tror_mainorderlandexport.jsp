@@ -485,7 +485,7 @@
 							 				<td class="text12">
 							 					<img onMouseOver="showPop('hesdl_info');" onMouseOut="hidePop('hesdl_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 							 					<img style="vertical-align:middle;" src="resources/images/loading.png" width="15px" height="15px" border="0" alt="load/unload">
-				 								<span title="hesdl"><spring:message code="systema.tror.orders.form.update.label.unload"/></span>
+				 								<span title="hesdl"><spring:message code="systema.tror.orders.form.update.label.load"/></span>
 				 								<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_loadunloadplaces.do?action=doFind&ctype=tror_landexport','loadunloadWin','top=300px,left=50px,height=600px,width=800px,scrollbars=no,status=no,location=no')">						 				
 						 							<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 						 						</a>
@@ -493,9 +493,9 @@
 				 								
 				 								<div class="text11" style="position: relative;" align="left" >
 									 				<span style="position:absolute; top:2px; width:200px;" id="hesdl_info" class="popupWithInputText text11"  >
-										           		<p><b><spring:message code="systema.tror.orders.form.update.label.unload"/></b></p> 
-									           			Lossested. Det som står i dette feltet skrives på ankomstmelding og losseliste.
-														Det er ikke krav til feltet.
+										           		<p><b><spring:message code="systema.tror.orders.form.update.label.load"/></b></p> 
+									           			Det som står i dette feltet skrives på arbeidsordre. Det er ikke krav til feltet.
+														
 													</span>	
 												</div>
 											</td>
@@ -537,13 +537,15 @@
 									 		<td class="text12" title="herfa">
 									 			<img onMouseOver="showPop('herfa_info');" onMouseOut="hidePop('herfa_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 									 			<spring:message code="systema.tror.orders.form.update.label.agentRef"/>&nbsp;
-									 			<input type="text" class="inputTextMediumBlue" name="herfa" id="herfa" size="15" maxlength="14" value="${model.record.herfa}">
 									 			<div class="text11" style="position: relative;" align="left" >
 									 				<span style="position:absolute; top:2px; width:200px;" id="herfa_info" class="popupWithInputText text11"  >
 										           		<p><b><spring:message code="systema.tror.orders.form.update.label.agentRef"/></b></p> 
 									           			Agents referanse kan tastes her. Feltet kan ellers benyttes til hva man måtte ønske.
 													</span>	
 												</div>
+									 		</td>
+									 		<td class="text12">
+									 			<input type="text" class="inputTextMediumBlue" name="herfa" id="herfa" size="16" maxlength="14" value="${model.record.herfa}">
 									 		</td>
 							 				
 							 			</tr>
@@ -574,7 +576,18 @@
 							 				<td class="text12" title="ownheknt">	
 							 					<input type="text" class="inputTextReadOnly" name="ownheknt" id="ownheknt" size="30" maxlength="30" value="${Xmodel.record.ownTODO}">
 							 				</td>
-							 				<td>&nbsp;&nbsp;</td>
+							 				<td class="text12" title="hehawb">
+							 					<img onMouseOver="showPop('hehawb_info');" onMouseOut="hidePop('hehawb_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+							 					<spring:message code="systema.tror.orders.form.update.label.bilnr" />
+							 					<div class="text11" style="position: relative;"" align="left" >
+									 				<span style="position:absolute; top:2px; width:100px;" id="hehawb_info" class="popupWithInputText text11"  >
+										           		<p><b><spring:message code="systema.tror.orders.form.update.label.bilnr" /></b></p> 
+									           			...
+													</span>	
+												</div>
+							 				</td>
+							 				<td><input type="text" class="inputTextMediumBlue" name="hehawb" id="hehawb" size="10" maxlength="9" value="${model.record.hehawb}"></td>
+							 				
 							 			</tr>
 							 			
 							 			</table>
@@ -585,7 +598,8 @@
 					 				<td align="left" width="50%">&nbsp;</td>
 								 	
 								 	<td align="left" width="50%">
-						 				<table width="98%" class="tableBorderWithRoundCornersLightGray" border="0">
+						 				<table class="tableBorderWithRoundCornersLightGray" border="1">
+						 				<%--
 						 				<tr>		
 								 			<td class="text12">
 								 				<img onMouseOver="showPop('hekdtm_info');" onMouseOut="hidePop('hekdtm_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -666,28 +680,29 @@
 												</select>
 								 			</td>
 								 		</tr>
+								 		 --%>
 								 		<tr>	
 								 			<td class="text12">
-								 			<img onMouseOver="showPop('hetrcn_info');" onMouseOut="hidePop('hetrcn_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-								 			<span title="hetrcn"><spring:message code="systema.tror.orders.form.update.label.containernr"/></span>
+								 			<img onMouseOver="showPop('hevalt_info');" onMouseOut="hidePop('hevalt_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+								 			<span title="hetrcn"><spring:message code="systema.tror.orders.form.update.label.tillegg"/></span>
 								 			<div class="text11" style="position: relative;" align="left" >
-									 				<span style="position:absolute; top:2px; width:200px;" id="hetrcn_info" class="popupWithInputText text11"  >
-										           		<p><b><spring:message code="systema.tror.orders.form.update.label.containernr"/></b></p> 
-									           			Tast containernr dersom 1 er svart i foregående felt.
-									           			KRAV til feltet dersom CONT = 1.
+									 				<span style="position:absolute; top:2px; width:200px;" id="hevalt_info" class="popupWithInputText text11"  >
+										           		<p><b><spring:message code="systema.tror.orders.form.update.label.tillegg"/></b></p> 
+									           			Her kan ekstragebyr som står i et visst prosentforhold til frakten tastes.
+														(F.eks VAL 3,5 = valutatillegg tas inn med 3,5 prosent av fraktbeløpet).
+														På fakturaen vil da komme et ekstragebyr mot den side som belastes frakt.
 													</span>	
 											</div>
 								 			</td>
-								 			<td colspan="2" class="text12">
-								 				<input type="text" class="inputTextMediumBlue" name="hetrcn" id="hetrcn" size="18" maxlength="17" value="${model.record.hetrcn}">
+								 			<td class="text12">
+								 				<input type="text" class="inputTextMediumBlue" name="hevalt" id="hevalt" size="4" maxlength="3" value="${model.record.hevalt}">
+								 				&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="hevalp" id="hevalp" size="8" maxlength="7" value="${model.record.hevalp}">
 								 			</td>
 							 			</tr>
 							 			</table>
 						 			</td>
 					 			</tr>
-					 			
 					 			</table>
-						 			
 							</td>
 						</tr>
 						

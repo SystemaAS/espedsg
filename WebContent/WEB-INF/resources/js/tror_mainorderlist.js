@@ -109,7 +109,7 @@
 	  jq("#createNewOrderTabIdLink").click(function() {
 		  
 		  //setters (add more if needed)
-		  jq('#dialogCreateNewOrder').dialog( "option", "title", "Lag ny Ordre" );
+		  jq('#dialogCreateNewOrder').dialog( "option", "title", "Lag ny Oppdrag" );
 		  
 		  //deal with buttons for this modal window
 		  jq('#dialogCreateNewOrder').dialog({

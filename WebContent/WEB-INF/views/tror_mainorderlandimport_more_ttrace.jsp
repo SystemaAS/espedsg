@@ -180,24 +180,17 @@
  	   	 		<td align="center" width="99%">
  					<table class="formFrameHeaderTransparent" width="99%" cellspacing="0" border="0" cellpadding="0">
 						<tr height="20"> 
-								<td width="15%" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-									<a id="alinkMainMaintKontaktGate" href="tror_mainorderlandimport_more.do">
-										<font class="tabDisabledLinkMinor">&nbsp;<spring:message code="systema.tror.order.more.tab.fellesprint.subtab"/></font>&nbsp;						
-									</a>
-								</td>
+								
 								<td width="12%" valign="bottom" class="tabSub" align="center" nowrap>
 									<font class="tabLinkMinor">&nbsp;<spring:message code="systema.tror.order.more.tab.tracktrace.subtab"/></font>&nbsp;						
 								</td>
 								<td width="12%" valign="bottom" class="tabDisabledSub" align="center" nowrap>
-									<font class="tabDisabledLinkMinor">&nbsp;...</font>&nbsp;
-									<%--
-									<a id="alinkMainMaintFritextGate" href="TODOmainmaintenancecundf_fritekst_edit.do">
-										<font class="tabDisabledLinkMinor">&nbsp;...</font>&nbsp;						
+									<a id="alinkMoreTrackTraceGeneral" href="tror_mainorderland_ttrace_general.do?ttavd=${recordOrderTrorLandImport.heavd}&ttopd=${recordOrderTrorLandImport.heopd}">
+										<font class="tabDisabledLinkMinor">&nbsp;<spring:message code="systema.tror.order.more.tab.tracktracegrl.subtab"/></font>&nbsp;					
 									</a>
-									 --%>
 								</td>
 								
-							 	<td width="70%" class="tabFantomSpace" align="center" nowrap></td>
+							 	<td width="80%" class="tabFantomSpace" align="center" nowrap></td>
 						</tr>
 					</table>
 				</td>
@@ -206,8 +199,7 @@
  	   	 	<tr>
 				<td align="center" width="99%">
 					<table class="tabThinBorderWhite" width="99%" cellspacing="0" border="0">
- 	   	 				<tr height="30px"><td ></td></tr>
- 	   	 				
+ 	   	 				<tr height="20px"><td ></td></tr>
 						<tr>
 						<td width="40%" >	
 							<%--
