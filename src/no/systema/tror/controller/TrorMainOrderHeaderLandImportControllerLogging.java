@@ -69,13 +69,13 @@ public class TrorMainOrderHeaderLandImportControllerLogging {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_logging.do",  method= RequestMethod.GET)
+	@RequestMapping(value="tror_mainorderland_logging.do",  method= RequestMethod.GET)
 	public ModelAndView doShowList(HttpSession session, HttpServletRequest request){
 		Map model = new HashMap();
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
-		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_logging");
-		logger.info("Method: doShowList [RequestMapping-->tror_mainorderlandimport_logging.do]");
+		ModelAndView successView = new ModelAndView("tror_mainorderland_logging");
+		logger.info("Method: doShowList [RequestMapping-->tror_mainorderland_logging.do]");
 		
 		String opd = request.getParameter("opd");
 		String avd = request.getParameter("avd");
@@ -134,7 +134,7 @@ public class TrorMainOrderHeaderLandImportControllerLogging {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_renderEdifact.do", method={ RequestMethod.GET })
+	@RequestMapping(value="tror_mainorderland_renderEdifact.do", method={ RequestMethod.GET })
 	public ModelAndView doRenderEdifact(HttpSession session, HttpServletRequest request, HttpServletResponse response){
 		logger.info("Inside doRenderEdifact...");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);

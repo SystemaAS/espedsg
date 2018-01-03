@@ -55,7 +55,7 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a class="text14" onClick="setBlockUI(this);" href="editNotisblock.do?action=doFetch&subsys=tror_le&avd=${model.record.heavd}&opd=${model.record.heopd}&sign=${model.record.hesg}" > 	
+						<a class="text14" onClick="setBlockUI(this);" href="editNotisblock.do?action=doFetch&subsys=${subSystem}&avd=${model.record.heavd}&opd=${model.record.heopd}&sign=${model.record.hesg}" > 	
 							<img style="vertical-align: bottom" src="resources/images/veiledning.png" width="16" hight="16" border="0" alt="show messages">
 							<font class="tabDisabledLink"><spring:message code="systema.tror.order.notisblock.tab"/></font>&nbsp;<font class="text10Orange">F10</font>
 						</a>
@@ -86,7 +86,7 @@
 					</c:if>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_more.do?avd=${model.record.heavd}&sign=${model.record.hesg}&opd=${model.record.heopd}">
+						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderland_ttrace.do?avd=${model.record.heavd}&sign=${model.record.hesg}&opd=${model.record.heopd}">
 							<img style="vertical-align: bottom" src="resources/images/sort_down.png" width="10" hight="10" border="0" alt="show more">
 							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.more.tab"/></font>
 						</a>
@@ -1619,7 +1619,7 @@
 									<td align="right">
 										<c:choose>
 						 				    <c:when test="${ not empty model.record.heopd }">
-						 				    	<c:if test="${empty recordOrderTrorLandExport.hest || recordOrderTrorLandExport.hest == 'U' || recordOrderTrorLandExport.hest == 'O' || recordOrderTrorLandExport.hest == 'F' }">
+						 				    	<c:if test="${empty model.record.hest || model.record.hest == 'U' || model.record.hest == 'O' || model.record.hest == 'F' }">
 						 				    		<input class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'/>
 						 				    	</c:if>
 						 				    </c:when>

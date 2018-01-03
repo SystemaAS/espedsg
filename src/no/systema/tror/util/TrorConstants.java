@@ -94,6 +94,11 @@ public final class TrorConstants {
 	public static final String DOMAIN_RECORD_ORDER_TROR = "recordOrderTror";
 	public static final String SESSION_RECORD_ORDER_TROR_LANDIMPORT = "recordOrderTrorLandImport";
 	public static final String SESSION_RECORD_ORDER_TROR_LANDEXPORT = "recordOrderTrorLandExport";
+	public static final String SESSION_RECORD_ORDER_TROR_LAND = "recordOrderTrorLand";
+	public static final String SESSION_SUBSYSTEM_ORDER_TROR = "subSystem";
+	public static final String SESSION_SUBSYSTEM_ORDER_TROR_LANDIMPORT = "tror_li";
+	public static final String SESSION_SUBSYSTEM_ORDER_TROR_LANDEXPORT = "tror_le";
+	
 	
 	
 	public static final String DOMAIN_LIST = "list";

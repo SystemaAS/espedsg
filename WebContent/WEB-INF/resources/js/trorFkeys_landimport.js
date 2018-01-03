@@ -62,12 +62,12 @@
 	  		 }else if (charCode == f7){
 	  			 //EDI-logg link 
 	  			 setBlockUIKeys();
-	  			 window.location.href = "tror_mainorderlandimport_logging.do?avd=" + jq('#fkeysavd').val() + + "&sign=" + jq('#fkeysign').val() + "&opd=" + jq('#fkeysopd').val() ; 
+	  			 window.location.href = "tror_mainorderland_frisokvei.do?action=doFetch&avd=" + jq('#fkeysavd').val() + + "&sign=" + jq('#fkeysign').val() + "&opd=" + jq('#fkeysopd').val() ; 
 		  		 
 		  	}else if (charCode == f8){
 	  			 //Archive link 
 	  			 setBlockUIKeys();
-	  			window.location.href = "tror_mainorderlandimport_archive.do?avd=" + jq('#fkeysavd').val() + + "&sign=" + jq('#fkeyssign').val() + "&opd=" + jq('#fkeysopd').val() ; 
+	  			window.location.href = "tror_mainorderland_archive.do?avd=" + jq('#fkeysavd').val() + + "&sign=" + jq('#fkeyssign').val() + "&opd=" + jq('#fkeysopd').val() ; 
 		  		 
 		  	}else if (charCode == f2){
 	  			 //Orderlist link 

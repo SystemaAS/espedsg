@@ -263,7 +263,8 @@ public class TrorMainOrderHeaderLandExportController {
 					//TODO headerOrderRecord.setStatus(orderStatus);
 					//domain objects
 					model.put(TrorConstants.DOMAIN_RECORD, headerOrderRecord);
-					session.setAttribute(TrorConstants.SESSION_RECORD_ORDER_TROR_LANDEXPORT, headerOrderRecord);
+					session.setAttribute(TrorConstants.SESSION_RECORD_ORDER_TROR_LAND, headerOrderRecord);
+					session.setAttribute(TrorConstants.SESSION_SUBSYSTEM_ORDER_TROR, TrorConstants.SESSION_SUBSYSTEM_ORDER_TROR_LANDEXPORT);
 				}else{
 					//adjust for presentation
 					this.setSpecialValuesForPresentation(appUser, recordToValidate, model);

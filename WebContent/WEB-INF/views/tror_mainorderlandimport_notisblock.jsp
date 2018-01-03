@@ -33,6 +33,9 @@
 	
 	</style>
 	
+	<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
+	<tr>
+	<td>
 	<%-- tab container component --%>
 	<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
 		<tr height="2"><td></td></tr>
@@ -45,14 +48,14 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport.do?action=doFetch&heavd=${recordOrderTrorLandImport.heavd}&heopd=${recordOrderTrorLandImport.heopd}" > 	
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport.do?action=doFetch&heavd=${recordOrderTrorLand.heavd}&heopd=${recordOrderTrorLand.heopd}" > 	
 					<img style="vertical-align:middle;" src="resources/images/lorry_green.png" width="18px" height="18px" border="0" alt="update">
-					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.tab"/>&nbsp;${recordOrderTrorLandImport.heavd}/${recordOrderTrorLandImport.heopd}</font>&nbsp;<font class="text10Orange">F4</font>
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.tab"/>&nbsp;${recordOrderTrorLand.heavd}/${recordOrderTrorLand.heopd}</font>&nbsp;<font class="text10Orange">F4</font>
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_invoice.do?action=doInit&heavd=${recordOrderTrorLandImport.heavd}&heopd=${recordOrderTrorLandImport.heopd}" >
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_invoice.do?action=doInit&heavd=${recordOrderTrorLand.heavd}&heopd=${recordOrderTrorLand.heopd}" >
 					<img style="vertical-align: bottom" src="resources/images/invoice.png" width="16" hight="16" border="0" alt="show invoice">
 					<font class="tabDisabledLink"><spring:message code="systema.tror.order.faktura.tab"/></font>&nbsp;<font class="text10Orange">F9</font>
 				</a>
@@ -64,23 +67,22 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_logging.do?avd=${recordOrderTrorLandImport.heavd}&sign=${recordOrderTrorLandImport.hesg}&opd=${recordOrderTrorLandImport.heopd}">
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderland_frisokvei.do?action=doFetch&avd=${recordOrderTrorLand.heavd}&sign=${recordOrderTrorLand.hesg}&opd=${recordOrderTrorLand.heopd}">
 					<img style="vertical-align: bottom" src="resources/images/log-icon.png" width="16" hight="16" border="0" alt="show log">
-					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.logging.tab"/></font>&nbsp;<font class="text10Orange">F7</font>
-					
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.frisokvei.tab"/></font>&nbsp;<font class="text10Orange">F7</font>
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_archive.do?avd=${recordOrderTrorLandImport.heavd}&sign=${recordOrderTrorLandImport.hesg}&opd=${recordOrderTrorLandImport.heopd}">
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_archive.do?avd=${recordOrderTrorLand.heavd}&sign=${recordOrderTrorLand.hesg}&opd=${recordOrderTrorLand.heopd}">
 					<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.archive.tab"/></font>&nbsp;<font class="text10Orange">F8</font>
 				</a>
 			</td>
-			<c:if test="${recordOrderTrorLandImport.hepk1 == 'J' || recordOrderTrorLandImport.hepk1 == 'P'}">
+			<c:if test="${recordOrderTrorLand.hepk1 == 'J' || recordOrderTrorLand.hepk1 == 'P'}">
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-					<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_freightbill_edit.do?dfavd=${recordOrderTrorLandImport.heavd}&sign=${recordOrderTrorLandImport.hesg}&dfopd=${recordOrderTrorLandImport.heopd}">
+					<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_freightbill_edit.do?dfavd=${recordOrderTrorLand.heavd}&sign=${recordOrderTrorLand.hesg}&dfopd=${recordOrderTrorLand.heopd}">
 						<img style="vertical-align: bottom" src="resources/images/fraktbrev.png" width="16" hight="16" border="0" alt="show freight doc">
 						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.fraktbrev.tab"/></font>&nbsp;<font class="text10Orange">F3</font>
 					</a>
@@ -88,7 +90,7 @@
 			</c:if>	
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_more.do?avd=${recordOrderTrorLandImport.heavd}&sign=${recordOrderTrorLandImport.hesg}&opd=${recordOrderTrorLandImport.heopd}">
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderland_ttrace.do?avd=${recordOrderTrorLand.heavd}&sign=${recordOrderTrorLand.hesg}&opd=${recordOrderTrorLand.heopd}">
 					<img style="vertical-align: bottom" src="resources/images/sort_down.png" width="10" hight="10" border="0" alt="show more">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.more.tab"/></font>
 				</a>
@@ -96,68 +98,27 @@
 			<td width="50%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 		</tr>
 	</table>
-	<%-- -------------------------------- --%>	
- 	<%-- tab area container MASTER TOPIC  --%>
-	<%-- -------------------------------- --%>
+	</td>
+	</tr>
+	
+	<%-- ---------------------- --%>
+  	<%-- LIST of existent ITEMs --%>
+  	<%-- ---------------------- --%>
+	<tr>
+	<td>
  	<table width="100%" class="tabThinBorderWhite" border="0" cellspacing="0" cellpadding="0">
-		<tr height="15"><td colspan="2">&nbsp;</td></tr>	
-		
-		<tr>
-		<td >
-		<table border="0" width="95%" align="center">
-			<tr>
-	 			<td >		
-	 				<%-- MASTER Topic header --%>
-	 				<table width="80%" align="left" class="formFrameHeaderTransparent" border="0" cellspacing="0" cellpadding="0">
-				 		<tr height="15">
-				 			<td class="text12MediumBlue">
-				 				&nbsp;Avd&nbsp;<b>${model.avd}</b>
-				 				&nbsp;Tolldeknr.&nbsp;<b>${model.opd}</b>
-			 				</td>
-		 				</tr>
-	 				</table>
-	            	</td>
-           	</tr> 
-           	<%-- ---------------------- --%>
-           	<%-- LIST of existent ITEMs --%>
-           	<%-- ---------------------- --%>
+ 			<%--for F-Keys shortcuts. Used only in trorFkeys_...js --%>
+			<input type="hidden" name="fkeysavd" id="fkeysavd" value='${recordOrderTrorLand.heavd}'>
+			<input type="hidden" name="fkeysopd" id="fkeysopd" value='${recordOrderTrorLand.heopd}'>
+			<input type="hidden" name="fkyessign" id="fkyessign" value='${recordOrderTrorLand.hesg}'>
+			
+           	
+           	<%-- separator --%>
+  			<tr height="10"><td></td></tr>
            	<tr>
 				<td>
 					<table width="100%" cellspacing="0" border="0" cellpadding="0">
-	    				<%-- separator --%>
-	        			<tr height="10"><td></td></tr> 
-						<tr >
-							<td>
-							<form name="createNewItemLine" id="createNewItemLine" method="post" action="editNotisblock.do">
-								<%--Required key parameters --%>
-							 	<input type="hidden" name="action" id="action" value='doFetch'/>
-							 	<input type="hidden" name="subsys" id="subsys" value='tror_li'/>
-							 	<input type="hidden" name="orig" id="orig" value="${model.orig}"/>
-							 	<input type="hidden" name="opd" id="opd" value="${model.opd}"/>
-							 	<input type="hidden" name="avd" id="avd" value="${model.avd}"/>
-							 	<input type="hidden" name="sign" id="sign" value="${model.sign}"/>
-							 	<%--for F-Keys shortcuts. Used only in trorFkeys_...js --%>
-								<input type="hidden" name="fkeysavd" id="fkeysavd" value='${recordOrderTrorLandImport.heavd}'>
-								<input type="hidden" name="fkeysopd" id="fkeysopd" value='${recordOrderTrorLandImport.heopd}'>
-								<input type="hidden" name="fkyessign" id="fkyessign" value='${recordOrderTrorLandImport.hesg}'>
-					
-						
-								<table width="80%" cellspacing="0" border="0" cellpadding="0">
-									<tr>
-										<td class="text12Bold">
-											<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='editNotisblock.do';" value="<spring:message code="systema.tvinn.sad.export.item.line.init.createnew.submit"/>">
-										</td>
-									</tr>
-									<tr>
-										<td class="text12Bold">&nbsp;Antall notater&nbsp;&nbsp;<font class="text12MediumBlue"><b>${model.recordItemContainerFinansOpplysningerTopic.totalNumberOfItemLines}</b></font>
-						            		</td>
-									</tr>
-									<tr height="2"><td></td></tr>
-								</table>
-							</form>
-							</td>
-						</tr> 
-						
+	    					
 						<tr>
 							<td class="text11" >
 								<form name="formItemList" id="formItemList" method="POST" >
@@ -173,10 +134,10 @@
 									<tr style="background-color:#DDDDDD">
 									    <%-- <th width="2%" align="center" class="text12">&nbsp;Lnr.&nbsp;</th>  --%>   
 									    <th width="2%" align="center" class="text12">&nbsp;Endre&nbsp;</th>   
-									    <th class="text12" nowrap>&nbsp;Dato&nbsp;</th>
+									    <th width="2%" class="text12" nowrap>&nbsp;Dato&nbsp;</th>
 					                    <th class="text12" nowrap>&nbsp;Part&nbsp;</th>
 					                    <th class="text12" nowrap>&nbsp;Fritekst&nbsp;</th>
-				                    	<th align="center" class="text12" nowrap>Slett</th>
+				                    	<th width="2%" align="center" class="text12" nowrap>Slett</th>
 					               </tr> 
 					               </thead>
 					               <tbody>
@@ -189,13 +150,13 @@
 							               		</a>
 							               </td>
 							               
-							               <td class="text11" >&nbsp;${record.frtdt}</td>
-							               <td class="text11" >&nbsp;${record.frtkod}</td>
+							               <td width="2%" class="text11" >&nbsp;${record.frtdt}</td>
+							               <td width="2%" class="text11" >&nbsp;${record.frtkod}</td>
 							               <td class="text11" >&nbsp;${record.frttxt}</td>
-									       <td class="text11" align="center" nowrap>
+									       <td width="2%" class="text11" align="center" nowrap>
 							               	<a onclick="javascript:return confirm('Er du sikker på at du vil slette denne?')" tabindex=-1 href="editNotisblock.do?action=doDelete&subsys=tror_li&orig=${model.orig}&sign=${model.sign}&frtli=${record.frtli}&frtdt=${record.frtdt}&opd=${record.frtopd}&avd=${record.frtavd}">
 							               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
-							               	</a>	&nbsp;
+							               	</a>	
 							               </td>
 							            </tr>
 								        <%-- this param is used ONLY in this JSP 
@@ -215,7 +176,7 @@
 					</table>
 				</td>
 			</tr>
-			<tr height="5"><td></td></tr>
+			<tr height="2"><td></td></tr>
 			<%-- Validation errors --%>
 			<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
 			<tr>
@@ -236,6 +197,30 @@
 				</td>
 			</tr>
 			</spring:hasBindErrors>
+			
+			
+			<tr >
+				<td>
+				<form name="createNewItemLine" id="createNewItemLine" method="post" action="editNotisblock.do">
+					<%--Required key parameters --%>
+				 	<input type="hidden" name="action" id="action" value='doFetch'/>
+				 	<input type="hidden" name="subsys" id="subsys" value='tror_li'/>
+				 	<input type="hidden" name="orig" id="orig" value="${model.orig}"/>
+				 	<input type="hidden" name="opd" id="opd" value="${model.opd}"/>
+				 	<input type="hidden" name="avd" id="avd" value="${model.avd}"/>
+				 	<input type="hidden" name="sign" id="sign" value="${model.sign}"/>
+				 	
+					<table width="80%" cellspacing="0" border="0" cellpadding="0">
+						<tr>
+							<td class="text12Bold">
+								<input tabindex=-1 class="inputFormSubmitStd" type="submit" name="submit" onclick="javascript: form.action='editNotisblock.do';" value="<spring:message code="systema.tvinn.sad.export.item.line.init.createnew.submit"/>">
+							</td>
+						</tr>
+						
+					</table>
+				</form>
+				</td>
+			</tr> 
 			<%-- ------------------------------------------------- --%>
            	<%-- DETAIL Section - Create Item line PRIMARY SECTION --%>
            	<%-- ------------------------------------------------- --%>
@@ -321,11 +306,11 @@
 		    </tr>
 			<tr height="20"><td colspan="2" ></td></tr>
 			<tr height="30"><td></td></tr>
-		</table>
-		</td>
-		</tr>
+		
 	</table>    
-
+	</td>
+	</tr>
+</table>
 <!-- ======================= footer ===========================-->
 <jsp:include page="/WEB-INF/views/footer.jsp" />
 <!-- =====================end footer ==========================-->

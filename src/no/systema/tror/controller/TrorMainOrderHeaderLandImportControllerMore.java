@@ -63,14 +63,19 @@ public class TrorMainOrderHeaderLandImportControllerMore {
 	
 
 	
-	
-	@RequestMapping(value="tror_mainorderlandimport_more_ttrace.do",  method= RequestMethod.GET)
+	/**
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tror_mainorderland_ttrace.do",  method= RequestMethod.GET)
 	public ModelAndView doMoreTrackAndTrace(HttpSession session, HttpServletRequest request){
 		Map model = new HashMap();
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
-		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_more_ttrace");
-		logger.info("Method: doMoreTrackAndTrace [RequestMapping-->tror_mainorderlandimport_more_ttrace.do]");
+		ModelAndView successView = new ModelAndView("tror_mainorderland_ttrace");
+		logger.info("Method: doMoreTrackAndTrace [RequestMapping-->tror_mainorderland_ttrace.do]");
 		
 		String avd = request.getParameter("avd");
 		String sign = request.getParameter("sign");

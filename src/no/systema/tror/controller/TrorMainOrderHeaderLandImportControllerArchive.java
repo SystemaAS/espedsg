@@ -71,13 +71,13 @@ public class TrorMainOrderHeaderLandImportControllerArchive {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_archive.do",  method= RequestMethod.GET)
+	@RequestMapping(value="tror_mainorderland_archive.do",  method= RequestMethod.GET)
 	public ModelAndView doShowList(HttpSession session, HttpServletRequest request){
 		Map model = new HashMap();
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
-		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_archive");
-		logger.info("Method: doShowList [RequestMapping-->tror_mainorderlandimport_archive.do]");
+		ModelAndView successView = new ModelAndView("tror_mainorderland_archive");
+		logger.info("Method: doShowList [RequestMapping-->tror_mainorderland_archive.do]");
 		
 		String opd = request.getParameter("opd");
 		String avd = request.getParameter("avd");
@@ -135,7 +135,7 @@ public class TrorMainOrderHeaderLandImportControllerArchive {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_renderArchive.do", method={ RequestMethod.GET })
+	@RequestMapping(value="tror_mainorderland_renderArchive.do", method={ RequestMethod.GET })
 	public ModelAndView doRenderArchive(HttpSession session, HttpServletRequest request, HttpServletResponse response){
 		logger.info("Inside doRenderArchive...");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);

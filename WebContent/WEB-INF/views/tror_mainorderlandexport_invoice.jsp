@@ -50,9 +50,9 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport.do?action=doFetch&heavd=${recordOrderTrorLandExport.heavd}&heopd=${recordOrderTrorLandExport.heopd}" > 	
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport.do?action=doFetch&heavd=${recordOrderTrorLand.heavd}&heopd=${recordOrderTrorLand.heopd}" > 	
 					<img style="vertical-align:middle;" src="resources/images/lorry_blue.png" width="18px" height="18px" border="0" alt="update">
-					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.tab"/>&nbsp;${recordOrderTrorLandExport.heavd}/${recordOrderTrorLandExport.heopd}</font>&nbsp;<font class="text10Orange">F4</font>
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.tab"/>&nbsp;${recordOrderTrorLand.heavd}/${recordOrderTrorLand.heopd}</font>&nbsp;<font class="text10Orange">F4</font>
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
@@ -62,14 +62,14 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a class="text14" onClick="setBlockUI(this);" href="editNotisblock.do?action=doFetch&subsys=tror_le&avd=${recordOrderTrorLandExport.heavd}&opd=${recordOrderTrorLandExport.heopd}&sign=${recordOrderTrorLandExport.hesg}" > 	
+				<a class="text14" onClick="setBlockUI(this);" href="editNotisblock.do?action=doFetch&subsys=tror_le&avd=${recordOrderTrorLand.heavd}&opd=${recordOrderTrorLand.heopd}&sign=${recordOrderTrorLand.hesg}" > 	
 					<img style="vertical-align: bottom" src="resources/images/veiledning.png" width="16" hight="16" border="0" alt="show messages">
 					<font class="tabDisabledLink"><spring:message code="systema.tror.order.notisblock.tab"/></font>&nbsp;<font class="text10Orange">F10</font>
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_logging.do?avd=${recordOrderTrorLandExport.heavd}&sign=${recordOrderTrorLandExport.hesg}&opd=${recordOrderTrorLandExport.heopd}">
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_logging.do?avd=${recordOrderTrorLand.heavd}&sign=${recordOrderTrorLand.hesg}&opd=${recordOrderTrorLand.heopd}">
 					<img style="vertical-align: bottom" src="resources/images/log-icon.png" width="16" hight="16" border="0" alt="show log">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.logging.tab"/></font>&nbsp;<font class="text10Orange">F7</font>
 					
@@ -77,16 +77,16 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_archive.do?avd=${recordOrderTrorLandExport.heavd}&sign=${recordOrderTrorLandExport.hesg}&opd=${recordOrderTrorLandExport.heopd}">
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_archive.do?avd=${recordOrderTrorLand.heavd}&sign=${recordOrderTrorLand.hesg}&opd=${recordOrderTrorLand.heopd}">
 					<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.archive.tab"/></font>&nbsp;<font class="text10Orange">F8</font>
 					
 				</a>
 			</td>	
-			<c:if test="${recordOrderTrorLandExport.hepk1 == 'J' || recordOrderTrorLandExport.hepk1 == 'P'}">
+			<c:if test="${recordOrderTrorLand.hepk1 == 'J' || recordOrderTrorLand.hepk1 == 'P'}">
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-					<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_freightbill_edit.do?dfavd=${recordOrderTrorLandExport.heavd}&sign=${recordOrderTrorLandExport.hesg}&dfopd=${recordOrderTrorLandExport.heopd}">
+					<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_freightbill_edit.do?dfavd=${recordOrderTrorLand.heavd}&sign=${recordOrderTrorLand.hesg}&dfopd=${recordOrderTrorLand.heopd}">
 						<img style="vertical-align: bottom" src="resources/images/fraktbrev.png" width="16" hight="16" border="0" alt="show freight doc">
 						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.fraktbrev.tab"/></font>&nbsp;<font class="text10Orange">F3</font>
 					</a>
@@ -94,7 +94,7 @@
 			</c:if>	
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_more.do?avd=${recordOrderTrorLandExport.heavd}&sign=${recordOrderTrorLandExport.hesg}&opd=${recordOrderTrorLandExport.heopd}">
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_more.do?avd=${recordOrderTrorLand.heavd}&sign=${recordOrderTrorLand.hesg}&opd=${recordOrderTrorLand.heopd}">
 					<img style="vertical-align: bottom" src="resources/images/sort_down.png" width="10" hight="10" border="0" alt="show more">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.more.tab"/></font>
 				</a>
@@ -118,12 +118,12 @@
 	 				<table width="100%" align="left" class="formFrameHeaderTransparent" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12MediumBlue">
-				 				&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.avd"/>&nbsp;<b>${recordOrderTrorLandExport.heavd}</b>
-				 				&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.order"/>&nbsp;<b>${recordOrderTrorLandExport.heopd}</b>
-				 				&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.sign"/>&nbsp;<b>${recordOrderTrorLandExport.hesg}</b>
+				 				&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.avd"/>&nbsp;<b>${recordOrderTrorLand.heavd}</b>
+				 				&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.order"/>&nbsp;<b>${recordOrderTrorLand.heopd}</b>
+				 				&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.sign"/>&nbsp;<b>${recordOrderTrorLand.hesg}</b>
 				 				&nbsp;&nbsp;
 				 				<img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-				 				<spring:message code="systema.tror.orders.invoice.update.label.status"/>&nbsp;<b>${recordOrderTrorLandExport.hest}</b>
+				 				<spring:message code="systema.tror.orders.invoice.update.label.status"/>&nbsp;<b>${recordOrderTrorLand.hest}</b>
 				 				<div class="text11" style="position: relative; display: inline;" align="left" >
 				 				<span style="position:absolute;top:2px; width:400px;" id="status_info" class="popupWithInputText text11"  >
 					           		<p>Status på oppdraget. Denne koden forteller hvor langt et oppdrag har kommet i
@@ -146,10 +146,10 @@
 				           			</ul>
 								</span>	
 								</div>
-				 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.turnr"/>&nbsp;<b>${recordOrderTrorLandExport.hepro}</b>
-				 				&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.godsnr"/>&nbsp;<b>${recordOrderTrorLandExport.hegn}</b>
-				 				&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.frankatur"/>&nbsp;<b>${recordOrderTrorLandExport.hefr}</b>
-				 				&nbsp;&nbsp;&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.fvekt"/>&nbsp;<b>${recordOrderTrorLandExport.hefbv}</b>
+				 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.turnr"/>&nbsp;<b>${recordOrderTrorLand.hepro}</b>
+				 				&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.godsnr"/>&nbsp;<b>${recordOrderTrorLand.hegn}</b>
+				 				&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.frankatur"/>&nbsp;<b>${recordOrderTrorLand.hefr}</b>
+				 				&nbsp;&nbsp;&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.fvekt"/>&nbsp;<b>${recordOrderTrorLand.hefbv}</b>
 				 				
 				 				
 			 				</td>
@@ -168,20 +168,20 @@
 							        
 							        <tr>
 							            <td width="30%" class="text11" align="left"><spring:message code="systema.tror.orders.form.update.label.shipper.name"/>&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandExport.henas}</td>
+							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLand.henas}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left"><spring:message code="systema.tror.orders.form.update.label.shipper.adr1"/>&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandExport.heads1}</td>
+							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLand.heads1}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left"><spring:message code="systema.tror.orders.form.update.label.shipper.adr2"/>&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandExport.heads2}</td>
+							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLand.heads2}</td>
 							        </tr>
 							        
 									<tr>
 							            <td width="30%" class="text11" align="left"><spring:message code="systema.tror.orders.form.update.label.shipper.adr3"/>&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandExport.heads3}</td>
+							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLand.heads3}</td>
 							        </tr>
 							        						        
 			        	        </table>
@@ -195,19 +195,19 @@
 							        
 							        <tr>
 							            <td width="30%" class="text11" align="left"><spring:message code="systema.tror.orders.form.update.label.consignee.name"/>&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandExport.henak}</td>
+							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLand.henak}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left"><spring:message code="systema.tror.orders.form.update.label.consignee.adr1"/>&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandExport.headk1}</td>
+							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLand.headk1}</td>
 							        </tr>
 							        <tr>
 							            <td width="30%" class="text11" align="left"><spring:message code="systema.tror.orders.form.update.label.consignee.adr2"/>&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandExport.headk2}</td>
+							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLand.headk2}</td>
 							        </tr>
 									<tr>
 							            <td width="30%" class="text11" align="left"><spring:message code="systema.tror.orders.form.update.label.consignee.adr3"/>&nbsp;</td>
-							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLandExport.headk3}</td>
+							           	<td class="text11MediumBlue" align="left">${recordOrderTrorLand.headk3}</td>
 							        </tr>
 							        
 			        	        </table>
@@ -252,7 +252,7 @@
 									<thead>
 									<tr style="background-color:#DDDDDD" class="tableHeaderField" height="23" valign="left">
 										<th width="2%" align="center" class="tableHeaderFieldFirst" title="fali">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.lineNr"/></th>
-										<c:if test="${empty recordOrderTrorLandExport.hest || recordOrderTrorLandExport.hest == 'U' || recordOrderTrorLandExport.hest == 'O' || recordOrderTrorLandExport.hest == 'F' }">
+										<c:if test="${empty recordOrderTrorLand.hest || recordOrderTrorLand.hest == 'U' || recordOrderTrorLand.hest == 'O' || recordOrderTrorLand.hest == 'F' }">
 									    	<th width="2%" align="center" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.edit"/></th> 
 									    </c:if>
 									    <th align="center" class="tableHeaderField" title="fask">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.sk"/></th>
@@ -266,7 +266,7 @@
 					                    <th class="tableHeaderField" title="fakunr/knavn">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.customer"/></th>
 					                    <th align="right" class="tableHeaderField" title="fabelu"><spring:message code="systema.tror.orders.invoice.update.label.budget"/>&nbsp;</th>
 					                    
-					                    <c:if test="${empty recordOrderTrorLandExport.hest || recordOrderTrorLandExport.hest == 'U' || recordOrderTrorLandExport.hest == 'O' || recordOrderTrorLandExport.hest == 'F' }">
+					                    <c:if test="${empty recordOrderTrorLand.hest || recordOrderTrorLand.hest == 'U' || recordOrderTrorLand.hest == 'O' || recordOrderTrorLand.hest == 'F' }">
 					                    	<th width="2%" align="center" class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.delete"/></th>
 					                    </c:if> 
 					               </tr> 
@@ -277,7 +277,7 @@
 							              <tr class="tableRow" height="20" >
 										   <td width="2%" align="center" class="tableCellFirst" >${record.fali}</td>
 
-										   <c:if test="${empty recordOrderTrorLandExport.hest || recordOrderTrorLandExport.hest == 'U' || recordOrderTrorLandExport.hest == 'O' || recordOrderTrorLandExport.hest == 'F' }">
+										   <c:if test="${empty recordOrderTrorLand.hest || recordOrderTrorLand.hest == 'U' || recordOrderTrorLand.hest == 'O' || recordOrderTrorLand.hest == 'F' }">
 								               <td width="2%" class="tableCell" align="center">
 								               		<c:if test="${not empty record.fali}"> 
 								               			<a tabindex=-1 id="recordUpdate_${record.fali}" href="#" onClick="getInvoiceItemData(this);">
@@ -322,10 +322,10 @@
 							               <td align="left" class="tableCell" >&nbsp;<font class="text11MediumBlue"><b>${record.fakunr}</b></font>&nbsp;${record.knavn}</td>
 							               <td align="right" class="tableCell" >${record.fabelu}</td>
 							               <%-- DELETE cell --%>
-							               <c:if test="${empty recordOrderTrorLandExport.hest || recordOrderTrorLandExport.hest == 'U' || recordOrderTrorLandExport.hest == 'O' || recordOrderTrorLandExport.hest == 'F' }">
+							               <c:if test="${empty recordOrderTrorLand.hest || recordOrderTrorLand.hest == 'U' || recordOrderTrorLand.hest == 'O' || recordOrderTrorLand.hest == 'F' }">
 							               		<td class="tableCell" align="center" nowrap>
 											   		<c:if test="${not empty record.fali}">
-								                   		<a style="cursor:pointer;" id="heavd_${recordOrderTrorLandExport.heavd}@heopd_${recordOrderTrorLandExport.heopd}@fali_${record.fali}" onClick="doPermanentlyDeleteInvoiceLine(this);" tabindex=-1 >
+								                   		<a style="cursor:pointer;" id="heavd_${recordOrderTrorLand.heavd}@heopd_${recordOrderTrorLand.heopd}@fali_${record.fali}" onClick="doPermanentlyDeleteInvoiceLine(this);" tabindex=-1 >
 										               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 										               	</a>&nbsp;
 									               	</c:if>
@@ -400,14 +400,14 @@
 				 	<%--Required key parameters from the Topic parent --%>
 				 	<input type="hidden" name="action" id="action" value='doUpdate'/>
 				 	<input type="hidden" name="fali" id="fali" value='${model.record.fali}'/>
-				 	<input type="hidden" name="heavd" id="heavd" value='${recordOrderTrorLandExport.heavd}'>
-	 				<input type="hidden" name="heopd" id="heopd" value='${recordOrderTrorLandExport.heopd}'>
+				 	<input type="hidden" name="heavd" id="heavd" value='${recordOrderTrorLand.heavd}'>
+	 				<input type="hidden" name="heopd" id="heopd" value='${recordOrderTrorLand.heopd}'>
 					<input type="hidden" name="lineId" id="lineId" value="">
 				 	<%-- <input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" /> --%>
 				 	<%--for F-Keys shortcuts. Used only in trorFkeys_...js --%>
-					<input type="hidden" name="fkeysavd" id="fkeysavd" value='${recordOrderTrorLandExport.heavd}'>
-					<input type="hidden" name="fkeysopd" id="fkeysopd" value='${recordOrderTrorLandExport.heopd}'>
-					<input type="hidden" name="fkyessign" id="fkyessign" value='${recordOrderTrorLandExport.hesg}'>
+					<input type="hidden" name="fkeysavd" id="fkeysavd" value='${recordOrderTrorLand.heavd}'>
+					<input type="hidden" name="fkeysopd" id="fkeysopd" value='${recordOrderTrorLand.heopd}'>
+					<input type="hidden" name="fkyessign" id="fkyessign" value='${recordOrderTrorLand.hesg}'>
 						
 				
 				 	<%-- Topic ITEM CREATE --%>
@@ -703,7 +703,7 @@
 						            	</td>
 			            				
 			            				<c:choose>	
-											<c:when test="${empty recordOrderTrorLandExport.hest || recordOrderTrorLandExport.hest == 'U' || recordOrderTrorLandExport.hest == 'O' || recordOrderTrorLandExport.hest == 'F' }">
+											<c:when test="${empty recordOrderTrorLand.hest || recordOrderTrorLand.hest == 'U' || recordOrderTrorLand.hest == 'O' || recordOrderTrorLand.hest == 'F' }">
 												<td align="center">
 													<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="systema.tror.submit.save"/>'>
 												</td>
@@ -729,7 +729,7 @@
 					    <tr>	
 						    <td align="left" colspan="5">
 								<c:choose>	
-									<c:when test="${empty recordOrderTrorLandExport.hest || recordOrderTrorLandExport.hest == 'U' || recordOrderTrorLandExport.hest == 'O' || recordOrderTrorLandExport.hest == 'F' }">
+									<c:when test="${empty recordOrderTrorLand.hest || recordOrderTrorLand.hest == 'U' || recordOrderTrorLand.hest == 'O' || recordOrderTrorLand.hest == 'F' }">
 										<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="systema.tror.submit.save"/>'>
 										&nbsp;&nbsp;<input class="inputFormSubmitGray" type="button" name="updCancelButton" id="updCancelButton" value='<spring:message code="systema.tror.submit.clearValues"/>'>
 									</c:when>

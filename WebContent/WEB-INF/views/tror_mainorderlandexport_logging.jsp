@@ -24,21 +24,21 @@
 				</td>
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-					<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport.do?action=doFetch&heavd=${recordOrderTrorLandExport.heavd}&heopd=${recordOrderTrorLandExport.heopd}" > 	
+					<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport.do?action=doFetch&heavd=${recordOrderTrorLand.heavd}&heopd=${recordOrderTrorLand.heopd}" > 	
 						<img style="vertical-align:middle;" src="resources/images/lorry_blue.png" width="18px" height="18px" border="0" alt="update">
-						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.tab"/>&nbsp;${recordOrderTrorLandExport.heavd}/${recordOrderTrorLandExport.heopd}</font>&nbsp;<font class="text10Orange">F4</font>
+						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.tab"/>&nbsp;${recordOrderTrorLand.heavd}/${recordOrderTrorLand.heopd}</font>&nbsp;<font class="text10Orange">F4</font>
 					</a>
 				</td>
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-					<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_invoice.do?action=doInit&heavd=${recordOrderTrorLandExport.heavd}&heopd=${recordOrderTrorLandExport.heopd}" >
+					<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_invoice.do?action=doInit&heavd=${recordOrderTrorLand.heavd}&heopd=${recordOrderTrorLand.heopd}" >
 						<img style="vertical-align: bottom" src="resources/images/invoice.png" width="16" hight="16" border="0" alt="show invoice">
 						<font class="tabDisabledLink"><spring:message code="systema.tror.order.faktura.tab"/></font><font class="text12"></font>&nbsp;<font class="text10Orange">F9</font>
 					</a>
 				</td>
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-					<a class="text14" onClick="setBlockUI(this);" href="editNotisblock.do?action=doFetch&subsys=tror_le&avd=${recordOrderTrorLandExport.heavd}&opd=${recordOrderTrorLandExport.heopd}&sign=${recordOrderTrorLandExport.hesg}" > 	
+					<a class="text14" onClick="setBlockUI(this);" href="editNotisblock.do?action=doFetch&subsys=tror_le&avd=${recordOrderTrorLand.heavd}&opd=${recordOrderTrorLand.heopd}&sign=${recordOrderTrorLand.hesg}" > 	
 						<img style="vertical-align: bottom" src="resources/images/veiledning.png" width="16" hight="16" border="0" alt="show messages">
 						<font class="tabDisabledLink"><spring:message code="systema.tror.order.notisblock.tab"/></font><font class="text12">&nbsp;</font><font class="text10Orange">F10</font>
 					</a>
@@ -53,16 +53,16 @@
 				
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-					<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_archive.do?avd=${recordOrderTrorLandExport.heavd}&sign=${recordOrderTrorLandExport.hesg}&opd=${recordOrderTrorLandExport.heopd}">
+					<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_archive.do?avd=${recordOrderTrorLand.heavd}&sign=${recordOrderTrorLand.hesg}&opd=${recordOrderTrorLand.heopd}">
 						<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
 						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.archive.tab"/></font>&nbsp;<font class="text10Orange">F8</font>
 						
 					</a>
 				</td>	
-				<c:if test="${recordOrderTrorLandExport.hepk1 == 'J' || recordOrderTrorLandExport.hepk1 == 'P'}">
+				<c:if test="${recordOrderTrorLand.hepk1 == 'J' || recordOrderTrorLand.hepk1 == 'P'}">
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_freightbill_edit.do?dfavd=${recordOrderTrorLandExport.heavd}&sign=${recordOrderTrorLandExport.hesg}&dfopd=${recordOrderTrorLandExport.heopd}">
+						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_freightbill_edit.do?dfavd=${recordOrderTrorLand.heavd}&sign=${recordOrderTrorLand.hesg}&dfopd=${recordOrderTrorLand.heopd}">
 							<img style="vertical-align: bottom" src="resources/images/fraktbrev.png" width="16" hight="16" border="0" alt="show freight doc">
 							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.fraktbrev.tab"/></font>&nbsp;<font class="text10Orange">F3</font>
 						</a>
@@ -70,7 +70,7 @@
 				</c:if>	
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-					<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_more.do?avd=${recordOrderTrorLandExport.heavd}&sign=${recordOrderTrorLandExport.hesg}&opd=${recordOrderTrorLandExport.heopd}">
+					<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_more.do?avd=${recordOrderTrorLand.heavd}&sign=${recordOrderTrorLand.hesg}&opd=${recordOrderTrorLand.heopd}">
 						<img style="vertical-align: bottom" src="resources/images/sort_down.png" width="10" hight="10" border="0" alt="show more">
 						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.more.tab"/></font>
 					</a>
@@ -87,9 +87,9 @@
 		<td>		
 		<table width="100%" cellspacing="0" border="0" cellpadding="0">
 			<%--for F-Keys shortcuts. Used only in trorFkeys_...js --%>
-			<input type="hidden" name="fkeysavd" id="fkeysavd" value='${recordOrderTrorLandExport.heavd}'>
-			<input type="hidden" name="fkeysopd" id="fkeysopd" value='${recordOrderTrorLandExport.heopd}'>
-			<input type="hidden" name="fkyessign" id="fkyessign" value='${recordOrderTrorLandExport.hesg}'>
+			<input type="hidden" name="fkeysavd" id="fkeysavd" value='${recordOrderTrorLand.heavd}'>
+			<input type="hidden" name="fkeysopd" id="fkeysopd" value='${recordOrderTrorLand.heopd}'>
+			<input type="hidden" name="fkyessign" id="fkyessign" value='${recordOrderTrorLand.hesg}'>
 					
 	    	<%-- separator --%>
 	        <tr height="2"><td></td></tr> 
