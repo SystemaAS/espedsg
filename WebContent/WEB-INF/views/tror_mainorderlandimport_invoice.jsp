@@ -42,7 +42,7 @@
 			</td>
 		</tr>
 		<tr height="25"> 
-			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlist.do?action=doFind" > 	
 					<img style="vertical-align:middle;" src="resources/images/bulletGreen.png" width="6px" height="6px" border="0" alt="open orders">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.orderlist.tab"/></font>&nbsp;<font class="text10Orange">F2</font>

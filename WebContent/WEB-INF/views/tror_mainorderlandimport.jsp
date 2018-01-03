@@ -26,7 +26,7 @@
 	<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
 		<tr height="2"><td></td></tr>
 		<tr height="25"> 
-			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlist.do?action=doFind" > 	
 					<img style="vertical-align:middle;" src="resources/images/bulletGreen.png" width="6px" height="6px" border="0" alt="open orders">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.orderlist.tab"/></font>&nbsp;<font class="text10Orange">F2</font>
@@ -39,6 +39,14 @@
 						<img style="vertical-align:middle;" src="resources/images/lorry_green.png" width="18px" height="18px" border="0" alt="create new">
 						<font class="tabLink"><spring:message code="systema.tror.createnew.order.tab"/></font>
 					</td>
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderland_fellesutskrift.do" > 	
+							<img style="vertical-align:middle;" src="resources/images/printer2.png" width="12px" height="12px" border="0" alt="create new">
+							<font class="tabDisabledLink"><spring:message code="systema.tror.fellesprint.tab"/></font>
+						</a>
+					</td>
+					
 				</c:when>
 				<c:otherwise>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
@@ -86,7 +94,7 @@
 					</c:if>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_more.do?avd=${model.record.heavd}&sign=${model.record.hesg}&opd=${model.record.heopd}">
+						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_more_ttrace.do?avd=${model.record.heavd}&sign=${model.record.hesg}&opd=${model.record.heopd}">
 							<img style="vertical-align: bottom" src="resources/images/sort_down.png" width="10" hight="10" border="0" alt="show more">
 							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.more.tab"/></font>
 						</a>
@@ -233,7 +241,6 @@
 			</tr>
 		</c:if>
 		
-	
 
 		<tr>
 		<td>
@@ -394,9 +401,11 @@
 							 				<td valign="top" align="left" width="50%">
 							 				<table width="100%" border="0">
 										 		<tr>
+										 			<%-- moved to tab (02.Jan.2018 - CB requir.)
 											 		<td valign="bottom"  width="5px" class="text14" >
 											 			<button name="trackAndTraceButton" id="trackAndTraceButton" class="buttonGrayWithGreenFrame" type="button" ><spring:message code="systema.tror.orders.tt.logging.button.trackAndTrace"/></button> 
 												    </td>
+												     --%>
 											 		<td>
 											 			<button name="budgetButton" id="budgetButton" class="buttonGrayWithGreenFrame" type="button" >Budsjett/rekv.</button>
 													</td>
