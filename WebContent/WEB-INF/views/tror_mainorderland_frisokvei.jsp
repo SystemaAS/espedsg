@@ -87,7 +87,7 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tab" align="center" nowrap>
-				<img style="vertical-align: bottom" src="resources/images/log-icon.png" width="16" hight="16" border="0" alt="show log">
+				<img style="vertical-align: bottom" src="resources/images/lightbulb.png" width="14" hight="14" border="0" alt="show log">
 				<font class="tabLink">&nbsp;<spring:message code="systema.tror.order.frisokvei.tab"/></font>&nbsp;<font class="text10Orange">F7</font>
 			</td>
 			
