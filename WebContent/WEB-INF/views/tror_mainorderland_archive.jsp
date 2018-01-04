@@ -104,7 +104,14 @@
 			<input type="hidden" name="fkeysavd" id="fkeysavd" value='${recordOrderTrorLand.heavd}'>
 			<input type="hidden" name="fkeysopd" id="fkeysopd" value='${recordOrderTrorLand.heopd}'>
 			<input type="hidden" name="fkyessign" id="fkyessign" value='${recordOrderTrorLand.hesg}'>
-					
+			<c:choose>
+				<c:when test="${recordOrderTrorLand.heur == 'A'}">
+					<input type="hidden" name="fkyessubsys" id="fkyessubsys" value='mainorderlandimport'>
+				</c:when>
+				<c:otherwise>
+					<input type="hidden" name="fkyessubsys" id="fkyessubsys" value='mainorderlandexport'>
+				</c:otherwise>
+			</c:choose>		
 	    	<%-- separator --%>
 	        <tr height="20"><td></td></tr> 
 	        

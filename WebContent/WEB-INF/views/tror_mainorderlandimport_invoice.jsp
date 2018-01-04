@@ -407,7 +407,14 @@
 					<input type="hidden" name="fkeysavd" id="fkeysavd" value='${recordOrderTrorLand.heavd}'>
 					<input type="hidden" name="fkeysopd" id="fkeysopd" value='${recordOrderTrorLand.heopd}'>
 					<input type="hidden" name="fkyessign" id="fkyessign" value='${recordOrderTrorLand.hesg}'>
-						
+					<c:choose>
+						<c:when test="${recordOrderTrorLand.heur == 'A'}">
+							<input type="hidden" name="fkyessubsys" id="fkyessubsys" value='mainorderlandimport'>
+						</c:when>
+						<c:otherwise>
+							<input type="hidden" name="fkyessubsys" id="fkyessubsys" value='mainorderlandexport'>
+						</c:otherwise>
+					</c:choose>
 				
 				 	<%-- Topic ITEM CREATE --%>
 	 				<table width="100%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">

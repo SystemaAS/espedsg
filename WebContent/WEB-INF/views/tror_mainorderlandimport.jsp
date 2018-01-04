@@ -326,7 +326,14 @@
 						<input type="hidden" name="fkeysavd" id="fkeysavd" value='${model.record.heavd}'>
 						<input type="hidden" name="fkeysopd" id="fkeysopd" value='${model.record.heopd}'>
 						<input type="hidden" name="fkyessign" id="fkyessign" value='${model.record.hesg}'>
-						
+						<c:choose>
+							<c:when test="${model.record.heur == 'A'}">
+								<input type="hidden" name="fkyessubsys" id="fkyessubsys" value='mainorderlandimport'>
+							</c:when>
+							<c:otherwise>
+								<input type="hidden" name="fkyessubsys" id="fkyessubsys" value='mainorderlandexport'>
+							</c:otherwise>
+						</c:choose>
 						<input type="hidden" name="heopd" id="heopd" value='${model.record.heopd}'>
 						<input type="hidden" name="heavd" id="heavd" value='${model.record.heavd}'>
 						<input type="hidden" name="hesg" id="hesg" value='${model.record.hesg}'> <%--sign --%>

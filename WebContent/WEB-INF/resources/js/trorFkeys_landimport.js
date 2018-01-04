@@ -52,12 +52,16 @@
 	  		 if (charCode == f9){
 	  			 //Faktura link
 	  			setBlockUIKeys();
-	  			window.location.href = "tror_mainorderlandimport_invoice.do?action=doFetch&heavd=" + jq('#fkeysavd').val() + "&heopd=" + jq('#fkeysopd').val(); 
+	  			window.location.href = "tror_" + jq('#fkyessubsys').val() + "_invoice.do?action=doFetch&heavd=" + jq('#fkeysavd').val() + "&heopd=" + jq('#fkeysopd').val(); 
 	  		 
 	  		 }else if (charCode == f10){
 	  			 //Notisblock link 
 	  			setBlockUIKeys();
-	  			window.location.href = "editNotisblock.do?action=doFetch&subsys=tror_li&avd=" + jq('#fkeysavd').val() + "&opd=" + jq('#fkeysopd').val() + "&sign=" + jq('#fkeyssign').val(); 
+	  			var subsys = "tror_li";
+	  			if(jq('#fkyessubsys').val() == 'mainorderlandexport'){
+	  				subsys = "tror_le";
+	  			}
+	  			window.location.href = "editNotisblock.do?action=doFetch&subsys=" + subsys + "&avd=" + jq('#fkeysavd').val() + "&opd=" + jq('#fkeysopd').val() + "&sign=" + jq('#fkeyssign').val(); 
 	  		 
 	  		 }else if (charCode == f7){
 	  			 //EDI-logg link 
@@ -77,12 +81,12 @@
 	  		 }else if (charCode == f4){
 	  			 //Order link 
 	  			setBlockUIKeys();
-	  			window.location.href = "tror_mainorderlandimport.do?action=doFetch&heavd=" + jq('#fkeysavd').val() + "&heopd=" + jq('#fkeysopd').val();
+	  			window.location.href = "tror_" + jq('#fkyessubsys').val() + ".do?action=doFetch&heavd=" + jq('#fkeysavd').val() + "&heopd=" + jq('#fkeysopd').val();
 	  		 
 	  		 }else if (charCode == f3){
 	  			 //Fraktbrev
 	   			setBlockUIKeys();
-	   			window.location.href = "tror_mainorderlandimport_freightbill_edit.do?dfavd=" + jq('#fkeysavd').val() + "&sign=" + jq('#fkeyssign').val() + "&dfopd=" + jq('#fkeysopd').val();
+	   			window.location.href = "tror_" + jq('#fkyessubsys').val() + "_freightbill_edit.do?dfavd=" + jq('#fkeysavd').val() + "&sign=" + jq('#fkeyssign').val() + "&dfopd=" + jq('#fkeysopd').val();
 	   		 
 	   		
 	  		 }/*else if (charCode == f24){ //Edge har detta som OS-command

@@ -27,7 +27,7 @@
 		<tr height="2"><td></td></tr>
 		<tr height="25"> 
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlist.do?action=doFind" > 	
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlist.do?action=doFind&sign=${model.record.hesg}" > 	
 					<img style="vertical-align:middle;" src="resources/images/bulletGreen.png" width="6px" height="6px" border="0" alt="open orders">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.orderlist.tab"/></font>&nbsp;<font class="text10Orange">F2</font>
 				</a>
@@ -39,6 +39,14 @@
 						<img style="vertical-align:middle;" src="resources/images/lorry_blue.png" width="18px" height="18px" border="0" alt="create new">
 						<font class="tabLink"><spring:message code="systema.tror.createnew.order.tab"/></font>
 					</td>
+					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderland_fellesutskrift.do" > 	
+							<img style="vertical-align:middle;" src="resources/images/printer2.png" width="12px" height="12px" border="0" alt="create new">
+							<font class="tabDisabledLink"><spring:message code="systema.tror.fellesprint.tab"/></font>
+						</a>
+					</td>
+					
 				</c:when>
 				<c:otherwise>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
@@ -62,17 +70,17 @@
 					</td>
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_logging.do?avd=${model.record.heavd}&sign=${model.record.hesg}&opd=${model.record.heopd}">
-							<img style="vertical-align: bottom" src="resources/images/log-icon.png" width="16" hight="16" border="0" alt="show log">
-							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.logging.tab"/></font>&nbsp;<font class="text10Orange">F7</font>
+						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderland_frisokvei.do?action=doFetch&avd=${model.record.heavd}&sign=${model.record.hesg}&opd=${model.record.heopd}">
+							<img style="vertical-align: bottom" src="resources/images/lightbulb.png" width="14" hight="14" border="0" alt="show log">
+							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.frisokvei.tab"/></font>&nbsp;<font class="text10Orange">F7</font>
 						</a>
 					</td>
 					
 					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandexport_archive.do?avd=${model.record.heavd}&sign=${model.record.hesg}&opd=${model.record.heopd}">
-							<img style="vertical-align: bottom" src="resources/images/archive.png" width="16" hight="16" border="0" alt="show archive">
-							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.archive.tab"/></font>&nbsp;<font class="text10Orange">F8</font>
+						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderland_budget.do?avd=${model.record.heavd}&sign=${model.record.hesg}&opd=${model.record.heopd}">
+							<img style="vertical-align: bottom" src="resources/images/budget.png" width="16" hight="16" border="0" alt="show budget">
+							<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.budget.tab"/></font>&nbsp;<font class="text10Orange">F8</font>
 						</a>
 					</td>
 					<c:if test="${model.record.hepk1 == 'J' || model.record.hepk1 == 'P'}">
@@ -319,6 +327,14 @@
 						<input type="hidden" name="fkeysavd" id="fkeysavd" value='${model.record.heavd}'>
 						<input type="hidden" name="fkeysopd" id="fkeysopd" value='${model.record.heopd}'>
 						<input type="hidden" name="fkyessign" id="fkyessign" value='${model.record.hesg}'>
+						<c:choose>
+							<c:when test="${model.record.heur == 'A'}">
+								<input type="hidden" name="fkyessubsys" id="fkyessubsys" value='mainorderlandimport'>
+							</c:when>
+							<c:otherwise>
+								<input type="hidden" name="fkyessubsys" id="fkyessubsys" value='mainorderlandexport'>
+							</c:otherwise>
+						</c:choose>
 						
 						<input type="hidden" name="heopd" id="heopd" value='${model.record.heopd}'>
 						<input type="hidden" name="heavd" id="heavd" value='${model.record.heavd}'>
@@ -334,8 +350,8 @@
 				 		<tr height="5"><td ></td></tr>
 				 		<tr>
 							<td colspan="8">
-								<c:choose>
-									<c:when test="${empty model.record.heopd}">
+								
+									<c:if test="${empty model.record.heopd}">
 										<table class="tableBorderWithRoundCornersLightGray" border="0">
 							 			<tr>
 							 				<td width="5px" class="text14" >&nbsp;</td>
@@ -367,7 +383,8 @@
 							 				<td width="5px" class="text14" >&nbsp;</td>
 							 			</tr>
 							 			</table>
-						 			</c:when>
+						 			</c:if>
+						 			<%--
 						 			<c:otherwise>
 						 				<table width="100%" border="0">
 									 	<tr>
@@ -408,12 +425,26 @@
 							 			
 							 			</table>
 						 			</c:otherwise>
-					 			</c:choose>
-						 			
+						 			--%>
+					 				
 					 			<table width="100%" border="0">
 					 			<tr>
 					 				<td valign="top" align="left" width="50%">
-					 					<table width="100%" border="0">
+				 						<table width="100%" border="0">
+					 					<tr>
+					 						<td valign="top" colspan="6">
+								 			<table class="tableBorderWithRoundCornersLightGray" border="0">
+									 			<tr>
+										 		<td width="5px" class="text14" >&nbsp;</td>
+										 		<td align="left" class="text14" style="vertical-align:bottom;" ><span title="heur"><spring:message code="systema.tror.orders.form.update.label.delsystem"/></span></td>
+								 				<td class="text14" ><b><spring:message code="systema.tror.order.suborder.landexport"/></b></td>
+								 				<td width="5px" class="text14" >&nbsp;</td>
+								 				</tr>
+							 				</table>
+							 				</td>
+									 	</tr>
+									 	<tr height="5"><td></td></tr>
+					 				
 					 					<tr>
 					 						<td class="text12" title="hedtop"><font class="text16RedBold" >*</font><spring:message code="systema.tror.orders.form.update.label.date"/></td>
 							 				<td class="text12" >	
@@ -444,6 +475,8 @@
 							 				<td class="text12" title="hepos1">
 							 					<img onMouseOver="showPop('hepos_info');" onMouseOut="hidePop('hepos_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 							 					<spring:message code="systema.tror.orders.form.update.label.position"/>
+							 				</td>
+							 				<td>	
 							 					<input type="text" class="inputTextMediumBlue" name="hepos1" id="hepos1/hepos2" size="8" maxlength="7" value="${model.record.hepos1}">
 							 					&nbsp;
 							 					<c:choose>
@@ -489,6 +522,8 @@
 				 								<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_loadunloadplaces.do?action=doFind&ctype=tror_landexport','loadunloadWin','top=300px,left=50px,height=600px,width=800px,scrollbars=no,status=no,location=no')">						 				
 						 							<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 						 						</a>
+						 					</td>
+						 					<td>	
 				 								<input type="text" class="inputTextMediumBlue" name="hesdl" id="hesdl" size="25" maxlength="20" value="${model.record.hesdl}">
 				 								
 				 								<div class="text11" style="position: relative;" align="left" >
@@ -587,116 +622,30 @@
 												</div>
 							 				</td>
 							 				<td><input type="text" class="inputTextMediumBlue" name="hehawb" id="hehawb" size="10" maxlength="9" value="${model.record.hehawb}"></td>
-							 				
 							 			</tr>
 							 			
-							 			</table>
-						 			</td>
-					 			</tr>
-					 			
-					 			<tr>
-					 				<td align="left" width="50%">&nbsp;</td>
-								 	
-								 	<td align="left" width="50%">
-						 				<table class="tableBorderWithRoundCornersLightGray" border="1">
-						 				<%--
-						 				<tr>		
-								 			<td class="text12">
-								 				<img onMouseOver="showPop('hekdtm_info');" onMouseOut="hidePop('hekdtm_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-							 					<span title="hekdtm"><spring:message code="systema.tror.orders.form.update.label.transporttype"/></span>
-								 				<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_transporttypes.do?action=doFind&ctype=tror_landexport','customerWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
-		 											<img id="imgTransporttype" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
-		 										</a>
-		 										<div class="text11" style="position: relative;" align="left" >
-									 				<span style="position:absolute; top:2px; width:200px;" id="hekdtm_info" class="popupWithInputText text11"  >
-										           		<p><b><spring:message code="systema.tror.orders.form.update.label.transporttype"/></b></p> 
-									           			Tast gyldig kode for transportmåte ved grense. Overføres SAD:
-									           			<ul>
-									           				<li><b>10</b>&nbsp;Fartøy, norske utenlandske.
-									           				<li><b>12</b>&nbsp;Jernbanevogn på fartøy.</li>
-									           				<li><b>16</b>&nbsp;Bil på fartøy.</li>
-									           				<li><b>17</b>&nbsp;Tilhenger på fartøy.</li>	
-									           				<li><b>20</b>&nbsp;Jernbane.</li>	
-									           				<li><b>23</b>&nbsp;Bil/tilhenger på jernbanevogn.</li>	
-									           				<li><b>30</b>&nbsp;Bil (vegtransport).</li>	
-									           				<li><b>40</b>&nbsp;Luftfartøy.</li>	
-									           				<li><b>50</b>&nbsp;Post.</li>	
-									           				<li><b>70</b>&nbsp;Faste installasjoner (rør, kabler etc..).</li>	
-									           				<li><b>80</b>&nbsp;Transport på innenlandske vannveier.</li>
-									           				<li><b>90</b>&nbsp;Egen framdrift.</li>
-									           						
-									           			</ul>
-													</span>	
+							 			<tr>
+								 			<td colspan="6" align="left" >
+							 				<table class="tableBorderWithRoundCornersLightGray" border="0">
+								 			<tr>	
+									 			<td class="text12">
+									 			<img onMouseOver="showPop('hevalt_info');" onMouseOut="hidePop('hevalt_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+									 			<span title="hetrcn"><spring:message code="systema.tror.orders.form.update.label.tillegg"/></span>
+									 			<div class="text11" style="position: relative;" align="left" >
+										 				<span style="position:absolute; top:2px; width:200px;" id="hevalt_info" class="popupWithInputText text11"  >
+											           		<p><b><spring:message code="systema.tror.orders.form.update.label.tillegg"/></b></p> 
+										           			Her kan ekstragebyr som står i et visst prosentforhold til frakten tastes.
+															(F.eks VAL 3,5 = valutatillegg tas inn med 3,5 prosent av fraktbeløpet).
+															På fakturaen vil da komme et ekstragebyr mot den side som belastes frakt.
+														</span>	
 												</div>
-								 			</td>
-								 			<td class="text12">
-								 				<select name="hekdtm" id="hekdtm">
-								 					<option value="" >-velg-</option>
-								 					<c:forEach var="record" items="${model.transporttypeList}" varStatus="counter">
-								 						<option value='${record.ks4trm}' <c:if test="${ model.record.hekdtm == record.ks4trm }"> selected </c:if> >${record.ks4trm}</option>
-								 					</c:forEach>
-												</select>
-												
-								 			</td>
-								 			<td class="text12">&nbsp;
-												<img onMouseOver="showPop('hetrm_info');" onMouseOut="hidePop('hetrm_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-												<span title="hetrm"><spring:message code="systema.tror.orders.form.update.label.transportland"/></span>
-												<div class="text11" style="position: relative;" align="left" >
-									 				<span style="position:absolute; top:2px; width:200px;" id="hetrm_info" class="popupWithInputText text11"  >
-										           		<p><b><spring:message code="systema.tror.orders.form.update.label.transportland"/></b></p> 
-									           			Tast landkode (tobokstavs) for transportmidlets hjemland.
-									           			
-													</span>	
-												</div>
-								 			</td>
-								 			<td class="text12">
-								 				<select name="hetrm" id="hetrm">
-								 					<option value="" >-landkode-</option>
-								 					<c:forEach var="record" items="${model.countryCodeList}" varStatus="counter">
-								 						<option value='${record.klklk}' <c:if test="${ model.record.hetrm == record.klklk}"> selected </c:if> >${record.klklk}</option>
-								 					</c:forEach>
-												</select>
-												
-								 			</td>
-								 			
-								 			<td class="text12">&nbsp;
-								 				<img onMouseOver="showPop('hetrc_info');" onMouseOut="hidePop('hetrc_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-												<span title="hetrc"><spring:message code="systema.tror.orders.form.update.label.container"/></span>
-												<div class="text11" style="position: relative;" align="left" >
-									 				<span style="position:absolute; top:2px; width:200px;" id="hetrc_info" class="popupWithInputText text11"  >
-										           		<p><b><spring:message code="systema.tror.orders.form.update.label.container"/></b></p> 
-									           			Tast gyldig kode for å angi om varen ble fraktet i container ved grensepassering.
-									           			<ul>
-									           				<li><b>0</b>&nbsp;ikke i container.
-									           				<li><b>1</b>&nbsp;i container.</li>
-									           			</ul>	
-													</span>	
-												</div>
-								 			</td>
-								 			<td class="text12">
-								 				<select class="inputTextMediumBlue" name="hetrc" id="hetrc" >
-								 				  <option value="1"<c:if test="${ model.record.hetrc == '1' }"> selected </c:if> >1</option>
-												  <option value="0"<c:if test="${ model.record.hetrc == '0' || empty model.record.hetrc }"> selected </c:if> >0</option>
-												</select>
-								 			</td>
-								 		</tr>
-								 		 --%>
-								 		<tr>	
-								 			<td class="text12">
-								 			<img onMouseOver="showPop('hevalt_info');" onMouseOut="hidePop('hevalt_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-								 			<span title="hetrcn"><spring:message code="systema.tror.orders.form.update.label.tillegg"/></span>
-								 			<div class="text11" style="position: relative;" align="left" >
-									 				<span style="position:absolute; top:2px; width:200px;" id="hevalt_info" class="popupWithInputText text11"  >
-										           		<p><b><spring:message code="systema.tror.orders.form.update.label.tillegg"/></b></p> 
-									           			Her kan ekstragebyr som står i et visst prosentforhold til frakten tastes.
-														(F.eks VAL 3,5 = valutatillegg tas inn med 3,5 prosent av fraktbeløpet).
-														På fakturaen vil da komme et ekstragebyr mot den side som belastes frakt.
-													</span>	
-											</div>
-								 			</td>
-								 			<td class="text12">
-								 				<input type="text" class="inputTextMediumBlue" name="hevalt" id="hevalt" size="4" maxlength="3" value="${model.record.hevalt}">
-								 				&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="hevalp" id="hevalp" size="8" maxlength="7" value="${model.record.hevalp}">
+									 			</td>
+									 			<td class="text12">
+									 				<input type="text" class="inputTextMediumBlue" name="hevalt" id="hevalt" size="4" maxlength="3" value="${model.record.hevalt}">
+									 				&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="hevalp" id="hevalp" size="8" maxlength="7" value="${model.record.hevalp}">
+									 			</td>
+								 			</tr>
+								 			</table>
 								 			</td>
 							 			</tr>
 							 			</table>
