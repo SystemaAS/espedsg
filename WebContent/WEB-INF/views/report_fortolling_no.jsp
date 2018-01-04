@@ -249,7 +249,6 @@ function load_data() {
 		  d.month = monthNameFormat(d.date);
 		  d.avdeling = d.avdeling;
 		  d.deklarasjonsnr= d.deklarasjonsnr;
-		 // d.reg_vareposter = +d.reg_vareposter;
 		  d.off_vareposter = +d.off_vareposter;
 		  d.registreringsdato = +d.registreringsdato; 
 		  d.deklarasjonsdato = +d.deklarasjonsdato;
@@ -386,45 +385,34 @@ function load_data() {
 	    var omsetningsGroup =  tollAllDim.group().reduce(  
 	            /* callback for when data is added to the current filter results */
 	            function (p, v) {
-	            	p._deklnr = 0;
 	                ++p.count;
-	                //p.sum_reg_vareposter += v.reg_vareposter;   
-	                if(v.off_vareposter > p.sum_off_vareposter) {
-	                	p.sum_off_vareposter  = v.off_vareposter
-	                }
-	                if(p._deklnr != v.deklarasjonsnr) {
+	                if(p._deklnr != v.deklarasjonsnr) {  //head
 	                	++p.count_fortollinger;
 	                	p._deklnr = v.deklarasjonsnr;
-	                }
-	                //p.sum_off_vareposter  += v.off_vareposter;
+	                } 
+	                
 	                return p;
 	            },
 	            /* callback for when data is removed from the current filter results */
 	            function (p, v) {
-	            	p._deklnr = 0;
 	                --p.count;
-	                //p.sum_reg_vareposter -= v.reg_vareposter; 
-	                if(v.off_vareposter < p.sum_off_vareposter) {
-	                	p.sum_off_vareposter  = v.off_vareposter
-	                }
-	                if(p._deklnr != v.deklarasjonsnr) {
+	                if(p._deklnr != v.deklarasjonsnr) {  //head
 	                	--p.count_fortollinger;
 	                	p._deklnr = v.deklarasjonsnr;
-	                }
-	                //p.sum_off_vareposter -= v.off_vareposter;   
+	                } 
+	                
 	                return p;
 	            },
 	            /* initialize p */
 	            function () {
 	                return {
-	                    count: 0,
-	                    count_fortollinger: 0,
-	                    sum_off_vareposter: 0,
-	                    _deklnr: 0
+	                    count: 0,  //reg_vareposter
+	                    count_fortollinger: 0, //antall fortollinger
+	                    _deklnr: 0,
 	                };
 	            }
 	    );  
-	  
+	    
 		typeChart
 		    .width(300)
 		    .height(300)
@@ -675,12 +663,30 @@ function load_data() {
 			  });
 		
 		antalloff_vareposterDisplay
-			.group(omsetningsGroup)  
-			.formatNumber(d3.format(".g"))
-			.valueAccessor(function (p) {
-					return p.value.sum_off_vareposter;
-			});	
+		.group(omsetningsGroup)  
+		.formatNumber(d3.format(".g"))
+		.valueAccessor(function (p) {
+	        var data = tollAllDim.top(Infinity);
+	        var filteredData = data.map(function(obj) {
+	            return {off_vareposter: obj.off_vareposter, deklarasjonsnr: obj.deklarasjonsnr, registreringsdato: obj.registreringsdato};
+	        });
+	     	var prevDeklnr = 0;
+	     	var sum_off_vareposter = 0;
 
+	     	_.each(filteredData, function(d) {
+				if (d.deklarasjonsnr != prevDeklnr) {
+					var deklnrGroup = _.where(filteredData, {deklarasjonsnr: d.deklarasjonsnr});
+					var maxOffVpRowForDeklnr = _.max(deklnrGroup, function(deklrRow){ return deklrRow.off_vareposter; });
+					var maxOffVp = maxOffVpRowForDeklnr.off_vareposter;
+					sum_off_vareposter = sum_off_vareposter + maxOffVp;
+					prevDeklnr = d.deklarasjonsnr;
+				}
+				
+			 });	        
+	        
+			return sum_off_vareposter;
+		});			
+		
 		antallreg_vareposterDisplay
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
@@ -721,7 +727,7 @@ function load_data() {
 				var diffPercentage = ((d.value.count - d.value.sum_off_vareposter )  / d.count );
 			   	 return [
 			   		 d.key.substr(3) + ':',
-			   			'Fortollinger TODO: ' + d.value.count,
+			   			'Fortollinger:' + d.value.count,
 			   		    'Offisielle varuposter: ' + d.value.sum_off_vareposter,
 			            'Registrerte varuposter: ' + d.value.count ,  //sum_reg_vareposter
 			            'Sammenslåtte varuposter: ' + percentageFormat(diffPercentage)
