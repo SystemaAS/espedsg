@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/views/include.jsp" %>
 
 <!-- ======================= header ===========================-->
-<jsp:include page="/WEB-INF/views/headerTrorBudget.jsp" />
+<jsp:include page="/WEB-INF/views/headerTror.jsp" />
 <!-- =====================end header ==========================-->
 
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
@@ -11,6 +11,8 @@
 	<SCRIPT type="text/javascript" src="resources/js/jquery-ui-timepicker-addon.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/trorglobal_edit.js?ver=${user.versionEspedsg}"></SCRIPT>			
 	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderland_budget.js?ver=${user.versionEspedsg}"></SCRIPT>
+	<SCRIPT type="text/javascript" src="resources/js/trorFkeys_landimport.js?ver=${user.versionEspedsg}"></SCRIPT>
+	
 	<%-- for dialog popup --%>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	
@@ -31,60 +33,116 @@
 	.ui-timepicker-rtl dl dd { margin: 0 40% 10px 10px; }
 	
 	</style>
-	
-	
-	<%-- -------------------------------- --%>	
- 	<%-- tab area container MASTER TOPIC  --%>
-	<%-- -------------------------------- --%>
- 	<table width="100%" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" border="0" cellspacing="0" cellpadding="0">
-		<tr height="3"><td colspan="2">&nbsp;</td></tr>
-		<tr>
-			<td colspan="3" class="text16Bold">&nbsp;&nbsp;&nbsp;
-				<img width="30px" height="30px" src="resources/images/budget.png" border="0" alt="budget">
-				<spring:message code="systema.tror.title"/> - <spring:message code="systema.tror.order.budget.label"/>
-				<c:choose>
-				<c:when test="${not empty model.parentTrip}">
-					<c:if test="${empty model.container.opd}">
-						&nbsp;-<font class="text16MediumBlue">Turnr&nbsp;${model.parentTrip}</font>
-					</c:if>
-				</c:when>
-				<c:otherwise>
-					&nbsp;<font class="text16MediumBlue">Avd/Opd&nbsp;&nbsp;&nbsp;${model.container.avd}/${model.container.opd}</font>	
-				</c:otherwise>
-				</c:choose>
+	<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
+	<tr>
+	<td>	
+	<%-- tab container component --%>
+	<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
+		<%-- This part right here allows for the dynamic allocation of a JSP depending on whether it is IMPORT or EXPORT --%>
+		<c:choose>
+			<c:when test="${recordOrderTrorLand.heur == 'A'}">
+				<c:set var = "tabLinkJsp" scope = "request" value = "mainorderlandimport"/>	
+			</c:when>
+			<c:otherwise>
+				<c:set var = "tabLinkJsp" scope = "request" value = "mainorderlandexport"/>
+			</c:otherwise>
+		</c:choose>
+		
+		<tr height="2"><td></td></tr>
+		<tr height="25"> 
+			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlist.do?action=doFind&sign=${recordOrderTrorLand.hesg}" > 	
+					<img style="vertical-align:middle;" src="resources/images/bulletGreen.png" width="6px" height="6px" border="0" alt="open orders">
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.orderlist.tab"/></font>&nbsp;<font class="text10Orange">F2</font>
+				</a>
 			</td>
+			
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a class="text14" onClick="setBlockUI(this);" href="tror_<c:out value="${tabLinkJsp}"/>.do?action=doFetch&heavd=${recordOrderTrorLand.heavd}&heopd=${recordOrderTrorLand.heopd}" > 	
+					<c:choose>
+						<c:when test="${recordOrderTrorLand.heur == 'A'}">
+							<img style="vertical-align:middle;" src="resources/images/lorry_green.png" width="18px" height="18px" border="0" alt="create new">
+						</c:when>
+						<c:otherwise>
+							<img style="vertical-align:middle;" src="resources/images/lorry_blue.png" width="18px" height="18px" border="0" alt="create new">
+						</c:otherwise>
+					</c:choose>
+				<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.tab"/>&nbsp;${recordOrderTrorLand.heavd}/${recordOrderTrorLand.heopd}</font>&nbsp;<font class="text10Orange">F4</font>
+				</a>
+			</td>
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a class="text14" onClick="setBlockUI(this);" href="tror_<c:out value="${tabLinkJsp}"/>_invoice.do?action=doFetch&heavd=${recordOrderTrorLand.heavd}&heopd=${recordOrderTrorLand.heopd}" > 	
+					<img style="vertical-align: bottom" src="resources/images/invoice.png" width="16" hight="16" border="0" alt="show invoice">
+					<font class="tabDisabledLink"><spring:message code="systema.tror.order.faktura.tab"/></font>&nbsp;<font class="text10Orange">F9</font>
+				</a>
+			</td>
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a class="text14" onClick="setBlockUI(this);" href="editNotisblock.do?action=doFetch&subsys=${subSystem}&avd=${recordOrderTrorLand.heavd}&opd=${recordOrderTrorLand.heopd}&sign=${recordOrderTrorLand.hesg}" > 	
+					<img style="vertical-align: bottom" src="resources/images/veiledning.png" width="16" hight="16" border="0" alt="show messages">
+					<font class="tabDisabledLink"><spring:message code="systema.tror.order.notisblock.tab"/></font>&nbsp;<font class="text10Orange">F10</font>
+				</a>
+			</td>
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderland_frisokvei.do?action=doFetch&avd=${recordOrderTrorLand.heavd}&sign=${recordOrderTrorLand.hesg}&opd=${recordOrderTrorLand.heopd}">
+					<img style="vertical-align: bottom" src="resources/images/lightbulb.png" width="14" hight="14" border="0" alt="show log">
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.frisokvei.tab"/></font>&nbsp;<font class="text10Orange">F7</font>
+				</a>
+			</td>
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="12%" valign="bottom" class="tab" align="center" nowrap>
+				<img style="vertical-align: bottom" src="resources/images/budget.png" width="16" hight="16" border="0" alt="show archive">
+				<font class="tabLink">&nbsp;<spring:message code="systema.tror.order.budget.tab"/></font>&nbsp;<font class="text10Orange">F8</font>
+			</td>
+			<c:if test="${recordOrderTrorLand.hepk1 == 'J' || recordOrderTrorLand.hepk1 == 'P'}">
+				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+					<a class="text14" onClick="setBlockUI(this);" href="tror_<c:out value="${tabLinkJsp}"/>_freightbill_edit.do?dfavd=${recordOrderTrorLand.heavd}&sign=${recordOrderTrorLand.hesg}&dfopd=${recordOrderTrorLand.heopd}">
+						<img style="vertical-align: bottom" src="resources/images/fraktbrev.png" width="16" hight="16" border="0" alt="show freight doc">
+						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.fraktbrev.tab"/></font>&nbsp;<font class="text10Orange">F3</font>
+					</a>
+				</td>
+			</c:if>
+			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderland_ttrace.do?avd=${recordOrderTrorLand.heavd}&sign=${recordOrderTrorLand.hesg}&opd=${recordOrderTrorLand.heopd}">
+					<img style="vertical-align: bottom" src="resources/images/sort_down.png" width="10" hight="10" border="0" alt="show more">
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.more.tab"/></font>
+				</a>
+			</td>
+				
+			<td width="80%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 		</tr>
-		<tr height="5"><td colspan="2">&nbsp;</td></tr>
-			
-			
-		<tr>
-		<td >
-		<table border="0" width="99%" align="center">
+	</table>
+	</td>
+	</tr>
+	
+	
+	
 			
            	<%-- ---------------------- --%>
            	<%-- LIST of existent ITEMs --%>
            	<%-- ---------------------- --%>
            	<tr>
 				<td>
-					<table width="100%" cellspacing="0" border="0" cellpadding="0">
-	    				<%-- separator --%>
-	        			<tr height="10"><td></td></tr> 
-						<tr >
-							<td>
-							<form name="createNewItemLine" id="createNewItemLine" method="post" action="TODO.do">
-								<table width="80%" cellspacing="0" border="0" cellpadding="0">
-									<tr>
-										<td class="text12">
-											<b>&nbsp;Antall varelinjer&nbsp;&nbsp;</b><font class="text12MediumBlue"><b>${Xmodel.container.totalNumberOfItemLines}</b></font>
-											
-					            		</td>
-									</tr>
-									<tr height="2"><td></td></tr>
-								</table>
-							</form>
-							</td>
-						</tr> 
+					<table width="100%" id="wrapperTable" class="tabThinBorderWhite" cellspacing="0" border="0" cellpadding="0">
+						<%--for F-Keys shortcuts. Used only in trorFkeys_...js --%>
+						<input type="hidden" name="fkeysavd" id="fkeysavd" value='${recordOrderTrorLand.heavd}'>
+						<input type="hidden" name="fkeysopd" id="fkeysopd" value='${recordOrderTrorLand.heopd}'>
+						<input type="hidden" name="fkyessign" id="fkyessign" value='${recordOrderTrorLand.hesg}'>
+						
+		   				<%-- separator --%>
+		       			<tr height="10"><td></td></tr> 
+				
 						<tr>
+							<td class="text11" >
+							<%-- this table wrapper is needed for the datatables width --%>
+							<table width="90%" cellspacing="0" border="0">
+							
+							<tr>
 							<td class="text11">
 								<table id="tblBudget" class="display compact cell-border" >
 									<thead>
@@ -246,23 +304,20 @@
 				 	<%-- <input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" /> --%>
 				 	
 				 	<%-- Topic ITEM CREATE --%>
-	 				<table width="100%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+	 				<table width="90%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="15">
 				 			<td class="text12White" align="left" >
 				 				<b>&nbsp;&nbsp;V<label onClick="showPop('debugPrintlnAjaxItemFetchAdmin');" >a</label>relinje&nbsp;</b>
-				 				
-		 									<span style="position:absolute; left:150px; top:200px; width:800px; height:400px;" id="debugPrintlnAjaxItemFetchAdmin" class="popupWithInputText"  >
-								           		<div class="text11" align="left">
-								           			<label id="debugPrintlnAjaxItemFetchInfo"></label>
-								           			<br/>
-								           			&nbsp;&nbsp;
-								           			<button name="specialInformationButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('debugPrintlnAjaxItemFetchAdmin');">
-								           			Close
-								           			</button> 
-								           		</div>
-								        		</span>
-		 				
-				 				
+				 					<span style="position:absolute; left:150px; top:200px; width:800px; height:400px;" id="debugPrintlnAjaxItemFetchAdmin" class="popupWithInputText"  >
+						           		<div class="text11" align="left">
+						           			<label id="debugPrintlnAjaxItemFetchInfo"></label>
+						           			<br/>
+						           			&nbsp;&nbsp;
+						           			<button name="specialInformationButtonClose" class="buttonGrayInsideDivPopup" type="button" onClick="hidePop('debugPrintlnAjaxItemFetchAdmin');">
+						           			Close
+						           			</button> 
+						           		</div>
+					        		</span>
 				 				<img onClick="showPop('updateInfo');" src="resources/images/update.gif" border="0" alt="edit">&nbsp;&nbsp;<font id="editLineNr"></font>
 				 				<span style="position:absolute; left:150px; top:200px; width:800px; height:400px;" id="updateInfo" class="popupWithInputText"  >
 		           		   			<div class="text12" align="left" style="display:block;width:700px;word-break:break-all;">
@@ -273,7 +328,7 @@
 			 				</td>
 		 				</tr>
 	 				</table>
-					<table width="100%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+					<table width="90%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="12"><td class="text" align="left"></td></tr>
 				 		<tr>
 					 		<td>
