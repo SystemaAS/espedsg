@@ -163,7 +163,7 @@
         			<table class="dashboardFrameHeader" width="98%" align="left" border="0" cellspacing="0" cellpadding="0">
 			 		<tr height="15">
 			 			<c:choose>
-				 			<c:when test="${not empty model.record.dfopd}">
+				 			<c:when test="${not empty model.record.df1004}">
 					 			<td align="left" class="text14White">
 									&nbsp;<img style="vertical-align:bottom;" src="resources/images/complete-icon.png" width="16" hight="16" border="0" alt="edit">	
 									&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.title"/>&nbsp;&nbsp;<font style="color: yellow"><b>${fn:substring(model.record.df1004, 0, 2)}&nbsp;${fn:substring(model.record.df1004, 2, 7)}&nbsp;${fn:substring(model.record.df1004, 7, 17)}</b></font>
@@ -187,11 +187,23 @@
             <tr ondrop="drop(event)" ondragover="allowDrop(event)" >
             		<td>
             		<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
-					<input type="hidden" name="action" id="action" value='doUpdate'>
+					<input type="hidden" name="action" id="action" value='${model.action}'>
 					<%-- dfri = F as offsett. Always. Old rule in order to acquire status "active" ... --%>
 					<input type="hidden" name="dfri" id="dfri" value='F'> 
+					<%--for F-Keys shortcuts. Used only in trorFkeys_...js --%>
+					<input type="hidden" name="fkeysavd" id="fkeysavd" value='${recordOrderTrorLand.heavd}'>
+					<input type="hidden" name="fkeysopd" id="fkeysopd" value='${recordOrderTrorLand.heopd}'>
+					<input type="hidden" name="fkyessign" id="fkyessign" value='${recordOrderTrorLand.hesg}'>
+					<c:choose>
+						<c:when test="${recordOrderTrorLand.heur == 'A'}">
+							<input type="hidden" name="fkyessubsys" id="fkyessubsys" value='mainorderlandimport'>
+						</c:when>
+						<c:otherwise>
+							<input type="hidden" name="fkyessubsys" id="fkyessubsys" value='mainorderlandexport'>
+						</c:otherwise>
+					</c:choose>
 					
-					<c:if test="${not empty model.record.dfopd}">
+					<c:if test="${not empty model.record.df1004}">
 						<input type="hidden" name="dfopd" id="dfopd" value='${model.record.dfopd}'>
 						<input type="hidden" name="dfavd" id="dfavd" value='${model.record.dfavd}'>
 						<input type="hidden" name="dffbnr" id="dffbnr" value='${model.record.dffbnr}'>
@@ -199,18 +211,6 @@
 						
 						<%-- <input type="hidden" name="dfsg" id="dfsg" value='${model.record.dfsg}'> sign --%>
 						<%-- <input type="hidden" name="dfst" id="dfst" value='${model.record.dfst}'> status --%>
-						<%--for F-Keys shortcuts. Used only in trorFkeys_...js --%>
-						<input type="hidden" name="fkeysavd" id="fkeysavd" value='${recordOrderTrorLand.heavd}'>
-						<input type="hidden" name="fkeysopd" id="fkeysopd" value='${recordOrderTrorLand.heopd}'>
-						<input type="hidden" name="fkyessign" id="fkyessign" value='${recordOrderTrorLand.hesg}'>
-						<c:choose>
-							<c:when test="${recordOrderTrorLand.heur == 'A'}">
-								<input type="hidden" name="fkyessubsys" id="fkyessubsys" value='mainorderlandimport'>
-							</c:when>
-							<c:otherwise>
-								<input type="hidden" name="fkyessubsys" id="fkyessubsys" value='mainorderlandexport'>
-							</c:otherwise>
-						</c:choose>
 						
 					</c:if>
 					

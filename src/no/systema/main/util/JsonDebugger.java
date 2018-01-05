@@ -38,7 +38,7 @@ public class JsonDebugger {
 		}
 		if(jsonPayload!=null){
 			if(jsonPayload.length()>this.baseLimit){
-				logger.info(" --> jsonPayload (substr):");
+				//logger.info(" --> jsonPayload (substr):");
 				retval = jsonPayload.substring(0,this.baseLimit);
 			}else{
 				retval = jsonPayload;

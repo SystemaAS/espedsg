@@ -333,7 +333,7 @@ public class TrorMainOrderHeaderLandImportController {
 	 * @param updateId
 	 * @return
 	 */
-	public int logTrackAndTraceGeneral(SystemaWebUser appUser, TrackfDao recordToLog, String action, String updateId){
+	private int logTrackAndTraceGeneral(SystemaWebUser appUser, TrackfDao recordToLog, String action, String updateId){
 		int retval = 0;
 		
 		//Params

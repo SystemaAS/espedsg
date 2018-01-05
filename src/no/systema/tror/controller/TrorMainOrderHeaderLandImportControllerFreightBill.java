@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.beans.PropertyEditorSupport;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,11 +20,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.WebDataBinder;
-
 import org.springframework.web.servlet.ModelAndView;
 
+import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
 import no.systema.jservices.common.dao.DokufDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
@@ -34,21 +31,18 @@ import no.systema.main.util.StringManager;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
+import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
+import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportService;
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.RpgReturnResponseHandler;
-import no.systema.tror.util.TrorConstants;
 import no.systema.tror.util.manager.CodeDropDownMgr;
 import no.systema.tror.util.manager.LandImportExportManager;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
-import no.systema.z.main.maintenance.validator.MaintMainCundfValidator;
 import no.systema.tror.validator.TrorOrderFraktbrevValidator;
-import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.JsonMaintNctsTrkodfContainer;
-import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.JsonMaintNctsTrkodfRecord;
 import no.systema.tvinn.sad.z.maintenance.nctsexport.service.MaintNctsExportTrkodfService;
-import no.systema.tvinn.sad.z.maintenance.nctsexport.url.store.TvinnNctsMaintenanceExportUrlDataStore;
 
 /**
  * Tror - Freight Bill Controller 
@@ -70,7 +64,6 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	private StringManager strMgr = new StringManager();
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 	private LandImportExportManager landImportMgr = new LandImportExportManager();
-	
 	/**
 	 * 
 	 * @param recordToValidate
@@ -141,12 +134,22 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 			} else { // Fetch
 				logger.info("FETCH branch");
 				DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
-				model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+				if(record!=null && strMgr.isNotNull(record.getDf1004())){
+					model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
+					model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+				}else{
+					//User will prepare the view for a future create-new fraktbrev. 
+					model.put("action", MainMaintenanceConstants.ACTION_CREATE);
+					//Here we prepare the form with default values from the "Oppdrag"
+					JsonTrorOrderHeaderRecord orderHeader = this.getOrderHedfRecord(appUser, model, null, String.valueOf(recordToValidate.getDfavd()), String.valueOf(recordToValidate.getDfopd()) );
+					this.handoverOppdragValuesToFraktbrev(recordToValidate, orderHeader);
+					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+				}
+				
 			}
 			//get dropdowns
 			this.setCodeDropDownMgr(appUser, model);
 			
-			model.put("action", MainMaintenanceConstants.ACTION_UPDATE); //User can change data
 			model.put("dfavd", recordToValidate.getDfavd());
 			model.put("dfopd", recordToValidate.getDfopd());
 			model.put("dffbnr", recordToValidate.getDffbnr());
@@ -155,6 +158,66 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 			return successView;		
 		}
 
+	}
+	/**
+	 * Set default values for the end-user 
+	 * 
+	 * @param recordToValidate
+	 * @param orderHeader
+	 */
+	private void handoverOppdragValuesToFraktbrev(DokufDao recordToValidate, JsonTrorOrderHeaderRecord orderHeader){
+		recordToValidate.setDffase(orderHeader.getHenas());
+		recordToValidate.setDfnavm(orderHeader.getHenak());
+		recordToValidate.setDfad1m(orderHeader.getHeadk1());
+		recordToValidate.setDfad3m(orderHeader.getHeadk3());
+		//TODO more ...!
+		
+	}
+	
+	/**
+	 * 
+	 * @param appUser
+	 * @param model
+	 * @param orderTypes
+	 * @param heavd
+	 * @param heopd
+	 * @return
+	 */
+	public JsonTrorOrderHeaderRecord getOrderHedfRecord(SystemaWebUser appUser, Map model, JsonMainOrderTypesNewRecord orderTypes, String heavd, String heopd ){
+		JsonTrorOrderHeaderRecord record = new JsonTrorOrderHeaderRecord();
+			
+		final String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_SPECIFIC_ORDER_URL;
+		//add URL-parameters
+		StringBuffer urlRequestParams = new StringBuffer();
+		urlRequestParams.append("user=" + appUser.getUser());
+		if( strMgr.isNotNull(heavd) && strMgr.isNotNull(heopd) ){
+			//Meaning fetching to an update
+			urlRequestParams.append("&heavd=" + heavd + "&heopd=" + heopd );
+		}else{
+			//Meaning preparing a create new ...
+			urlRequestParams.append("&heavd=&heopd=");
+		}
+		
+		//session.setAttribute(TransportDispConstants.ACTIVE_URL_RPG_TRANSPORT_DISP, BASE_URL + "==>params: " + urlRequestParams.toString()); 
+    	logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + BASE_URL);
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+    	//Debug --> 
+    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	if(jsonPayload!=null){
+    		JsonTrorOrderHeaderContainer container = this.trorMainOrderHeaderLandimportService.getOrderHeaderContainer(jsonPayload);
+    		if(container!=null){
+    			if(container.getDtoList()!=null){
+    				for( JsonTrorOrderHeaderRecord headerRecord: container.getDtoList()){
+	    				record = headerRecord;
+		    		}
+    			}
+    		}
+    	}		
+    	
+		return record;
 	}
 	/**
 	 * 
@@ -316,6 +379,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
 
+	
 	@Qualifier ("trorDropDownListPopulationService")
 	private TrorDropDownListPopulationService trorDropDownListPopulationService;
 	@Autowired
@@ -330,6 +394,13 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	public void setMaintNctsExportTrkodfService (MaintNctsExportTrkodfService value){ this.maintNctsExportTrkodfService = value; }
 	public MaintNctsExportTrkodfService getMaintNctsExportTrkodfService(){ return this.maintNctsExportTrkodfService; }
 
+	@Qualifier ("trorMainOrderHeaderLandimportService")
+	private TrorMainOrderHeaderLandimportService trorMainOrderHeaderLandimportService;
+	@Autowired
+	@Required
+	public void setTrorMainOrderHeaderLandimportService (TrorMainOrderHeaderLandimportService value){ this.trorMainOrderHeaderLandimportService = value; }
+	public TrorMainOrderHeaderLandimportService getTrorMainOrderHeaderLandimportService(){ return this.trorMainOrderHeaderLandimportService; }
+	
 	
 }
 
