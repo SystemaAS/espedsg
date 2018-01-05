@@ -245,6 +245,10 @@ public class SystemaWebUser {
 	public void setDftdg(String value) {  this.dftdg = value; }
 	public String getDftdg() { return this.dftdg;}
 	
+	private String asavd = null;
+	public void setAsavd(String value) {  this.asavd = value; }
+	public String getAsavd() { return this.asavd;}
+	
 	private String errMsg = null;
 	public void setErrMsg(String value){ this.errMsg=value;  }
 	public String getErrMsg(){ return this.errMsg;  }

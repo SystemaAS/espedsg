@@ -48,9 +48,9 @@ import no.systema.tror.util.TrorConstants;
 
 @Controller
 @Scope("session")
-public class TrorMainOrderHeaderLandImportControllerArchive {
+public class TrorMainOrderHeaderLandControllerArchive {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
-	private static final Logger logger = Logger.getLogger(TrorMainOrderHeaderLandImportControllerArchive.class.getName());
+	private static final Logger logger = Logger.getLogger(TrorMainOrderHeaderLandControllerArchive.class.getName());
 	private PayloadContentFlusher payloadContentFlusher = new PayloadContentFlusher();
 	
 	private ModelAndView loginView = new ModelAndView("login");

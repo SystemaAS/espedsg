@@ -27,8 +27,10 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.io.PayloadContentFlusher;
 
 import no.systema.main.model.SystemaWebUser;
-import no.systema.tror.model.jsonjackson.archive.JsonTrorOrderHeaderArchiveContainer;
-import no.systema.tror.model.jsonjackson.archive.JsonTrorOrderHeaderArchiveRecord;
+import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderLoggingContainer;
+import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderLoggingRecord;
+import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderLoggingLargeTextContainer;
+import no.systema.tror.model.jsonjackson.logging.JsonTrorOrderHeaderLoggingLargeTextRecord;
 
 import no.systema.tror.service.TrorMainOrderHeaderService;
 import no.systema.tror.url.store.TrorUrlDataStore;
@@ -37,20 +39,19 @@ import no.systema.tror.util.TrorConstants;
 
 
 /**
- * 
- * Tror Land Export Topic Archive Controller 
+ * Tror Logging Controller 
  * 
  * @author oscardelatorre
- * @date Dec 29, 2017
+ * @date Sep 18, 2017
  * 
- * 
+ *
  */
 
 @Controller
 @Scope("session")
-public class TrorMainOrderHeaderLandExportControllerArchive {
+public class TrorMainOrderHeaderLandControllerLogging {
 	private static final JsonDebugger jsonDebugger = new JsonDebugger();
-	private static final Logger logger = Logger.getLogger(TrorMainOrderHeaderLandExportControllerArchive.class.getName());
+	private static final Logger logger = Logger.getLogger(TrorMainOrderHeaderLandControllerLogging.class.getName());
 	private PayloadContentFlusher payloadContentFlusher = new PayloadContentFlusher();
 	
 	private ModelAndView loginView = new ModelAndView("login");
@@ -58,11 +59,8 @@ public class TrorMainOrderHeaderLandExportControllerArchive {
 	
 	@InitBinder
     protected void initBinder(WebDataBinder binder) {
-		//binder.setValidator(new TdsExportValidator()); //it must have spring form tags in the html otherwise = meaningless
+		
     }
-	
-	
-	
 	
 	/**
 	 * Renders the GUI view
@@ -71,16 +69,17 @@ public class TrorMainOrderHeaderLandExportControllerArchive {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandexport_archive.do",  method= RequestMethod.GET)
+	@RequestMapping(value="tror_mainorderland_logging.do",  method= RequestMethod.GET)
 	public ModelAndView doShowList(HttpSession session, HttpServletRequest request){
 		Map model = new HashMap();
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
-		ModelAndView successView = new ModelAndView("tror_mainorderlandexport_archive");
-		logger.info("Method: doShowList [RequestMapping-->tror_mainorderlandexport_archive.do]");
+		ModelAndView successView = new ModelAndView("tror_mainorderland_logging");
+		logger.info("Method: doShowList [RequestMapping-->tror_mainorderland_logging.do]");
 		
 		String opd = request.getParameter("opd");
 		String avd = request.getParameter("avd");
+		
 		logger.info("Avd:" + avd);
 		logger.info("Opd:" + opd);
 		this.setDomainObjectsInView(request, model);
@@ -92,7 +91,7 @@ public class TrorMainOrderHeaderLandExportControllerArchive {
 			//---------------------------
 			//get BASE URL = RPG-PROGRAM
             //---------------------------
-			String BASE_URL = TrorUrlDataStore.TROR_BASE_ARCHIVE_FOR_SPECIFIC_TOPIC_URL;
+			String BASE_URL = TrorUrlDataStore.TROR_BASE_LOG_LIST_FOR_SPECIFIC_TOPIC_URL;
 			//url params
 			String urlRequestParamsKeys = this.getRequestUrlKeyParameters(avd, opd, appUser);
 			//for debug purposes in GUI
@@ -105,20 +104,20 @@ public class TrorMainOrderHeaderLandExportControllerArchive {
 		    	//EXECUTE the FETCH (RPG program) here
 		    	//--------------------------------------
 		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-				//Debug --> 
+			//Debug --> 
 		    	logger.info(" --> jsonPayload:" + jsonPayload);
 		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	
-			if(jsonPayload!=null){
-				JsonTrorOrderHeaderArchiveContainer container = this.trorMainOrderHeaderService.getArchiveContainer(jsonPayload);
-	    		//add domain objects here
-	    		this.setDomainObjectsInView(model, container);
-	    		this.setDomainObjectsInView(request, model);
-	    		
-	    		successView.addObject(TrorConstants.DOMAIN_MODEL, model);
-				successView.addObject(TrorConstants.DOMAIN_LIST,container.getArchiveElements());
+		    	if(jsonPayload!=null){
+		    		JsonTrorOrderHeaderLoggingContainer container = this.trorMainOrderHeaderService.getLoggingContainer(jsonPayload);
+		    		//add domain objects here
+		    		this.setDomainObjectsInView(model, container);
+		    		this.setDomainObjectsInView(request, model);
 		    		
-	    	}else{
+		    		successView.addObject(TrorConstants.DOMAIN_MODEL, model);
+		    		successView.addObject(TrorConstants.DOMAIN_LIST, container.getLogg());
+		    		
+		    	}else{
 				logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
 				return loginView;
 			}
@@ -135,9 +134,9 @@ public class TrorMainOrderHeaderLandExportControllerArchive {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandexport_renderArchive.do", method={ RequestMethod.GET })
-	public ModelAndView doRenderArchive(HttpSession session, HttpServletRequest request, HttpServletResponse response){
-		logger.info("Inside doRenderArchive...");
+	@RequestMapping(value="tror_mainorderland_renderEdifact.do", method={ RequestMethod.GET })
+	public ModelAndView doRenderEdifact(HttpSession session, HttpServletRequest request, HttpServletResponse response){
+		logger.info("Inside doRenderEdifact...");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		
 		if(appUser==null){
@@ -150,31 +149,17 @@ public class TrorMainOrderHeaderLandExportControllerArchive {
 			String filePath = request.getParameter("fp");
 			
 			if(filePath!=null && !"".equals(filePath)){
-				
                 String absoluteFilePath = filePath;
-                
-                //must know the file type in order to put the correct content type on the Servlet response.
-                String fileType = this.payloadContentFlusher.getFileType(filePath);
-                if(AppConstants.DOCUMENTTYPE_PDF.equals(fileType)){
-                		response.setContentType(AppConstants.HTML_CONTENTTYPE_PDF);
-                }else if(AppConstants.DOCUMENTTYPE_TIFF.equals(fileType) || AppConstants.DOCUMENTTYPE_TIF.equals(fileType)){
-            			response.setContentType(AppConstants.HTML_CONTENTTYPE_TIFF);
-                }else if(AppConstants.DOCUMENTTYPE_JPEG.equals(fileType) || AppConstants.DOCUMENTTYPE_JPG.equals(fileType)){
-                		response.setContentType(AppConstants.HTML_CONTENTTYPE_JPEG);
-                }else if(AppConstants.DOCUMENTTYPE_TXT.equals(fileType)){
-            			response.setContentType(AppConstants.HTML_CONTENTTYPE_TEXTHTML);
-                }else if(AppConstants.DOCUMENTTYPE_DOC.equals(fileType)){
-            			response.setContentType(AppConstants.HTML_CONTENTTYPE_WORD);
-                }else if(AppConstants.DOCUMENTTYPE_XLS.equals(fileType)){
-            			response.setContentType(AppConstants.HTML_CONTENTTYPE_EXCEL);
-                }
+                //String absoluteFilePath = appUser.getServletHost() + filePath;
+
+                response.setContentType(AppConstants.HTML_CONTENTTYPE_TEXTHTML);
                 //--> with browser dialogbox: response.setHeader ("Content-disposition", "attachment; filename=\"edifactPayload.txt\"");
-                response.setHeader ("Content-disposition", "filename=\"archiveDocument." + fileType + "\"");
+                response.setHeader ("Content-disposition", "filename=\"edifactPayload.txt\"");
                 
                 logger.info("Start flushing file payload...");
                 //send the file output to the ServletOutputStream
                 try{
-                		this.payloadContentFlusher.flushServletOutput(response, absoluteFilePath);
+                		payloadContentFlusher.flushServletOutput(response, absoluteFilePath);
                 		//payloadContentFlusher.flushServletOutput(response, "plain text test...".getBytes());
                 	
                 }catch (Exception e){
@@ -187,6 +172,99 @@ public class TrorMainOrderHeaderLandExportControllerArchive {
 		}
 			
 	}	
+	
+	
+	/**
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tror_mainorderlandimport_renderLargeText.do",  method= RequestMethod.GET)
+	public ModelAndView doRenderLargeText(HttpSession session, HttpServletRequest request, HttpServletResponse response){
+		Map model = new HashMap();
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		logger.info("Inside doRenderLargeText...");
+		
+		//Message number
+		String fmn = request.getParameter("fmn");
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			//---------------------------
+			//get BASE URL = RPG-PROGRAM
+            //---------------------------
+			String BASE_URL = TrorUrlDataStore.TROR_BASE_LOG_LARGE_TEXT_FOR_SPECIFIC_TOPIC_URL;
+			//url params
+			String urlRequestParamsKeys = this.getRequestUrlKeyParametersForLargeText(fmn, appUser);
+			//for debug purposes in GUI
+			session.setAttribute(TrorConstants.ACTIVE_URL_RPG_TROR, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
+			
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+		    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+		    	//--------------------------------------
+		    	//EXECUTE the FETCH (RPG program) here
+		    	//--------------------------------------
+		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+				//Debug --> 
+		    	logger.info(" --> jsonPayload:" + jsonPayload);
+		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		    	if(jsonPayload!=null){
+		    		String largeText = this.setLargeTextInDomainObject(jsonPayload);
+		    		if(largeText!=null && !"".equals(largeText)){
+		                
+		                response.setContentType(AppConstants.HTML_CONTENTTYPE_TEXTHTML);
+		                //--> with browser dialogbox: response.setHeader ("Content-disposition", "attachment; filename=\"edifactPayload.txt\"");
+		                response.setHeader ("Content-disposition", "filename=\"largeLogContent.txt\"");
+		                
+		                try{
+	                		//send the output to the ServletOutputStream
+			                payloadContentFlusher.flushServletOutput(response, largeText.getBytes());
+			                
+		                	}catch (Exception e){
+		                		e.printStackTrace();
+		                }
+		            }
+		    	}else{
+				logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+				return loginView;
+			}
+
+	   		
+		}
+		return(null);
+	}
+
+	/**
+	 * 
+	 * Gets the large text of a specific log record
+	 * @jsonPayload
+	 * @return
+	 */
+	private String setLargeTextInDomainObject(String jsonPayload){
+		StringBuffer sb = new StringBuffer();
+		JsonTrorOrderHeaderLoggingLargeTextContainer container = this.trorMainOrderHeaderService.getLoggingLargeTextContainer(jsonPayload);
+		logger.info(container.getUser());
+		//list of objects
+		Collection<JsonTrorOrderHeaderLoggingLargeTextRecord> list = container.getLoggtext();
+		
+		//Debug
+		for(JsonTrorOrderHeaderLoggingLargeTextRecord record : list){
+			sb.append(record.getF0078a());
+			sb.append("<br>"); //since the output will be in HTML
+			sb.append(record.getF0078b());
+			sb.append("<br>"); //since the output will be in HTML
+			sb.append(record.getF0078c());
+			sb.append("<br><br>");
+			
+		}//add domain objects here
+		
+		return sb.toString();
+		
+	}
 	
 	/**
 	 * 
@@ -204,14 +282,27 @@ public class TrorMainOrderHeaderLandExportControllerArchive {
 		
 		return urlRequestParamsKeys.toString();
 	}
-	
+	/**
+	 * 
+	 * @param fmn
+	 * @param appUser
+	 * @return
+	 */
+	private String getRequestUrlKeyParametersForLargeText(String fmn, SystemaWebUser appUser){
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		//String action = request.getParameter("action");
+		urlRequestParamsKeys.append("user=" + appUser.getUser());
+		urlRequestParamsKeys.append(TrorConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "fmn=" + fmn);
+		
+		return urlRequestParamsKeys.toString();
+	}
 	/**
 	 * log Errors in Aspects and Domain objects in order to render on GUI
 	 * @param model
 	 * @param rpgReturnResponseHandler
 	 * @param record
 	 */
-	private void setFatalError(Map model, RpgReturnResponseHandler rpgReturnResponseHandler, JsonTrorOrderHeaderArchiveContainer record){
+	private void setFatalError(Map model, RpgReturnResponseHandler rpgReturnResponseHandler, JsonTrorOrderHeaderLoggingRecord record){
 		logger.info(rpgReturnResponseHandler.getErrorMessage());
 		this.setAspectsInView(model, rpgReturnResponseHandler);
 		//No refresh on jsonRecord is done for the GUI (form fields). Must be implemented right here, if required. !!
@@ -226,20 +317,19 @@ public class TrorMainOrderHeaderLandExportControllerArchive {
 	 * @param container
 	 * @return
 	 */
-	private void setDomainObjectsInView(Map model, JsonTrorOrderHeaderArchiveContainer container){
+	private void setDomainObjectsInView(Map model, JsonTrorOrderHeaderLoggingContainer container){
 		//SET HEADER RECORDS  (from RPG)
-		for (JsonTrorOrderHeaderArchiveRecord record : container.getArchiveElements()){
+		for (JsonTrorOrderHeaderLoggingRecord record : container.getLogg()){
 			model.put(TrorConstants.DOMAIN_RECORD, record);
 		}
 		
 	}
 	
 	/**
-	 * In order to pass some crucial GET parameters comming from the specific topic selection in previous update-topic action
+	 * In order to pass some crucial GET parameters coming from the specific topic selection in previous update-topic action
 	 * 
 	 * @param request
 	 * @param model
-	 * @param jsonTdsExportSpecificTopicLoggingContainer
 	 */
 	private void setDomainObjectsInView(HttpServletRequest request, Map model){
 		//SET HEADER RECORDS  (from request)
@@ -249,9 +339,9 @@ public class TrorMainOrderHeaderLandExportControllerArchive {
 		String status = request.getParameter("status");
 		String tullid = request.getParameter("tullId");
 		String datum = request.getParameter("datum");
-		String omberegningFlag = request.getParameter("o2_sist");
-		String omberegningDate = request.getParameter("o2_sidt");
-		String omberegningType = request.getParameter("o2_simf");
+		//String omberegningFlag = request.getParameter("o2_sist");
+		//String omberegningDate = request.getParameter("o2_sidt");
+		//String omberegningType = request.getParameter("o2_simf");
 		
 		
 		model.put("opd", opd);
@@ -260,10 +350,9 @@ public class TrorMainOrderHeaderLandExportControllerArchive {
 		model.put("status", status);
 		model.put("tullId", tullid);
 		model.put("datum", datum);
-		model.put("o2_sist", omberegningFlag);
-		model.put("o2_sidt", omberegningDate);
-		model.put("o2_simf", omberegningType);
-		
+		//model.put("o2_sist", omberegningFlag);
+		//model.put("o2_sidt", omberegningDate);
+		//model.put("o2_simf", omberegningType);
 		
 	}
 	
@@ -273,7 +362,7 @@ public class TrorMainOrderHeaderLandExportControllerArchive {
 	 * @param model
 	 * @param record
 	 */
-	private void setDomainObjectsInView(Map model, JsonTrorOrderHeaderArchiveRecord record){
+	private void setDomainObjectsInView(Map model, JsonTrorOrderHeaderLoggingRecord record){
 		//SET HEADER RECORDS  (from RPG)
 		model.put(TrorConstants.DOMAIN_RECORD, record);
 	}
@@ -300,7 +389,6 @@ public class TrorMainOrderHeaderLandExportControllerArchive {
 	@Required
 	public void setUrlCgiProxyService (UrlCgiProxyService value){ this.urlCgiProxyService = value; }
 	public UrlCgiProxyService getUrlCgiProxyService(){ return this.urlCgiProxyService; }
-	
 	
 	@Qualifier ("trorMainOrderHeaderService")
 	private TrorMainOrderHeaderService trorMainOrderHeaderService;

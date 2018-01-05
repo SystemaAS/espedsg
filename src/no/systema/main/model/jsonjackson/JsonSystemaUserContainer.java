@@ -76,6 +76,10 @@ public class JsonSystemaUserContainer {
 	public void setDftdg(String value) {  this.dftdg = value; }
 	public String getDftdg() { return this.dftdg;}
 	
+	private String asavd = null;
+	public void setAsavd(String value) {  this.asavd = value; }
+	public String getAsavd() { return this.asavd;}
+	
 	private Collection<JsonSystemaUserRecord> menuList;
 	public void setMenuList(Collection<JsonSystemaUserRecord> value){ this.menuList = value; }
 	public Collection<JsonSystemaUserRecord> getMenuList(){ return menuList; }

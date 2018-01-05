@@ -173,7 +173,7 @@
 				        	<td>
 				        		<select class="inputTextMediumBlue" name="avd" id="avd" autofocus>
 			 						<option value="">-velg-</option>
-				 				  	<c:forEach var="record" items="${model.avdList}" >
+			 						<c:forEach var="record" items="${model.avdList}" >
 				 				  		<option value="${record.koakon}"<c:if test="${searchFilterTror.avd == record.koakon}"> selected </c:if> >${record.koakon}</option>
 									</c:forEach>  
 								</select>
