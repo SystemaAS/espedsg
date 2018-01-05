@@ -62,7 +62,7 @@ var colorMap = {
         "off_vp": "#f19411"
     };	
 
-//Preload desc for avdeling, merknader
+//Preload desc for avdeling, merknader, signatur
 d3.queue()
 	.defer(function(merknaderDescUrl, callback) {
 			d3.json(merknaderDescUrl, function(error, data) {
@@ -323,64 +323,94 @@ function load_data() {
 		var  inputTypeDimGroup = inputTypeDim.group().reduceSum(function(d) {return d.deklarasjonsnr;});
 		var  openDaysDimGroup = openDaysDim.group().reduceSum(function(d) {return d.deklarasjonsnr;});
 		//Group reduce
-	    var dateDimGroup =  dateDim.group().reduce(   
+	    var monthDimGroup =  monthDim.group().reduce(   
 	            /* callback for when data is added to the current filter results */
 	            function (p, v) {
-	                ++p.count;
-	               // p.sum_reg_vareposter += v.reg_vareposter;   
-	                if(v.off_vareposter > p.sum_off_vareposter) {
-	                	p.sum_off_vareposter  = v.off_vareposter
-	                }
-	               //p.sum_off_vareposter  += v.off_vareposter;    
+// 	            	var date = fullDateFormat.parse(v.registreringsdato.toString());
+// 	            	var month = monthNameFormat(date);
+// 	            	console.log("::ADD MONTH::",month);
+// 	            	console.log("v.dnr",v.deklarasjonsnr, "v.off_v", v.off_vareposter, "v.registreringsdato", v.registreringsdato);
+// 	            	console.log("count", p.count_reg_vareposter);
+	            	
+	            	if (v.deklarasjonsnr in p.addArray) {
+            	       if (p.addArray[v.deklarasjonsnr] < v.off_vareposter) {
+            	    	   p.addArray[v.deklarasjonsnr] = v.off_vareposter; 
+            	       }
+	            	} else {
+            		   p.addArray[v.deklarasjonsnr] = v.off_vareposter;  
+	            	}						
+
+					p.count_off_vareposter = p.addArray[v.deklarasjonsnr];
+					p.count_fortollinger = _.size(p.addArray);
+	            	++p.count_reg_vareposter;	            	
+	
+// 	            	console.log("p.count_off_vareposter", p.count_off_vareposter, "p.count_fortollinger", p.count_fortollinger);	            	 
+					
 	                return p;
 	            },
 	            /* callback for when data is removed from the current filter results */
 	            function (p, v) {
-	                --p.count;
-	               // p.sum_reg_vareposter -= v.reg_vareposter;   
-	                if(v.off_vareposter > p.sum_off_vareposter) {
-	                	p.sum_off_vareposter  = v.off_vareposter
-	                }
-	                //p.sum_off_vareposter -= v.off_vareposter;   
+// 	            	var date = fullDateFormat.parse(v.registreringsdato.toString());
+// 	            	var month = monthNameFormat(date);
+// 	            	console.log("::REMOVE MONTH::",month);
+// 	            	console.log("v.dnr",v.deklarasjonsnr, "v.off_v", v.off_vareposter, "v.registreringsdato", v.registreringsdato);
+// 	            	console.log("count", p.count_reg_vareposter);
+// 	 				console.log("p.removeArray", JSON.stringify(p.removeArray));
+// 	 				console.log("p.addArray", JSON.stringify(p.addArray));
+	            	
+	
+// 	 				if (v.deklarasjonsnr in p.addArray) {
+// 	            		   console.log(v.deklarasjonsnr, "in p.addArray", "p.addArray[v.deklarasjonsnr]", p.addArray[v.deklarasjonsnr], "v.off_vareposter", v.off_vareposter);
+	
+// 	   	            	if (v.deklarasjonsnr in p.removeArray) {
+// 	             	       if (p.addArray[v.deklarasjonsnr] < v.off_vareposter) {
+// 	             	    	   p.removeArray[v.deklarasjonsnr] = v.off_vareposter; 
+// 	             	       }
+// 	 	            	} else {
+// 	             		   p.removeArray[v.deklarasjonsnr] = v.off_vareposter;  
+// 	 	            	}
+	            		   
+// 	            	} else {
+// 		            		console.log("THIS SHOULD NEVER HAPPEN!!!!");
+// 	          	  		 //  p.ddArray[v.deklarasjonsnr] = v.off_vareposter;  
+// 		            }	
+	            	
+	            	if (v.deklarasjonsnr in p.addArray) {
+//             			console.log(v.deklarasjonsnr, "in p.dArray");
+            	       if (p.addArray[v.deklarasjonsnr] < v.off_vareposter) {
+            	    	   p.removeArray[v.deklarasjonsnr] = v.off_vareposter; 
+            	       }
+		            } else {
+	            		console.log("THIS SHOULD NEVER HAPPEN!!!!");
+          	  		   p.ddArray[v.deklarasjonsnr] = v.off_vareposter;  
+		            }	            	
+	            	
+// 	            	console.log("p.count_off_vareposter",p.count_off_vareposter, "p.removeArray[v.deklarasjonsnr]",p.removeArray[v.deklarasjonsnr] )
+	            	
+					p.count_off_vareposter -= p.removeArray[v.deklarasjonsnr];
+	            	
+// 	            	console.log("_.size(p.addArray)",_.size(p.addArray));
+// 	            	console.log("_.size(p.removeArray)",_.size(p.removeArray));
+	            	
+					p.count_fortollinger = _.size(p.dArray) - _.size(p.ddArray);            	
+	            	--p.count_reg_vareposter;
+	            	 
+// 	            	console.log("p.count_off_vareposter", p.count_off_vareposter, "p.count_fortollinger", p.count_fortollinger);	
+	                
 	                return p;
 	            },
 	            /* initialize p */
 	            function () {
 	                return {
-	                    count: 0,
-	                   // sum_reg_vareposter: 0,
-	                    sum_off_vareposter: 0
-	                };
-	            }
-	    );  
-		
-	    var monthDimGroup =  monthDim.group().reduce(   
-	            function (p, v) {
-	                ++p.count;
-	               // p.sum_reg_vareposter += v.reg_vareposter;   
-	                if(v.off_vareposter > p.sum_off_vareposter) {
-	                	p.sum_off_vareposter  = v.off_vareposter
-	                }
-	                //p.sum_off_vareposter  += v.off_vareposter;     
-	                return p;
-	            },
-	            function (p, v) {
-	                --p.count;
-	                //p.sum_reg_vareposter -= v.reg_vareposter;   
-	                if(v.off_vareposter > p.sum_off_vareposter) {
-	                	p.sum_off_vareposter  = v.off_vareposter
-	                }
-	                //p.sum_off_vareposter  -= v.off_vareposter;     
-	                return p;
-	            },
-	            function () {
-	                return {
-	                    count: 0,
-	                    //sum_reg_vareposter: 0,
-	                    sum_off_vareposter: 0
+	                    count_reg_vareposter: 0, 
+	                    count_fortollinger: 0, 
+	                    count_off_vareposter: 0,  
+	                    addArray : {},
+	                    removeArray : {}
 	                };
 	            }
 	    );  	
+
 		
 	    var omsetningsGroup =  tollAllDim.group().reduce(  
 	            /* callback for when data is added to the current filter results */
@@ -396,6 +426,7 @@ function load_data() {
 	            /* callback for when data is removed from the current filter results */
 	            function (p, v) {
 	                --p.count;
+	                p._deklnr = 0;
 	                if(p._deklnr != v.deklarasjonsnr) {  //head
 	                	--p.count_fortollinger;
 	                	p._deklnr = v.deklarasjonsnr;
@@ -659,32 +690,68 @@ function load_data() {
 		     .group(omsetningsGroup)  
 		     .formatNumber(d3.format(".g"))
 			 .valueAccessor(function (p) {
-				 return p.value.count_fortollinger;  
-			  });
+			    var count_fortollinger = getCountFortollinger();
+				 
+// 		     	console.log("count_fortollinger",count_fortollinger);
+					 
+// 		     	var arrayOfObjects = [
+// 		     	    {car: 'Ford', model: 'Figo', color: 'red'},     
+// 		     	    {car: 'Honda', model: 'CRV', color: 'green'}, 
+// 		     	    {car: 'Ford', model: 'EcoSport', color: 'red'} ]; 
+// 		     	var  carss = _.where(arrayOfObjects, {color: 'red'});
+// 		     	console.log("carss",carss);
+// 		     	var yy = _.countBy(arrayOfObjects, function(currentObject) {  return currentObject.car; });
+// 		     	console.log("yy",yy);
+
+				 return count_fortollinger;  
+			 
+			 
+			 });
+
 		
-		antalloff_vareposterDisplay
-		.group(omsetningsGroup)  
-		.formatNumber(d3.format(".g"))
-		.valueAccessor(function (p) {
-	        var data = tollAllDim.top(Infinity);
+		function getCountFortollinger() {
+			var data = tollAllDim.top(Infinity);
 	        var filteredData = data.map(function(obj) {
 	            return {off_vareposter: obj.off_vareposter, deklarasjonsnr: obj.deklarasjonsnr, registreringsdato: obj.registreringsdato};
 	        });
 	     	var prevDeklnr = 0;
-	     	var sum_off_vareposter = 0;
+	     	var count_fortollinger = 0;
 
 	     	_.each(filteredData, function(d) {
 				if (d.deklarasjonsnr != prevDeklnr) {
-					var deklnrGroup = _.where(filteredData, {deklarasjonsnr: d.deklarasjonsnr});
-					var maxOffVpRowForDeklnr = _.max(deklnrGroup, function(deklrRow){ return deklrRow.off_vareposter; });
-					var maxOffVp = maxOffVpRowForDeklnr.off_vareposter;
-					sum_off_vareposter = sum_off_vareposter + maxOffVp;
-					prevDeklnr = d.deklarasjonsnr;
+					++count_fortollinger;
+ 					prevDeklnr = d.deklarasjonsnr;
 				}
 				
-			 });	        
-	        
-			return sum_off_vareposter;
+			 });	
+	     	
+	     	return count_fortollinger;
+			
+		}
+		
+		antalloff_vareposterDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.valueAccessor(function (p) {
+		        var data = tollAllDim.top(Infinity);
+		        var filteredData = data.map(function(obj) {
+		            return {off_vareposter: obj.off_vareposter, deklarasjonsnr: obj.deklarasjonsnr, registreringsdato: obj.registreringsdato};
+		        });
+		     	var prevDeklnr = 0;
+		     	var sum_off_vareposter = 0;
+		     	
+		     	_.each(filteredData, function(d) {
+					if (d.deklarasjonsnr != prevDeklnr) {
+						var deklnrGroup = _.where(filteredData, {deklarasjonsnr: d.deklarasjonsnr});
+						var maxOffVpRowForDeklnr = _.max(deklnrGroup, function(deklrRow){ return deklrRow.off_vareposter; });
+						var maxOffVp = maxOffVpRowForDeklnr.off_vareposter;
+						sum_off_vareposter = sum_off_vareposter + maxOffVp;
+						prevDeklnr = d.deklarasjonsnr;
+					}
+					
+				 });	
+		     	
+			    return sum_off_vareposter;
 		});			
 		
 		antallreg_vareposterDisplay
@@ -723,30 +790,27 @@ function load_data() {
 			.renderHorizontalGridLines(true)
 			.renderTitle(true)
 			.title(function (d) {
-				//var diffPercentage = ((d.value.sum_reg_vareposter - d.value.sum_off_vareposter )  / d.value.sum_reg_vareposter );
-				var diffPercentage = ((d.value.count - d.value.sum_off_vareposter )  / d.count );
+				var diffPercentage = ((d.value.count_reg_vareposter - d.value.count_off_vareposter )  / d.value.count_reg_vareposter );
 			   	 return [
 			   		 d.key.substr(3) + ':',
-			   			'Fortollinger:' + d.value.count,
-			   		    'Offisielle varuposter: ' + d.value.sum_off_vareposter,
-			            'Registrerte varuposter: ' + d.value.count ,  //sum_reg_vareposter
-			            'Sammenslåtte varuposter: ' + percentageFormat(diffPercentage)
+			   			'Fortollinger:' + d.value.count_fortollinger, 
+			   		    'Offisielle varuposter: ' + d.value.count_off_vareposter,  
+			            'Registrerte varuposter: ' + d.value.count_reg_vareposter , 
+			            'Sammenslåtte varuposter: ' + percentageFormat(diffPercentage)  
 			        ].join('\n');
 			})	
 			.group(monthDimGroup, 'fortollinger') 
 	        //Antall fortollinger
 	       .valueAccessor(function (d) {
-					return d.value.count; //TODO
+				return d.value.count_fortollinger; 
 			}) 
 			//Antall off. varuposter
 			.stack(monthDimGroup,'off_vp' ,function (d) {
-	         	return d.value.sum_off_vareposter;  //100
+	         	return d.value.count_off_vareposter;  
 	        })
-	        //Antall off. varuposter
+	        //Antall reg. varuposter
 	        .stack(monthDimGroup, 'reg_vp',function (d) {
-	        	//var diffRegAndOff =  d.value.sum_reg_vareposter - d.value.sum_off_vareposter;   //ex. 100-80=20
-	        	var diffRegAndOff =  d.value.count - d.value.sum_off_vareposter;   //ex. 100-80=20
-	        	return diffRegAndOff;
+	        	return d.value.count_reg_vareposter;
 	        })
 			.on('pretransition', function (chart) {
 			    chart.selectAll("g rect").style("fill", function (d) {
