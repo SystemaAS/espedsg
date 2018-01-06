@@ -326,76 +326,99 @@ function load_data() {
 	    var monthDimGroup =  monthDim.group().reduce(   
 	            /* callback for when data is added to the current filter results */
 	            function (p, v) {
-// 	            	var date = fullDateFormat.parse(v.registreringsdato.toString());
-// 	            	var month = monthNameFormat(date);
+	            	var date = fullDateFormat.parse(v.registreringsdato.toString());
+	            	var month = monthNameFormat(date);
 // 	            	console.log("::ADD MONTH::",month);
 // 	            	console.log("v.dnr",v.deklarasjonsnr, "v.off_v", v.off_vareposter, "v.registreringsdato", v.registreringsdato);
 // 	            	console.log("count", p.count_reg_vareposter);
 	            	
 	            	if (v.deklarasjonsnr in p.addArray) {
             	       if (p.addArray[v.deklarasjonsnr] < v.off_vareposter) {
+//             	    	   console.log(month," ADD array value less than row, p.addArray[v.deklarasjonsnr]", p.addArray[v.deklarasjonsnr], "v.off_vareposter", v.off_vareposter, "v.deklarasjonsnr", v.deklarasjonsnr);
             	    	   p.addArray[v.deklarasjonsnr] = v.off_vareposter; 
             	       }
 	            	} else {
             		   p.addArray[v.deklarasjonsnr] = v.off_vareposter;  
 	            	}						
 
-					p.count_off_vareposter = p.addArray[v.deklarasjonsnr];
-					p.count_fortollinger = _.size(p.addArray);
+		        	   
+// 		        	console.log(month, "ADD p.addArray=", JSON.stringify(p.addArray));
+		        	 
+		        	var runningTotal = _.reduce(p.addArray,
+		        	        function (memoizer, value) {
+		        	            return memoizer + value;
+		        	        }, 0);	
+		        	
+// 		        	console.log(month, "ADD runningTotal", runningTotal);
+		        	if (runningTotal > p.count_off_vareposter) {
+		        		p.count_off_vareposter = runningTotal;
+		        	}
+
+	            	
+	            	p.count_fortollinger = _.size(p.addArray);
 	            	++p.count_reg_vareposter;	            	
 	
-// 	            	console.log("p.count_off_vareposter", p.count_off_vareposter, "p.count_fortollinger", p.count_fortollinger);	            	 
+ 	            	//console.log(month, "p.count_off_vareposter", p.count_off_vareposter);	            	 
 					
 	                return p;
 	            },
 	            /* callback for when data is removed from the current filter results */
 	            function (p, v) {
-// 	            	var date = fullDateFormat.parse(v.registreringsdato.toString());
-// 	            	var month = monthNameFormat(date);
+	            	var date = fullDateFormat.parse(v.registreringsdato.toString());
+	            	var month = monthNameFormat(date);
 // 	            	console.log("::REMOVE MONTH::",month);
 // 	            	console.log("v.dnr",v.deklarasjonsnr, "v.off_v", v.off_vareposter, "v.registreringsdato", v.registreringsdato);
 // 	            	console.log("count", p.count_reg_vareposter);
 // 	 				console.log("p.removeArray", JSON.stringify(p.removeArray));
-// 	 				console.log("p.addArray", JSON.stringify(p.addArray));
+//  	 				console.log(month, "REMOVE p.addArray", JSON.stringify(p.addArray));
 	            	
-	
-// 	 				if (v.deklarasjonsnr in p.addArray) {
-// 	            		   console.log(v.deklarasjonsnr, "in p.addArray", "p.addArray[v.deklarasjonsnr]", p.addArray[v.deklarasjonsnr], "v.off_vareposter", v.off_vareposter);
-	
-// 	   	            	if (v.deklarasjonsnr in p.removeArray) {
-// 	             	       if (p.addArray[v.deklarasjonsnr] < v.off_vareposter) {
-// 	             	    	   p.removeArray[v.deklarasjonsnr] = v.off_vareposter; 
-// 	             	       }
-// 	 	            	} else {
-// 	             		   p.removeArray[v.deklarasjonsnr] = v.off_vareposter;  
-// 	 	            	}
-	            		   
-// 	            	} else {
-// 		            		console.log("THIS SHOULD NEVER HAPPEN!!!!");
-// 	          	  		 //  p.ddArray[v.deklarasjonsnr] = v.off_vareposter;  
-// 		            }	
-	            	
-	            	if (v.deklarasjonsnr in p.addArray) {
-//             			console.log(v.deklarasjonsnr, "in p.dArray");
-            	       if (p.addArray[v.deklarasjonsnr] < v.off_vareposter) {
-            	    	   p.removeArray[v.deklarasjonsnr] = v.off_vareposter; 
-            	       }
+// 						ger inga träffar
+//            	       if (p.addArray[v.deklarasjonsnr] < v.off_vareposter) {
+//            	    	   p.removeArray[v.deklarasjonsnr] = v.off_vareposter; 
+//            	       }
+   
+           	       
+	            	if (v.deklarasjonsnr in p.removeArray) {
+	            	       if (p.removeArray[v.deklarasjonsnr] < v.off_vareposter) {
+// 	            	    	   console.log(month," REMOVE array value less than row, p.removeArray[v.deklarasjonsnr]", p.removeArray[v.deklarasjonsnr], "v.off_vareposter", v.off_vareposter, "v.deklarasjonsnr", v.deklarasjonsnr);
+	            	    	   p.removeArray[v.deklarasjonsnr] = v.off_vareposter; 
+	            	       }
 		            } else {
-	            		console.log("THIS SHOULD NEVER HAPPEN!!!!");
-          	  		   p.ddArray[v.deklarasjonsnr] = v.off_vareposter;  
-		            }	            	
-	            	
-// 	            	console.log("p.count_off_vareposter",p.count_off_vareposter, "p.removeArray[v.deklarasjonsnr]",p.removeArray[v.deklarasjonsnr] )
-	            	
-					p.count_off_vareposter -= p.removeArray[v.deklarasjonsnr];
-	            	
-// 	            	console.log("_.size(p.addArray)",_.size(p.addArray));
-// 	            	console.log("_.size(p.removeArray)",_.size(p.removeArray));
-	            	
+	            		   p.removeArray[v.deklarasjonsnr] = v.off_vareposter;  
+		            }	         	       
+           	       
+           	       
+           	       
+// 		        	console.log(month, "REMOVE p.removeArray=", JSON.stringify(p.removeArray));
+		        	 
+		        	var runningTotal = _.reduce(p.removeArray,
+		        	        function (memoizer, value) {
+		        	            return memoizer + value;
+		        	        }, 0);	
+		        	
+// 		        	console.log(month, "REMOVE runningTotal", runningTotal,"p.count_off_vareposter", p.count_off_vareposter);
+// 		        	p.count_off_vareposter = p.count_down_off_vareposter;
+
+		        	if (runningTotal > p.count_down_off_vareposter) {
+		        		p.count_down_off_vareposter = runningTotal;
+// 		        		p.count_off_vareposter -= p.count_down_off_vareposter;
+// 		        		p.count_off_vareposter -= runningTotal;
+		        	}
+           	       
+
+		        	if (runningTotal = p.count_off_vareposter) {  //special , men borde funka
+		        		p.count_off_vareposter = 0;
+		        	}
+           	       
+
+// 					p.count_off_vareposter -= p.removeArray[v.deklarasjonsnr];
+// 					p.count_off_vareposter = p.count_off_vareposter - p.count_down_off_vareposter;
+
+
 					p.count_fortollinger = _.size(p.dArray) - _.size(p.ddArray);            	
 	            	--p.count_reg_vareposter;
 	            	 
-// 	            	console.log("p.count_off_vareposter", p.count_off_vareposter, "p.count_fortollinger", p.count_fortollinger);	
+//  	            	console.log("p.count_down_off_vareposter", p.count_down_off_vareposter, "p.count_off_vareposter", p.count_off_vareposter);	
 	                
 	                return p;
 	            },
@@ -405,6 +428,7 @@ function load_data() {
 	                    count_reg_vareposter: 0, 
 	                    count_fortollinger: 0, 
 	                    count_off_vareposter: 0,  
+	                    count_down_off_vareposter: 0,  
 	                    addArray : {},
 	                    removeArray : {}
 	                };
