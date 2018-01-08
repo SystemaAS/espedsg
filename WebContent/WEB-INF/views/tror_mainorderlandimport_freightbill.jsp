@@ -614,7 +614,7 @@
 						 				<span title="dflevi"><b>30.</b>&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.levintr"/></span>
 				 					</td>
 					 				<td class="text12">
-					 					<input type="text" class="inputTextMediumBlue" name="dflevi" id="dflevi" size="21" maxlength="30" value="${model.record.dflevi}">
+					 					<input type="text" class="inputTextMediumBlue" name="dflevi" id="dflevi" size="30" maxlength="30" value="${model.record.dflevi}">
 					 				</td>
 						 			
 					 			</tr>

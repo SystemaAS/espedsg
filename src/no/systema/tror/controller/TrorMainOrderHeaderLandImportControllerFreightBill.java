@@ -1,7 +1,9 @@
 package no.systema.tror.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +42,13 @@ import no.systema.tror.util.RpgReturnResponseHandler;
 import no.systema.tror.util.manager.CodeDropDownMgr;
 import no.systema.tror.util.manager.LandImportExportManager;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaRecord;
+import no.systema.z.main.maintenance.service.MaintMainCundfService;
+import no.systema.z.main.maintenance.service.MaintMainKodtaService;
+import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
 import no.systema.tror.validator.TrorOrderFraktbrevValidator;
 import no.systema.tvinn.sad.z.maintenance.nctsexport.service.MaintNctsExportTrkodfService;
@@ -142,7 +151,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 					model.put("action", MainMaintenanceConstants.ACTION_CREATE);
 					//Here we prepare the form with default values from the "Oppdrag"
 					JsonTrorOrderHeaderRecord orderHeader = this.getOrderHedfRecord(appUser, model, null, String.valueOf(recordToValidate.getDfavd()), String.valueOf(recordToValidate.getDfopd()) );
-					this.handoverOppdragValuesToFraktbrev(recordToValidate, orderHeader);
+					this.handoverOppdragValuesToFraktbrev(appUser, recordToValidate, orderHeader);
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				}
 				
@@ -160,18 +169,145 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 
 	}
 	/**
-	 * Set default values for the end-user 
+	 * 
+	 * @param appUser
+	 * @param recordToValidate
+	 * @param orderHeader
+	 */
+	private void handoverOppdragValuesToFraktbrev(SystemaWebUser appUser, DokufDao recordToValidate, JsonTrorOrderHeaderRecord orderHeader){
+		try{
+			//some keys
+			recordToValidate.setDfsg(orderHeader.getHesg());
+			//set correct invoicee
+			this.setCorrectInvoicee(recordToValidate, orderHeader);
+			//set correct sender
+			this.setCorrectSender(appUser, recordToValidate, orderHeader);
+			
+			//parts
+			recordToValidate.setDffase(orderHeader.getHenas());
+			recordToValidate.setDfnavm(orderHeader.getHenak());
+			recordToValidate.setDfad1m(orderHeader.getHeadk1());
+			recordToValidate.setDfad3m(orderHeader.getHeadk3());
+			//other
+			recordToValidate.setDfcmn("N"); //Edifact
+			recordToValidate.setDfntla(Integer.parseInt(orderHeader.getHent())); //Merkelappar in header
+			//item lines
+			recordToValidate.setDfnt(recordToValidate.getDfntla());
+			recordToValidate.setDfgm(orderHeader.getHegm1());
+			recordToValidate.setDfgm2(orderHeader.getHegm2());
+			recordToValidate.setDfvs(orderHeader.getHevs1());
+			recordToValidate.setDfvs2(orderHeader.getHevs2());
+			
+			if(strMgr.isNotNull(orderHeader.getHevkt())){
+				recordToValidate.setDfvkt(Integer.parseInt(orderHeader.getHevkt()));
+			}
+			if(strMgr.isNotNull(orderHeader.getHem3())){
+				recordToValidate.setDfm3(BigDecimal.valueOf(Double.parseDouble(orderHeader.getHem3()))); 
+			}
+			if(strMgr.isNotNull(orderHeader.getHelm())){
+				recordToValidate.setDflm(BigDecimal.valueOf(Double.parseDouble(orderHeader.getHelm()))); 
+			}
+			
+		}catch (Exception e){
+			logger.info("Handover ERROR some where...(BigDecimals, Integers ?)" + e.toString());
+		}
+	}
+	/**
+	 * 
+	 * @param appUser
+	 * @param recordToValidate
+	 * @param orderHeader
+	 */
+	private void setCorrectSender(SystemaWebUser appUser, DokufDao recordToValidate, JsonTrorOrderHeaderRecord orderHeader){
+		Collection<JsonMaintMainKodtaRecord> list = new ArrayList<JsonMaintMainKodtaRecord>();
+		//prepare the access CGI with RPG back-end
+		
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFA14R_GET_LIST_URL;
+		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&koaavd=" + orderHeader.getHeavd();
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		//debugger
+		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+    	if(jsonPayload!=null){
+    		JsonMaintMainKodtaContainer container = this.maintMainKodtaService.getList(jsonPayload);
+    		String kundnr = "";
+    		String firma = "";
+    		
+    		if(container!=null){
+    			list = container.getList();
+    			for(JsonMaintMainKodtaRecord  record : list){
+    				kundnr = record.getKoaknr();
+    				firma = record.getKoafir();
+    				break;
+    			}
+    		}
+    		//-------------------------------------------
+    		//Now get all info of the specific kund nr.
+    		//-------------------------------------------
+    		BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYCUNDFR_GET_LIST_URL;
+    		StringBuilder urlRequestParams = new StringBuilder();
+    		urlRequestParams.append("user=" + appUser.getUser());
+    		if (kundnr != null && firma != null) {
+    			urlRequestParams.append("&kundnr=" + kundnr);
+    			urlRequestParams.append("&firma=" + firma);
+    			//
+    			logger.info("URL: " + BASE_URL);
+        		logger.info("PARAMS: " + urlRequestParams.toString());
+        		jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+        		Collection<JsonMaintMainCundfRecord> cundfList = new ArrayList<JsonMaintMainCundfRecord>();
+        		if (jsonPayload != null) {
+        			JsonMaintMainCundfContainer containerCundf = this.maintMainCundfService.getList(jsonPayload);
+        			if (container != null) {
+        				for(JsonMaintMainCundfRecord  record : containerCundf.getList()){
+        					recordToValidate.setDfknss(Integer.valueOf(record.getKundnr()) ); 
+        					recordToValidate.setDfnavs(record.getKnavn());
+        					recordToValidate.setDfad1s(record.getAdr1());
+        					recordToValidate.setDfad3s(record.getAdr3());
+        					if( strMgr.isNotNull(record.getPostnr()) ){
+        						recordToValidate.setDfpnls(Integer.valueOf(record.getPostnr()) );
+        					}
+        					break;
+        				}
+       
+        			}
+        		}
+    			
+    		}
+
+    		
+    	}
+	}
+	
+	/**
 	 * 
 	 * @param recordToValidate
 	 * @param orderHeader
 	 */
-	private void handoverOppdragValuesToFraktbrev(DokufDao recordToValidate, JsonTrorOrderHeaderRecord orderHeader){
-		recordToValidate.setDffase(orderHeader.getHenas());
-		recordToValidate.setDfnavm(orderHeader.getHenak());
-		recordToValidate.setDfad1m(orderHeader.getHeadk1());
-		recordToValidate.setDfad3m(orderHeader.getHeadk3());
-		//TODO more ...!
+	private void setCorrectInvoicee(DokufDao recordToValidate, JsonTrorOrderHeaderRecord orderHeader){
+		//source values
+		String INVOICEE_X_FLAG_FROM_ORDER = "X";
+		//target values
+		String INVOICEE_IS_SELGER = "S";
+		String INVOICEE_IS_MOTTAKER = "M";
+		String INVOICEE_IS_ANNEN = "A";
 		
+		
+		//CHECK if BOTH where selected and pick the one not-having "X"
+		String sellerFlagFromOrder = orderHeader.getHekdfs();
+		String buyerFlagFromOrder = orderHeader.getHekdfk();
+		
+		if( INVOICEE_X_FLAG_FROM_ORDER.equals(sellerFlagFromOrder) && INVOICEE_X_FLAG_FROM_ORDER.equals(buyerFlagFromOrder) ){
+			recordToValidate.setDfbela(INVOICEE_IS_ANNEN);
+			
+		}else{
+			//default
+			recordToValidate.setDfbela(INVOICEE_IS_MOTTAKER);
+
+			//now let's see if we can override the default
+			if (INVOICEE_X_FLAG_FROM_ORDER.equals(buyerFlagFromOrder)){
+				recordToValidate.setDfbela(INVOICEE_IS_SELGER);
+			}
+		}
 	}
 	
 	/**
@@ -400,6 +536,21 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	@Required
 	public void setTrorMainOrderHeaderLandimportService (TrorMainOrderHeaderLandimportService value){ this.trorMainOrderHeaderLandimportService = value; }
 	public TrorMainOrderHeaderLandimportService getTrorMainOrderHeaderLandimportService(){ return this.trorMainOrderHeaderLandimportService; }
+	
+	
+	@Qualifier ("maintMainKodtaService")
+	private MaintMainKodtaService maintMainKodtaService;
+	@Autowired
+	@Required
+	public void setMaintMainKodtaService (MaintMainKodtaService value){ this.maintMainKodtaService = value; }
+	public MaintMainKodtaService getMaintMainKodtaService(){ return this.maintMainKodtaService; }
+	
+	@Qualifier ("maintMainCundfService")
+	private MaintMainCundfService maintMainCundfService;
+	@Autowired
+	@Required
+	public void setMaintMainCundfService (MaintMainCundfService value){ this.maintMainCundfService = value; }
+	public MaintMainCundfService getMaintMainCundfService(){ return this.maintMainCundfService; }
 	
 	
 }
