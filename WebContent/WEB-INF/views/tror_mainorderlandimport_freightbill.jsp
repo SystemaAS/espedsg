@@ -267,7 +267,16 @@
  											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
  										</a>
 					 				</td>
-					 				<td class="text14" ><input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="dftoll" id="dftoll" size="5" maxlength="4" value="${model.record.dftoll}"></td>
+					 				<td class="text14" >
+					 					<c:choose>
+						 				<c:when test="${'0' != model.record.dftoll}">
+				 							<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="dftoll" id="dftoll" size="5" maxlength="4" value="${model.record.dftoll}">
+				 						</c:when>
+				 						<c:otherwise>
+				 							<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="dftoll" id="dftoll" size="5" maxlength="4" value="">
+				 						</c:otherwise>
+				 						</c:choose>
+					 				</td>
 					 				<td width="20px" class="text14" >&nbsp;</td>
 					 				<td class="text14"><span title="dfcmn"><spring:message code="systema.tror.fraktbrev.form.update.label.edifact"/></span></td>
 					 				<td class="text14" >
@@ -427,7 +436,16 @@
 					 				</td>	
 					 			</tr>
 					 			<tr>	
-				 					<td class="text12"><input type="text" class="inputTextMediumBlue" name="dfknsm" id="dfknsm" size="10" maxlength="8" value="${model.record.dfknsm}"></td>
+				 					<td class="text12">
+				 						<c:choose>
+						 				<c:when test="${'0' != model.record.dfknsm}">
+				 							<input type="text" class="inputTextMediumBlue" name="dfknsm" id="dfknsm" size="10" maxlength="8" value="${model.record.dfknsm}">
+				 						</c:when>
+				 						<c:otherwise>
+				 							<input type="text" class="inputTextMediumBlue" name="dfknsm" id="dfknsm" size="10" maxlength="8" value="">
+				 						</c:otherwise>
+				 						</c:choose>
+				 					</td>
 				 					<td class="text12" ><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="whenak" id="whenak" size="50" value="${XXmodel.record.heknkNavn}&nbsp;-&nbsp;${XXmodel.record.heknkPnSt}"></td>
 				 				</tr>
 				 				<tr height="5"><td ></td></tr>
@@ -491,7 +509,17 @@
 		 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 		 										</a>
 							 				</td>
-							 				<td class="text12" ><input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dftran" id="dftran" size="9" maxlength="8" value="${model.record.dftran}"></td>
+							 				<td class="text12" >
+							 					<c:choose>
+								 				<c:when test="${'0' != model.record.dftran}">
+						 							<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dftran" id="dftran" size="9" maxlength="8" value="${model.record.dftran}">
+						 						</c:when>
+						 						<c:otherwise>
+						 							<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dftran" id="dftran" size="9" maxlength="8" value="">
+						 						</c:otherwise>
+						 						</c:choose>
+							 				</td>
+							 				
 						 					<td class="text12">&nbsp;<span title="dfnat"><spring:message code="systema.tror.fraktbrev.form.update.label.carrier.name"/>&nbsp;</span></td>
 							 				<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfnat" id="dfnat" size="21" maxlength="20" value="${model.record.dfnat}"></td>
 							 				<td class="text12">&nbsp;<span title="dfknm"><b>23.</b>&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.carrier.kundnr.transport"/>&nbsp;</span></td>
@@ -551,7 +579,15 @@
 						 				</tr>
 						 				<tr>	
 						 					<td colspan="2" class="text12" >
-						 						<input  onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfpoul" id="dfpoul" size="5" maxlength="4" value="${model.record.dfpoul}">
+						 						<c:choose>
+								 				<c:when test="${'0' != model.record.dfpoul}">
+						 							<input  onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfpoul" id="dfpoul" size="5" maxlength="4" value="${model.record.dfpoul}">
+						 						</c:when>
+						 						<c:otherwise>
+						 							<input  onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfpoul" id="dfpoul" size="5" maxlength="4" value="">
+						 						</c:otherwise>
+						 						</c:choose>
+						 						
 						 						<input  type="text" class="inputTextMediumBlue" name="dfadul" id="dfadul" size="25" maxlength="25" value="${model.record.dfadul}">
 						 					</td>
 					 					</tr>
@@ -584,7 +620,15 @@
 					 					<input type="text" class="inputTextMediumBlue" name="dffvcu" id="dffvcu" size="4" maxlength="3" value="${model.record.dffvcu}">
 					 				</td>
 						 			<td class="text12">
-					 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dffvbl" id="dffvbl" size="12" maxlength="11" value="${fn:replace(model.record.dffvbl,'.',',')}"> 
+						 				<c:choose>
+						 				<c:when test="${'0' != model.record.dffvbl}">
+				 							<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dffvbl" id="dffvbl" size="12" maxlength="11" value="${fn:replace(model.record.dffvbl,'.',',')}">
+				 						</c:when>
+				 						<c:otherwise>
+				 							<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dffvbl" id="dffvbl" size="12" maxlength="11" value="">
+				 						</c:otherwise>
+				 						</c:choose>
+				 						
 					 				</td>
 					 				<td class="text12">
 						 				<span title="dffvcu"><spring:message code="systema.tror.fraktbrev.form.update.label.category"/></span>
@@ -624,14 +668,29 @@
 						 				<span title="dfnteu"><b>12.</b>&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.utv.pll"/></span>
 				 					</td>
 					 				<td class="text12">
-					 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfnteu" id="dfnteu" size="4	" maxlength="2" value="${model.record.dfnteu}">
+					 					<c:choose>
+						 				<c:when test="${'0' != model.record.dfnteu}">
+				 							<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfnteu" id="dfnteu" size="4	" maxlength="2" value="${model.record.dfnteu}">
+				 						</c:when>
+				 						<c:otherwise>
+				 							<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfnteu" id="dfnteu" size="4	" maxlength="2" value="">
+				 						</c:otherwise>
+				 						</c:choose>
+					 					
 					 				</td>
 						 			<td class="text12">&nbsp;</td>
 						 			<td class="text12">
 						 				<span title="dfntau"><b>13.</b>&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.andre.pll"/></span>
 				 					</td>
 					 				<td class="text12">
-					 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfntau" id="dfntau" size="5" maxlength="2" value="${model.record.dfntau}">
+					 					<c:choose>
+						 				<c:when test="${'0' != model.record.dfntau}">
+				 							<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfntau" id="dfntau" size="5" maxlength="2" value="${model.record.dfntau}">
+				 						</c:when>
+				 						<c:otherwise>
+				 							<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfntau" id="dfntau" size="5" maxlength="2" value="">
+				 						</c:otherwise>
+				 						</c:choose>
 					 				</td>
 					 				<td class="text12">
 						 				<span title="dfbele">Oppkravs Beløp</span>&nbsp;
@@ -758,7 +817,14 @@
 									 					<input type="text" class="inputTextMediumBlue11" name="dfvs2" id="dfvs2" size="30" maxlength="25" value="${ model.record.dfvs2 }">
 									 				</td>
 									 				<td align="right" class="tableCell">
-									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfvktf" id="dfvktf" size="10" maxlength="9" value="${model.record.dfvktf}">
+									 					<c:choose>
+										 				<c:when test="${'0' != model.record.dfvktf}">
+								 							<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfvktf" id="dfvktf" size="10" maxlength="9" value="${model.record.dfvktf}">
+								 						</c:when>
+								 						<c:otherwise>
+								 							<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfvktf" id="dfvktf" size="10" maxlength="9" value="">
+								 						</c:otherwise>
+								 						</c:choose>
 									 				</td>
 									 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
 									 				<td align="right" class="tableCell" nowrap>&nbsp;</td>

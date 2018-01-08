@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
 import no.systema.jservices.common.dao.DokufDao;
+import no.systema.jservices.common.dao.FaktDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
 import no.systema.main.model.SystemaWebUser;
@@ -144,13 +145,15 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 				logger.info("FETCH branch");
 				DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
 				if(record!=null && strMgr.isNotNull(record.getDf1004())){
+					//get invoice data (currency & amount
+					this.getInvoiceAmount(appUser, record, model);
 					model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 				}else{
 					//User will prepare the view for a future create-new fraktbrev. 
 					model.put("action", MainMaintenanceConstants.ACTION_CREATE);
 					//Here we prepare the form with default values from the "Oppdrag"
-					JsonTrorOrderHeaderRecord orderHeader = this.getOrderHedfRecord(appUser, model, null, String.valueOf(recordToValidate.getDfavd()), String.valueOf(recordToValidate.getDfopd()) );
+					JsonTrorOrderHeaderRecord orderHeader = this.getOrderHeadfRecord(appUser, model, null, String.valueOf(recordToValidate.getDfavd()), String.valueOf(recordToValidate.getDfopd()) );
 					this.handoverOppdragValuesToFraktbrev(appUser, recordToValidate, orderHeader);
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				}
@@ -168,6 +171,47 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		}
 
 	}
+	
+	private void getInvoiceAmount(SystemaWebUser appUser, DokufDao dokufDao, Map model){
+		//===========
+		//FETCH LIST
+		//===========
+		JsonReader<JsonDtoContainer<FaktDao>> jsonReader = new JsonReader<JsonDtoContainer<FaktDao>>();
+		jsonReader.set(new JsonDtoContainer<FaktDao>());
+		
+		 logger.info("Inside: getInvoiceAmount");
+		 //prepare the access CGI with RPG back-end
+		 String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_FAKTR_URL;
+		 StringBuffer urlRequestParamsKeys = new StringBuffer();
+		 urlRequestParamsKeys.append("user=" + appUser.getUser());
+		 urlRequestParamsKeys.append("&faavd=" + dokufDao.getDfavd() + "&faopd=" + dokufDao.getDfopd() + "&fafrbn=" + dokufDao.getDffbnr());
+		 
+		 logger.info("URL: " + BASE_URL);
+		 logger.info("PARAMS: " + urlRequestParamsKeys);
+		 logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		 
+		 List<FaktDao> daoList = new ArrayList<FaktDao>();
+		 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys.toString());
+		 logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		 
+		 if(jsonPayload!=null){
+		 	try{
+		 		JsonDtoContainer<FaktDao> container = (JsonDtoContainer<FaktDao>) jsonReader.get(jsonPayload);
+				if(container!=null){
+					for(FaktDao record : container.getDtoList()){
+						model.put("ownInvoiceCurrency", record.getFaval());
+						model.put("ownInvoiceAmount", record.getFabeln());
+						logger.info(record.getFaval() + " " + record.getFabeln());
+						
+					}
+				}
+				
+		 	}catch(Exception e){
+		 		e.printStackTrace();
+		 	}
+		 }
+	}
 	/**
 	 * 
 	 * @param appUser
@@ -178,16 +222,23 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		try{
 			//some keys
 			recordToValidate.setDfsg(orderHeader.getHesg());
-			//set correct invoicee
-			this.setCorrectInvoicee(recordToValidate, orderHeader);
-			//set correct sender
+			//-------
+			//PARTS
+			//-------
+			//set correct Sender
 			this.setCorrectSender(appUser, recordToValidate, orderHeader);
-			
-			//parts
+			//set correct Invoicee
+			this.setCorrectInvoicee(recordToValidate, orderHeader);
+			//Mottaker
 			recordToValidate.setDffase(orderHeader.getHenas());
+			if(strMgr.isNotNull(orderHeader.getHeknk())){
+				recordToValidate.setDfknsm(Integer.parseInt(orderHeader.getHeknk()));
+			}
 			recordToValidate.setDfnavm(orderHeader.getHenak());
 			recordToValidate.setDfad1m(orderHeader.getHeadk1());
 			recordToValidate.setDfad3m(orderHeader.getHeadk3());
+			//end PARTS
+			
 			//other
 			recordToValidate.setDfcmn("N"); //Edifact
 			recordToValidate.setDfntla(Integer.parseInt(orderHeader.getHent())); //Merkelappar in header
@@ -319,7 +370,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	 * @param heopd
 	 * @return
 	 */
-	public JsonTrorOrderHeaderRecord getOrderHedfRecord(SystemaWebUser appUser, Map model, JsonMainOrderTypesNewRecord orderTypes, String heavd, String heopd ){
+	public JsonTrorOrderHeaderRecord getOrderHeadfRecord(SystemaWebUser appUser, Map model, JsonMainOrderTypesNewRecord orderTypes, String heavd, String heopd ){
 		JsonTrorOrderHeaderRecord record = new JsonTrorOrderHeaderRecord();
 			
 		final String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_SPECIFIC_ORDER_URL;

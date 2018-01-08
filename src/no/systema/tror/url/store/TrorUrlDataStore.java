@@ -62,6 +62,9 @@ public class TrorUrlDataStore {
 	 */
 	static public String TROR_BASE_FETCH_DOKUF_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKUF.do?";
 	
+	//http://gw.systema.no:8080/syjservicesbcore/syjsFAKTR.do?user=OSCAR&faavd=1&faopd=184&fafrbn=1
+	static public String TROR_BASE_FETCH_FAKTR_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsFAKTR.do?";
+	
 	
 	/**
 	//[2.1] Message Note management (Consignee, Carrier, Internal)
