@@ -62,7 +62,7 @@ var colorMap = {
         "off_vp": "#f19411"
     };	
 
-//Preload desc for avdeling, merknader, signatur
+//Preload desc for avdeling, merknader
 d3.queue()
 	.defer(function(merknaderDescUrl, callback) {
 			d3.json(merknaderDescUrl, function(error, data) {
@@ -124,26 +124,26 @@ d3.queue()
 				
 			})
 	 }, signaturerDescUrl)	
-	.defer(function(avsnittDescUrl, callback) {
-			d3.json(avsnittDescUrl, function(error, data) {
-				if (error) {
-					jq.unblockUI();
-				}
+// 	.defer(function(avsnittDescUrl, callback) {
+// 			d3.json(avsnittDescUrl, function(error, data) {
+// 				if (error) {
+// 					jq.unblockUI();
+// 				}
 
-				callback(error, data);
+// 				callback(error, data);
 
-				if (data.dtoList == '') {
-					jq.unblockUI();
-					alert('Ingen data for avsnitt.');  
-					return "no data found";
-				} else {
-					avsnitter = data.dtoList;
-				}
+// 				if (data.dtoList == '') {
+// 					jq.unblockUI();
+// 					alert('Ingen data for avsnitt.');  
+// 					return "no data found";
+// 				} else {
+// 					avsnitter = data.dtoList;
+// 				}
 				
-				//console.log(" 1 Desc XV="+_.findWhere(avsnitter,{sadkaa02:'XV'}).sadkaa03);		
+// 				//console.log(" 1 Desc XV="+_.findWhere(avsnitter,{sadkaa02:'XV'}).sadkaa03);		
 				
-			})
-	 }, avsnittDescUrl)		 
+// 			})
+// 	 }, avsnittDescUrl)		 
 	.awaitAll(function(error, data) { 
 			if (error) console.log("error",error);
 	});
@@ -180,14 +180,14 @@ function getSignaturDesc(id) {
 
 }
 
-function getAvsnittDesc(id) {
-	var desc =  _.findWhere(avsnitter,{sadkaa02:id});		
-	if (desc != null && desc != "") {
-		return desc.sadkaa03;
-	} else {
-		return "["+id+" ikke funnet.]";		
-	}
-}
+// function getAvsnittDesc(id) {
+// 	var desc =  _.findWhere(avsnitter,{sadkaa02:id});		
+// 	if (desc != null && desc != "") {
+// 		return desc.sadkaa03;
+// 	} else {
+// 		return "["+id+" ikke funnet.]";		
+// 	}
+// }
 
 function popItUp(url) {
 	 var myWindow = window.open(url, "", "top=200px,left=1000px,height=700px,width=1100px,scrollbars=no,status=no,location=no");
@@ -249,13 +249,14 @@ function load_data() {
 		  d.month = monthNameFormat(d.date);
 		  d.avdeling = d.avdeling;
 		  d.deklarasjonsnr= d.deklarasjonsnr;
+		  d.reg_vareposter = +d.reg_vareposter;
 		  d.off_vareposter = +d.off_vareposter;
 		  d.registreringsdato = +d.registreringsdato; 
 		  d.deklarasjonsdato = +d.deklarasjonsdato;
 		  d.signatur =   d.signatur;
 		  d.mottaker =   d.mottaker;
 		  d.edim =   d.edim;
-		  d.avsnitt = d.avsnitt;
+// 		  d.avsnitt = d.avsnitt;
 		  d.inputtype = d.inputtype;
 		});
 
@@ -272,7 +273,7 @@ function load_data() {
 		var  sisgDim  = toll.dimension(function(d) {return d.signatur;});
 		var  typeDim  = toll.dimension(function(d) {return d.type;});
 		var  edimDim  = toll.dimension(function(d) {return d.edim;});
-		var  avsnittDim  = toll.dimension(function(d) {return d.avsnitt;});
+// 		var  avsnittDim  = toll.dimension(function(d) {return d.avsnitt;});
 	    var  openDaysDim = toll.dimension(function (d) {
 		        var deklDato = d.deklarasjonsdato;
 		        var regDato = d.registreringsdato;
@@ -305,7 +306,7 @@ function load_data() {
 		var  sisgChart   = dc.pieChart('#chart-ring-sisg');
 		var  edimChart   = dc.pieChart('#chart-ring-edim');
 		var  inputTypeChart   = dc.pieChart('#chart-ring-inputtype');
-		var  avsnittChart   = dc.pieChart('#chart-ring-avsnitt'); 
+// 		var  avsnittChart   = dc.pieChart('#chart-ring-avsnitt'); 
 		var  openDaysChart   = dc.pieChart('#chart-ring-opendays');
 		var  varuposterChart = dc.barChart("#chart-varuposter");
 		var  dataCount = dc.dataCount('#data-count')	 
@@ -314,160 +315,87 @@ function load_data() {
 		var  antalloff_vareposterDisplay = dc.numberDisplay("#antalloff_vareposter");	
 		var  dcDataTable;
 		//Groups
-		var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.deklarasjonsnr;});
-		var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.deklarasjonsnr;});
-		var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.deklarasjonsnr;});
-		var  typeDimGroup = typeDim.group().reduceSum(function(d) {return d.deklarasjonsnr;});
-		var  edimDimGroup = edimDim.group().reduceSum(function(d) {return d.deklarasjonsnr;});
-		var  avsnittDimGroup = avsnittDim.group().reduceSum(function(d) {return d.deklarasjonsnr;});
-		var  inputTypeDimGroup = inputTypeDim.group().reduceSum(function(d) {return d.deklarasjonsnr;});
-		var  openDaysDimGroup = openDaysDim.group().reduceSum(function(d) {return d.deklarasjonsnr;});
+		var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+		var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+		var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+		var  typeDimGroup = typeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+		var  edimDimGroup = edimDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+// 		var  avsnittDimGroup = avsnittDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+		var  inputTypeDimGroup = inputTypeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+		var  openDaysDimGroup = openDaysDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		//Group reduce
-	    var monthDimGroup =  monthDim.group().reduce(   
-	            /* callback for when data is added to the current filter results */
-	            function (p, v) {
-	            	var date = fullDateFormat.parse(v.registreringsdato.toString());
-	            	var month = monthNameFormat(date);
-// 	            	console.log("::ADD MONTH::",month);
-// 	            	console.log("v.dnr",v.deklarasjonsnr, "v.off_v", v.off_vareposter, "v.registreringsdato", v.registreringsdato);
-// 	            	console.log("count", p.count_reg_vareposter);
-	            	
-	            	if (v.deklarasjonsnr in p.addArray) {
-            	       if (p.addArray[v.deklarasjonsnr] < v.off_vareposter) {
-//             	    	   console.log(month," ADD array value less than row, p.addArray[v.deklarasjonsnr]", p.addArray[v.deklarasjonsnr], "v.off_vareposter", v.off_vareposter, "v.deklarasjonsnr", v.deklarasjonsnr);
-            	    	   p.addArray[v.deklarasjonsnr] = v.off_vareposter; 
-            	       }
-	            	} else {
-            		   p.addArray[v.deklarasjonsnr] = v.off_vareposter;  
-	            	}						
-
-		        	   
-// 		        	console.log(month, "ADD p.addArray=", JSON.stringify(p.addArray));
-		        	 
-		        	var runningTotal = _.reduce(p.addArray,
-		        	        function (memoizer, value) {
-		        	            return memoizer + value;
-		        	        }, 0);	
-		        	
-// 		        	console.log(month, "ADD runningTotal", runningTotal);
-		        	if (runningTotal > p.count_off_vareposter) {
-		        		p.count_off_vareposter = runningTotal;
-		        	}
-
-	            	
-	            	p.count_fortollinger = _.size(p.addArray);
-	            	++p.count_reg_vareposter;	            	
-	
- 	            	//console.log(month, "p.count_off_vareposter", p.count_off_vareposter);	            	 
-					
-	                return p;
-	            },
-	            /* callback for when data is removed from the current filter results */
-	            function (p, v) {
-	            	var date = fullDateFormat.parse(v.registreringsdato.toString());
-	            	var month = monthNameFormat(date);
-// 	            	console.log("::REMOVE MONTH::",month);
-// 	            	console.log("v.dnr",v.deklarasjonsnr, "v.off_v", v.off_vareposter, "v.registreringsdato", v.registreringsdato);
-// 	            	console.log("count", p.count_reg_vareposter);
-// 	 				console.log("p.removeArray", JSON.stringify(p.removeArray));
-//  	 				console.log(month, "REMOVE p.addArray", JSON.stringify(p.addArray));
-	            	
-// 						ger inga träffar
-//            	       if (p.addArray[v.deklarasjonsnr] < v.off_vareposter) {
-//            	    	   p.removeArray[v.deklarasjonsnr] = v.off_vareposter; 
-//            	       }
-   
-           	       
-	            	if (v.deklarasjonsnr in p.removeArray) {
-	            	       if (p.removeArray[v.deklarasjonsnr] < v.off_vareposter) {
-// 	            	    	   console.log(month," REMOVE array value less than row, p.removeArray[v.deklarasjonsnr]", p.removeArray[v.deklarasjonsnr], "v.off_vareposter", v.off_vareposter, "v.deklarasjonsnr", v.deklarasjonsnr);
-	            	    	   p.removeArray[v.deklarasjonsnr] = v.off_vareposter; 
-	            	       }
-		            } else {
-	            		   p.removeArray[v.deklarasjonsnr] = v.off_vareposter;  
-		            }	         	       
-           	       
-           	       
-           	       
-// 		        	console.log(month, "REMOVE p.removeArray=", JSON.stringify(p.removeArray));
-		        	 
-		        	var runningTotal = _.reduce(p.removeArray,
-		        	        function (memoizer, value) {
-		        	            return memoizer + value;
-		        	        }, 0);	
-		        	
-// 		        	console.log(month, "REMOVE runningTotal", runningTotal,"p.count_off_vareposter", p.count_off_vareposter);
-// 		        	p.count_off_vareposter = p.count_down_off_vareposter;
-
-		        	if (runningTotal > p.count_down_off_vareposter) {
-		        		p.count_down_off_vareposter = runningTotal;
-// 		        		p.count_off_vareposter -= p.count_down_off_vareposter;
-// 		        		p.count_off_vareposter -= runningTotal;
-		        	}
-           	       
-
-		        	if (runningTotal = p.count_off_vareposter) {  //special , men borde funka
-		        		p.count_off_vareposter = 0;
-		        	}
-           	       
-
-// 					p.count_off_vareposter -= p.removeArray[v.deklarasjonsnr];
-// 					p.count_off_vareposter = p.count_off_vareposter - p.count_down_off_vareposter;
-
-
-					p.count_fortollinger = _.size(p.dArray) - _.size(p.ddArray);            	
-	            	--p.count_reg_vareposter;
-	            	 
-//  	            	console.log("p.count_down_off_vareposter", p.count_down_off_vareposter, "p.count_off_vareposter", p.count_off_vareposter);	
-	                
-	                return p;
-	            },
-	            /* initialize p */
-	            function () {
-	                return {
-	                    count_reg_vareposter: 0, 
-	                    count_fortollinger: 0, 
-	                    count_off_vareposter: 0,  
-	                    count_down_off_vareposter: 0,  
-	                    addArray : {},
-	                    removeArray : {}
-	                };
-	            }
-	    );  	
-
-		
-	    var omsetningsGroup =  tollAllDim.group().reduce(  
+	    var dateDimGroup =  dateDim.group().reduce(   
 	            /* callback for when data is added to the current filter results */
 	            function (p, v) {
 	                ++p.count;
-	                if(p._deklnr != v.deklarasjonsnr) {  //head
-	                	++p.count_fortollinger;
-	                	p._deklnr = v.deklarasjonsnr;
-	                } 
-	                
+	                p.sum_reg_vareposter += v.reg_vareposter;   
+	                p.sum_off_vareposter  += v.off_vareposter;    
 	                return p;
 	            },
 	            /* callback for when data is removed from the current filter results */
 	            function (p, v) {
 	                --p.count;
-	                p._deklnr = 0;
-	                if(p._deklnr != v.deklarasjonsnr) {  //head
-	                	--p.count_fortollinger;
-	                	p._deklnr = v.deklarasjonsnr;
-	                } 
-	                
+	                p.sum_reg_vareposter -= v.reg_vareposter;   
+	                p.sum_off_vareposter -= v.off_vareposter;   
 	                return p;
 	            },
 	            /* initialize p */
 	            function () {
 	                return {
-	                    count: 0,  //reg_vareposter
-	                    count_fortollinger: 0, //antall fortollinger
-	                    _deklnr: 0,
+	                    count: 0,
+	                    sum_reg_vareposter: 0,
+	                    sum_off_vareposter: 0
 	                };
 	            }
 	    );  
-	    
+		
+	    var monthDimGroup =  monthDim.group().reduce(   
+	            function (p, v) {
+	                ++p.count;
+	                p.sum_reg_vareposter += v.reg_vareposter;   
+	                p.sum_off_vareposter  += v.off_vareposter;     
+	                return p;
+	            },
+	            function (p, v) {
+	                --p.count;
+	                p.sum_reg_vareposter -= v.reg_vareposter;   
+	                p.sum_off_vareposter  -= v.off_vareposter;     
+	                return p;
+	            },
+	            function () {
+	                return {
+	                    count: 0,
+	                    sum_reg_vareposter: 0,
+	                    sum_off_vareposter: 0
+	                };
+	            }
+	    );  	
+		
+	    var omsetningsGroup =  tollAllDim.group().reduce(  
+	            /* callback for when data is added to the current filter results */
+	            function (p, v) {
+	                ++p.count;
+	                p.sum_reg_vareposter += v.reg_vareposter;   
+	                p.sum_off_vareposter  += v.off_vareposter;
+	                return p;
+	            },
+	            /* callback for when data is removed from the current filter results */
+	            function (p, v) {
+	                --p.count;
+	                p.sum_reg_vareposter -= v.reg_vareposter; 
+	                p.sum_off_vareposter -= v.off_vareposter;   
+	                return p;
+	            },
+	            /* initialize p */
+	            function () {
+	                return {
+	                    count: 0,
+	                    sum_reg_vareposter: 0,
+	                    sum_off_vareposter: 0
+	                };
+	            }
+	    );  
+	  
 		typeChart
 		    .width(300)
 		    .height(300)
@@ -503,7 +431,7 @@ function load_data() {
 	                percentageFormat(percentage)
 	            ].join('\n');	
 		});			
-		
+/*		
 		avsnittChart
 		    .width(300)
 		    .height(300)
@@ -538,7 +466,7 @@ function load_data() {
 	                percentageFormat(percentage)
 	            ].join('\n');		
 		});			
-	
+*/	
 		openDaysChart 
 		    .width(300)
 		    .height(300)
@@ -714,77 +642,24 @@ function load_data() {
 		     .group(omsetningsGroup)  
 		     .formatNumber(d3.format(".g"))
 			 .valueAccessor(function (p) {
-			    var count_fortollinger = getCountFortollinger();
-				 
-// 		     	console.log("count_fortollinger",count_fortollinger);
-					 
-// 		     	var arrayOfObjects = [
-// 		     	    {car: 'Ford', model: 'Figo', color: 'red'},     
-// 		     	    {car: 'Honda', model: 'CRV', color: 'green'}, 
-// 		     	    {car: 'Ford', model: 'EcoSport', color: 'red'} ]; 
-// 		     	var  carss = _.where(arrayOfObjects, {color: 'red'});
-// 		     	console.log("carss",carss);
-// 		     	var yy = _.countBy(arrayOfObjects, function(currentObject) {  return currentObject.car; });
-// 		     	console.log("yy",yy);
-
-				 return count_fortollinger;  
-			 
-			 
-			 });
-
-		
-		function getCountFortollinger() {
-			var data = tollAllDim.top(Infinity);
-	        var filteredData = data.map(function(obj) {
-	            return {off_vareposter: obj.off_vareposter, deklarasjonsnr: obj.deklarasjonsnr, registreringsdato: obj.registreringsdato};
-	        });
-	     	var prevDeklnr = 0;
-	     	var count_fortollinger = 0;
-
-	     	_.each(filteredData, function(d) {
-				if (d.deklarasjonsnr != prevDeklnr) {
-					++count_fortollinger;
- 					prevDeklnr = d.deklarasjonsnr;
-				}
-				
-			 });	
-	     	
-	     	return count_fortollinger;
-			
-		}
-		
-		antalloff_vareposterDisplay
-			.group(omsetningsGroup)  
-			.formatNumber(d3.format(".g"))
-			.valueAccessor(function (p) {
-		        var data = tollAllDim.top(Infinity);
-		        var filteredData = data.map(function(obj) {
-		            return {off_vareposter: obj.off_vareposter, deklarasjonsnr: obj.deklarasjonsnr, registreringsdato: obj.registreringsdato};
-		        });
-		     	var prevDeklnr = 0;
-		     	var sum_off_vareposter = 0;
-		     	
-		     	_.each(filteredData, function(d) {
-					if (d.deklarasjonsnr != prevDeklnr) {
-						var deklnrGroup = _.where(filteredData, {deklarasjonsnr: d.deklarasjonsnr});
-						var maxOffVpRowForDeklnr = _.max(deklnrGroup, function(deklrRow){ return deklrRow.off_vareposter; });
-						var maxOffVp = maxOffVpRowForDeklnr.off_vareposter;
-						sum_off_vareposter = sum_off_vareposter + maxOffVp;
-						prevDeklnr = d.deklarasjonsnr;
-					}
-					
-				 });	
-		     	
-			    return sum_off_vareposter;
-		});			
+				 return p.value.count;
+			  });
 		
 		antallreg_vareposterDisplay
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.valueAccessor(function (p) {
-					return p.value.count;
+					return p.value.sum_reg_vareposter;
 			});
 		
+		antalloff_vareposterDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.valueAccessor(function (p) {
+					return p.value.sum_off_vareposter;
+			});	
+
+
 		varuposterChart
 			.width(1200)
 			.height(500)
@@ -814,27 +689,28 @@ function load_data() {
 			.renderHorizontalGridLines(true)
 			.renderTitle(true)
 			.title(function (d) {
-				var diffPercentage = ((d.value.count_reg_vareposter - d.value.count_off_vareposter )  / d.value.count_reg_vareposter );
+				var diffPercentage = ((d.value.sum_reg_vareposter - d.value.sum_off_vareposter )  / d.value.sum_reg_vareposter );
 			   	 return [
 			   		 d.key.substr(3) + ':',
-			   			'Fortollinger:' + d.value.count_fortollinger, 
-			   		    'Offisielle varuposter: ' + d.value.count_off_vareposter,  
-			            'Registrerte varuposter: ' + d.value.count_reg_vareposter , 
-			            'Sammenslåtte varuposter: ' + percentageFormat(diffPercentage)  
+			   			'Fortollinger: ' + d.value.count,
+			   		    'Offisielle varuposter: ' + d.value.sum_off_vareposter,
+			            'Registrerte varuposter: ' + d.value.sum_reg_vareposter ,
+			            'Sammenslåtte varuposter: ' + percentageFormat(diffPercentage)
 			        ].join('\n');
 			})	
 			.group(monthDimGroup, 'fortollinger') 
 	        //Antall fortollinger
 	       .valueAccessor(function (d) {
-				return d.value.count_fortollinger; 
+					return d.value.count; 
 			}) 
 			//Antall off. varuposter
 			.stack(monthDimGroup,'off_vp' ,function (d) {
-	         	return d.value.count_off_vareposter;  
+	         	return d.value.sum_off_vareposter;  //100
 	        })
-	        //Antall reg. varuposter
+	        //Antall off. varuposter
 	        .stack(monthDimGroup, 'reg_vp',function (d) {
-	        	return d.value.count_reg_vareposter;
+	        	var diffRegAndOff =  d.value.sum_reg_vareposter - d.value.sum_off_vareposter;   //ex. 100-80=20
+	        	return diffRegAndOff;
 	        })
 			.on('pretransition', function (chart) {
 			    chart.selectAll("g rect").style("fill", function (d) {
@@ -878,10 +754,10 @@ function load_data() {
 			edimChart.filterAll();
 			dc.redrawAll();
 		});	
-		d3.selectAll('a#avsnitt').on('click', function () {
-			avsnittChart.filterAll();
-			dc.redrawAll();
-		});			
+// 		d3.selectAll('a#avsnitt').on('click', function () {
+// 			avsnittChart.filterAll();
+// 			dc.redrawAll();
+// 		});			
 		d3.selectAll('a#inputtype').on('click', function () {
 			inputTypeChart.filterAll();
 			dc.redrawAll();
@@ -914,15 +790,16 @@ function load_data() {
 			  .html({
 	            some: '<strong>%filter-count</strong> valgt ut av <strong>%total-count</strong> fortollinger' +
 	                ' | <a href=\'javascript:dc.filterAll(); dc.renderAll();\'>tilbakestill alt</a>',
-	            all: 'Alle <strong>%total-count</strong> vareposter for utvalg. Vennligst klikk på grafen for å bruke filtre.'
+	            all: 'Alle <strong>%total-count</strong> fortollinger for utvalg. Vennligst klikk på grafen for å bruke filtre.'
 	          });      
 		      
 		d3.select('#download').on('click', function() {
 			var today = new Date();
 	        var data = tollAllDim.top(Infinity);
 	        var saveData = data.map(function(obj) {
-	            return {avdeling: obj.avdeling, deklarasjonsnr: obj.deklarasjonsnr, registreringsdato: obj.registreringsdato,
-	            		signatur: obj.signatur, mottaker: obj.mottaker, merknad: obj.edim, avsnitt: obj.avsnitt};
+	            return {avdeling: obj.avdeling, deklarasjonsnr: obj.deklarasjonsnr, reg_vareposter: obj.reg_vareposter, 
+	            		off_vareposter: obj.off_vareposter, registreringsdato: obj.registreringsdato,
+	            		signatur: obj.signatur, mottaker: obj.mottaker, merknad: obj.edim};
 	        });
 	       
 			var blob = new Blob([d3.tsv.format(saveData)], {type: "application/ms-excel;charset=utf-8"});  // text/csv
@@ -953,12 +830,13 @@ function load_data() {
 		    .columns([
 			  function (d) { return d.deklarasjonsnr; },
 		      function (d) { return d.avdeling; },
+		      function (d) { return d.reg_vareposter; },
+		      function (d) { return d.off_vareposter; },
 		      function (d) { return d.registreringsdato; },
 		      function (d) { return d.signatur ; },
 		      function (d) { return d.mottaker ; },
 		      function (d) { return d.type ; },
-		      function (d) { return d.edim ; },
-		      function (d) { return d.avsnitt ; }
+		      function (d) { return d.edim ; }
 		    ])
 		    .on('renderlet', function (table) {
 		      	// each time table is rendered remove nasty extra row dc.js insists on adding
@@ -985,12 +863,13 @@ function load_data() {
 				"columns": [
 		            { "data": "deklarasjonsnr" },
 		            { "data": "avdeling" },
+		            { "data": "reg_vareposter" },
+		            { "data": "off_vareposter" },		            
 		            { "data": "registreringsdato" },
 		            { "data": "signatur" },
 		            { "data": "mottaker" },
 		            { "data": "type" },
-		            { "data": "edim" },
-		            { "data": "avsnitt" }		
+		            { "data": "edim" }
 		        ],			
 				destroy : true,
 				"columnDefs" : [ 
@@ -1252,14 +1131,14 @@ window.addEventListener('error', function (e) {
 						    <a class="reset" id="avd" style="display: none;"> - <i>tilbakestill filter</i></a>
 						    <div class="clear"></div>		
 				     	</div>
-
+<!--  
 						<div class="col-md-3" id="chart-ring-avsnitt">
 						 	<h3 class="text12" align="center">Avsnitt</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="avsnitt" style="display: none;"> - <i>tilbakestill filter</i></a>
  							<div class="clear"></div>			
 				        </div>
- 
+ -->
 	
 						<div class="col-md-3" id="chart-ring-opendays">
 							<h3 class="text12" align="center">Antall dager</h3>
@@ -1305,16 +1184,16 @@ window.addEventListener('error', function (e) {
    
 				  <div class="row">
 					<div class="col-md-12" id="showTable">
-  						<h3><a id="showTable"><font class="text12">Vis Vareposter, filtrert</font>
+  						<h3><a id="showTable"><font class="text12">Vis Fortollinger, filtrert</font>
   						&nbsp;<img onMouseOver="showPop('vis_fortoll_info');" onMouseOut="hidePop('vis_fortoll_info');" width="12px" height="12px" src="resources/images/info3.png">
 		 				</a></h3>
 		 				<div class="text11" style="position: relative;" align="left">
 		 				<span style="position:absolute; top:2px; width:250px;" id="vis_fortoll_info" class="popupWithInputText text11"  >
 				           		<b>
-				           			Vis Vareposter, filtrert
+				           			Vis Fortollinger, filtrert
 				 	          	</b><br><br>
-				           		Bruk detaljer dersom det finnes intresse att se spesifikke vareposter.
-				           		Hvis et stort antall vareposter er utvalgt, ytelse kan oppleves som mindre bra.
+				           		Bruk detaljer dersom det finnes intresse att se spesifikke fortollinger.
+				           		Hvis et stort antall fortollinger er utvalgt, ytelse kan oppleves som mindre bra.
 								<br><br>
 						</span>
 						</div>
@@ -1330,12 +1209,16 @@ window.addEventListener('error', function (e) {
 				          <tr>
 				            <th>deklarasjonsnr</th>
 				            <th>avdeling</th>
+				            <th>reg. vareposter</th>
+				            <th>off. vareposter</th>
 				            <th>registreringsdato</th>
 				            <th>signatur</th>
 				            <th>mottaker</th>
 				            <th>type</th>
 				            <th>merknad</th>
+<!-- 
 				            <th>avsnitt</th>
+ -->
 				          </tr>
 				        </thead>
 
