@@ -43,6 +43,7 @@ public class LogoutTrorController {
 			session.removeAttribute(TrorConstants.SESSION_SUBSYSTEM_ORDER_TROR);
 			
 			
+			
 			view = this.successView;
 		}
 		return view;

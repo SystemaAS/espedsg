@@ -86,7 +86,7 @@
 					<c:if test="${model.record.hepk1 == 'J' || model.record.hepk1 == 'P'}">
 						<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 						<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-							<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlandimport_freightbill_edit.do?dfavd=${model.record.heavd}&sign=${model.record.hesg}&dfopd=${model.record.heopd}">
+							<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderland_freightbill_gate.do?dfavd=${model.record.heavd}&sign=${model.record.hesg}&dfopd=${model.record.heopd}">
 								<img style="vertical-align: bottom" src="resources/images/fraktbrev.png" width="16" height="16" border="0" alt="show freight doc">
 								<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.fraktbrev.tab"/></font>&nbsp;<font class="text10Orange">F3</font>
 							</a>

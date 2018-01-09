@@ -40,6 +40,7 @@ import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportService;
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.RpgReturnResponseHandler;
+import no.systema.tror.util.TrorConstants;
 import no.systema.tror.util.manager.CodeDropDownMgr;
 import no.systema.tror.util.manager.LandImportExportManager;
 import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
@@ -74,6 +75,38 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	private StringManager strMgr = new StringManager();
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 	private LandImportExportManager landImportMgr = new LandImportExportManager();
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tror_mainorderland_freightbill_gate.do", method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView tror_mainorderland_freightbill_gate(@ModelAttribute ("record") DokufDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		
+		ModelAndView successView = null; 
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		Map model = new HashMap();
+		String sign = request.getParameter("sign");
+		
+		if (appUser == null) {
+			return this.loginView;
+		} else {
+			List<DokufDao> list = this.fetchFraktbrevList(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr());
+			if(list!=null && list.size()>1){
+				successView = new ModelAndView("tror_mainorderland_freightbill_list");
+				model.put("list", list);
+				successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
+			}else{
+				successView = new ModelAndView("redirect:tror_mainorderlandimport_freightbill_edit.do?" + "&dfavd=" + recordToValidate.getDfavd() + "&sign=" + sign + "&dfopd=" + recordToValidate.getDfopd());
+			}
+		}
+		return successView;
+	}
+	
 	/**
 	 * 
 	 * @param recordToValidate
@@ -143,12 +176,19 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 				}
 			} else { // Fetch
 				logger.info("FETCH branch");
-				DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
-				if(record!=null && strMgr.isNotNull(record.getDf1004())){
+				DokufDao recordDokufDao = null;
+				List list = this.fetchFraktbrevList(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr());
+				if(list!=null && list.size()>1){
+					
+				}else{
+					
+				}
+				recordDokufDao = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
+				if(recordDokufDao!=null && strMgr.isNotNull(recordDokufDao.getDf1004())){
 					//get invoice data (currency & amount
-					this.getInvoiceAmount(appUser, record, model);
+					this.getInvoiceAmount(appUser, recordDokufDao, model);
 					model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
-					model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordDokufDao);
 				}else{
 					//User will prepare the view for a future create-new fraktbrev. 
 					model.put("action", MainMaintenanceConstants.ACTION_CREATE);
@@ -171,7 +211,12 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		}
 
 	}
-	
+	/**
+	 * 
+	 * @param appUser
+	 * @param dokufDao
+	 * @param model
+	 */
 	private void getInvoiceAmount(SystemaWebUser appUser, DokufDao dokufDao, Map model){
 		//===========
 		//FETCH LIST
@@ -459,6 +504,41 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 			}
 		}
 		return record;
+	
+	}	
+	/**
+	 * 
+	 * @param appUser
+	 * @param dfavd
+	 * @param dfopd
+	 * @param dffbnr
+	 * @param model
+	 * @return
+	 */
+	private List<DokufDao> fetchFraktbrevList(SystemaWebUser appUser, int dfavd, int dfopd, int dffbnr) {
+		List<DokufDao> retval = new ArrayList<DokufDao>();
+		JsonReader<JsonDtoContainer<DokufDao>> jsonReader = new JsonReader<JsonDtoContainer<DokufDao>>();
+		jsonReader.set(new JsonDtoContainer<DokufDao>());
+		final String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_DOKUF_URL;
+		StringBuilder urlRequestParams = new StringBuilder();
+		urlRequestParams.append("user=" + appUser.getUser());
+		urlRequestParams.append("&dfavd=" + dfavd);
+		urlRequestParams.append("&dfopd=" + dfopd);
+		if(dffbnr>0){
+			urlRequestParams.append("&dffbnr=" + dffbnr);
+		}
+		
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParams.toString());
+		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		logger.info("jsonPayload=" + jsonPayload);
+		DokufDao record = null;
+		JsonDtoContainer<DokufDao> container = (JsonDtoContainer<DokufDao>) jsonReader.get(jsonPayload);
+		if (container != null) {
+			retval = container.getDtoList();
+			
+		}
+		return retval;
 	
 	}	
 	/**

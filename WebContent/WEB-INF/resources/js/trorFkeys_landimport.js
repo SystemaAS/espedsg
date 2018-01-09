@@ -86,7 +86,7 @@
 	  		 }else if (charCode == f3){
 	  			 //Fraktbrev
 	   			setBlockUIKeys();
-	   			window.location.href = "tror_" + jq('#fkyessubsys').val() + "_freightbill_edit.do?dfavd=" + jq('#fkeysavd').val() + "&sign=" + jq('#fkeyssign').val() + "&dfopd=" + jq('#fkeysopd').val();
+	   			window.location.href = "tror_mainorderland_freightbill_gate.do?dfavd=" + jq('#fkeysavd').val() + "&sign=" + jq('#fkeyssign').val() + "&dfopd=" + jq('#fkeysopd').val();
 	   		 
 	   		
 	  		 }/*else if (charCode == f24){ //Edge har detta som OS-command

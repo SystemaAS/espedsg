@@ -10,7 +10,7 @@
 	<SCRIPT type="text/javascript" src="resources/js/jquery.calculator.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/jquery-ui-timepicker-addon.js"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/transportdispglobal_edit.js?ver=${user.versionEspedsg}"></SCRIPT>			
-	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderland_frisokvei.js?ver=${user.versionEspedsg}"></SCRIPT>
+	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderland_freightbill_list.js?ver=${user.versionEspedsg}"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/trorFkeys_landimport.js?ver=${user.versionEspedsg}"></SCRIPT>
 	
 	<%-- for dialog popup --%>
@@ -86,11 +86,13 @@
 				</a>
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-			<td width="12%" valign="bottom" class="tab" align="center" nowrap>
-				<img style="vertical-align: bottom" src="resources/images/lightbulb.png" width="14" height="14" border="0" alt="show log">
-				<font class="tabLink">&nbsp;<spring:message code="systema.tror.order.frisokvei.tab"/></font>&nbsp;<font class="text10Orange">F7</font>
+			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderland_frisokvei.do?action=doFetch&avd=${recordOrderTrorLand.heavd}&sign=${recordOrderTrorLand.hesg}&opd=${recordOrderTrorLand.heopd}">
+					<img style="vertical-align: bottom" src="resources/images/lightbulb.png" width="14" height="14" border="0" alt="show log">
+					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.frisokvei.tab"/></font>&nbsp;<font class="text10Orange">F7</font>
+				</a>
 			</td>
-			
+
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderland_budget.do?avd=${recordOrderTrorLand.heavd}&sign=${recordOrderTrorLand.hesg}&opd=${recordOrderTrorLand.heopd}">
@@ -100,11 +102,9 @@
 			</td>
 			<c:if test="${recordOrderTrorLand.hepk1 == 'J' || recordOrderTrorLand.hepk1 == 'P'}">
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-					<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderland_freightbill_gate.do?dfavd=${recordOrderTrorLand.heavd}&sign=${recordOrderTrorLand.hesg}&dfopd=${recordOrderTrorLand.heopd}">
-						<img style="vertical-align: bottom" src="resources/images/fraktbrev.png" width="16" height="16" border="0" alt="show freight doc">
-						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.fraktbrev.tab"/></font>&nbsp;<font class="text10Orange">F3</font>
-					</a>
+				<td width="12%" valign="bottom" class="tab" align="center" nowrap>
+					<img style="vertical-align: bottom" src="resources/images/fraktbrev.png" width="16" height="16" border="0" alt="show freight doc">
+					<font class="tabLink">&nbsp;<spring:message code="systema.tror.order.fraktbrev.tab"/></font>&nbsp;<font class="text10Orange">F3</font>
 				</td>
 			</c:if>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
@@ -154,10 +154,15 @@
 									<thead>
 									<tr style="background-color:#DDDDDD">
 										<th align="center" width="2%" class="text12" >&nbsp;<span title="todo">Endre&nbsp;</span></th>
-										<th align="center" width="4%" class="text12" >&nbsp;<span title="fskode">Kode&nbsp;</span></th>
-										<th class="text12" >&nbsp;<span title="fssok">Søketekst&nbsp;</span></th>  
-										<th width="4%" class="text12" >&nbsp;<span title="krav">Krav&nbsp;</span></th>
-					                    <th class="text12" >&nbsp;<span title="fsdokk">Dok.kode&nbsp;</span></th>
+										<th align="center" class="text12" width="2%" >&nbsp;<span title="todo">Lnr.</span></th>  
+										<th align="center" width="5%" class="text12" >&nbsp;<span title="todo">Fraktbrevnr.&nbsp;</span></th>
+										<th class="text12" >&nbsp;<span title="dfnavm">Mottaker</span></th>  
+										<th class="text12" >&nbsp;<span title="dfad3m">Poststed</span></th>  
+										<th class="text12" width="2%" >&nbsp;<span title="todo">Stk</span></th>
+										<th class="text12" width="2%" >&nbsp;<span title="dfnt">Antall</span></th>
+										<th class="text12" width="5%" >&nbsp;<span title="dfvs">Vareslag</span></th>
+										<th class="text12" width="2%" >&nbsp;<span title="dfvkt">Vekt</span></th>
+										<th class="text12" >&nbsp;<span title="dfnavs">Transportør</span></th>
 					        			<th align="center" width="2%" class="text12" >&nbsp;Slett&nbsp;</th>
 					               </tr> 
 					               </thead>
@@ -166,36 +171,31 @@
 							               <tr class="tableRow" height="20" >
 							                
 							               <td align="center" width="2%" class="text11" >
-							     				<a id="recordUpdate_${record.fskode}_${record.fssok}" href="#" onClick="getItemData(this);">
-							     					<c:choose>
-								     					<c:when test="${not empty record.fskode && not empty record.fssok}">
-						               						<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
-						               					</c:when>
-						               					<c:otherwise>
-						               						<img title="Update" style="vertical-align:bottom;" src="resources/images/redFlag.png" width="15" height="17" border="0" alt="update">&nbsp;
-						               					</c:otherwise>
-					               					</c:choose>
+							     				<a id="recordUpdate_${record.dffbnr}" onClick="setBlockUI(this);" href="tror_mainorderlandimport_freightbill_edit.do?dfavd=${record.dfavd}&sign=${record.dfsg}&dfopd=${record.dfopd}&dffbnr=${record.dffbnr}">
+							     					<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;						               				
 					               				</a>
 						               	   </td>
-						               	   <td align="center" width="4%" class="text11" align="center">&nbsp;${record.fskode}</td>
-							               <td class="text11" >&nbsp;${record.fssok}</td>
-							               <td width="4%" class="text11" >&nbsp;${record.krav}</td>
-							               <td class="text11" >&nbsp;${record.fsdokk}</td>
+						               	   <td align="center" class="text11" >${record.dffbnr}</td>
+						               	   <td align="center" width="4%" class="text11" align="left">${record.df1004}</td>
+							               <td class="text11" >${record.dfnavm}</td>
+						               	   <td class="text11" >${record.dfad3m}</td>
+						               	   <td class="text11" width="2%" >${Xrecord.dffbnr}</td>
+						               	   <td class="text11" width="2%" >${record.dfnt}</td>
+						               	   <td class="text11" width="5%" >${record.dfvs}</td>
+						               	   <td class="text11" width="2%" >${record.dfvkt}</td>
+						               	   <td class="text11" >${record.dfnavs}</td>
+							               
 							               <%-- DELETE cell --%>							           
 							               <td width="2%" class="text11" align="center">
-							               	   <c:if test="${not empty record.fskode && not empty record.fssok}">
-							                   		<a style="cursor:pointer;" id="avd_${record.fsavd}@opd_${record.fsopd}@kode_${record.fskode}@sok_${record.fssok}" onClick="doDeleteItemLine(this);" tabindex=-1 >
+							               	   <c:if test="${not empty Xrecord.fskode && not empty Xrecord.fssok}">
+							                   		<a style="cursor:pointer;" id="avd_${Xrecord.fsavd}@opd_${Xrecord.fsopd}@kode_${Xrecord.fskode}@sok_${Xrecord.fssok}" onClick="doDeleteItemLine(this);" tabindex=-1 >
 									               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 									               	</a>&nbsp;
 									               	
 								               	</c:if>
 					               		  </td> 
 							            </tr>
-								        <%-- this param is used ONLY in this JSP 
-								        <c:set var="totalNumberOfItemLines" value="${counter.count}" scope="request" />
-								        --%> 
-								        <%-- this param is used throughout the Controller --%>
-								        <c:set var="numberOfItemLinesInTopic" value="${Xrecord.svln}" scope="request" /> 
+								        
 								        </c:forEach>
 						           </tbody>
 						        </table>
@@ -246,89 +246,7 @@
 					</tr>		
 				</c:if>
 				
-				
-				<%-- ------------------------------------------------- --%>
-			   	<%-- DETAIL Section - Create Item line PRIMARY SECTION --%>
-			   	<%-- ------------------------------------------------- --%>
-			  	<tr>
-					<td class="text12" align="left" >
-						<input tabindex=-1  class="inputFormSubmitStd" type="button" name="newRecordButton" id="newRecordButton" value='Lage ny'>
-					</td>
-				</tr>
-				<tr height="5"><td class="text12" align="left" ></td></tr>
-			         	<tr>
-						<td >
-							<form action="tror_mainorderland_frisokvei_edit.do" name="trorUpdateItemForm" id="trorUpdateItemForm" method="post">
-					 	<%--Required key parameters from the Topic parent --%>
-					 	<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
-					 	<input type="hidden" name="action" id="action" value='doUpdate'/>
-						<input type="hidden" name="avd" id="avd" value='${model.container.avd}'>
-						<input type="hidden" name="opd" id="opd" value='${model.container.opd}'>
-						<input type="hidden" name="fskodeKey" id="fskodeKey" value='${model.record.fskodeKey}'>
-						<input type="hidden" name="fssokKey" id="fssokKey" value='${model.record.fssokKey}'>
-						<input type="hidden" name="isModeUpdate" id="isModeUpdate" value="${model.record.isModeUpdate}">
-						
-					 	<%-- <input type="hidden" name="numberOfItemLinesInTopic" id="numberOfItemLinesInTopic" value="${numberOfItemLinesInTopic}" /> --%>
-					 	
-					 	<%-- Topic ITEM CREATE --%>
-						<table width="80%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
-						<tr height="15">
-				 			<td class="text12White" align="left" >
-				 				<b>&nbsp;&nbsp;Varelinje&nbsp;</b>
-									<img onClick="showPop('updateInfo');" src="resources/images/update.gif" border="0" alt="edit">&nbsp;&nbsp;<font id="editLineNr"></font>
-			 				</td>
-		 				</tr>
-						</table>
-						<table width="80%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
-					 		<tr height="12"><td class="text" align="left"></td></tr>
-					 		<tr>
-						 		<td>
-							 		<table  class="tableBorderWithRoundCornersGray" width="90%" border="0" cellspacing="0" cellpadding="0">
-							 			<tr height="5"><td class="text" align="left"></td></tr>
-							 			<tr >
-							 				
-							            	<td class="text12" align="left">&nbsp;<font class="text14RedBold" >*</font><span title="fskode">&nbsp;Kode</span>
-								            	<a tabindex=-1 id="fskodeIdLink">
-														<img id="imgFrisokveiCodesSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
-													</a>
-								            </td>
-								            <td class="text12" align="left">&nbsp;<font class="text14RedBold" >*</font><span title="fssok">&nbsp;Søketekst</span></td>
-						            		<td class="text12" align="left">&nbsp;<span title="fsdokk">&nbsp;Dok.kode</span>
-						            			<a tabindex=-1 id="fsdokkIdLink">
-														<img id="imgFrisokveiDocCodesSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
-													</a>
-						            		</td>
-						            		
-								        </tr>
-								        <tr>
-							        		<td class="text12" align="left" >&nbsp;<input type="text" class="inputTextMediumBlueMandatoryField" name="fskode" id="fskode" size="4" maxlength="3" value="${model.record.fskode}"></td>
-								            <td class="text12" align="left" >
-							        			&nbsp;<input type="text" class="inputTextMediumBlueMandatoryField" name="fssok" id="fssok" size="36" maxlength="35" value="${model.record.fssok}">
-							        		</td>
-							        		<td class="text12" align="left" >&nbsp;<input type="text" class="inputTextMediumBlue" name="fsdokk" id="fsdokk" size="11" maxlength="10" value="${model.record.fsdokk}"></td>
-								            
-								        </tr>
-								        
-								        <tr height="8"><td class="text" align="left"></td></tr>
-							        </table>
-						        </td>
-					        </tr>
-						    <tr height="10"><td colspan="2" ></td></tr>
-						    <tr>	
-							    <td align="left" colspan="5">
-									<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'>
-									<%-- 
-									&nbsp;&nbsp;<input class="inputFormSubmitGray" type="button" name="updCancelButton" id="updCancelButton" value='<spring:message code="systema.transportdisp.cancel"/>'>
-									--%>
-								</td>
-															        	
-					        </tr>
-			      	        </table>
-			  	         	</form>
-			        </td>
-			       
-			    </tr>
-				<tr height="20"><td colspan="2" ></td></tr>
+		
 				<tr height="30"><td></td></tr>
 
 			</table>		

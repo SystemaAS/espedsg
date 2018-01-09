@@ -71,8 +71,10 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tab" align="center" nowrap>
-				<img style="vertical-align: bottom" src="resources/images/fraktbrev.png" width="16" height="16" border="0" alt="show freight doc">
-				<font class="tabLink">&nbsp;<spring:message code="systema.tror.order.fraktbrev.tab"/></font>&nbsp;<font class="text10Orange">F3</font>
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderland_freightbill_gate.do?dfavd=${recordOrderTrorLand.heavd}&sign=${recordOrderTrorLand.hesg}&dfopd=${recordOrderTrorLand.heopd}">
+					<img style="vertical-align:bottom;" src="resources/images/fraktbrev.png" width="16" hight="16" border="0" alt="edit">
+					<font class="tabLink">&nbsp;<spring:message code="systema.tror.order.fraktbrev.tab"/></font>&nbsp;<font class="text10Orange">F3</font>
+				</a>					
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
@@ -169,6 +171,7 @@
 									&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.title"/>&nbsp;&nbsp;<font style="color: yellow"><b>${fn:substring(model.record.df1004, 0, 2)}&nbsp;${fn:substring(model.record.df1004, 2, 7)}&nbsp;${fn:substring(model.record.df1004, 7, 17)}</b></font>
 									&nbsp;&nbsp;&nbsp;&nbsp;<font style="color: black"><b>${model.record.dfavd} / ${model.record.dfopd} / ${model.record.dffbnr} / ${model.record.dfsg}</b></font>
 									&nbsp;&nbsp;
+									
 				 				</td>
 			 				</c:when>
 			 				<c:otherwise>
