@@ -147,7 +147,7 @@
 				<tr>
 					<td class="text11" >
 					<%-- this table wrapper is needed for the datatables width --%>
-					<table width="80%" cellspacing="0" border="0">
+					<table width="90%" cellspacing="0" border="0">
 						<tr>
 							<td class="text11" >
 								<table id="tblMain" class="display compact cell-border" >
@@ -157,7 +157,8 @@
 										<th align="center" class="text12" width="2%" >&nbsp;<span title="todo">Lnr.</span></th>  
 										<th align="center" width="5%" class="text12" >&nbsp;<span title="todo">Fraktbrevnr.&nbsp;</span></th>
 										<th class="text12" >&nbsp;<span title="dfnavm">Mottaker</span></th>  
-										<th class="text12" >&nbsp;<span title="dfad3m">Poststed</span></th>  
+										<th class="text12" >&nbsp;<span title="dfad3m">Poststed</span></th> 
+										<th class="text12" width="2%" >&nbsp;<span title="dfst">Status</span></th> 
 										<th class="text12" width="2%" >&nbsp;<span title="todo">Stk</span></th>
 										<th class="text12" width="2%" >&nbsp;<span title="dfnt">Antall</span></th>
 										<th class="text12" width="5%" >&nbsp;<span title="dfvs">Vareslag</span></th>
@@ -171,7 +172,7 @@
 							               <tr class="tableRow" height="20" >
 							                
 							               <td align="center" width="2%" class="text11" >
-							     				<a id="recordUpdate_${record.dffbnr}" onClick="setBlockUI(this);" href="tror_mainorderlandimport_freightbill_edit.do?dfavd=${record.dfavd}&sign=${record.dfsg}&dfopd=${record.dfopd}&dffbnr=${record.dffbnr}">
+							     				<a id="recordUpdate_${record.dffbnr}" onClick="setBlockUI(this);" href="tror_mainorderland_freightbill_edit.do?dfavd=${record.dfavd}&sign=${record.dfsg}&dfopd=${record.dfopd}&dffbnr=${record.dffbnr}">
 							     					<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;						               				
 					               				</a>
 						               	   </td>
@@ -179,7 +180,8 @@
 						               	   <td align="center" width="4%" class="text11" align="left">${record.df1004}</td>
 							               <td class="text11" >${record.dfnavm}</td>
 						               	   <td class="text11" >${record.dfad3m}</td>
-						               	   <td class="text11" width="2%" >${Xrecord.dffbnr}</td>
+						               	   <td class="text11" width="2%" >${record.dfst}</td>
+						               	   <td class="text11" width="2%" >${record.dfntla}</td>
 						               	   <td class="text11" width="2%" >${record.dfnt}</td>
 						               	   <td class="text11" width="5%" >${record.dfvs}</td>
 						               	   <td class="text11" width="2%" >${record.dfvkt}</td>

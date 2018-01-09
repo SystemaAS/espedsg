@@ -6,7 +6,7 @@
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
 	<SCRIPT type="text/javascript" src="resources/js/trorglobal_edit.js?ver=${user.versionEspedsg}"></SCRIPT>	
-	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderlandimport_freightbill.js?ver=${user.versionEspedsg}"></SCRIPT>
+	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderland_freightbill.js?ver=${user.versionEspedsg}"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/trorFkeys_landimport.js?ver=${user.versionEspedsg}"></SCRIPT>
 	
 	<%-- for dialog popup --%>
@@ -18,7 +18,7 @@
 	</style>
 	
 
-<form action="tror_mainorderlandimport_freightbill_edit.do" name="formRecord" id="formRecord" method="post">
+<form action="tror_mainorderland_freightbill_edit.do" name="formRecord" id="formRecord" method="post">
 <table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
 	<tr>
 	<td>

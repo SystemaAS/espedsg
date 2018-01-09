@@ -101,7 +101,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 				model.put("list", list);
 				successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
 			}else{
-				successView = new ModelAndView("redirect:tror_mainorderlandimport_freightbill_edit.do?" + "&dfavd=" + recordToValidate.getDfavd() + "&sign=" + sign + "&dfopd=" + recordToValidate.getDfopd());
+				successView = new ModelAndView("redirect:tror_mainorderland_freightbill_edit.do?" + "&dfavd=" + recordToValidate.getDfavd() + "&sign=" + sign + "&dfopd=" + recordToValidate.getDfopd());
 			}
 		}
 		return successView;
@@ -115,9 +115,9 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderlandimport_freightbill_edit.do", method={RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value="tror_mainorderland_freightbill_edit.do", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView mainmaintenancecundf_vareimp_se_edit(@ModelAttribute ("record") DokufDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		ModelAndView successView = new ModelAndView("tror_mainorderlandimport_freightbill");
+		ModelAndView successView = new ModelAndView("tror_mainorderland_freightbill");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		String action = request.getParameter("action");
