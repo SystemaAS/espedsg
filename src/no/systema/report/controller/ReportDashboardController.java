@@ -81,7 +81,7 @@ public class ReportDashboardController {
 			} 
 
 			successView.addObject(TransportDispConstants.DOMAIN_MODEL, model);			
-			
+			successView.addObject("httpRootCgi", AppConstants.HTTP_ROOT_CGI);		
 			
 			return successView;
 		}
@@ -227,9 +227,7 @@ public class ReportDashboardController {
 		return list;
 	}	
 	
-	private void getIt() {
-		
-	}
+
 	private void setCodeDropDownMgr(SystemaWebUser appUser, Map model){
 		codeDropDownMgr.populateCodesHtmlDropDownsFromJsonSignature(this.urlCgiProxyService, maintSadFellesKodtsiService, model, appUser);
 		codeDropDownMgr.populateCodesHtmlDropDownsFromJsonAvdelning(this.urlCgiProxyService, maintMainKodtaService, model, appUser);

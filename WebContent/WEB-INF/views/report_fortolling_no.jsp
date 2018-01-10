@@ -43,7 +43,7 @@ var jq = jQuery.noConflict();
 var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Vennligst vent...";
 var tolldataSize;
 var ofs = 0, pag = 20;
-var baseUrl = "/syjservicesbcore/syjsFORTOLLING_DB.do?user=${user.user}";
+var baseUrl = "/syjservicesbcore/syjsFORTOLLING_DB.do?user=${user.user}&httpRootCgi=${httpRootCgi}";
 var merknaderDescUrl = "/syjservicestn/syjsTVI99D.do?user=${user.user}";
 var avdelingDescUrl = "/syjservicesbcore/syjsSYFA14R.do?user=${user.user}";
 var signaturerDescUrl = "/syjservicestn/syjsSYFT10R.do?user=${user.user}";
