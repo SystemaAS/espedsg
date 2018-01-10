@@ -27,7 +27,9 @@
 	.ui-timepicker-rtl dl { text-align: right; padding: 0 5px 0 0; }
 	.ui-timepicker-rtl dl dt{ float: right; clear: right; }
 	.ui-timepicker-rtl dl dd { margin: 0 40% 10px 10px; }
-	
+	/* this is in order to customize a SPECIFIC ui dialog in the .js file ...dialog() */
+	/*.main-dialog-class .ui-widget-header{ background-color:#DAC8BA } */
+	.main-dialog-class .ui-widget-content{ background-image:none;background-color:lemonchiffon }
 	</style>
 
 <table width="100%" class="text11" cellspacing="0" border="0" cellpadding="0">
@@ -575,7 +577,8 @@
 									 			
 								 			</td>
 					 						<td align="right">
-					 						<button name="budgetButton" id="budgetButton" class="buttonGrayWithGreenFrame" type="button" >Budsjett/rekv.</button>
+					 						<button name="smsButton" id="smsButton" class="buttonGrayWithGreenFrame" type="button" >Send SMS</button>
+		 									<button name="budgetButton" id="budgetButton" class="buttonGrayWithGreenFrame" type="button" >Budsjett/rekv.</button>
 		 									&nbsp;
 						 				    <c:choose>
 							 				    <c:when test="${ not empty model.record.tupro}">
@@ -1403,6 +1406,35 @@
          </td>
          </tr>
          <tr height="10"><td>&nbsp;</td></tr>
+         
+        <%-- ---------------- --%>
+		<%-- DIALOG SMS		  --%>
+		<%-- ---------------- --%>
+		<tr>
+		<td>
+			<div id="dialogSMS" title="Dialog">
+				 	<table>
+						<tr>
+							<td class="text12" align="left" >Send SMS med lenke til TKeventGrabber</td>
+   						</tr>
+   						<tr height="8"><td></td></tr>
+						<tr>
+							<td class="text12" align="left" >
+								<b>SMS-nummer</b>&nbsp;<input type="text" class="inputText" onKeyPress="return numberKey(event)" id="smsnr" name="smsnr" size="20" maxlength="15" value=''>
+							</td>
+   						</tr>
+
+						<tr height="12"><td></td></tr>
+						<tr>
+							<td class="text12MediumBlue" align="left">
+								Send status:&nbsp;<label id="smsStatus"></label>
+							</td>
+						</tr>
+						
+					</table>
+			</div>
+		</td>
+		</tr>
 </table>	
 		
 <!-- ======================= footer ===========================-->

@@ -2626,7 +2626,7 @@
   
   /*
   ---------------------
-  /PRESENT DUP DIALOG
+  /PRESENT SMS DIALOG
   ---------------------
    */
   function presentSmsDialog(){

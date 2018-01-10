@@ -212,11 +212,11 @@ public class MaintSkatFellesDktardController {
 		String TOLDSATS_DECIMAL_COMMA = ",";
 		StringManager mgr = new StringManager();
 		//Toldsatser (must be stored without decimal sign and with trailing Zeros). The field is a string field
-		recordToValidate.setDktard05(mgr.trailingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard05(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
-		recordToValidate.setDktard11(mgr.trailingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard11(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
-		recordToValidate.setDktard17(mgr.trailingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard17(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
-		recordToValidate.setDktard23(mgr.trailingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard23(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
-		recordToValidate.setDktard29(mgr.trailingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard29(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
+		recordToValidate.setDktard05(mgr.leadingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard05(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
+		recordToValidate.setDktard11(mgr.leadingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard11(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
+		recordToValidate.setDktard17(mgr.leadingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard17(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
+		recordToValidate.setDktard23(mgr.leadingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard23(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
+		recordToValidate.setDktard29(mgr.leadingStringWithNumericFiller(mgr.removeChar(recordToValidate.getDktard29(), TOLDSATS_DECIMAL_COMMA), TOLDSATS_FIELDS_LENGTH, TOLDSATS_FILLER_CHAR));
 		
 	}
 	/**

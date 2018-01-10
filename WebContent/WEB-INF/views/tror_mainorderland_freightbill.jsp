@@ -96,7 +96,7 @@
 	<spring:hasBindErrors name="record"> <%-- name must equal the command object name in the Controller --%>
 	<tr height="5"><td></td></tr>
 	<tr>
-		<td>
+		<td colspan="10">
            	<table class="tabThinBorderWhiteWithSideBorders" width="100%" align="left" border="0" cellspacing="0" cellpadding="0">
            	<tr>
 			<td valign="bottom" class="textError">					
@@ -119,7 +119,7 @@
 	<%-- -------------------------- --%>
 	<c:if test="${not empty model.containerValidationBackend && not empty model.containerValidationBackend.errMsgListFromValidationBackend}">
 		<tr>
-		<td>
+		<td colspan="10">
            	<table class="tabThinBorderWhiteWithSideBorders" width="100%" align="left" border="0" cellspacing="0" cellpadding="0">
            	<tr>
 			<td valign="bottom" class="textError">					
@@ -191,6 +191,10 @@
             		<td>
             		<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
 					<input type="hidden" name="action" id="action" value='${model.action}'>
+					<input type="hidden" name="dfavd" id="dfavd" value='${recordOrderTrorLand.heavd}'>
+					<input type="hidden" name="dfopd" id="dfopd" value='${recordOrderTrorLand.heopd}'>
+					<input type="hidden" name="sign" id="sign" value='${recordOrderTrorLand.hesg}'>
+						
 					<%-- dfri = F as offsett. Always. Old rule in order to acquire status "active" ... --%>
 					<input type="hidden" name="dfri" id="dfri" value='F'> 
 					<%--for F-Keys shortcuts. Used only in trorFkeys_...js --%>
@@ -207,8 +211,6 @@
 					</c:choose>
 					
 					<c:if test="${not empty model.record.df1004}">
-						<input type="hidden" name="dfopd" id="dfopd" value='${model.record.dfopd}'>
-						<input type="hidden" name="dfavd" id="dfavd" value='${model.record.dfavd}'>
 						<input type="hidden" name="dffbnr" id="dffbnr" value='${model.record.dffbnr}'>
 						<input type="hidden" name="df1004" id="df1004" value='${model.record.df1004}'>
 						

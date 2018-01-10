@@ -28,6 +28,14 @@ public class JsonTransportDispSendSmsContainer {
 	public void setHeopd(String value) {  this.heopd = value; }
 	public String getHeopd() { return this.heopd;}
 	
+	private String turnr = null;
+	public void setTurnr(String value) {  this.turnr = value; }
+	public String getTurnr() { return this.turnr;}
+	
+	private String sprak = null;
+	public void setSprak(String value) {  this.sprak = value; }
+	public String getSprak() { return this.sprak;}
+	
 	private String smsnr = null;
 	public void setSmsnr(String value) {  this.smsnr = value; }
 	public String getSmsnr() { return this.smsnr;}

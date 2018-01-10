@@ -14,6 +14,9 @@
 	<style type = "text/css">
 	.ui-dialog{font-size:10pt;}
 	.ui-datepicker { font-size:9pt;}
+	/* this is in order to customize a SPECIFIC ui dialog in the .js file ...dialog() */
+	/*.main-dialog-class .ui-widget-header{ background-color:#DAC8BA } */
+	.main-dialog-class .ui-widget-content{ background-image:none;background-color:lemonchiffon }
 	</style>
 	
 
@@ -149,6 +152,7 @@
 					<tr>
 						<td id="dtuavd${searchFilter.avd}_dtupro${searchFilter.tur}_oncontainer" ondrop="dropX(event)" ondragenter="highlightDropArea(event)" ondragleave="noHighlightDropArea(event)" ondragover="allowDrop(event)" class="text14MediumBlue">
 							<spring:message code="systema.transportdisp.orders.current.header"/>&nbsp;&nbsp;
+							<button name="smsButton" id="smsButton" class="buttonGrayWithGreenFrame" type="button" >Send SMS</button>
 						</td>
 					</tr>
 					<c:if test="${not empty model.containerCurrentOrders.maxWarning}">
@@ -835,6 +839,36 @@
 			
 			
 			</table>
+		</td>
+		</tr>
+		
+		
+		<%-- ---------------- --%>
+		<%-- DIALOG SMS		  --%>
+		<%-- ---------------- --%>
+		<tr>
+		<td>
+			<div id="dialogSMS" title="Dialog">
+				 	<table>
+						<tr>
+							<td class="text12" align="left" >Send SMS med lenke til TKeventGrabber</td>
+   						</tr>
+   						<tr height="8"><td></td></tr>
+						<tr>
+							<td class="text12" align="left" >
+								<b>SMS-nummer</b>&nbsp;<input type="text" class="inputText" onKeyPress="return numberKey(event)" id="smsnr" name="smsnr" size="20" maxlength="15" value=''>
+							</td>
+   						</tr>
+
+						<tr height="12"><td></td></tr>
+						<tr>
+							<td class="text12MediumBlue" align="left">
+								Send status:&nbsp;<label id="smsStatus"></label>
+							</td>
+						</tr>
+						
+					</table>
+			</div>
 		</td>
 		</tr>
 		

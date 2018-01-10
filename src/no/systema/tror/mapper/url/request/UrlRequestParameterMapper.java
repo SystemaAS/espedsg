@@ -85,6 +85,7 @@ public class UrlRequestParameterMapper {
 		
 		try{
 			for(Field field: fields){
+				//logger.info(field.getName());
 				try{
 					field.setAccessible(true);//we must do this in order to access private fields
 					String value = (String)field.get(object); 
@@ -118,13 +119,13 @@ public class UrlRequestParameterMapper {
 						BigDecimal value = (BigDecimal)field.get(object); 
 						sb.append(MainMaintenanceConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + field.getName() + "=");
 						sb.append(value);
-					}
-					
-					else{
-						logger.info(" [INFO]data type not yet supported..." + e.getMessage());
+					} else{
+						logger.info(" [INFO]data type not yet supported... field:" + field.getName() + " error Message:" + e.getMessage());
+						
 					}
 					//add more instances if you need...					
-										
+				    continue;
+				    	
 					
 				}
 			}
@@ -132,6 +133,7 @@ public class UrlRequestParameterMapper {
 			logger.info("Error", e);
 			e.printStackTrace();
 		}
+		//logger.info(sb.toString());
 		return sb.toString();
 	}
 	

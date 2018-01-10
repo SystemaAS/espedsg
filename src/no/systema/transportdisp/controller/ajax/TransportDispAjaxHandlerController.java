@@ -788,6 +788,40 @@ public class TransportDispAjaxHandlerController {
 			
 			return result;
 	  }
+	  
+	  @RequestMapping(value = "sendSMSFromTur_TransportDisp.do", method = RequestMethod.GET)
+	  public @ResponseBody Collection<JsonTransportDispSendSmsContainer> sendSMSFromTur(@RequestParam String applicationUser, @RequestParam String tur, @RequestParam String smsnr, @RequestParam String language ) {
+		  	Collection<JsonTransportDispSendSmsContainer> result = new ArrayList<JsonTransportDispSendSmsContainer>();
+		  	logger.info("Inside sendSMSFromTur...");
+		  
+		  	//http://gw.systema.no/sycgip/tjfa55s.pgm?user=JOVO&tur=80000060&smsnr=48052470&sprak=EN
+		  	
+	  		//prepare the access CGI with RPG back-end
+			String BASE_URL = TransportDispUrlDataStore.TRANSPORT_DISP_BASE_CHILDWINDOW_SEND_SMS_FROM_TUR_URL;
+			String urlRequestParamsKeys = "user=" + applicationUser + "&tur=" + tur + "&smsnr=" + smsnr + "&sprak=" + language;
+			
+			logger.info("URL: " + BASE_URL);
+			logger.info("PARAMS: " + urlRequestParamsKeys);
+			logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+			String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+			//Debug -->
+			logger.info(jsonPayload);
+			logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp"); 
+			
+			if(jsonPayload!=null){
+				JsonTransportDispSendSmsContainer container = this.transportDispChildWindowService.getSendSmsContainer(jsonPayload);
+				if(container!=null){
+					result.add(container);
+				}else{
+					String errMsg = "CONTAINER = NULL in Ajax: sendSMS_TransportDisp.do";
+					logger.info(errMsg);
+					container = new JsonTransportDispSendSmsContainer();
+					container.setErrMsg(errMsg);
+				}
+			}
+			
+			return result;
+	  }
 	  /**
 	   * 
 	   * @param applicationUser

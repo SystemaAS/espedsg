@@ -158,8 +158,7 @@
 										<th align="center" width="5%" class="text12" >&nbsp;<span title="todo">Fraktbrevnr.&nbsp;</span></th>
 										<th class="text12" >&nbsp;<span title="dfnavm">Mottaker</span></th>  
 										<th class="text12" >&nbsp;<span title="dfad3m">Poststed</span></th> 
-										<th class="text12" width="2%" >&nbsp;<span title="dfst">Status</span></th> 
-										<th class="text12" width="2%" >&nbsp;<span title="todo">Stk</span></th>
+										<th align="center" class="text12" width="2%" >&nbsp;<span title="dfst">Status</span></th> 
 										<th class="text12" width="2%" >&nbsp;<span title="dfnt">Antall</span></th>
 										<th class="text12" width="5%" >&nbsp;<span title="dfvs">Vareslag</span></th>
 										<th class="text12" width="2%" >&nbsp;<span title="dfvkt">Vekt</span></th>
@@ -180,8 +179,7 @@
 						               	   <td align="center" width="4%" class="text11" align="left">${record.df1004}</td>
 							               <td class="text11" >${record.dfnavm}</td>
 						               	   <td class="text11" >${record.dfad3m}</td>
-						               	   <td class="text11" width="2%" >${record.dfst}</td>
-						               	   <td class="text11" width="2%" >${record.dfntla}</td>
+						               	   <td align="center" class="text11" width="2%" >${record.dfst}</td>
 						               	   <td class="text11" width="2%" >${record.dfnt}</td>
 						               	   <td class="text11" width="5%" >${record.dfvs}</td>
 						               	   <td class="text11" width="2%" >${record.dfvkt}</td>
@@ -189,8 +187,8 @@
 							               
 							               <%-- DELETE cell --%>							           
 							               <td width="2%" class="text11" align="center">
-							               	   <c:if test="${not empty Xrecord.fskode && not empty Xrecord.fssok}">
-							                   		<a style="cursor:pointer;" id="avd_${Xrecord.fsavd}@opd_${Xrecord.fsopd}@kode_${Xrecord.fskode}@sok_${Xrecord.fssok}" onClick="doDeleteItemLine(this);" tabindex=-1 >
+							               	   <c:if test="${not empty record.dffbnr}">
+							                   		<a style="cursor:pointer;" id="avd_${record.dfavd}@opd_${record.dfopd}@id_${record.dffbnr}@sign_${record.dfsg}" onClick="doDeleteItemLine(this);" tabindex=-1 >
 									               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 									               	</a>&nbsp;
 									               	

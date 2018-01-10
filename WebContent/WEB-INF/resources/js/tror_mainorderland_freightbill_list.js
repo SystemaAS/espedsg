@@ -96,36 +96,36 @@
 	//Alert modal pop-up
 	//----------------------------------------
 	function doDeleteItemLine(element){
-	  //start
+		//start
 		//avd_${record.fsavd}@opd_${record.fsopd}@kode_${record.fskode}@sok_${record.fssok}
 		var record = element.id.split('@');
 		var avd = record[0].replace("avd_","");
 		var opd = record[1].replace("opd_","");
-		var kode = record[2].replace("kode_","");
-		var sok = record[3].replace("sok_","");
-		
-	  //Start dialog
-	  jq('<div></div>').dialog({
-      modal: true,
-      title: "Dialog - Slett kode: " + kode + " " + sok,
-      buttons: {
-	        Fortsett: function() {
-      		jq( this ).dialog( "close" );
-	            //do delete
-	            jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-	            window.location = "tror_mainorderland_frisokvei_edit.do?action=doDelete" + "&avd=" + avd + "&opd=" + opd + "&fskode=" + kode + "&fssok=" + sok;
-	        },
-	        Avbryt: function() {
-	            jq( this ).dialog( "close" );
-	        }
-      },
-      open: function() {
-	  		  var markup = "Er du sikker på at du vil slette denne?";
-	          jq(this).html(markup);
-	          //make Cancel the default button
-	          jq(this).siblings('.ui-dialog-buttonpane').find('button:eq(1)').focus();
-	     }
-	  });  //end dialog
+		var id = record[2].replace("id_","");
+		var sign = record[3].replace("sign_","");
+	
+		//Start dialog
+		jq('<div></div>').dialog({
+			modal: true,
+			title: "Dialog - Slett fraktbrev: " + id,
+			buttons: {
+		        Fortsett: function() {
+	      		jq( this ).dialog( "close" );
+		            //do delete
+		            jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+		            window.location = "tror_mainorderland_freightbill_list_edit.do?action=doDelete" + "&dfavd=" + avd + "&dfopd=" + opd + "&dffbnr=" + id + "&sign=" + sign ;
+		        },
+		        Avbryt: function() {
+		            jq( this ).dialog( "close" );
+		        }
+			},
+			open: function() {
+		  		  var markup = "Er du sikker på at du vil slette denne?";
+		          jq(this).html(markup);
+		          //make Cancel the default button
+		          jq(this).siblings('.ui-dialog-buttonpane').find('button:eq(1)').focus();
+			}
+		});  //end dialog
 	}
 	
 	//-------------------

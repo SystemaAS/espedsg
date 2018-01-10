@@ -756,6 +756,104 @@
   //END Model dialog Copy Order
   //---------------------------------
 
+  
+  //-----------------------------
+  //START Model dialog: "SMS"
+  //---------------------------
+  //Initialize <div> here
+  jq(function() { 
+	  jq("#dialogSMS").dialog({
+		  autoOpen: false,
+		  maxWidth:400,
+          maxHeight: 250,
+          width: 360,
+          height: 230,
+		  modal: true,
+		  dialogClass: 'main-dialog-class'
+	  });
+  });
+
+  jq(function() {
+	  jq("#smsButton").click(function() {
+		  presentSmsDialog();
+	  });
+  });
+  
+  /*
+  ---------------------
+  /PRESENT SMS DIALOG
+  ---------------------
+   */
+  function presentSmsDialog(){
+	//setters (add more if needed)
+	  jq('#dialogSMS').dialog( "option", "title", "Send SMS" );
+	  //deal with buttons for this modal window
+	  jq('#dialogSMS').dialog({
+		 buttons: [ 
+            {
+			 id: "dialogSaveTU",	
+			 text: "Send",
+			 click: function(){
+				 		if(jq("#smsnr").val() != ''){
+				 			sendSMS();
+				 		}
+		 			}
+		 	 },
+  			{
+		 	 id: "dialogCancelTU",
+		 	 text: "Lukk", 
+			 click: function(){
+				 		//back to initial state of form elements on modal dialog
+				 		//jq("#dialogSaveTU").button("option", "disabled", true);
+				 		jq("#smsnr").val("");
+				 		jq("#smsStatus").text("");
+				 		jq("#smsStatus").removeClass( "isa_error" );
+				 		jq("#smsStatus").removeClass( "isa_success" );
+		  				jq( this ).dialog( "close" ); 
+			 		} 
+ 	 		 } ] 
+	  });
+	  //init values
+	  //jq("#dialogSaveTU").button("option", "disabled", true);
+	  //open now
+	  jq('#dialogSMS').dialog('open');
+  }
+  
+  //new line
+  function sendSMS() {
+	  
+	  jq.ajax({
+	  	  type: 'GET',
+	  	  url: 'sendSMSFromTur_TransportDisp.do',
+	  	  data: { applicationUser : jq('#applicationUser').val(),
+	  		  	  tur : jq("#tripNr").val(),
+	  		  	  smsnr : jq("#smsnr").val(),
+		  		  language : "EN" },
+	  	  dataType: 'json',
+	  	  cache: false,
+	  	  contentType: 'application/json',
+	  	  success: function(data) {
+	  		var len = data.length;
+	  		
+	  		for ( var i = 0; i < len; i++) {
+	  			if(data[i].errMsg != ''){
+	  				jq("#smsStatus").removeClass( "isa_success" );
+	  				jq("#smsStatus").addClass( "isa_error" );
+	  				jq("#smsStatus").text("SMS error: " + data[i].smsnr + " " + data[i].errMsg);
+	  			}else{
+	  				jq("#smsStatus").removeClass( "isa_error" );
+	  				jq("#smsStatus").addClass( "isa_success" );
+	  				jq("#smsStatus").text("SMS er sendt ti" + data[i].smsnr + " (loggført i Hendelsesloggen)");
+	  			}
+	  		}
+	  	  },
+	  	  error: function() {
+	  	    alert('Error loading on Ajax callback (?) sendSMSFromTur...check js');
+	  	  }
+	  });
+  }	
+
+  
 
   
   

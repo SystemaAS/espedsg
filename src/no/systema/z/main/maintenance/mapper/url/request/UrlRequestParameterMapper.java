@@ -104,6 +104,7 @@ public class UrlRequestParameterMapper {
 						sb.append(value.trim());
 					}
 				}catch(Exception e){
+					
 					//Try Integer
 					if(field.get(object) instanceof Integer){
 						Integer value = (Integer)field.get(object); 
@@ -125,7 +126,8 @@ public class UrlRequestParameterMapper {
 					}
 					
 					else{
-						logger.info(" [INFO]data type not yet supported..." + e.getMessage());
+						
+						logger.info(" [INFO]data type not yet supported... field:" + field.getName() + " error Message:" + e.getMessage());
 					}
 					//add more instances if you need...					
 										
@@ -136,6 +138,7 @@ public class UrlRequestParameterMapper {
 			logger.info("Error", e);
 			e.printStackTrace();
 		}
+		
 		return sb.toString();
 	}
 	

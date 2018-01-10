@@ -29,6 +29,7 @@ import no.systema.jservices.common.dao.DokufDao;
 import no.systema.jservices.common.dao.FaktDao;
 import no.systema.jservices.common.json.JsonDtoContainer;
 import no.systema.jservices.common.json.JsonReader;
+import no.systema.jservices.common.util.GSINCheckDigit;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.StringManager;
 import no.systema.main.service.UrlCgiProxyService;
@@ -36,19 +37,24 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorCarrierContainer;
+import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorCarrierRecord;
+import no.systema.tror.service.TrorMainOrderHeaderChildwindowService;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportService;
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.RpgReturnResponseHandler;
-import no.systema.tror.util.TrorConstants;
 import no.systema.tror.util.manager.CodeDropDownMgr;
 import no.systema.tror.util.manager.LandImportExportManager;
-import no.systema.z.main.maintenance.mapper.url.request.UrlRequestParameterMapper;
+import no.systema.tror.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainFirmContainer;
+import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainFirmRecord;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainKodtaRecord;
 import no.systema.z.main.maintenance.service.MaintMainCundfService;
+import no.systema.z.main.maintenance.service.MaintMainFirmService;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
 import no.systema.z.main.maintenance.url.store.MaintenanceMainUrlDataStore;
 import no.systema.z.main.maintenance.util.MainMaintenanceConstants;
@@ -86,11 +92,11 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	 */
 	@RequestMapping(value="tror_mainorderland_freightbill_gate.do", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView tror_mainorderland_freightbill_gate(@ModelAttribute ("record") DokufDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		
 		ModelAndView successView = null; 
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		String sign = request.getParameter("sign");
+		
 		
 		if (appUser == null) {
 			return this.loginView;
@@ -106,7 +112,77 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		}
 		return successView;
 	}
-	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tror_mainorderland_freightbill_list_edit.do", method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView tror_mainorderland_freightbill_list_edit(@ModelAttribute ("record") DokufDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		Map model = new HashMap();
+		String action = request.getParameter("action");
+		String updateId = request.getParameter("updateId");
+		String sign = request.getParameter("sign");
+		ModelAndView successView = new ModelAndView("redirect:tror_mainorderland_freightbill_gate.do?" + "&dfavd=" + recordToValidate.getDfavd() + "&sign=" + sign + "&dfopd=" + recordToValidate.getDfopd());
+		
+		StringBuffer errMsg = new StringBuffer();
+		JsonTrorOrderHeaderRecord headf = new JsonTrorOrderHeaderRecord();
+		
+		int dmlRetval = 0;
+		DokufDao savedRecord = null;
+		
+		if (appUser == null) {
+			return this.loginView;
+		} else {
+			
+			if (MainMaintenanceConstants.ACTION_CREATE.equals(action)) {  //New
+				logger.info("Inside - CREATE NEW");
+				this.adjustFields( recordToValidate,  headf);
+				// Validate
+				TrorOrderFraktbrevValidator validator = new TrorOrderFraktbrevValidator();
+				validator.validate(recordToValidate, bindingResult);
+				if (bindingResult.hasErrors()) {
+					logger.info("[ERROR Validation] Record does not validate)");
+					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+				} else {
+					recordToValidate.setDfsg(sign);
+					savedRecord = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
+					/*TODO -- error handling ... (change successview among others ...)
+					if (savedRecord == null) {
+						logger.info("[ERROR Validation] Record does not validate)");
+						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+					} else {
+						DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
+						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+					}*/
+				}
+
+			}  else if (MainMaintenanceConstants.ACTION_DELETE.equals(action)) { //Delete
+				logger.info("Inside - DELETE");
+				savedRecord = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
+				/* TODO -- error handling ... (change successview among others ...)
+				if (savedRecord == null) {
+					logger.info("[ERROR Validation] Record does not validate)");
+					model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+					
+				} else {
+					DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
+					model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+				}*/
+				
+
+			} 
+			
+			return successView;		
+		}
+
+	}
 	/**
 	 * 
 	 * @param recordToValidate
@@ -116,7 +192,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	 * @return
 	 */
 	@RequestMapping(value="tror_mainorderland_freightbill_edit.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView mainmaintenancecundf_vareimp_se_edit(@ModelAttribute ("record") DokufDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	public ModelAndView tror_mainorderland_freightbill_edit(@ModelAttribute ("record") DokufDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("tror_mainorderland_freightbill");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
@@ -136,6 +212,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		} else {
 			
 			if (MainMaintenanceConstants.ACTION_CREATE.equals(action)) {  //New
+				logger.info("Inside - CREATE NEW");
 				this.adjustFields( recordToValidate,  headf);
 				// Validate
 				TrorOrderFraktbrevValidator validator = new TrorOrderFraktbrevValidator();
@@ -144,6 +221,8 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 					logger.info("[ERROR Validation] Record does not validate)");
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				} else {
+					this.calculateDf1004UniqueGUID(appUser, recordToValidate);
+					//recordToValidate.setDf1004("70701550001423698");
 					savedRecord = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
 					if (savedRecord == null) {
 						logger.info("[ERROR Validation] Record does not validate)");
@@ -174,6 +253,28 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 					}
 				}
+			} else if (MainMaintenanceConstants.ACTION_DELETE.equals(action)) { //Delete
+				/*
+				this.adjustFields( recordToValidate,  headf);
+				//Validate
+				TrorOrderFraktbrevValidator validator = new TrorOrderFraktbrevValidator();
+				validator.validate(recordToValidate, bindingResult);
+				if (bindingResult.hasErrors()) {
+					logger.info("[ERROR Validation] Record does not validate)");
+					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+				} else {
+					savedRecord = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
+					if (savedRecord == null) {
+						logger.info("[ERROR Validation] Record does not validate)");
+						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+					} else {
+						DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
+						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+					}
+				}
+				*/
+				
 			} else { // Fetch
 				logger.info("FETCH branch");
 				DokufDao recordDokufDao = null;
@@ -211,6 +312,73 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		}
 
 	}
+	/**
+	 * Creates the unique GUID (df1004) for the new fraktbrev...
+	 * @param appUser
+	 * @param recordToValidate
+	 */
+	private void calculateDf1004UniqueGUID(SystemaWebUser appUser, DokufDao recordToValidate){
+		//prepare the access CGI with RPG back-end
+		String BASE_URL = TrorUrlDataStore.TROR_BASE_CHILDWINDOW_CARRIER_URL;
+		String urlRequestParamsKeys = "user=" + appUser.getUser();
+		logger.info("URL: " + BASE_URL);
+		logger.info("PARAMS: " + urlRequestParamsKeys);
+		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		//Debug -->
+    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		boolean dataExistsOnPhase1 = false;
+		if(jsonPayload!=null){
+			JsonTrorCarrierContainer container = this.trorMainOrderHeaderChildwindowService.getCarrierListContainer(jsonPayload);
+    		if(container!=null){
+    			List<JsonTrorCarrierRecord> list = new ArrayList<JsonTrorCarrierRecord>();
+    			for(JsonTrorCarrierRecord  record : container.getDtoList()){
+    				//--------
+    				//STEP 1
+    				//--------
+    				if(strMgr.isNotNull(record.getVmsnla()) && strMgr.isNotNull(record.getVmsnle()) && strMgr.isNotNull(record.getVmrecn()) ){
+    					dataExistsOnPhase1 = true;
+    					this.constructDf1004GUID(record.getVmsnla(), record.getVmsnle(), record.getVmrecn(), recordToValidate);
+    					//update the counter (vmrecn) on table TRAN
+    					//TODO...
+    				}
+    			}
+    			if(!dataExistsOnPhase1){
+    				//---------------------------------
+    				//STEP 2 (fall-back on FIRM/FIRFB)
+    				//---------------------------------
+    				BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFIRMR_GET_LIST_URL;
+    				String urlRequestParams = "user=" + appUser.getUser();
+    				
+    				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    		    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    		    	logger.info("URL PARAMS: " + urlRequestParams);
+    		    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    		    	//DEBUG
+    		    	this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
+    		    	if(jsonPayload!=null){
+    					//lists
+    		    		JsonMaintMainFirmContainer firmContainer = this.maintMainFirmService.getList(jsonPayload);
+    			        if(container!=null){
+    			        	for(JsonMaintMainFirmRecord record : firmContainer.getList()){
+    			        		this.constructDf1004GUID(record.getFisnla(), record.getFisnle(), record.getFirecn(), recordToValidate);
+    			        		//update the counter (firecn) on table FIFIRB
+    			        		//TODO...
+    			        	}
+    			        }
+    		    	}
+    			}
+    		}
+		}
+	}
+	
+	private void constructDf1004GUID(String snlaValue, String snleValue, String recnValue, DokufDao recordToValidate){
+		String newRecnValue = this.strMgr.leadingStringWithNumericFiller(recnValue, 9, "0");
+		String df1004 = GSINCheckDigit.calculate(snlaValue + snleValue + newRecnValue);
+		recordToValidate.setDf1004(df1004);
+	}
+	
 	/**
 	 * 
 	 * @param appUser
@@ -585,7 +753,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		jsonReader.set(new JsonDtoContainer<DokufDao>());
 		final String BASE_URL = TrorUrlDataStore.TROR_BASE_DOKUF_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=" + mode + "&lang=" +appUser.getUsrLang();
-		String urlRequestParams = urlRequestParameterMapper.getUrlParameterValidString(record);
+		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString(record);
 		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
 
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
@@ -682,6 +850,21 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	@Required
 	public void setMaintMainCundfService (MaintMainCundfService value){ this.maintMainCundfService = value; }
 	public MaintMainCundfService getMaintMainCundfService(){ return this.maintMainCundfService; }
+	
+	@Qualifier ("trorMainOrderHeaderChildwindowService")
+	private TrorMainOrderHeaderChildwindowService trorMainOrderHeaderChildwindowService;
+	@Autowired
+	@Required
+	public void setTrorMainOrderHeaderChildwindowService (TrorMainOrderHeaderChildwindowService value){ this.trorMainOrderHeaderChildwindowService = value; }
+	public TrorMainOrderHeaderChildwindowService getTrorMainOrderHeaderChildwindowService(){ return this.trorMainOrderHeaderChildwindowService; }
+	
+	
+	@Qualifier ("maintMainFirmService")
+	private MaintMainFirmService maintMainFirmService;
+	@Autowired
+	@Required
+	public void setMaintMainFirmService (MaintMainFirmService value){ this.maintMainFirmService = value; }
+	public MaintMainFirmService getMaintMainFirmService(){ return this.maintMainFirmService; }
 	
 	
 }

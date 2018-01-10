@@ -39,7 +39,7 @@ public class StringManager {
 	 * @param fieldLimit
 	 * @return
 	 */
-	public String trailingStringWithNumericFiller(String value, int fieldLimit, String fillerChar){
+	public String leadingStringWithNumericFiller(String value, int fieldLimit, String fillerChar){
 		String FILLER = fillerChar;
 		int FTX_LIMIT = fieldLimit;
 		StringBuffer str = new StringBuffer();
