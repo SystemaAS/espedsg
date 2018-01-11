@@ -302,26 +302,7 @@
 	    		refreshCustomValidity(jq('#hetri')[0]);
 	  		}
 	  	});
-	    jq('#wsscont').focus(function() {
-	    	if(jq('#wsscont').val()!=''){
-	    		refreshCustomValidity(jq('#wsscont')[0]);
-	  		}
-	  	});
-	    jq('#wsstlf').focus(function() {
-	    	if(jq('#wsstlf').val()!=''){
-	    		refreshCustomValidity(jq('#wsstlf')[0]);
-	  		}
-	  	});
-	    jq('#wskcont').focus(function() {
-	    	if(jq('#wskcont').val()!=''){
-	    		refreshCustomValidity(jq('#wskcont')[0]);
-	  		}
-	  	});
-	    jq('#wsktlf').focus(function() {
-	    	if(jq('#wsktlf').val()!=''){
-	    		refreshCustomValidity(jq('#wsktlf')[0]);
-	  		}
-	  	});
+	    
 	    
 	    //------
 	    //hesdt

@@ -411,8 +411,8 @@
 					 				<td class="text11">&nbsp;<span title="wsstlf"><spring:message code="systema.ebooking.orders.form.update.label.shipper.telephone"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueUPPERCASEMandatoryField" name="wsscont" id="wsscont" size="25" maxlength="30" value="${model.record.wsscont}"></td>
-				 					<td class="text11"><input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueUPPERCASEMandatoryField" name="wsstlf" id="wsstlf" size="25" maxlength="30" value="${model.record.wsstlf}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlue" name="wsscont" id="wsscont" size="25" maxlength="30" value="${model.record.wsscont}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlue" name="wsstlf" id="wsstlf" size="25" maxlength="30" value="${model.record.wsstlf}"></td>
 				 				</tr>
 					 			<tr>	
 					 				<td class="text11" colspan="2">&nbsp;<span title="wssmail"><spring:message code="systema.ebooking.orders.form.update.label.shipper.email"/></span></td>
@@ -572,8 +572,8 @@
 					 				<td class="text11">&nbsp;<span title="wsktlf"><spring:message code="systema.ebooking.orders.form.update.label.consignee.telephone"/></span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text11"><input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueUPPERCASEMandatoryField" name="wskcont" id="wskcont" size="25" maxlength="30" value="${model.record.wskcont}"></td>
-				 					<td class="text11"><input type="text" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueUPPERCASEMandatoryField" name="wsktlf" id="wsktlf" size="25" maxlength="30" value="${model.record.wsktlf}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlue" name="wskcont" id="wskcont" size="25" maxlength="30" value="${model.record.wskcont}"></td>
+				 					<td class="text11"><input type="text" class="inputTextMediumBlue" name="wsktlf" id="wsktlf" size="25" maxlength="30" value="${model.record.wsktlf}"></td>
 				 				</tr>
 					 			<tr>	
 					 				<td class="text11" colspan="2">&nbsp;<span title="wskmail"><spring:message code="systema.ebooking.orders.form.update.label.consignee.email"/></span></td>
