@@ -127,6 +127,10 @@ public class TrorUrlDataStore {
 	
 	//http://gw.systema.no:8080/syjservicesbcore/syjsTRAN.do?user=OSCAR
 	static public String TROR_BASE_CHILDWINDOW_CARRIER_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsTRAN.do";
+	//http://gw.systema.no:8080/syjservicestror/syjsTRAN_U_COUNTER.do?user=OSCAR&vmtran=1000
+	static public String TROR_BASE_UPDATE_TRAN_COUNTER_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsTRAN_U_COUNTER.do";
+	//http://gw.systema.no:8080/syjservicesbcore/syjsFIRFB_U_COUNTER.do?user=OSCAR&fifirm=SY
+	static public String TROR_BASE_UPDATE_FIRFB_COUNTER_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsFIRFB_U_COUNTER.do";
 	//http://gw.systema.no:8080/syjservicestror/syjsSTED2.do?user=OSCAR&st2kod=8000&st2lk=NO
 	static public String TROR_BASE_CHILDWINDOW_POSTALCODE_STED2_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsSTED2.do";
 	//http://gw.systema.no:8080/syjservicestror/syjsKODTTST.do?user=OSCAR&ktskod=19

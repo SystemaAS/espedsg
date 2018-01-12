@@ -37,9 +37,6 @@ import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
-import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorCarrierContainer;
-import no.systema.tror.model.jsonjackson.order.childwindow.JsonTrorCarrierRecord;
-import no.systema.tror.service.TrorMainOrderHeaderChildwindowService;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportService;
 import no.systema.tror.url.store.TrorUrlDataStore;
@@ -81,6 +78,8 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	private StringManager strMgr = new StringManager();
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 	private LandImportExportManager landImportMgr = new LandImportExportManager();
+	private final String KEY_ID_TRAN_TBL = "idTran";
+	private final String KEY_ID_FIRFB_TBL = "idFirfb";
 	
 	/**
 	 * 
@@ -107,6 +106,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 				model.put("list", list);
 				successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
 			}else{
+				//this will send the request with an implicit action of doFetch
 				successView = new ModelAndView("redirect:tror_mainorderland_freightbill_edit.do?" + "&dfavd=" + recordToValidate.getDfavd() + "&sign=" + sign + "&dfopd=" + recordToValidate.getDfopd());
 			}
 		}
@@ -221,14 +221,21 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 					logger.info("[ERROR Validation] Record does not validate)");
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				} else {
-					this.calculateDf1004UniqueGUID(appUser, recordToValidate);
+					Map keyMap = new HashMap();
+					this.calculateDf1004UniqueGUID(appUser, recordToValidate, keyMap);
 					//recordToValidate.setDf1004("70701550001423698");
+					logger.info("#############:" + recordToValidate.getDf1004());
+					
 					savedRecord = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
 					if (savedRecord == null) {
 						logger.info("[ERROR Validation] Record does not validate)");
 						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 					} else {
+						String id = (String)keyMap.get(KEY_ID_FIRFB_TBL);
+						if(strMgr.isNotNull(id)){
+							this.updateFirfbCounter(appUser.getUser(), id);
+						}
 						DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 					}
@@ -279,14 +286,12 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 				logger.info("FETCH branch");
 				DokufDao recordDokufDao = null;
 				List list = this.fetchFraktbrevList(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr());
-				if(list!=null && list.size()>1){
-					
-				}else{
-					
-				}
+				
 				recordDokufDao = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
 				if(recordDokufDao!=null && strMgr.isNotNull(recordDokufDao.getDf1004())){
-					//get invoice data (currency & amount
+					//get invoice data (currency & amount... 
+					//12.Jan.2018: TODO--> after meeting (CB,JOVO,OT)a lot of issues CRUD must be resolved before we allow the end-user to input these 2 fields on GUI.
+					//This Use Case has been flaged with low-priority
 					this.getInvoiceAmount(appUser, recordDokufDao, model);
 					model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordDokufDao);
@@ -317,65 +322,78 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	 * @param appUser
 	 * @param recordToValidate
 	 */
-	private void calculateDf1004UniqueGUID(SystemaWebUser appUser, DokufDao recordToValidate){
-		//prepare the access CGI with RPG back-end
-		String BASE_URL = TrorUrlDataStore.TROR_BASE_CHILDWINDOW_CARRIER_URL;
-		String urlRequestParamsKeys = "user=" + appUser.getUser();
-		logger.info("URL: " + BASE_URL);
-		logger.info("PARAMS: " + urlRequestParamsKeys);
-		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-		//Debug -->
-    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-		boolean dataExistsOnPhase1 = false;
-		if(jsonPayload!=null){
-			JsonTrorCarrierContainer container = this.trorMainOrderHeaderChildwindowService.getCarrierListContainer(jsonPayload);
-    		if(container!=null){
-    			List<JsonTrorCarrierRecord> list = new ArrayList<JsonTrorCarrierRecord>();
-    			for(JsonTrorCarrierRecord  record : container.getDtoList()){
-    				//--------
-    				//STEP 1
-    				//--------
-    				if(strMgr.isNotNull(record.getVmsnla()) && strMgr.isNotNull(record.getVmsnle()) && strMgr.isNotNull(record.getVmrecn()) ){
-    					dataExistsOnPhase1 = true;
-    					this.constructDf1004GUID(record.getVmsnla(), record.getVmsnle(), record.getVmrecn(), recordToValidate);
-    					//update the counter (vmrecn) on table TRAN
-    					//TODO...
-    				}
-    			}
-    			if(!dataExistsOnPhase1){
-    				//---------------------------------
-    				//STEP 2 (fall-back on FIRM/FIRFB)
-    				//---------------------------------
-    				BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFIRMR_GET_LIST_URL;
-    				String urlRequestParams = "user=" + appUser.getUser();
-    				
-    				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-    		    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-    		    	logger.info("URL PARAMS: " + urlRequestParams);
-    		    	jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-    		    	//DEBUG
-    		    	this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
-    		    	if(jsonPayload!=null){
-    					//lists
-    		    		JsonMaintMainFirmContainer firmContainer = this.maintMainFirmService.getList(jsonPayload);
-    			        if(container!=null){
-    			        	for(JsonMaintMainFirmRecord record : firmContainer.getList()){
-    			        		this.constructDf1004GUID(record.getFisnla(), record.getFisnle(), record.getFirecn(), recordToValidate);
-    			        		//update the counter (firecn) on table FIFIRB
-    			        		//TODO...
-    			        	}
-    			        }
-    		    	}
-    			}
-    		}
-		}
+	private void calculateDf1004UniqueGUID(SystemaWebUser appUser, DokufDao recordToValidate, Map keyMap){
+		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFIRMR_GET_LIST_URL;
+		String urlRequestParams = "user=" + appUser.getUser();
+		
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParams);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+    	//DEBUG
+    	this.jsonDebugger.debugJsonPayload(jsonPayload, 1000);
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintMainFirmContainer container = this.maintMainFirmService.getList(jsonPayload);
+	        if(container!=null){
+	        	for(JsonMaintMainFirmRecord record : container.getList()){
+	        		logger.info("Calculate Df1004GUID");
+	        		this.constructDf1004GUID(record, recordToValidate);
+	        		//for the update of counter (firecn) on table FIRFB done in caller function
+	        		keyMap.put(KEY_ID_FIRFB_TBL, record.getFifirm());
+	        		break;
+	        	}
+	        }
+    	}
 	}
 	
-	private void constructDf1004GUID(String snlaValue, String snleValue, String recnValue, DokufDao recordToValidate){
-		String newRecnValue = this.strMgr.leadingStringWithNumericFiller(recnValue, 9, "0");
-		String df1004 = GSINCheckDigit.calculate(snlaValue + snleValue + newRecnValue);
+	/**
+	 * 
+	 * @param applicationUser
+	 * @param id
+	 */
+	private void updateFirfbCounter(String applicationUser, String id){
+		String BASE_URL = TrorUrlDataStore.TROR_BASE_UPDATE_FIRFB_COUNTER_URL;
+		String urlRequestParamsKeys = "user=" + applicationUser + "&fifirm=" + id;
+		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
+    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
+		
+    	//extract
+    	if(jsonPayload!=null){
+			//lists
+    		JsonMaintMainFirmContainer container = this.maintMainFirmService.doUpdate(jsonPayload);
+	        if(container!=null){
+	        	if(container.getErrMsg()!=null && !"".equals(container.getErrMsg())){
+	        		logger.info(container.getErrMsg());
+	        		//TODO error handling. Not today. Today is friday ... ;-)
+					/*
+	        		if(container.getErrMsg().toUpperCase().startsWith("ERROR")){
+	        			errMsg.append(container.getErrMsg());
+	        			retval = MainMaintenanceConstants.ERROR_CODE;
+	        		}*/
+	        	}else{
+	        		//All = OK
+	        	}
+	        }
+    	} 
+       	
+	}
+		
+	/**
+	 * 
+	 * @param snlaValue
+	 * @param snleValue
+	 * @param recnValue
+	 * @param recordToValidate
+	 */
+	private void constructDf1004GUID(JsonMaintMainFirmRecord record, DokufDao recordToValidate){
+		String newRecnValue = this.strMgr.leadingStringWithNumericFiller(record.getFirecn(), 9, "0");
+		String df1004WithoutCheckDigit = record.getFisnla() + record.getFisnle() + newRecnValue;
+		String checkDigit = GSINCheckDigit.calculate(df1004WithoutCheckDigit);
+		//final number String (17)
+		String df1004 = df1004WithoutCheckDigit + checkDigit;
 		recordToValidate.setDf1004(df1004);
 	}
 	
@@ -442,11 +460,17 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 			this.setCorrectSender(appUser, recordToValidate, orderHeader);
 			//set correct Invoicee
 			this.setCorrectInvoicee(recordToValidate, orderHeader);
-			//Mottaker
-			recordToValidate.setDffase(orderHeader.getHenas());
+			//Mottaker must be truncated Dffase = 25 length and henas = 30
+			if(strMgr.isNotNull(orderHeader.getHenas()) && orderHeader.getHenas().length()>25){
+				recordToValidate.setDffase(orderHeader.getHenas().substring(0,24));
+			}else{
+				recordToValidate.setDffase(orderHeader.getHenas());
+			}
+			
 			if(strMgr.isNotNull(orderHeader.getHeknk())){
 				recordToValidate.setDfknsm(Integer.parseInt(orderHeader.getHeknk()));
 			}
+			
 			recordToValidate.setDfnavm(orderHeader.getHenak());
 			recordToValidate.setDfad1m(orderHeader.getHeadk1());
 			recordToValidate.setDfad3m(orderHeader.getHeadk3());
@@ -850,14 +874,6 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	@Required
 	public void setMaintMainCundfService (MaintMainCundfService value){ this.maintMainCundfService = value; }
 	public MaintMainCundfService getMaintMainCundfService(){ return this.maintMainCundfService; }
-	
-	@Qualifier ("trorMainOrderHeaderChildwindowService")
-	private TrorMainOrderHeaderChildwindowService trorMainOrderHeaderChildwindowService;
-	@Autowired
-	@Required
-	public void setTrorMainOrderHeaderChildwindowService (TrorMainOrderHeaderChildwindowService value){ this.trorMainOrderHeaderChildwindowService = value; }
-	public TrorMainOrderHeaderChildwindowService getTrorMainOrderHeaderChildwindowService(){ return this.trorMainOrderHeaderChildwindowService; }
-	
 	
 	@Qualifier ("maintMainFirmService")
 	private MaintMainFirmService maintMainFirmService;
