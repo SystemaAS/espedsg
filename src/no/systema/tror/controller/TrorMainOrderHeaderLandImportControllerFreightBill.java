@@ -224,8 +224,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 					Map keyMap = new HashMap();
 					this.calculateDf1004UniqueGUID(appUser, recordToValidate, keyMap);
 					//recordToValidate.setDf1004("70701550001423698");
-					logger.info("#############:" + recordToValidate.getDf1004());
-					
+					//logger.info("#############:" + recordToValidate.getDf1004());
 					savedRecord = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
 					if (savedRecord == null) {
 						logger.info("[ERROR Validation] Record does not validate)");
