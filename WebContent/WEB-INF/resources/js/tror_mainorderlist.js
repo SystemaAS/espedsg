@@ -99,7 +99,7 @@
 		  maxWidth:400,
           maxHeight: 220,
           width: 300,
-          height: 200,
+          height: 250,
 		  modal: true
 	  });
   });

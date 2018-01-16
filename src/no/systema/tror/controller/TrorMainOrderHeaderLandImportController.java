@@ -67,7 +67,12 @@ import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderDummyContainer;
 
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
+import no.systema.jservices.common.dao.DokufDao;
+import no.systema.jservices.common.dao.DokufeDao;
 import no.systema.jservices.common.dao.TrackfDao;
+import no.systema.jservices.common.json.JsonDtoContainer;
+import no.systema.jservices.common.json.JsonReader;
+import no.systema.jservices.common.util.StringUtils;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportService;
 import no.systema.tror.service.TrorMainOrderHeaderService;
@@ -109,9 +114,11 @@ public class TrorMainOrderHeaderLandImportController {
 	private final String DELSYSTEM_LAND_IMPORT = "A";
 	String TRACK_TRACE_ACTION_UPDATE = "doUpdate";
 	String TRACK_TRACE_CREATE = null;
-	String TRACK_TRACE_STATUS_STR = "STR"; //STARTED
-	String TRACK_TRACE_STATUS_CHG = "CHG"; //CHANGED
-	
+	private final String TRACK_TRACE_STATUS_STR = "STR"; //STARTED
+	private final String TRACK_TRACE_STATUS_CHG = "CHG"; //CHANGED
+	//
+	private final String PARTY_CONSIGNOR_CN = "CN";
+	private final String PARTY_CONSIGNEE_CZ = "CZ";
 	
 	
 	@PostConstruct
@@ -160,7 +167,6 @@ public class TrorMainOrderHeaderLandImportController {
 	public ModelAndView doMainOrderEdit(@ModelAttribute ("record") JsonTrorOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
-		
 		
 		String action = request.getParameter("action");
 		boolean isValidRecord = true;
@@ -213,9 +219,8 @@ public class TrorMainOrderHeaderLandImportController {
 							logger.info("[INFO] Record successfully updated, OK ");
 							TrackfDao trackfDao = this.prepareTrackfDao(recordToValidate, this.TRACK_TRACE_STATUS_CHG);
 							this.logTrackAndTraceGeneral(appUser, trackfDao, this.TRACK_TRACE_ACTION_UPDATE, this.TRACK_TRACE_CREATE);
-							//logger.info("[START]: process children <meessageNotes>, <itemLines>, etc update... ");
-							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
-				    		// TODO this.processNewMessageNotes(model, recordToValidate, appUser, request, null );
+							//update dokufe - contact information
+							this.updateContactInformation(appUser, recordToValidate);
 						}
 					}else{
 						//create new
@@ -227,9 +232,9 @@ public class TrorMainOrderHeaderLandImportController {
 							logger.info("[INFO] Record successfully created, OK ");
 							TrackfDao trackfDao = this.prepareTrackfDao(recordToValidate, this.TRACK_TRACE_STATUS_STR);
 							this.logTrackAndTraceGeneral(appUser, trackfDao, this.TRACK_TRACE_ACTION_UPDATE, this.TRACK_TRACE_CREATE);
-							//logger.info("[START]: process children <meessageNotes>, etc create... ");
-							//Update the message notes (2 steps: 1.Delete the original ones, 2.Create the new ones)
-				    		// TODO this.processNewMessageNotes(model, recordToValidate, appUser, request, "doCreate" );
+							//update dokufe - contact information
+							this.updateContactInformation(appUser, recordToValidate);
+							
 						}
 					}
 					if(dmlRetval<0){
@@ -255,6 +260,9 @@ public class TrorMainOrderHeaderLandImportController {
 					this.splitGodsnr(headerOrderRecord);
 					//populate track and trace
 					this.populateTrackAndTrace(appUser, headerOrderRecord);
+					//populate kontaktuppgifter
+					this.getContactInformation(appUser, headerOrderRecord, this.PARTY_CONSIGNOR_CN, true);
+					this.getContactInformation(appUser, headerOrderRecord, this.PARTY_CONSIGNEE_CZ, true);
 					//populate archive docs --> there is indeed a tab (own tab) for the archive
 					//this.populateArchiveDocs(appUser, headerOrderRecord, model);
 					//check if user is allowed to choose invoicee (fakturaBetalare)
@@ -317,6 +325,8 @@ public class TrorMainOrderHeaderLandImportController {
 		}
 		
 	}
+	
+	
 	
 	/**
 	 * 
@@ -391,13 +401,6 @@ public class TrorMainOrderHeaderLandImportController {
 			dao.setTttexl("Oppdrag er endret");
 		}
 		dao.setTtmanu("X");//meaning "not manual"
-		
-		
-		
-		
-		
-		
-		
 		
 		return dao;
 	}
@@ -608,6 +611,166 @@ public class TrorMainOrderHeaderLandImportController {
 		 }
 		//populate the list on parent record
 		 headerOrderRecord.setTrackAndTraceloggingRecord(list);
+		 
+	}
+	
+	/**
+	 * 
+	 * @param appUser
+	 * @param recordToValidate
+	 */
+	private void updateContactInformation(SystemaWebUser appUser, JsonTrorOrderHeaderRecord recordToValidate){
+		boolean recordToValidateReadOnly = false;
+		DokufeDao dao = null;
+		//-------------------------
+		//Sender - Consignor - CN
+		//-------------------------
+		dao = this.getContactInformation(appUser, recordToValidate, this.PARTY_CONSIGNOR_CN, recordToValidateReadOnly);
+		if(dao != null){
+			//update
+			logger.info("update CN...");
+			this.updateDokufe(appUser, TrorConstants.MODE_UPDATE, dao, recordToValidate, this.PARTY_CONSIGNOR_CN);
+		}else{
+			//create new
+			logger.info("create CN...");
+			dao = new DokufeDao();
+			dao.setFe_dfavd(Integer.parseInt(recordToValidate.getHeavd()));
+			dao.setFe_dfopd(Integer.parseInt(recordToValidate.getHeopd()));
+			this.updateDokufe(appUser, TrorConstants.MODE_ADD, dao, recordToValidate, this.PARTY_CONSIGNOR_CN);
+		}
+		//---------------------------
+		//Receiver - Consignee - CZ
+		//---------------------------
+		dao = this.getContactInformation(appUser, recordToValidate, this.PARTY_CONSIGNEE_CZ, recordToValidateReadOnly);
+		if(dao != null){
+			//update
+			logger.info("update CZ...");
+			this.updateDokufe(appUser, TrorConstants.MODE_UPDATE, dao, recordToValidate, this.PARTY_CONSIGNEE_CZ);
+		}else{
+			//create new
+			logger.info("create CZ...");
+			dao = new DokufeDao();
+			dao.setFe_dfavd(Integer.parseInt(recordToValidate.getHeavd()));
+			dao.setFe_dfopd(Integer.parseInt(recordToValidate.getHeopd()));
+			this.updateDokufe(appUser, TrorConstants.MODE_ADD, dao, recordToValidate, PARTY_CONSIGNEE_CZ);
+		}
+		
+		
+	}
+	
+	
+	/**
+	 * 
+	 * @param appUser
+	 * @param recordToValidate
+	 * @param partyType
+	 * @param readOnly
+	 * @return
+	 */
+	private DokufeDao getContactInformation(SystemaWebUser appUser, JsonTrorOrderHeaderRecord recordToValidate, String partyType, boolean readOnly){
+		 DokufeDao dao = null;
+		 //http://localhost:8080/syjservicestror/syjsDOKUFE.do?user=OSCAR&fe_dfavd=1&fe_dfopd=52919&fe_dffbnr=1&fe_n3035
+		 //===========
+		 //FETCH LIST
+		 //===========
+		 logger.info("Inside: getContactInformation");
+		 JsonReader<JsonDtoContainer<DokufeDao>> jsonReader = new JsonReader<JsonDtoContainer<DokufeDao>>();
+		 jsonReader.set(new JsonDtoContainer<DokufeDao>());
+			
+		 //prepare the access CGI with RPG back-end
+		 String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_SPECIFIC_CONTACT_INFORMATION_URL;
+		 StringBuffer urlRequestParamsKeys = new StringBuffer();
+		 urlRequestParamsKeys.append("user=" + appUser.getUser() + "&fe_dfavd=" + recordToValidate.getHeavd() + "&fe_dfopd=" + recordToValidate.getHeopd());
+		 urlRequestParamsKeys.append("&fe_dffbnr=" + recordToValidate.getOwnPartyFbnr()); //always fraktbrev nr 1 
+		 urlRequestParamsKeys.append("&fe_n3035=" + partyType);
+		 
+		 logger.info("URL: " + BASE_URL);
+		 logger.info("PARAMS: " + urlRequestParamsKeys);
+		 logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys.toString());
+		 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		 logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		 
+		 JsonDtoContainer<DokufeDao> container = (JsonDtoContainer<DokufeDao>) jsonReader.get(jsonPayload);
+		 if (container != null) {
+			if(container.getDtoList()!=null){
+				for(DokufeDao record : container.getDtoList()){
+					if(PARTY_CONSIGNOR_CN.equals(record.getFe_n3035())) {
+						if(readOnly){
+							recordToValidate.setOwnSenderContactName(record.getFe_c3412());
+							recordToValidate.setOwnSenderMobile(record.getFe_c3148B());
+							recordToValidate.setOwnSenderEmail(record.getFe_c3148E());
+						}
+						dao = record;						
+					}else if(PARTY_CONSIGNEE_CZ.equals(record.getFe_n3035())) {
+						if(readOnly){
+							recordToValidate.setOwnReceiverContactName(record.getFe_c3412());
+							recordToValidate.setOwnReceiverMobile(record.getFe_c3148B());
+							recordToValidate.setOwnReceiverEmail(record.getFe_c3148E());
+						}
+						dao = record;
+					}
+				}
+			}
+		 }
+		 return dao;
+	}
+	/**
+	 * http://localhost:8080/syjservicestror/syjsDOKUFE_U.do?user=OSCAR&mode=U/A&fe_dfavd=1&fe_dfopd=52919&fe_dffbnr=1&fe_n3035...etc
+		 
+	 * @param appUser
+	 * @param headerOrderRecord
+	 * @param partyType
+	 * @return
+	 */
+	private int updateDokufe(SystemaWebUser appUser, String mode, DokufeDao dao, JsonTrorOrderHeaderRecord recordToValidate, String partyType){
+		 int retval = 0;
+		 int FRAKTBREV_1 = 1;
+		 //===========
+		 //UPDATE 
+		 //===========
+		 //Update dao here
+		 dao.setFe_dffbnr(FRAKTBREV_1);
+		 if(this.PARTY_CONSIGNEE_CZ.equals(partyType)){
+			 dao.setFe_c3412(recordToValidate.getOwnReceiverContactName());
+			 dao.setFe_c3148B(recordToValidate.getOwnReceiverMobile());
+			 dao.setFe_c3148E(recordToValidate.getOwnReceiverEmail());
+			 dao.setFe_n3035(recordToValidate.getOwnReceiverPartId());
+		 }else{
+			 dao.setFe_c3412(recordToValidate.getOwnSenderContactName());
+			 dao.setFe_c3148B(recordToValidate.getOwnSenderMobile());
+			 dao.setFe_c3148E(recordToValidate.getOwnSenderEmail());
+			 dao.setFe_n3035(recordToValidate.getOwnSenderPartId());
+		 }
+		 
+		 logger.info("Inside: updateContactInformation");
+		 JsonReader<JsonDtoContainer<DokufeDao>> jsonReader = new JsonReader<JsonDtoContainer<DokufeDao>>();
+		 jsonReader.set(new JsonDtoContainer<DokufeDao>());
+			
+		 //prepare the access CGI with RPG back-end
+		 String BASE_URL = TrorUrlDataStore.TROR_BASE_DOKUFE_DML_UPDATE_URL;
+		 String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=" + mode;
+		 String urlRequestParams = urlRequestParamsKeys + this.urlRequestParameterMapper.getUrlParameterValidString(dao);
+		 
+		 
+		 logger.info("URL: " + BASE_URL);
+		 logger.info("PARAMS: " + urlRequestParams);
+		 logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+		 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+		 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+		 logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+		 
+		 JsonDtoContainer<DokufeDao> container = (JsonDtoContainer<DokufeDao>) jsonReader.get(jsonPayload);
+		 if (container != null) {
+			if(container.getDtoList()!=null){
+				if(StringUtils.hasValue(container.getErrMsg()) ){
+					retval = -1;
+					logger.info("Error during UPDATE - DOKUFE ...");
+				}
+			}
+		 }
+		 
+		 return retval;
 		 
 	}
 	/**

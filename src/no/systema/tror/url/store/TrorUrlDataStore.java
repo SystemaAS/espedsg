@@ -22,7 +22,20 @@ public class TrorUrlDataStore {
 	//http://localhost:8080/syjservicesbcore/syjsSYHEDUMMY_URAR.do?user=OSCAR&heavd=1
 	static public String TROR_BASE_FETCH_SPECIFIC_DEFAULT_BILIMPORT_VALUES_FROM_DBDUMMY_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYHEDUMMY_URAR.do";
 	static public String TROR_BASE_FETCH_SPECIFIC_DEFAULT_BILEXPORT_VALUES_FROM_DBDUMMY_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsSYHEDUMMY_URBR.do";
-			
+	
+	//http://localhost:8080/syjservicestror/syjsDOKUFE.do?user=OSCAR&fe_dfavd=1&fe_dfopd=52919&fe_dffbnr=1&fe_n3035
+	static public String TROR_BASE_FETCH_SPECIFIC_CONTACT_INFORMATION_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKUFE.do";
+	
+	 /** @Example SELECT list http://gw.systema.no:8080/syjservicestror/syjsDOKUF.do?user=OSCAR&dfavd=1&dfopd=999
+		 * 
+		 * @Example SELECT
+		 *          specific:   http://gw.systema.no:8080/syjservicestror/syjsDOKUF.do?user=OSCAR&dfavd=1&dfopd=999&dffbnr=1	
+		 */
+	static public String TROR_BASE_FETCH_DOKUF_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKUF.do?";
+		
+	//http://gw.systema.no:8080/syjservicesbcore/syjsFAKTR.do?user=OSCAR&faavd=1&faopd=184&fafrbn=1
+	static public String TROR_BASE_FETCH_FAKTR_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsFAKTR.do?";
+		
 	/**
 	 * @Example SELECT http://gw.systema.no:8080/syjservicestror/syjsKODTVA.do?user=OSCAR
 	 */
@@ -47,23 +60,12 @@ public class TrorUrlDataStore {
 	//http://gw.systema.no:8080/syjservicestror/syjsHEADF_STATUS_U.do?user=OSCAR&mode=U&heavd=1&heopd=184&hest=S
 	static public String TROR_BASE_UPDATE_SPECIFIC_ORDER_STATUS_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsHEADF_STATUS_U.do?";
 		
-	
-	/**
-	 * @Example UPDATE:
-	 * 			http://gw.systema.no:8080/syjservicestror/syjsDOKUF_U.do?user=OSCAR&dfavd=2&dfopd=100&dfsg=JOV....and all the rest in DokufDao...&mode=U/A/D
-	 * 
-	 */
+	//http://gw.systema.no:8080/syjservicestror/syjsDOKUF_U.do?user=OSCAR&dfavd=2&dfopd=100&dfsg=JOV....and all the rest in DokufDao...&mode=U/A/D
 	static public String TROR_BASE_DOKUF_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKUF_U.do?";
 	
-	 /** @Example SELECT list http://gw.systema.no:8080/syjservicestror/syjsDOKUF.do?user=OSCAR&dfavd=1&dfopd=999
-	 * 
-	 * @Example SELECT
-	 *          specific:   http://gw.systema.no:8080/syjservicestror/syjsDOKUF.do?user=OSCAR&dfavd=1&dfopd=999&dffbnr=1	
-	 */
-	static public String TROR_BASE_FETCH_DOKUF_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKUF.do?";
+	//http://gw.systema.no:8080/syjservicestror/syjsDOKUFE_U.do?user=OSCAR&fe_dfavd=1&fe_dfopd=100&fe_dffbnr=1&fe_n3035=CN....and all the rest...&mode=U/A/D
+	static public String TROR_BASE_DOKUFE_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKUFE_U.do?";
 	
-	//http://gw.systema.no:8080/syjservicesbcore/syjsFAKTR.do?user=OSCAR&faavd=1&faopd=184&fafrbn=1
-	static public String TROR_BASE_FETCH_FAKTR_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsFAKTR.do?";
 	
 	
 	/**

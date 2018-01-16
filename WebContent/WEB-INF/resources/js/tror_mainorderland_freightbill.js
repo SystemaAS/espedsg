@@ -2,9 +2,6 @@
   var jq = jQuery.noConflict();
   var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
 
-  
-  //FULL TODO
-  
   function setBlockUI(element){
 	  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
   }

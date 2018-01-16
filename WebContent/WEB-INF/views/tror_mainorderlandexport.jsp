@@ -261,6 +261,7 @@
 									&nbsp;<img style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="edit">	
 									&nbsp;<spring:message code="systema.tror.orders.form.update.label.header.edit"/>
 									&nbsp;&nbsp;<font style="color: yellow"><b>${model.record.heavd} / ${model.record.heopd} / ${model.record.hesg}</b></font>
+									&nbsp;&nbsp;&nbsp;<b><spring:message code="systema.tror.order.suborder.landexport"/></b>
 				 				</td>
 			 				</c:when>
 			 				<c:otherwise>
@@ -384,67 +385,12 @@
 							 			</tr>
 							 			</table>
 						 			</c:if>
-						 			<%--
-						 			<c:otherwise>
-						 				<table width="100%" border="0">
-									 	<tr>
-									 		<td valign="top" align="left" width="50%">
-									 		<table border="0">
-										 		<tr>
-										 			<td>
-										 			<table class="tableBorderWithRoundCornersLightGray" border="0">
-										 			<tr>
-											 		<td width="5px" class="text14" >&nbsp;</td>
-											 		<td align="left" class="text14" style="vertical-align:bottom;" ><span title="heur"><spring:message code="systema.tror.orders.form.update.label.delsystem"/></span></td>
-									 				<td class="text14" ><b><spring:message code="systema.tror.order.suborder.landexport"/></b></td>
-									 				
-									 				
-									 				<td width="5px" class="text14" >&nbsp;</td>
-									 				</tr>
-									 				</table>
-									 				</td>
-									 				<td class="text14"><button name="frisokveiButton" id="frisokveiButton" class="buttonGrayWithGreenFrame" type="button" >Frie søkeveier</button></td>
-								 				</tr>
-							 				</table>
-							 				</td>
-							 				
-							 				<td valign="top" align="left" width="50%">
-							 				<table width="100%" border="0">
-										 		<tr>
-											 		<td valign="bottom"  width="5px" class="text14" >
-											 			<button name="trackAndTraceButton" id="trackAndTraceButton" class="buttonGrayWithGreenFrame" type="button" ><spring:message code="systema.tror.orders.tt.logging.button.trackAndTrace"/></button> 
-												    </td>
-											 		<td>
-											 			<button name="budgetButton" id="budgetButton" class="buttonGrayWithGreenFrame" type="button" >Budsjett/rekv.</button>
-													</td>
-												</tr>
-											</table>	
-							 				</td>
-							 				
-							 			</tr>
-							 			
-							 			</table>
-						 			</c:otherwise>
-						 			--%>
-					 				
+						 			
 					 			<table width="100%" border="0">
 					 			<tr>
 					 				<td valign="top" align="left" width="50%">
 				 						<table width="100%" border="0">
-					 					<tr>
-					 						<td valign="top" colspan="6">
-								 			<table class="tableBorderWithRoundCornersLightGray" border="0">
-									 			<tr>
-										 		<td width="5px" class="text14" >&nbsp;</td>
-										 		<td align="left" class="text14" style="vertical-align:bottom;" ><span title="heur"><spring:message code="systema.tror.orders.form.update.label.delsystem"/></span></td>
-								 				<td class="text14" ><b><spring:message code="systema.tror.order.suborder.landexport"/></b></td>
-								 				<td width="5px" class="text14" >&nbsp;</td>
-								 				</tr>
-							 				</table>
-							 				</td>
-									 	</tr>
-									 	<tr height="5"><td></td></tr>
-					 				
+				 						
 					 					<tr>
 					 						<td class="text12" title="hedtop"><font class="text16RedBold" >*</font><spring:message code="systema.tror.orders.form.update.label.date"/></td>
 							 				<td class="text12" >	
@@ -554,7 +500,6 @@
 									           			Tast agents kundenr eller søk i kunderegister.
 													</span>	
 												</div>
-		 										
 		 									</td>
 		 									<td class="text12" >
 		 										<c:choose>
@@ -1389,8 +1334,16 @@
 											</a>
 										</td>
 							 			<td nowrap class="text12">
+							 				<select class="inputTextMediumBlue" name="hepk1" id="hepk1" >
+							 				  <option value="">-velg-</option>
+											  <option value="J"<c:if test="${model.record.hepk1 == 'J'}"> selected </c:if> >Ja</option>
+											  <option value="N"<c:if test="${model.record.hepk1 == 'N'}"> selected </c:if> >Nei</option>
+											  <option value="P"<c:if test="${model.record.hepk1 == 'P'}"> selected </c:if> >P</option>
+											</select>
+											<%--
 							 				<input type="checkbox" id="hepk1" name="hepk1" value="J" <c:if test="${model.record.hepk1 == 'J'}"> checked </c:if>>
 							 				<input readonly type="text" class="inputText11ReadOnly" size="1" maxlength="1" name="hepk1RO" id="hepk1RO" value="${model.record.hepk1}">
+							 				 --%>
 							 			</td>
 							 			<%--
 							 			<td nowrap class="text12">&nbsp;&nbsp;<span title="dftoll"><spring:message code="systema.tror.orders.form.update.label.tollsted"/></span>
