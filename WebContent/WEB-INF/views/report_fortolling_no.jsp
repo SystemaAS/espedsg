@@ -267,7 +267,7 @@ function load_data() {
 		//Dimensions
 		var  tollAllDim = toll.dimension(function(d) {return d;});	
 		var  dateDim  = toll.dimension(function(d) {return d.date;});
-		var  yearDim  = toll.dimension(function(d) {return d.year;});
+// 		var  yearDim  = toll.dimension(function(d) {return d.year;});
 	    var  monthDim = toll.dimension(function (d) {return d.month;});	
 		var  avdDim  = toll.dimension(function(d) {return d.avdeling;});
 		var  sisgDim  = toll.dimension(function(d) {return d.signatur;});
@@ -281,14 +281,14 @@ function load_data() {
 		        	return 'Ikke ferdig';
 		        }
 				var antallDager = deklDato - regDato;
-		        if (antallDager <= 1) {   //1
-		            return '1';
+		        if (antallDager <= 1) {   //0-1
+		            return '0-1';
 		        } else if (antallDager > 1 && antallDager <= 4) { //2-4
 		            return '2-4';
-		        } else if (antallDager > 4 && antallDager <= 9) { //4-9
-		            return '4-9';
+		        } else if (antallDager > 4 && antallDager <= 9) { //5-9
+		            return '5-9';
 		        } else {
-		            return 'mer enn 10'; //> 10
+		            return 'mer enn 9'; //> 9
 		        }
 	    });		
 		var  inputTypeDim  = toll.dimension(function(d) {
@@ -301,7 +301,7 @@ function load_data() {
 		});	
 		//Charts 
 		var  typeChart   = dc.pieChart("#chart-ring-type");
-		var  yearChart   = dc.pieChart("#chart-ring-year");
+// 		var  yearChart   = dc.pieChart("#chart-ring-year");
 		var  avdChart   = dc.pieChart('#chart-ring-avd');
 		var  sisgChart   = dc.pieChart('#chart-ring-sisg');
 		var  edimChart   = dc.pieChart('#chart-ring-edim');
@@ -315,7 +315,7 @@ function load_data() {
 		var  antalloff_vareposterDisplay = dc.numberDisplay("#antalloff_vareposter");	
 		var  dcDataTable;
 		//Groups
-		var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+// 		var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  typeDimGroup = typeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
@@ -473,6 +473,8 @@ function load_data() {
 		    .dimension(openDaysDim)
 		    .group(openDaysDimGroup)
 		    .externalRadiusPadding(50)
+		    .legend(dc.legend().y(10).itemHeight(8).gap(3))
+		    .slicesCap(25)
 		    .innerRadius(30)
 		    .on("filtered", getFiltersValues)
 		    .emptyTitle('tom')
@@ -485,23 +487,23 @@ function load_data() {
 	            ].join('\n');	
 		});			
 		
-		yearChart
-		    .width(300)
-		    .height(300)
-		    .dimension(yearDim)
-		    .group(yearDimGroup)
-		    .externalRadiusPadding(50)
-		    .innerRadius(30)
-		    .on("filtered", getFiltersValues)
-		    .emptyTitle('tom')
-		    .title(function (d) {
-			  	var percentage;
-			  	percentage = d.value / d3.sum(yearDimGroup.all(), function(d){ return d.value; })
-	            return [
-	                d.key + ':',
-	                percentageFormat(percentage)
-	            ].join('\n');	
-			});	
+// 		yearChart
+// 		    .width(300)
+// 		    .height(300)
+// 		    .dimension(yearDim)
+// 		    .group(yearDimGroup)
+// 		    .externalRadiusPadding(50)
+// 		    .innerRadius(30)
+// 		    .on("filtered", getFiltersValues)
+// 		    .emptyTitle('tom')
+// 		    .title(function (d) {
+// 			  	var percentage;
+// 			  	percentage = d.value / d3.sum(yearDimGroup.all(), function(d){ return d.value; })
+// 	            return [
+// 	                d.key + ':',
+// 	                percentageFormat(percentage)
+// 	            ].join('\n');	
+// 			});	
 	   
 		avdChart
 		    .width(300)
@@ -737,10 +739,10 @@ function load_data() {
 			dc.redrawAll();
 		});
 	
-		d3.selectAll('a#year').on('click', function () {
-			yearChart.filterAll();
-			dc.redrawAll();
-		});
+// 		d3.selectAll('a#year').on('click', function () {
+// 			yearChart.filterAll();
+// 			dc.redrawAll();
+// 		});
 	
 		d3.selectAll('a#avd').on('click', function () {
 			avdChart.filterAll();
@@ -901,7 +903,7 @@ function load_data() {
 		function getFiltersValues() {
 		    var filters = [
 		        { name: 'type', value: typeChart.filters()},
-		        { name: 'year', value: yearChart.filters()},
+// 		        { name: 'year', value: yearChart.filters()},
 		        { name: 'avd',  value: avdChart.filters()},
 		        { name: 'sisg', value: sisgChart.filters()},
 		        { name: 'edim', value:  edimChart.filters()},
@@ -915,7 +917,7 @@ function load_data() {
 		function initFilters() {
 			//console.log("initFilter");
 			// Get hash values
-		    var parseHash = /^#type=([A-Za-z0-9,_\-\/\s]*)&year=([A-Za-z0-9,_\-\/\s]*)&avd=([A-Za-z0-9,_\-\/\s]*)&sisg=([A-Za-z0-9,_\-\/\s]*)&edim=([A-Za-z0-9,_\-\/\s]*)$/;
+		    var parseHash = /^#type=([A-Za-z0-9,_\-\/\s]*)&avd=([A-Za-z0-9,_\-\/\s]*)&sisg=([A-Za-z0-9,_\-\/\s]*)&edim=([A-Za-z0-9,_\-\/\s]*)$/;
 		    var parsed = parseHash.exec(decodeURIComponent(location.hash));
 			//console.log("parsed="+parsed);
 		    function filter(chart, rank) {  // for instance chart = typeChart and rank in URL hash = 1
@@ -933,7 +935,7 @@ function load_data() {
 		    }
 		    if (parsed) {
 		        filter(typeChart, 1);
-		        filter(yearChart, 2);
+// 		        filter(yearChart, 2);
 		        filter(avdChart, 3);
 		        filter(sisgChart, 4);
 		        filter(edimChart, 5);
@@ -1014,9 +1016,9 @@ window.addEventListener('error', function (e) {
 				<div class="container-fluid">
 				  <div class="row">
 					<div class="col-md-1 text12">
-						<font class="text12">Fra år:</font><br>
+						<font class="text12">År:</font><br>
 						<select name="selectYear" id="selectYear" >
-							<c:forEach var="record"  items="${model.fromYearList}" >
+							<c:forEach var="record" items="${model.fromYearList}" >
 								<option value="${record}">${record}</option>
 	  						</c:forEach>  
 	  					</select>
@@ -1161,14 +1163,14 @@ window.addEventListener('error', function (e) {
 						    <a class="reset" id="inputtype" style="display: none;"> - <i>tilbakestill filter</i></a>
  							<div class="clear"></div>			
 				        </div>
-
+<!--  
 						<div class="col-md-3" id="chart-ring-year">
 							<h3 class="text12" align="center">År</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
 						    <a class="reset" id="year" style="display: none;"> - <i>tilbakestill filter</i></a>
 						    <div class="clear"></div>	
 				        </div>
-
+-->
 				    </div>
 				  </div>  
    
