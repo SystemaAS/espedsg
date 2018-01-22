@@ -603,6 +603,50 @@
  							</table>
  							</td>
 					 	</tr>
+					 	
+					 	<tr height="1"><td ></td></tr>
+					 	<tr>
+				 			<td colspan="2" valign="top" width="100%" >
+				 			<table width="99%">
+							 	<tr>
+				 					<td class="text14Bold">&nbsp;
+				 						<img style="vertical-align: bottom;" width="22px" height="22px" src="resources/images/containerYellow.png" border="0" alt="freight">
+				 						19 / 20&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.annenfraktbetaleraddress"/>
+				 					</td>
+								</tr>
+				 				<tr>
+				 					<td colspan="8">
+				 					<table class="tableBorderWithRoundCorners" width="100%">
+					 					<tr>
+					 						<td class="text12">&nbsp;<span title="dfknsx"><spring:message code="systema.tror.fraktbrev.form.update.label.annenfraktbetaleraddress.knr"/>&nbsp;</span>
+					 							<a tabindex="-1" id="trorAnnenFraktbetalerIdLink" >
+													<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+												</a>	
+					 						</td>
+							 				<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfknsx" id="dfknsx" size="8" maxlength="8" value="${model.record.dfknsx}"></td>
+						 					
+						 					<td class="text12">&nbsp;<span title="dfknx"><spring:message code="systema.tror.fraktbrev.form.update.label.annenfraktbetaleraddress.knr.carrier"/>&nbsp;</span></td>
+							 				<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfknx" id="dfknx" size="10" maxlength="12" value="${model.record.dfknx}"></td>
+						 					
+							 				<td class="text12">&nbsp;<span title="dfnavx"><spring:message code="systema.tror.fraktbrev.form.update.label.annenfraktbetaleraddress.name"/>&nbsp;</span></td>
+							 				<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfnavx" id="dfnavx" size="30" maxlength="30" value="${model.record.dfnavx}"></td>
+						 					
+							 				<td class="text12">&nbsp;<span title="dfad1x"><spring:message code="systema.tror.fraktbrev.form.update.label.annenfraktbetaleraddress.adr1"/>&nbsp;</span></td>
+							 				<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfad1x" id="dfad1x" size="25" maxlength="30" value="${model.record.dfad1x}"></td>
+						 					
+							 				<td class="text12">&nbsp;<span title="dfad2x"><spring:message code="systema.tror.fraktbrev.form.update.label.annenfraktbetaleraddress.adr2"/>&nbsp;</span></td>
+							 				<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfad2x" id="dfad2x" size="25" maxlength="30" value="${model.record.dfad2x}"></td>
+						 					
+							 				<td class="text12">&nbsp;<span title="dfad3x"><spring:message code="systema.tror.fraktbrev.form.update.label.annenfraktbetaleraddress.adr3"/></span>&nbsp;</td>
+							 				<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfad3x" id="dfad3x" size="25" maxlength="30" value="${model.record.dfad3x}"></td>
+						 				</tr>
+									</table>
+									</td>				 				 				
+					 			</tr>
+ 							</table>
+ 							</td>
+					 	</tr>
+					 	
 					 	<tr height="5"><td ></td></tr>
 					 </table>
 				</td>

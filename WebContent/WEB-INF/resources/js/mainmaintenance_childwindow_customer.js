@@ -204,6 +204,21 @@
 				  
 				  //opener.jq('#todo').val(land);
 			  
+			  } else if (callerType == 'tror_annen_fb'){ //Annen fraktbetaler fraktbrev
+				  opener.jq('#dfknsx').val(knr);
+				  //var compoundName = knavn + " - " + adr3 + " " + postnr;
+				  //opener.jq('#whenas').val(compoundName);
+				  //?
+				  //opener.jq('#todo').val(knr);
+				  opener.jq('#dfnavx').val(knavn);
+				  //opener.jq('#todo').val(eori);
+				  opener.jq('#dfad1x').val(adr1);
+				  opener.jq('#dfad2x').val(adr2);
+				  opener.jq('#dfad3x').val(adr3);
+				  // TODO opener.jq('#dfpnls').val(postnr);
+				  
+				  //opener.jq('#todo').val(land);
+			  
 			  }
 			  
 			  

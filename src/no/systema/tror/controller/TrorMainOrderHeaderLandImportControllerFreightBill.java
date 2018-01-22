@@ -236,6 +236,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 							this.updateFirfbCounter(appUser.getUser(), id);
 						}
 						DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
+						model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 					}
 				}
@@ -249,6 +250,11 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 					logger.info("[ERROR Validation] Record does not validate)");
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				} else {
+					logger.info("KNX:" + recordToValidate.getDfknx());
+					logger.info("NAVX:" + recordToValidate.getDfnavx());
+					logger.info("ADR1:" + recordToValidate.getDfad1x());
+					logger.info("ADR2:" + recordToValidate.getDfad2x());
+					
 					savedRecord = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
 					if (savedRecord == null) {
 						logger.info("[ERROR Validation] Record does not validate)");
@@ -256,6 +262,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 					} else {
 						DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
+						model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
 					}
 				}

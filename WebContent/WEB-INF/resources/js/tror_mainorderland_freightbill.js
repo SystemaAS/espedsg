@@ -82,6 +82,17 @@
 		  }
 	  });
 	  
+	  //Annen fraktbetaler addresses
+	  jq('#trorAnnenFraktbetalerIdLink').click(function() {
+		  jq('#trorAnnenFraktbetalerIdLink').attr('target','_blank');
+		  window.open('mainmaintenance_childwindow_customer.do?action=doFind&ctype=tror_annen_fb&knr=' + jq('#dfknsx').val(),"customerWin","top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#trorAnnenFraktbetalerIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#trorAnnenFraktbetalerIdLink').click();
+		  }
+	  });
+	  
 	  jq('#merkelappIdLink').click(function() {
 	    	jq('#merkelappIdLink').attr('target','_blank');
 	    	window.open('tror_mainorder_childwindow_generalcodes.do?action=doFind&ctype=tror_dfkdme_fb&kftype=MLAPKOD', "codeWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
