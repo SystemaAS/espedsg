@@ -125,6 +125,12 @@
     		}
       });
       
+      //Button for DOKUFM --> Merke, snd.nivå
+      jq('#dokufmButton').click(function() {
+	    	window.open('tror_mainorder_childwindow_freightbill_merke_kolli.do?action=doFind&fmavd=' + jq('#dfavd').val() + '&fmopd=' + jq('#dfopd').val() + '&fmfbnr=' + jq('#dffbnr').val() , "dokufmWin", "top=300px,left=500px,height=600px,width=800px,scrollbars=no,status=no,location=no");
+	  });
+	  
+      
 	 
 	  //Adjust fields that are not String in target Dao object
 	  jq("#formRecord").submit(function() {

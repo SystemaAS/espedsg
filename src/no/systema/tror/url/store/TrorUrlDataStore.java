@@ -26,12 +26,11 @@ public class TrorUrlDataStore {
 	//http://localhost:8080/syjservicestror/syjsDOKUFE.do?user=OSCAR&fe_dfavd=1&fe_dfopd=52919&fe_dffbnr=1&fe_n3035
 	static public String TROR_BASE_FETCH_SPECIFIC_CONTACT_INFORMATION_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKUFE.do";
 	
-	 /** @Example SELECT list http://gw.systema.no:8080/syjservicestror/syjsDOKUF.do?user=OSCAR&dfavd=1&dfopd=999
-		 * 
-		 * @Example SELECT
-		 *          specific:   http://gw.systema.no:8080/syjservicestror/syjsDOKUF.do?user=OSCAR&dfavd=1&dfopd=999&dffbnr=1	
-		 */
+	//http://gw.systema.no:8080/syjservicestror/syjsDOKUF.do?user=OSCAR&dfavd=1&dfopd=999&dffbnr=1
 	static public String TROR_BASE_FETCH_DOKUF_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKUF.do?";
+	
+	//http://gw.systema.no:8080/syjservicestror/syjsDOKUFM.do?user=OSCAR&fmavd=1&fmopd=52919&fmfbnr=1&fmmknr=2
+	static public String TROR_BASE_FETCH_DOKUFM_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKUFM.do?";
 		
 	//http://gw.systema.no:8080/syjservicesbcore/syjsFAKTR.do?user=OSCAR&faavd=1&faopd=184&fafrbn=1
 	static public String TROR_BASE_FETCH_FAKTR_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsFAKTR.do?";

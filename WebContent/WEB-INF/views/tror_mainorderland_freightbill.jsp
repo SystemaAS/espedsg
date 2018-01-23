@@ -768,8 +768,11 @@
 										<tr height="5"><td align="left" ></td></tr>
 										
 								 		<tr >
-											<td align="bottom" colspan="3" class="text11">&nbsp;&nbsp;<img style="vertical-align:bottom;" src="resources/images/update.gif" width="10px" height="10px" border="0" alt="update item line">
+											<td align="bottom" colspan="3" class="text11">&nbsp;&nbsp;<img style="vertical-align:middle;" src="resources/images/update.gif" width="10px" height="10px" border="0" alt="update item line">
 											&nbsp;<spring:message code="systema.tror.fraktbrev.form.detail.update.label.itemLine"/>
+											<c:if test="${not empty model.record.df1004}">
+												&nbsp;&nbsp;<button name="dokufmButton" id="dokufmButton" class="buttonGrayWithGreenFrame" type="button" >Merke, snd.nivå</button>
+											</c:if>
 											</td>
 										</tr>
 								 		<tr>

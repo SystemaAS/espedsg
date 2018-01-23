@@ -63,6 +63,10 @@ import no.systema.tror.model.jsonjackson.codes.JsonTrorIncotermsCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorIncotermsCodeRecord;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorProductCodeContainer;
 import no.systema.tror.model.jsonjackson.codes.JsonTrorProductCodeRecord;
+import no.systema.jservices.common.dao.DokufeDao;
+import no.systema.jservices.common.dao.DokufmDao;
+import no.systema.jservices.common.json.JsonDtoContainer;
+import no.systema.jservices.common.json.JsonReader;
 //
 import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.JsonMaintNctsTrkodfContainer;
 import no.systema.tvinn.sad.z.maintenance.nctsexport.model.jsonjackson.dbtable.JsonMaintNctsTrkodfRecord;
@@ -1125,6 +1129,93 @@ public class TrorMainOrderHeaderControllerChildWindow {
 		    		return loginView;
 		    	}
 		    	*/
+		    }
+		}
+	}
+	
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tror_mainorder_childwindow_freightbill_merke_kolli.do", params="action=doFind",  method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doFindMerkeKolliLinjerInFreightbill(@ModelAttribute ("record") DokufmDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		logger.info("Inside: doFindMerkeKolliLinjerInFreightbill");
+		Collection outputList = new ArrayList();
+		Map model = new HashMap();
+		ModelAndView successView = new ModelAndView("tror_mainorder_childwindow_freightbill_merke_kolli");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		//to catch the sender since there could be more then one caller field
+		//String ctype = request.getParameter("ctype");
+		//String kftype = request.getParameter("kftype");
+		
+		//model.put("ctype", ctype);
+		//model.put("kftype", kftype);
+		
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_FRAKTKALKULATOR);
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			
+			//-----------
+			//Validation
+			//-----------
+			/*FraktkalkulatorChildWindowSearchCustomerValidator validator = new FraktkalkulatorChildWindowSearchCustomerValidator();
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+		    validator.validate(recordToValidate, bindingResult);
+		    */
+		    //check for ERRORS
+			if(bindingResult.hasErrors()){
+	    		logger.info("[ERROR Validation] search-filter does not validate)");
+	    		//put domain objects and do go back to the successView from here
+	    		//this.setCodeDropDownMgr(appUser, model);
+	    		model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+				successView.addObject(TrorConstants.DOMAIN_MODEL, model);
+				return successView;
+	    		
+		    }else{
+		    	 
+		    	 //===========
+				 //FETCH LIST
+				 //===========
+		    	 List<DokufmDao> list = new ArrayList<DokufmDao>();
+				 JsonReader<JsonDtoContainer<DokufmDao>> jsonReader = new JsonReader<JsonDtoContainer<DokufmDao>>();
+				 jsonReader.set(new JsonDtoContainer<DokufmDao>());
+				
+		    	
+				//prepare the access CGI with RPG back-end
+				 String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_DOKUFM_URL;
+				 StringBuffer urlRequestParamsKeys = new StringBuffer();
+				 urlRequestParamsKeys.append("user=" + appUser.getUser() + "&fmavd=" + recordToValidate.getFmavd() + "&fmopd=" + recordToValidate.getFmopd());
+				 urlRequestParamsKeys.append("&fmfbnr=" + recordToValidate.getFmfbnr()); 
+				 
+				 logger.info("URL: " + BASE_URL);
+				 logger.info("PARAMS: " + urlRequestParamsKeys);
+				 logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
+				 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys.toString());
+				 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+				 logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+				 
+				 JsonDtoContainer<DokufmDao> container = (JsonDtoContainer<DokufmDao>) jsonReader.get(jsonPayload);
+				 if (container != null) {
+					if(container.getDtoList()!=null){
+						list = container.getDtoList();
+					}
+				 }
+				 
+				 model.put(TrorConstants.DOMAIN_LIST, list);
+				 model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
+
+				 successView.addObject(TrorConstants.DOMAIN_MODEL , model);
+				 logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+   	
+				 return successView;
 		    }
 		}
 	}
