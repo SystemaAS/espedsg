@@ -905,6 +905,26 @@
 							    </table>
 						    </td>
 						</tr>
+						
+						<tr>
+							<td colspan="2">
+							<table style="width:50%;">
+							<tr>
+	 				
+					 			<td valign="top" class="text12">Melding til Mottaker</td>
+					 			<td valign="top" class="text12">
+					 				<textarea class="text12" style="resize: none;overflow-y: scroll;" id="messageNoteConsignee" name="messageNoteConsignee" limit='65,10' cols="80" rows="6" >${model.messageNoteConsignee}</textarea>
+				 				</td>
+			 				</tr>
+			 				<tr>
+					 			<td valign="top" class="text12">Melding til Transportør</td>
+					 			<td valign="top" class="text12">
+					 				<textarea class="text12" style="resize: none;overflow-y: scroll;" id="messageNoteCarrier" name="messageNoteCarrier" limit='65,10' cols="80" rows="6">${model.messageNoteCarrier}</textarea>
+				 				</td>
+			 				</tr>
+		 					</table>
+		 					</td>
+		 				</tr>
 	 				</table>
             		</td>
             </tr>

@@ -31,6 +31,12 @@ public class TrorUrlDataStore {
 	
 	//http://gw.systema.no:8080/syjservicestror/syjsDOKUFM.do?user=OSCAR&fmavd=1&fmopd=52919&fmfbnr=1&fmmknr=2
 	static public String TROR_BASE_FETCH_DOKUFM_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKUFM.do?";
+	
+	//http://gw.systema.no:8080/syjservicestror/syjsDOK29.do?user=OSCAR&d29avd=1&d29opd=52919&d29fnr=1
+	static public String TROR_BASE_FETCH_DOK29_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOK29.do?";
+	
+	//http://gw.systema.no:8080/syjservicestror/syjsDOK36.do?user=OSCAR&d36avd=1&d36opd=52919&d36fnr=1
+	static public String TROR_BASE_FETCH_DOK36_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOK36.do?";
 		
 	//http://gw.systema.no:8080/syjservicesbcore/syjsFAKTR.do?user=OSCAR&faavd=1&faopd=184&fafrbn=1
 	static public String TROR_BASE_FETCH_FAKTR_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsFAKTR.do?";
@@ -61,12 +67,14 @@ public class TrorUrlDataStore {
 		
 	//http://gw.systema.no:8080/syjservicestror/syjsDOKUF_U.do?user=OSCAR&dfavd=2&dfopd=100&dfsg=JOV....and all the rest in DokufDao...&mode=U/A/D
 	static public String TROR_BASE_DOKUF_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKUF_U.do?";
-	
 	//http://gw.systema.no:8080/syjservicestror/syjsDOKUFE_U.do?user=OSCAR&fe_dfavd=1&fe_dfopd=100&fe_dffbnr=1&fe_n3035=CN....and all the rest...&mode=U/A/D
 	static public String TROR_BASE_DOKUFE_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKUFE_U.do?";
-	
-	
-	
+	//http://gw.systema.no:8080/syjservicestror/syjsDOK29_U.do?user=OSCAR&d29avd=1&d29opd=100&d29fnr=1....and all the rest...&mode=A/D
+	static public String TROR_BASE_DOK29_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOK29_U.do?";
+	//http://gw.systema.no:8080/syjservicestror/syjsDOK36_U.do?user=OSCAR&d36avd=1&d36opd=100&d36fnr=1....and all the rest...&mode=A/D
+	static public String TROR_BASE_DOK36_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOK36_U.do?";
+			
+
 	/**
 	//[2.1] Message Note management (Consignee, Carrier, Internal)
 	static public String EBOOKING_BASE_WORKFLOW_FETCH_MAIN_ORDER_MESSAGE_NOTE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE08R.pgm";

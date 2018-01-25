@@ -3,6 +3,11 @@
  */
 package no.systema.main.util;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
+
+
 import org.apache.log4j.Logger;
 
 /**
@@ -36,6 +41,20 @@ public class MessageNoteManager {
 			}
 		}
 		return records;
+	}
+	/**
+	 * 
+	 * @param message
+	 * @return
+	 */
+	public List<String> getChunksOfMessageNoteAsList(String message){
+		String[] records = this.getChunksOfMessageNote(message);
+		List<String> list = new ArrayList<String>();
+		
+		if(records!=null && records.length>0){
+			list= Arrays.asList(records);
+		}
+		return list;
 	}
 	
 
