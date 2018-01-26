@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -55,6 +56,7 @@ import no.systema.tror.util.RpgReturnResponseHandler;
 import no.systema.tror.util.TrorConstants;
 import no.systema.tror.util.manager.CodeDropDownMgr;
 import no.systema.tror.util.manager.LandImportExportManager;
+import no.systema.tror.util.manager.OrderContactInformationManager;
 import no.systema.tror.util.manager.FreightBillMessageNoteManager;
 import no.systema.tror.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
@@ -98,11 +100,14 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	private final String MESSAGE_NOTE_PARTY_TYPE_CARRIER = "carrier";
 	private MessageNoteManager messageNoteMgr = new MessageNoteManager();
 	private FreightBillMessageNoteManager freightBillMessageNoteManager = null;
+	private OrderContactInformationManager orderContactInformationMgr = null;
 	
-	@InitBinder
-    protected void initBinder(WebDataBinder binder) {
+	@PostConstruct
+	public void initIt() throws Exception {
+		//init managers
 		freightBillMessageNoteManager = new FreightBillMessageNoteManager(this.urlCgiProxyService);
-    }
+		orderContactInformationMgr = new OrderContactInformationManager(this.urlCgiProxyService);
+	}
 	/**
 	 * 
 	 * @param recordToValidate

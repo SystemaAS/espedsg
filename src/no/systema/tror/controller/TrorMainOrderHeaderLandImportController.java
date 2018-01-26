@@ -57,9 +57,12 @@ import no.systema.tror.util.TrorConstants;
 import no.systema.tror.util.RpgReturnResponseHandler;
 import no.systema.tror.util.manager.CodeDropDownMgr;
 import no.systema.tror.util.manager.LandImportExportManager;
+import no.systema.tror.util.manager.OrderContactInformationManager;
+
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecordStatus;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderDummyContainer;
+import no.systema.transportdisp.model.workflow.order.OrderContactInformationObject;
 
 //import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderFraktbrevRecord;
 //import no.systema.ebooking.model.jsonjackson.JsonMainOrderHeaderMessageNoteContainer;
@@ -109,6 +112,7 @@ public class TrorMainOrderHeaderLandImportController {
 	private NumberFormatterLocaleAware numberFormatter = new NumberFormatterLocaleAware();
 	private StringManager strMgr = new StringManager();
 	private DateTimeManager dateMgr = new DateTimeManager();
+	private OrderContactInformationManager orderContactInformationMgr = null;
 	
 	//private ReflectionUrlStoreMgr reflectionUrlStoreMgr = new ReflectionUrlStoreMgr();
 	private final String DELSYSTEM_LAND_IMPORT = "A";
@@ -126,6 +130,8 @@ public class TrorMainOrderHeaderLandImportController {
 		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
 			logger.setLevel(Level.DEBUG);
 		}
+		//init managers
+		orderContactInformationMgr = new OrderContactInformationManager(this.urlCgiProxyService);
 	}
 	
 	/**
@@ -220,7 +226,8 @@ public class TrorMainOrderHeaderLandImportController {
 							TrackfDao trackfDao = this.prepareTrackfDao(recordToValidate, this.TRACK_TRACE_STATUS_CHG);
 							this.logTrackAndTraceGeneral(appUser, trackfDao, this.TRACK_TRACE_ACTION_UPDATE, this.TRACK_TRACE_CREATE);
 							//update dokufe - contact information
-							this.updateContactInformation(appUser, recordToValidate);
+							OrderContactInformationObject orderContactInfoObj = this.setOrderContactInformationObject(recordToValidate);
+							this.orderContactInformationMgr.updateContactInformation(appUser, orderContactInfoObj, this.setDokufeDao(orderContactInfoObj));
 						}
 					}else{
 						//create new
@@ -233,7 +240,8 @@ public class TrorMainOrderHeaderLandImportController {
 							TrackfDao trackfDao = this.prepareTrackfDao(recordToValidate, this.TRACK_TRACE_STATUS_STR);
 							this.logTrackAndTraceGeneral(appUser, trackfDao, this.TRACK_TRACE_ACTION_UPDATE, this.TRACK_TRACE_CREATE);
 							//update dokufe - contact information
-							this.updateContactInformation(appUser, recordToValidate);
+							OrderContactInformationObject orderContactInfoObj = this.setOrderContactInformationObject(recordToValidate);
+							this.orderContactInformationMgr.updateContactInformation(appUser, orderContactInfoObj, this.setDokufeDao(orderContactInfoObj)); 
 							
 						}
 					}
@@ -261,17 +269,10 @@ public class TrorMainOrderHeaderLandImportController {
 					//populate track and trace
 					this.populateTrackAndTrace(appUser, headerOrderRecord);
 					//populate kontaktuppgifter
-					this.getContactInformation(appUser, headerOrderRecord, this.PARTY_CONSIGNOR_CN, true);
-					this.getContactInformation(appUser, headerOrderRecord, this.PARTY_CONSIGNEE_CZ, true);
-					//populate archive docs --> there is indeed a tab (own tab) for the archive
-					//this.populateArchiveDocs(appUser, headerOrderRecord, model);
-					//check if user is allowed to choose invoicee (fakturaBetalare)
-					//TODO this.setFakturaBetalareFlag(headerOrderRecord, appUser);
-					//populate all message notes
-					//TODO this.populateMessageNotes( appUser, headerOrderRecord);
-					//populate fraktbrev lines
-					//TODO this.populateFraktbrev( appUser, headerOrderRecord);
-					
+					OrderContactInformationObject orderContactInformationObject = this.setOrderContactInformationObject(headerOrderRecord);
+					this.orderContactInformationMgr.getContactInformation(appUser, this.setDokufeDao(orderContactInformationObject), this.PARTY_CONSIGNOR_CN, true, orderContactInformationObject);
+					this.orderContactInformationMgr.getContactInformation(appUser, this.setDokufeDao(orderContactInformationObject), this.PARTY_CONSIGNEE_CZ, true, orderContactInformationObject);
+					this.setHeaderRecordContactInformation(headerOrderRecord, orderContactInformationObject);				
 					
 					//Only in case of Create new order (INSERT ORDER)
 					if(orderTypes!=null){
@@ -324,6 +325,56 @@ public class TrorMainOrderHeaderLandImportController {
 
 		}
 		
+	}
+	/**
+	 * populate record from neutra object
+	 * 
+	 * @param headerOrderRecord
+	 * @param orderContactInformationObject
+	 */
+	private void setHeaderRecordContactInformation(JsonTrorOrderHeaderRecord headerOrderRecord, OrderContactInformationObject orderContactInformationObject){
+		
+		headerOrderRecord.setOwnSenderContactName(orderContactInformationObject.getOwnSenderContactName());
+		headerOrderRecord.setOwnSenderMobile(orderContactInformationObject.getOwnSenderMobile());
+		headerOrderRecord.setOwnSenderEmail(orderContactInformationObject.getOwnSenderEmail());
+		//
+		headerOrderRecord.setOwnReceiverContactName(orderContactInformationObject.getOwnReceiverContactName());
+		headerOrderRecord.setOwnReceiverMobile(orderContactInformationObject.getOwnReceiverMobile());
+		headerOrderRecord.setOwnReceiverEmail(orderContactInformationObject.getOwnReceiverEmail());
+		
+	}
+	/**
+	 * 
+	 * @param headerOrderRecord
+	 * @return
+	 */
+	private DokufeDao setDokufeDao (OrderContactInformationObject orderContactInfoObj){
+		DokufeDao dao = new DokufeDao();
+		dao.setFe_dfavd(Integer.valueOf(orderContactInfoObj.getAvd()));
+		dao.setFe_dfopd(Integer.valueOf(orderContactInfoObj.getOpd()));
+		dao.setFe_dffbnr(Integer.valueOf(orderContactInfoObj.getOwnPartyFbnr()));
+		return dao;
+	}
+	/**
+	 * 
+	 * @param headerOrderRecord
+	 * @return
+	 */
+	private OrderContactInformationObject setOrderContactInformationObject (JsonTrorOrderHeaderRecord headerOrderRecord){
+		OrderContactInformationObject obj = new OrderContactInformationObject();
+		obj.setAvd(headerOrderRecord.getHeavd());
+		obj.setOpd(headerOrderRecord.getHeopd());
+		
+		//
+		obj.setOwnSenderContactName(headerOrderRecord.getOwnSenderContactName());
+		obj.setOwnSenderMobile(headerOrderRecord.getOwnSenderMobile());
+		obj.setOwnSenderEmail(headerOrderRecord.getOwnSenderEmail());
+		//
+		obj.setOwnReceiverContactName(headerOrderRecord.getOwnReceiverContactName());
+		obj.setOwnReceiverMobile(headerOrderRecord.getOwnReceiverMobile());
+		obj.setOwnReceiverEmail(headerOrderRecord.getOwnReceiverEmail());
+		
+		return obj;
 	}
 	
 	
@@ -578,8 +629,7 @@ public class TrorMainOrderHeaderLandImportController {
 	 * @param appUser
 	 * @param orderRecord
 	 */
-	private void populateTrackAndTrace(SystemaWebUser appUser, JsonTrorOrderHeaderRecord headerOrderRecord){
-		
+	private void populateTrackAndTrace(SystemaWebUser appUser, JsonTrorOrderHeaderRecord headerOrderRecord){		
 		//===========
 		 //FETCH LIST
 		 //===========
@@ -614,165 +664,10 @@ public class TrorMainOrderHeaderLandImportController {
 		 
 	}
 	
-	/**
-	 * 
-	 * @param appUser
-	 * @param recordToValidate
-	 */
-	private void updateContactInformation(SystemaWebUser appUser, JsonTrorOrderHeaderRecord recordToValidate){
-		boolean recordToValidateReadOnly = false;
-		DokufeDao dao = null;
-		//-------------------------
-		//Sender - Consignor - CN
-		//-------------------------
-		dao = this.getContactInformation(appUser, recordToValidate, this.PARTY_CONSIGNOR_CN, recordToValidateReadOnly);
-		if(dao != null){
-			//update
-			logger.info("update CN...");
-			this.updateDokufe(appUser, TrorConstants.MODE_UPDATE, dao, recordToValidate, this.PARTY_CONSIGNOR_CN);
-		}else{
-			//create new
-			logger.info("create CN...");
-			dao = new DokufeDao();
-			dao.setFe_dfavd(Integer.parseInt(recordToValidate.getHeavd()));
-			dao.setFe_dfopd(Integer.parseInt(recordToValidate.getHeopd()));
-			this.updateDokufe(appUser, TrorConstants.MODE_ADD, dao, recordToValidate, this.PARTY_CONSIGNOR_CN);
-		}
-		//---------------------------
-		//Receiver - Consignee - CZ
-		//---------------------------
-		dao = this.getContactInformation(appUser, recordToValidate, this.PARTY_CONSIGNEE_CZ, recordToValidateReadOnly);
-		if(dao != null){
-			//update
-			logger.info("update CZ...");
-			this.updateDokufe(appUser, TrorConstants.MODE_UPDATE, dao, recordToValidate, this.PARTY_CONSIGNEE_CZ);
-		}else{
-			//create new
-			logger.info("create CZ...");
-			dao = new DokufeDao();
-			dao.setFe_dfavd(Integer.parseInt(recordToValidate.getHeavd()));
-			dao.setFe_dfopd(Integer.parseInt(recordToValidate.getHeopd()));
-			this.updateDokufe(appUser, TrorConstants.MODE_ADD, dao, recordToValidate, PARTY_CONSIGNEE_CZ);
-		}
-		
-		
-	}
 	
 	
-	/**
-	 * 
-	 * @param appUser
-	 * @param recordToValidate
-	 * @param partyType
-	 * @param readOnly
-	 * @return
-	 */
-	private DokufeDao getContactInformation(SystemaWebUser appUser, JsonTrorOrderHeaderRecord recordToValidate, String partyType, boolean readOnly){
-		 DokufeDao dao = null;
-		 //http://localhost:8080/syjservicestror/syjsDOKUFE.do?user=OSCAR&fe_dfavd=1&fe_dfopd=52919&fe_dffbnr=1&fe_n3035
-		 //===========
-		 //FETCH LIST
-		 //===========
-		 logger.info("Inside: getContactInformation");
-		 JsonReader<JsonDtoContainer<DokufeDao>> jsonReader = new JsonReader<JsonDtoContainer<DokufeDao>>();
-		 jsonReader.set(new JsonDtoContainer<DokufeDao>());
-			
-		 //prepare the access CGI with RPG back-end
-		 String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_SPECIFIC_CONTACT_INFORMATION_URL;
-		 StringBuffer urlRequestParamsKeys = new StringBuffer();
-		 urlRequestParamsKeys.append("user=" + appUser.getUser() + "&fe_dfavd=" + recordToValidate.getHeavd() + "&fe_dfopd=" + recordToValidate.getHeopd());
-		 urlRequestParamsKeys.append("&fe_dffbnr=" + recordToValidate.getOwnPartyFbnr()); //always fraktbrev nr 1 
-		 urlRequestParamsKeys.append("&fe_n3035=" + partyType);
-		 
-		 logger.info("URL: " + BASE_URL);
-		 logger.info("PARAMS: " + urlRequestParamsKeys);
-		 logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-		 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys.toString());
-		 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-		 logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-		 
-		 JsonDtoContainer<DokufeDao> container = (JsonDtoContainer<DokufeDao>) jsonReader.get(jsonPayload);
-		 if (container != null) {
-			if(container.getDtoList()!=null){
-				for(DokufeDao record : container.getDtoList()){
-					if(PARTY_CONSIGNOR_CN.equals(record.getFe_n3035())) {
-						if(readOnly){
-							recordToValidate.setOwnSenderContactName(record.getFe_c3412());
-							recordToValidate.setOwnSenderMobile(record.getFe_c3148B());
-							recordToValidate.setOwnSenderEmail(record.getFe_c3148E());
-						}
-						dao = record;						
-					}else if(PARTY_CONSIGNEE_CZ.equals(record.getFe_n3035())) {
-						if(readOnly){
-							recordToValidate.setOwnReceiverContactName(record.getFe_c3412());
-							recordToValidate.setOwnReceiverMobile(record.getFe_c3148B());
-							recordToValidate.setOwnReceiverEmail(record.getFe_c3148E());
-						}
-						dao = record;
-					}
-				}
-			}
-		 }
-		 return dao;
-	}
-	/**
-	 * http://localhost:8080/syjservicestror/syjsDOKUFE_U.do?user=OSCAR&mode=U/A&fe_dfavd=1&fe_dfopd=52919&fe_dffbnr=1&fe_n3035...etc
-		 
-	 * @param appUser
-	 * @param headerOrderRecord
-	 * @param partyType
-	 * @return
-	 */
-	private int updateDokufe(SystemaWebUser appUser, String mode, DokufeDao dao, JsonTrorOrderHeaderRecord recordToValidate, String partyType){
-		 int retval = 0;
-		 int FRAKTBREV_1 = 1;
-		 //===========
-		 //UPDATE 
-		 //===========
-		 //Update dao here
-		 dao.setFe_dffbnr(FRAKTBREV_1);
-		 if(this.PARTY_CONSIGNEE_CZ.equals(partyType)){
-			 dao.setFe_c3412(recordToValidate.getOwnReceiverContactName());
-			 dao.setFe_c3148B(recordToValidate.getOwnReceiverMobile());
-			 dao.setFe_c3148E(recordToValidate.getOwnReceiverEmail());
-			 dao.setFe_n3035(recordToValidate.getOwnReceiverPartId());
-		 }else{
-			 dao.setFe_c3412(recordToValidate.getOwnSenderContactName());
-			 dao.setFe_c3148B(recordToValidate.getOwnSenderMobile());
-			 dao.setFe_c3148E(recordToValidate.getOwnSenderEmail());
-			 dao.setFe_n3035(recordToValidate.getOwnSenderPartId());
-		 }
-		 
-		 logger.info("Inside: updateContactInformation");
-		 JsonReader<JsonDtoContainer<DokufeDao>> jsonReader = new JsonReader<JsonDtoContainer<DokufeDao>>();
-		 jsonReader.set(new JsonDtoContainer<DokufeDao>());
-			
-		 //prepare the access CGI with RPG back-end
-		 String BASE_URL = TrorUrlDataStore.TROR_BASE_DOKUFE_DML_UPDATE_URL;
-		 String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=" + mode;
-		 String urlRequestParams = urlRequestParamsKeys + this.urlRequestParameterMapper.getUrlParameterValidString(dao);
-		 
-		 
-		 logger.info("URL: " + BASE_URL);
-		 logger.info("PARAMS: " + urlRequestParams);
-		 logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-		 String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-		 logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-		 logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-		 
-		 JsonDtoContainer<DokufeDao> container = (JsonDtoContainer<DokufeDao>) jsonReader.get(jsonPayload);
-		 if (container != null) {
-			if(container.getDtoList()!=null){
-				if(StringUtils.hasValue(container.getErrMsg()) ){
-					retval = -1;
-					logger.info("Error during UPDATE - DOKUFE ...");
-				}
-			}
-		 }
-		 
-		 return retval;
-		 
-	}
+	
+	
 	/**
 	 * 
 	 * @param recordToValidate
@@ -851,591 +746,6 @@ public class TrorMainOrderHeaderLandImportController {
 		}
 		return successView;
 	}
-	/**
-	 * 
-	 * @param recordToValidate
-	 * @param bindingResult
-	 * @param session
-	 * @param request
-	 * @return
-	 */
-	/*
-	@RequestMapping(value="tror_delete_order_line.do",  method={RequestMethod.GET} )
-	public ModelAndView doDeleteOrderLine(@ModelAttribute ("record") JsonMainOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
-		this.context = TdsAppContext.getApplicationContext();
-		logger.info("#HEUNIK:" + recordToValidate.getHeunik());
-		logger.info("#HREFF:" + recordToValidate.getHereff());
-		//logger.info("#HESTL4:" + recordToValidate.getHestl4());
-		//set the order line nr in a place-holder
-		recordToValidate.setOrderLineToDelete(request.getParameter("lin"));
-		logger.info("#LINENR:" + recordToValidate.getOrderLineToDelete());
-		
-		ModelAndView successView = new ModelAndView("redirect:tror_mainorder.do?action=doFetch&heunik=" + recordToValidate.getHeunik() + "&hereff=" + recordToValidate.getHereff() + "&status=" + recordToValidate.getStatus());
-		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
-		Map model = new HashMap();
-		
-		//check user (should be in session already)
-		if(appUser==null){
-			return loginView;
-			
-		}else{
-			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
-    		//UPDATE (Delete)
-			logger.info("UPDATE (DELETE) transaction...");
-			
-			final String UPDATE_BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_WORKFLOW_UPDATE_LINE_MAIN_ORDER_FRAKTBREV_URL;
-			String urlRequestKeyParams = this.getRequestUrlKeyParameters(recordToValidate, appUser, EbookingConstants.MODE_DELETE );
-			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-			logger.info("URL: " + UPDATE_BASE_URL);
-	    	logger.info("URL PARAMS: " + urlRequestKeyParams );
-	    	//-----------------------------------------------
-	    	//EXECUTE the UPDATE - DELETE (RPG program) here 
-	    	//-----------------------------------------------
-	    	 
-	    	String rpgReturnPayload = this.urlCgiProxyService.getJsonContent(UPDATE_BASE_URL, urlRequestKeyParams);
-			//Debug --> 
-	    	logger.info("Checking errMsg in rpgReturnPayload [UPDATE - DELETE]:" + rpgReturnPayload);
-	    	//we must evaluate a return RPG code in order to know if the Update was OK or not
-	    	rpgReturnResponseHandler = new RpgReturnResponseHandler(); //init
-	    	rpgReturnResponseHandler.evaluateRpgResponseOnEditSpecificOrder(rpgReturnPayload);
-	    	if(rpgReturnResponseHandler.getErrorMessage()!=null && !"".equals(rpgReturnResponseHandler.getErrorMessage())){
-	    		rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on DELETE: " + rpgReturnResponseHandler.getErrorMessage());
-	    		this.setFatalError(model, rpgReturnResponseHandler, recordToValidate);
-	    	}else{
-	    		//Update successfully done!
-	    		logger.info("[INFO] Record successfully deleted, OK ");
-	    		//now update totals
-	    		
-	    		//------------------------
-	    		//update item line totals
-	    		//------------------------
-	    		JsonMainOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, null, recordToValidate.getHereff(), recordToValidate.getHeunik());
-				this.populateFraktbrev( appUser, headerOrderRecord);
-				//update with new totals
-				StringBuffer errMsg = new StringBuffer();
-				int dmlRetvalIL = this.updateRecord(model, appUser.getUser(), headerOrderRecord, EbookingConstants.MODE_UPDATE, errMsg);
-				if(dmlRetvalIL<0){
-					logger.info("[ERROR]: Unsuccessful item lines totals' update ... ? ");
-				}
-    		}	
-	    	
-    		return successView;
-		
-		}
-	}
-	*/
-	/**
-	 * 
-	 * @param headerOrderRecord
-	 * @param appUser
-	 */
-	public void setFakturaBetalareFlag(JsonTrorOrderHeaderRecord headerOrderRecord, SystemaWebUser appUser){
-		//prepare the access CGI with RPG back-end
-		/*TODO 
-		String BASE_URL = EbookingUrlDataStore.EBOOKING_BASE_CHILDWINDOW_CUSTOMER_URL;
-		String urlRequestParamsKeys = "user=" + appUser.getUser();
-		logger.info("URL: " + BASE_URL);
-		logger.info("PARAMS: " + urlRequestParamsKeys);
-		logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-		//Debug -->
-    	//logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-		//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-    
-		if(jsonPayload!=null){
-			JsonEbookingCustomerContainer container = this.ebookingChildWindowService.getCustomerContainer(jsonPayload);
-    		if(container!=null){
-    			if(container.getInqFkund()!=null && container.getInqFkund().size()>0){
-    				//nothing. At least one record
-    			}else{
-    				//this makes the user not allowed to choose faktura part
-    				headerOrderRecord.setFakBetExists(false);
-    			}
-    			
-    		}
-		}	
-		*/
-	}
-	/**
-	 * 
-	 * @param recordToValidate
-	 * @param appUser
-	 * @param mode
-	 * @return
-	 */
-	private String getRequestUrlKeyParameters(JsonTrorOrderHeaderRecord recordToValidate, SystemaWebUser appUser, String mode){
-		StringBuffer urlRequestParamsKeys = new StringBuffer();
-		
-		if(TrorConstants.MODE_UPDATE.equalsIgnoreCase(mode) || TrorConstants.MODE_ADD.equalsIgnoreCase(mode)){
-			urlRequestParamsKeys.append("user=" + appUser.getUser());
-			urlRequestParamsKeys.append("&heavd=" + recordToValidate.getHeavd());
-			urlRequestParamsKeys.append("&heopd=" + recordToValidate.getHeopd());
-			urlRequestParamsKeys.append("&mode=" + mode);
-			
-			
-		}else if(TrorConstants.MODE_DELETE.equalsIgnoreCase(mode)){
-			urlRequestParamsKeys.append("user=" + appUser.getUser());
-			urlRequestParamsKeys.append("&heavd=" + recordToValidate.getHeavd());
-			urlRequestParamsKeys.append("&heopd=" + recordToValidate.getHeopd());
-			urlRequestParamsKeys.append("&mode=" + TrorConstants.MODE_DELETE);
-			
-		}
-		
-		return urlRequestParamsKeys.toString();
-	}
-	
-	/**
-	 * @param model
-	 * @param recordToValidate
-	 * @param appUser
-	 * @param request
-	 * @param dmlModeCreateNew
-	 */
-	/*
-	private void processNewMessageNotes(Map model, JsonTrorOrderHeaderRecord recordToValidate, SystemaWebUser appUser, HttpServletRequest request, String dmlModeCreateNew){
-		//-------------------------------------------------------
-		//get the key values for a DML operation in messageNote
-		//-------------------------------------------------------
-		List<String> ownMessageNoteReceiverLineNrRawList = new ArrayList<String>();
-		List<String> ownMessageNoteCarrierLineNrRawList = new ArrayList<String>();
-		List<String> ownMessageNoteInternalLineNrRawList = new ArrayList<String>();
-		
-		for (Map.Entry<String, String[]> entry : request.getParameterMap().entrySet()) {
-		    String name = entry.getKey();
-		    String value = entry.getValue()[0];
-		    if(name.contains("ownMessageNoteReceiverLineNr")){
-		    	logger.info("AA:" + value);
-		    	ownMessageNoteReceiverLineNrRawList.add(value); 
-		    }
-		    if(name.contains("ownMessageNoteCarrierLineNr")){ ownMessageNoteCarrierLineNrRawList.add(value); }
-		    if(name.contains("ownMessageNoteInternalLineNr")){ ownMessageNoteInternalLineNrRawList.add(value); }
-		}
-		
-		if(recordToValidate !=null){
-			String messageNoteConsigneeOriginal = request.getParameter("messageNoteConsigneeOriginal");
-			if(!messageNoteConsigneeOriginal.equals(recordToValidate.getMessageNoteConsignee())){
-				logger.info("CONSIGNEE NOT EQUAL");
-				//CONSIGNEE (RECEIVER)
-				//Delete all values
-				logger.info("BB:" + ownMessageNoteReceiverLineNrRawList.size());
-				this.deleteOriginalMessageNote(JsonTrorOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser, ownMessageNoteReceiverLineNrRawList);
-				//Add new values
-				String [] messageNoteConsignee = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteConsignee());
-				this.updateMessageNote(model, messageNoteConsignee, JsonTrorOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
-				//init values
-				//recordToValidate.setMessageNoteConsigneeOriginal(recordToValidate.getMessageNoteConsignee());
-				
-			}else{
-				logger.info("CONSIGNEE EQUAL"); 
-				if(dmlModeCreateNew!=null){
-					//Add new values
-					String [] messageNoteConsignee = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteConsignee());
-					this.updateMessageNote(model, messageNoteConsignee, JsonTrorOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE, recordToValidate, appUser);
-				}else{
-					//do not update
-				}	
-			}
-			
-			String messageNoteCarrierOriginal = request.getParameter("messageNoteCarrierOriginal");
-			if(!messageNoteCarrierOriginal.equals(recordToValidate.getMessageNoteCarrier())){
-				logger.info("CARRIER NOT EQUAL");
-				//CARRIER
-				//Delete all values
-				this.deleteOriginalMessageNote(JsonTrorOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser, ownMessageNoteCarrierLineNrRawList);
-				//Add new values
-				String [] messageNoteCarrier = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteCarrier());
-				this.updateMessageNote(model, messageNoteCarrier, JsonTrorOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser);
-			}else{
-				logger.info("CARRIER EQUAL"); 
-				if(dmlModeCreateNew!=null){
-					//Add new values
-					String [] messageNoteCarrier = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteCarrier());
-					this.updateMessageNote(model, messageNoteCarrier, JsonTrorOrderHeaderRecord.MESSAGE_NOTE_CARRIER, recordToValidate, appUser);
-				}else{
-					//do not update
-				}
-			}
-			
-			String messageNoteInternalOriginal = request.getParameter("messageNoteInternalOriginal");
-			if(!messageNoteInternalOriginal.equals(recordToValidate.getMessageNoteInternal())){
-				logger.info("INTERNAL NOT EQUAL");
-				//INTERNAL
-				//Delete all values
-				this.deleteOriginalMessageNote(JsonTrorOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser, ownMessageNoteInternalLineNrRawList);
-				//Add new values
-				String [] messageNoteInternal = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteInternal());
-				this.updateMessageNote(model, messageNoteInternal, JsonTrorOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser);
-			}else{
-				logger.info("INTERNAL EQUAL"); 
-				if(dmlModeCreateNew!=null){
-					//Add new values
-					String [] messageNoteInternal = this.messageNoteMgr.getChunksOfMessageNote(recordToValidate.getMessageNoteInternal());
-					this.updateMessageNote(model, messageNoteInternal, JsonTrorOrderHeaderRecord.MESSAGE_NOTE_INTERNAL, recordToValidate, appUser);
-				}else{
-					//do not update
-				}
-			}
-
-		}
-		
-	}*/
-	
-	
-	
-	/**
-	 * @param model
-	 * @param messageNote
-	 * @param messageParty
-	 * @param record
-	 * @param appUser
-	 */
-	/*
-	private void updateMessageNote(Map model, String[] messageNote, String messageParty, JsonTrorOrderHeaderRecord record, SystemaWebUser appUser){
-		String CARRIAGE_RETURN = "[\n\r]";
-		List<String> messageNotePayload = Arrays.asList(messageNote);
-		//logger.info("A" + messageNotePayload);
-		for(String linePayload: messageNotePayload){
-			linePayload = linePayload.replaceAll(CARRIAGE_RETURN, "");
-			//linePayload = linePayload.trim();
-			//---------------------------
-			//get BASE URL = RPG-PROGRAM
-	        //---------------------------
-			if(linePayload!=null && !"".equals(linePayload)){
-				String BASE_URL_UPDATE = MainUrlDataStore.SYSTEMA_NOTIS_BLOCK_UPDATE_ITEMLINE_URL;
-				//------------------
-				//add URL-parameter
-				//------------------
-				//no line no parameter is required
-				StringBuffer urlRequestParamsKeysBuffer = new StringBuffer();
-				urlRequestParamsKeysBuffer.append("user=" + appUser.getUser());
-				urlRequestParamsKeysBuffer.append("&frunik=" + record.getHeunik());
-				urlRequestParamsKeysBuffer.append("&frreff=" + record.getHereff());
-				urlRequestParamsKeysBuffer.append("&frttxt=" + linePayload);
-				urlRequestParamsKeysBuffer.append("&frtkod=" + messageParty);		 
-				urlRequestParamsKeysBuffer.append("&mode=A");
-				
-				String urlRequestParams = urlRequestParamsKeysBuffer.toString();
-				logger.info("URL: " + BASE_URL_UPDATE);
-				logger.info("PARAMS: " + urlRequestParams);
-				//logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-				String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_UPDATE, urlRequestParams);
-				//logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-				//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-				 
-				JsonNotisblockContainer jsonNotisblockContainer = this.notisblockService.getNotisblockListContainer(jsonPayload);
-				//logger.info("JsonNotisblockContainer:" + jsonNotisblockContainer);
-				if(jsonNotisblockContainer!=null){
-					//logger.info("A:" + jsonNotisblockContainer.getErrMsg());
-					if( !"".equals(jsonNotisblockContainer.getErrMsg()) ){
-						//Debug
-						String fatalError = "[ERROR]:" + jsonNotisblockContainer.getErrMsg(); 
-						model.put(EbookingConstants.ASPECT_ERROR_MESSAGE, fatalError);
-						logger.info(fatalError);
-					}
-				}
-
-			}
-		}
-	}*/
-	/**
-	 * 
-	 * @param messageParty
-	 * @param record
-	 * @param appUser
-	 */
-	/*
-	private void deleteOriginalMessageNote( String messageParty, JsonTrorOrderHeaderRecord record, SystemaWebUser appUser, List<String> ownMessageNoteLineNrRawList){
-		logger.info("LIST:" + ownMessageNoteLineNrRawList);
-		for(String msgNoteRawRecord : ownMessageNoteLineNrRawList){
-			String [] msgNoteRecord = msgNoteRawRecord.split("@");
-			if(msgNoteRecord!=null && msgNoteRecord.length==2){
-				//---------------------------
-				//get BASE URL = RPG-PROGRAM
-		        //---------------------------
-				String BASE_URL_UPDATE = MainUrlDataStore.SYSTEMA_NOTIS_BLOCK_UPDATE_ITEMLINE_URL;
-				//------------------
-				//add URL-parameter
-				//------------------
-				StringBuffer urlRequestParamsKeysBuffer = new StringBuffer();
-				urlRequestParamsKeysBuffer.append("user=" + appUser.getUser());
-				urlRequestParamsKeysBuffer.append("&frunik=" + record.getHeunik());
-				urlRequestParamsKeysBuffer.append("&frreff=" + record.getHereff());
-				urlRequestParamsKeysBuffer.append("&frtli=" + msgNoteRecord[0]);
-				urlRequestParamsKeysBuffer.append("&frtdt=" + msgNoteRecord[1]);
-				urlRequestParamsKeysBuffer.append("&mode=D");
-				
-				String urlRequestParams = urlRequestParamsKeysBuffer.toString();
-				//DEBUG
-				logger.info("URL: " + BASE_URL_UPDATE);
-				logger.info("PARAMS: " + urlRequestParams);
-				//logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-				String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_UPDATE, urlRequestParams);
-				//DEBUG
-				//logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-				//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-				JsonNotisblockContainer jsonNotisblockContainer = this.notisblockService.getNotisblockListContainer(jsonPayload);
-				//logger.info("JsonNotisblockContainer:" + jsonNotisblockContainer);
-				if(jsonNotisblockContainer!=null){
-					//logger.info("A:" + jsonNotisblockContainer.getErrMsg());
-					if( !"".equals(jsonNotisblockContainer.getErrMsg()) ){
-						//Debug
-						logger.info("[WARNING (delete lines)]:" + jsonNotisblockContainer.getErrMsg() + msgNoteRecord[0] + "/" + msgNoteRecord[1] + "(heunik:" + record.getHeunik()+"hereff:"+ record.getHereff() + ")");
-					}
-				}
-				
-			}
-		}
-	}
-	*/
-	/**
-	 * 
-	 * @param appUser
-	 * @param orderRecord
-	 */
-	/*
-	private void populateMessageNotes(SystemaWebUser appUser, JsonTrorOrderHeaderRecord orderRecord){
-		
-		Collection<JsonMainOrderHeaderMessageNoteRecord> messageNoteConsignee = null;
-		Collection<JsonMainOrderHeaderMessageNoteRecord> messageNoteCarrier = null;
-		Collection<JsonMainOrderHeaderMessageNoteRecord> messageNoteInternal = null;
-		
-		messageNoteConsignee = this.fetchMessageNote(appUser.getUser(), orderRecord, JsonTrorOrderHeaderRecord.MESSAGE_NOTE_CONSIGNEE);
-		messageNoteCarrier = this.fetchMessageNote(appUser.getUser(), orderRecord, JsonTrorOrderHeaderRecord.MESSAGE_NOTE_CARRIER);
-		messageNoteInternal = this.fetchMessageNote(appUser.getUser(), orderRecord, JsonTrorOrderHeaderRecord.MESSAGE_NOTE_INTERNAL);
-		
-		StringBuffer brConsignee = new StringBuffer();
-		for(JsonMainOrderHeaderMessageNoteRecord record: messageNoteConsignee ){
-			if(record.getFrtli()!=null || !"".equals(record.getFrtli())){
-				brConsignee.append(record.getFrttxt() + "\n");
-			}
-			
-		}
-		StringBuffer brCarrier = new StringBuffer();
-		for(JsonMainOrderHeaderMessageNoteRecord record: messageNoteCarrier ){
-			if(record.getFrtli()!=null || !"".equals(record.getFrtli())){
-				brCarrier.append(record.getFrttxt() + "\n");
-			}
-		}
-		StringBuffer brInternal = new StringBuffer();
-		for(JsonMainOrderHeaderMessageNoteRecord record: messageNoteInternal ){
-			if(record.getFrtkod()==null || "".equals(record.getFrtkod())){ //since we must filter in this specific type (blank)
-				if(record.getFrtli()!=null || !"".equals(record.getFrtli())){
-					brInternal.append(record.getFrttxt() + "\n");
-				}
-			}
-		}
-		//logger.info("******************************B" + brInternal.toString());
-		//populate final message notes now
-		orderRecord.setMessageNoteConsignee(brConsignee.toString());
-		orderRecord.setMessageNoteCarrier(brCarrier.toString());
-		orderRecord.setMessageNoteInternal(brInternal.toString());
-		//populate original
-		orderRecord.setMessageNoteConsigneeOriginal(brConsignee.toString());
-		orderRecord.setMessageNoteCarrierOriginal(brCarrier.toString());
-		orderRecord.setMessageNoteInternalOriginal(brInternal.toString());
-		
-		//populate auxiliary arrays
-		orderRecord.setMessageNoteConsigneeRaw((List)messageNoteConsignee);
-		orderRecord.setMessageNoteCarrierRaw((List)messageNoteCarrier);
-		orderRecord.setMessageNoteInternalRaw((List)messageNoteInternal);
-	}
-	*/
-	/**
-	 * 
-	 * @param applicationUser
-	 * @param orderRecord
-	 * @param type
-	 * @return
-	 */
-	/*
-	public Collection<JsonMainOrderHeaderMessageNoteRecord> fetchMessageNote(String applicationUser, JsonTrorOrderHeaderRecord orderRecord, String type){
-		Collection<JsonMainOrderHeaderMessageNoteRecord> outputList = new ArrayList<JsonMainOrderHeaderMessageNoteRecord>();
-		//===========
-		//FETCH LIST
-		//===========
-		//get BASE URL
-    		final String BASE_LIST_URL = EbookingUrlDataStore.EBOOKING_BASE_WORKFLOW_FETCH_MAIN_ORDER_MESSAGE_NOTE_URL;
-    		//add URL-parameters
-    		StringBuffer urlRequestParams = new StringBuffer();
-    		urlRequestParams.append("user=" + applicationUser);
-    		if(orderRecord.getHeunik()!=null && !"".equals(orderRecord.getHeunik())){ urlRequestParams.append("&unik=" + orderRecord.getHeunik()); }
-    		if(orderRecord.getHereff()!=null && !"".equals(orderRecord.getHereff())){ urlRequestParams.append("&reff=" + orderRecord.getHereff()); }
-    		urlRequestParams.append("&part=" + type);
-    		
-    		
-    		//logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
-	    	//logger.info("URL: " + BASE_LIST_URL);
-	    	//logger.info("URL PARAMS: " + urlRequestParams);
-	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_LIST_URL, urlRequestParams.toString());
-	    	//Debug --> 
-	    	//logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
-	    	//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-	    	if(jsonPayload!=null){
-	    		JsonMainOrderHeaderMessageNoteContainer messageNoteContainer = this.ebookingMainOrderHeaderService.getMessageNoteContainer(jsonPayload);
-	    		Collection<JsonMainOrderHeaderMessageNoteRecord> tmpList = messageNoteContainer.getFreetextlist();
-	    		if(type!=null && !"".equals(type)){
-	    			outputList = tmpList;
-	    		}else{
-	    			//all records with no part type (blank) must be filtered 
-		    		for(JsonMainOrderHeaderMessageNoteRecord record: tmpList){
-		    			if(record.getFrtkod()==null || "".equals(record.getFrtkod())){ //since we must filter in this specific type (blank)
-		    				if(record.getFrtli()!=null || !"".equals(record.getFrtli())){
-		    					outputList.add(record);		    					
-		    				}
-		    			}	
-		    		}
-	    		}
-			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
-		}
-	    
-	    	return outputList;
-		
-	}
-	*/
-	/**
-	 * 
-	 * @param request
-	 * @param recordToValidate
-	 */
-	/*
-	private void populateOrderLineRecordsWithUserInput(HttpServletRequest request, JsonTrorOrderHeaderRecord recordToValidate){
-		JsonMainOrderHeaderFraktbrevRecord fraktbrevRecord = new JsonMainOrderHeaderFraktbrevRecord();
-		
-			String lineNr = request.getParameter("fvlinr");
-			if(lineNr!=null && !"".equals(lineNr)){
-				fraktbrevRecord.setFvlinr(lineNr);
-			}
-			fraktbrevRecord.setFmmrk1(request.getParameter("fmmrk1"));
-			fraktbrevRecord.setFvant(request.getParameter("fvant"));
-			fraktbrevRecord.setFvpakn(request.getParameter("fvpakn"));
-			fraktbrevRecord.setFvvt(request.getParameter("fvvt"));
-			fraktbrevRecord.setFvvkt(request.getParameter("fvvkt"));
-			fraktbrevRecord.setFvvol(request.getParameter("fvvol"));
-			fraktbrevRecord.setFvlm(request.getParameter("fvlm"));
-			fraktbrevRecord.setFvlm2(request.getParameter("fvlm2"));
-			fraktbrevRecord.setFvlen(request.getParameter("fvlen"));
-			fraktbrevRecord.setFvbrd(request.getParameter("fvbrd"));
-			fraktbrevRecord.setFvhoy(request.getParameter("fvhoy"));
-			//farlig goods
-			fraktbrevRecord.setFfunnr(request.getParameter("ffunnr"));
-			fraktbrevRecord.setFfembg(request.getParameter("ffembg"));
-			fraktbrevRecord.setFfindx(request.getParameter("ffindx"));
-			
-			fraktbrevRecord.setFfantk(request.getParameter("ffantk"));
-			fraktbrevRecord.setFfante(request.getParameter("ffante"));
-			fraktbrevRecord.setFfenh(request.getParameter("ffenh"));
-			//set record
-			recordToValidate.setFraktbrevRecord(fraktbrevRecord);
-		
-		
-	}
-	*/
-	/**
-	 * 
-	 * @param recordToValidate
-	 * @return
-	 */
-	/*
-	private int getTotalNumberOfLines(JsonTrorOrderHeaderRecord recordToValidate){
-		//check the total number of lines
-		int totalNumberOfLines = EbookingConstants.CONSTANT_TOTAL_NUMBER_OF_ORDER_LINES; //Default
-		if(!"".equals(recordToValidate.getTotalNumberOfLines()) && recordToValidate.getTotalNumberOfLines()!=null){
-			try{
-				int tmpLimit = Integer.parseInt(recordToValidate.getTotalNumberOfLines());
-				if(tmpLimit>totalNumberOfLines){
-					totalNumberOfLines = Integer.parseInt(recordToValidate.getTotalNumberOfLines());
-				}
-			}catch(Exception e){
-				StringWriter errors = new StringWriter();
-				e.printStackTrace(new PrintWriter(errors));
-				logger.info(errors);
-			}
-		}
-		return totalNumberOfLines;
-	}
-	*/
-	/**
-	 * 
-	 * @param request
-	 * @param recordToValidate
-	 * @param appUser
-	 */
-	/*
-	private boolean processOrderLine(Map model, HttpServletRequest request, JsonTrorOrderHeaderRecord recordToValidate, SystemaWebUser appUser){
-		boolean retval = true;
-		
-		logger.info("Inside:processOrderLines");
-		//check the total number of lines in order to input a new linenr
-		String upperCurrentItemlineNr = request.getParameter("upperCurrentItemlineNr");
-		
-		if(recordToValidate!=null && recordToValidate.getFraktbrevRecord()!=null){
-			String lineNr = recordToValidate.getFraktbrevRecord().getFvlinr();
-			/* Debug
-		 	logger.info("RETURN RECORD fvli:" + fraktbrevRecord.getFvlinr());
-			logger.info("RETURN RECORD desc:" + fraktbrevRecord.getFvvt());
-			logger.info("RETURN RECORD ant:" + fraktbrevRecord.getFvant());
-			logger.info("RETURN RECORD brd:" + fraktbrevRecord.getFvbrd());
-			logger.info("RETURN RECORD lm:" + fraktbrevRecord.getFvlm());
-			
-			
-			String mode = EbookingConstants.MODE_ADD;
-			if(lineNr!=null && !"".equals(lineNr) ){ 
-				logger.info("lineNr (update):" + lineNr);
-				mode = EbookingConstants.MODE_UPDATE; }
-			else{
-				//this line is new!
-				if(upperCurrentItemlineNr!=null && !"".equals(upperCurrentItemlineNr)){
-					int lastLineNr = Integer.parseInt(upperCurrentItemlineNr);
-					lineNr = String.valueOf(++lastLineNr);
-					logger.info("lineNr (new):" + lineNr);
-				}else{
-					logger.info("lineNr start from scratch:" + lineNr);
-					lineNr = "1";
-				}
-			}
-			//only when at least the mandatory fields are in place
-			if(this.validMandatoryFieldsFraktbrev(recordToValidate.getFraktbrevRecord()) ){
-				//Start with the update (mode=(A)dd,(D)elete,(U)pdate)
-				String BASE_URL_UPDATE = EbookingUrlDataStore.EBOOKING_BASE_WORKFLOW_UPDATE_LINE_MAIN_ORDER_FRAKTBREV_URL;
-				//------------------
-				//add URL-parameter
-				//------------------
-				StringBuffer urlRequestParamsKeysBuffer = new StringBuffer();
-				urlRequestParamsKeysBuffer.append("user=" + appUser.getUser());
-				urlRequestParamsKeysBuffer.append("&unik=" + recordToValidate.getHeunik());
-				urlRequestParamsKeysBuffer.append("&reff=" + recordToValidate.getHereff());
-				urlRequestParamsKeysBuffer.append("&fbn=1");
-				urlRequestParamsKeysBuffer.append("&lin=" + lineNr);
-				urlRequestParamsKeysBuffer.append(this.getFvUrlRequestParamsForUpdate(recordToValidate.getFraktbrevRecord()));
-				urlRequestParamsKeysBuffer.append("&mode=" + mode);
-				
-				String urlRequestParams = urlRequestParamsKeysBuffer.toString();
-				logger.info("URL: " + BASE_URL_UPDATE);
-				logger.info("PARAMS: " + urlRequestParams);
-				//logger.info(Calendar.getInstance().getTime() +  " CGI-start timestamp");
-				String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL_UPDATE, urlRequestParams);
-				logger.info(jsonPayload);
-				//logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
-				if(jsonPayload!=null){ 
-					JsonMainOrderHeaderFraktbrevContainer fraktbrevContainer = this.ebookingMainOrderHeaderService.getFraktbrevContainer(jsonPayload);
-					//logger.info("JsonNotisblockContainer:" + jsonNotisblockContainer);
-					if(fraktbrevContainer!=null){
-						//logger.info("A:" + jsonNotisblockContainer.getErrMsg());
-						if( !"".equals(fraktbrevContainer.getErrMsg()) ){
-							//Debug
-							String fatalError = "[ERROR]:" + fraktbrevContainer.getErrMsg(); 
-							model.put(EbookingConstants.ASPECT_ERROR_MESSAGE, fatalError);
-							logger.info(fatalError);
-							retval = false;
-						}
-					}
-				}
-			}
-		}
-		return retval;
-	}*/
-	
-	
 	
 	
 	/**
