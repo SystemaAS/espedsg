@@ -18,9 +18,13 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Required;
+//import javax.annotation.PostConstruct;
+
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +41,7 @@ import no.systema.jservices.common.json.JsonReader;
 import no.systema.jservices.common.util.GSINCheckDigit;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.StringManager;
+import no.systema.main.validator.UserValidator;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
@@ -50,6 +55,7 @@ import no.systema.tror.util.RpgReturnResponseHandler;
 import no.systema.tror.util.TrorConstants;
 import no.systema.tror.util.manager.CodeDropDownMgr;
 import no.systema.tror.util.manager.LandImportExportManager;
+import no.systema.tror.util.manager.FreightBillMessageNoteManager;
 import no.systema.tror.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfContainer;
 import no.systema.z.main.maintenance.model.jsonjackson.dbtable.JsonMaintMainCundfRecord;
@@ -90,9 +96,13 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	private final String CARRIAGE_RETURN_PLAIN = "\n";
 	private final String MESSAGE_NOTE_PARTY_TYPE_CONSIGNEE = "consignee";
 	private final String MESSAGE_NOTE_PARTY_TYPE_CARRIER = "carrier";
-	
 	private MessageNoteManager messageNoteMgr = new MessageNoteManager();
+	private FreightBillMessageNoteManager freightBillMessageNoteManager = null;
 	
+	@InitBinder
+    protected void initBinder(WebDataBinder binder) {
+		freightBillMessageNoteManager = new FreightBillMessageNoteManager(this.urlCgiProxyService);
+    }
 	/**
 	 * 
 	 * @param recordToValidate
@@ -350,8 +360,8 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	 * @param dokufDao
 	 */
 	private void fetchMessageNotes(Map model, SystemaWebUser appUser, DokufDao dokufDao){
-		this.fetchMessageNoteConsignee(model, appUser, dokufDao);
-		this.fetchMessageNoteCarrier(model, appUser, dokufDao);
+		this.freightBillMessageNoteManager.fetchMessageNoteConsignee(model, appUser, dokufDao);
+		this.freightBillMessageNoteManager.fetchMessageNoteCarrier(model, appUser, dokufDao);
 	}
 	/**
 	 * 
@@ -359,6 +369,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	 * @param appUser
 	 * @param dokufDao
 	 */
+	/*
 	private void fetchMessageNoteConsignee(Map model, SystemaWebUser appUser, DokufDao dokufDao){
 		StringBuffer guiMessageNotePayload = new StringBuffer();
 		
@@ -392,6 +403,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	 * @param appUser
 	 * @param dokufDao
 	 */
+	/*
 	private void fetchMessageNoteCarrier(Map model, SystemaWebUser appUser, DokufDao dokufDao){
 		StringBuffer guiMessageNotePayload = new StringBuffer();
 		
@@ -419,6 +431,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		model.put("messageNoteCarrier", guiMessageNotePayload.toString());
 		
 	}
+	*/
 	/**
 	 * 
 	 * @param model
@@ -426,14 +439,15 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	 * @param request
 	 * @param recordToValidate
 	 */
+	
 	private void processMessageNotes(Map model, SystemaWebUser appUser, HttpServletRequest request, DokufDao recordToValidate){
 		String messageNoteConsignee = request.getParameter("messageNoteConsignee");
 		String messageNoteCarrier = request.getParameter("messageNoteCarrier");
 		
 		List<String> messageNoteConsigneeList = this.messageNoteMgr.getChunksOfMessageNoteAsList(messageNoteConsignee);
 		List<String> messageNoteCarrierList = this.messageNoteMgr.getChunksOfMessageNoteAsList(messageNoteCarrier);
-		this.updateMessageNote(model, messageNoteConsigneeList, appUser, MESSAGE_NOTE_PARTY_TYPE_CONSIGNEE, recordToValidate);
-		this.updateMessageNote(model, messageNoteCarrierList, appUser, MESSAGE_NOTE_PARTY_TYPE_CARRIER, recordToValidate);
+		this.freightBillMessageNoteManager.updateMessageNote(model, messageNoteConsigneeList, appUser, MESSAGE_NOTE_PARTY_TYPE_CONSIGNEE, recordToValidate);
+		this.freightBillMessageNoteManager.updateMessageNote(model, messageNoteCarrierList, appUser, MESSAGE_NOTE_PARTY_TYPE_CARRIER, recordToValidate);
 	}
 	/**
 	 * 
@@ -441,6 +455,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	 * @param messageNote
 	 * @param appUser
 	 */
+	/*
 	private void updateMessageNote(Map model, List<String> messageNotePayload, SystemaWebUser appUser, String partyType, DokufDao recordToValidate){
 		String CARRIAGE_RETURN = "[\n\r]";
 		String NULL_PAYLOAD = null;
@@ -477,6 +492,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	 * @param recordToValidate
 	 * @param MODE
 	 */
+	/*
 	private void updateMessageNoteConsignee(String payload, Map model, SystemaWebUser appUser, DokufDao recordToValidate, String MODE){
 		
 		JsonReader<JsonDtoContainer<Dok29Dao>> jsonReader = new JsonReader<JsonDtoContainer<Dok29Dao>>();
@@ -512,6 +528,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	 * @param recordToValidate
 	 * @param MODE
 	 */
+	/*
 	private void updateMessageNoteCarrier(String payload, Map model, SystemaWebUser appUser, DokufDao recordToValidate, String MODE){
 		
 		JsonReader<JsonDtoContainer<Dok36Dao>> jsonReader = new JsonReader<JsonDtoContainer<Dok36Dao>>();
@@ -544,6 +561,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	 * @param appUser
 	 * @param recordToValidate
 	 */
+	
 	private void calculateDf1004UniqueGUID(SystemaWebUser appUser, DokufDao recordToValidate, Map keyMap){
 		String BASE_URL = MaintenanceMainUrlDataStore.MAINTENANCE_MAIN_BASE_SYFIRMR_GET_LIST_URL;
 		String urlRequestParams = "user=" + appUser.getUser();
@@ -1103,6 +1121,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	@Required
 	public void setMaintMainFirmService (MaintMainFirmService value){ this.maintMainFirmService = value; }
 	public MaintMainFirmService getMaintMainFirmService(){ return this.maintMainFirmService; }
+	
 	
 	
 }
