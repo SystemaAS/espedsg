@@ -34,6 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import no.systema.ebooking.model.jsonjackson.JsonMainOrderTypesNewRecord;
 import no.systema.jservices.common.dao.DokufDao;
+import no.systema.jservices.common.dao.DokufeDao;
 import no.systema.jservices.common.dao.Dok29Dao;
 import no.systema.jservices.common.dao.Dok36Dao;
 import no.systema.jservices.common.dao.FaktDao;
@@ -43,6 +44,7 @@ import no.systema.jservices.common.util.GSINCheckDigit;
 import no.systema.main.model.SystemaWebUser;
 import no.systema.main.util.StringManager;
 import no.systema.main.validator.UserValidator;
+import no.systema.transportdisp.model.workflow.order.OrderContactInformationObject;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.util.AppConstants;
 import no.systema.main.util.JsonDebugger;
@@ -93,14 +95,30 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	private StringManager strMgr = new StringManager();
 	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
 	private LandImportExportManager landImportMgr = new LandImportExportManager();
+	private MessageNoteManager messageNoteMgr = new MessageNoteManager();
+	private FreightBillMessageNoteManager freightBillMessageNoteManager = null;
+	private OrderContactInformationManager orderContactInformationMgr = null;
+	
 	private final String KEY_ID_TRAN_TBL = "idTran";
 	private final String KEY_ID_FIRFB_TBL = "idFirfb";
 	private final String CARRIAGE_RETURN_PLAIN = "\n";
 	private final String MESSAGE_NOTE_PARTY_TYPE_CONSIGNEE = "consignee";
 	private final String MESSAGE_NOTE_PARTY_TYPE_CARRIER = "carrier";
-	private MessageNoteManager messageNoteMgr = new MessageNoteManager();
-	private FreightBillMessageNoteManager freightBillMessageNoteManager = null;
-	private OrderContactInformationManager orderContactInformationMgr = null;
+	//
+	private final String PARTY_CONSIGNOR_CN = "CN";
+	private final String PARTY_CONSIGNEE_CZ = "CZ";
+	//Contact information fields
+	private final String ownSenderPartId = "ownSenderPartId";
+	private final String ownSenderContactName = "ownSenderContactName";
+	private final String ownSenderMobile = "ownSenderMobile";
+	private final String ownSenderEmail = "ownSenderEmail";
+	
+	private final String ownReceiverPartId = "ownReceiverPartId";
+	private final String ownReceiverContactName = "ownReceiverContactName";
+	private final String ownReceiverMobile = "ownReceiverMobile";
+	private final String ownReceiverEmail = "ownReceiverEmail";
+	
+	
 	
 	@PostConstruct
 	public void initIt() throws Exception {
@@ -222,13 +240,16 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 	public ModelAndView tror_mainorderland_freightbill_edit(@ModelAttribute ("record") DokufDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("tror_mainorderland_freightbill");
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
-		Map model = new HashMap();
+		Map<String,Object> model = new HashMap<String,Object>();
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
 		StringBuffer errMsg = new StringBuffer();
 		JsonTrorOrderHeaderRecord headf = new JsonTrorOrderHeaderRecord();
 		headf.setOwnEnhet1(request.getParameter("ownEnhet1"));
 		headf.setOwnEnhet2(request.getParameter("ownEnhet2"));
+		
+		Map<String,Object> contactInfoMap = new HashMap<String,Object>();
+		this.setMapOrderContactInformationParams(contactInfoMap, request);
 		
 		
 		int dmlRetval = 0;
@@ -327,6 +348,11 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 				//List list = this.fetchFraktbrevList(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr());
 				recordDokufDao = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
 				this.fetchMessageNotes(model, appUser, recordDokufDao);
+				//populate kontaktuppgifter
+				OrderContactInformationObject orderContactInformationObject = this.setOrderContactInformationObject(recordToValidate, contactInfoMap);
+				this.orderContactInformationMgr.getContactInformation(appUser, this.setDokufeDao(orderContactInformationObject), this.PARTY_CONSIGNOR_CN, true, orderContactInformationObject);
+				this.orderContactInformationMgr.getContactInformation(appUser, this.setDokufeDao(orderContactInformationObject), this.PARTY_CONSIGNEE_CZ, true, orderContactInformationObject);
+				this.setModelContactInformation(model, orderContactInformationObject);				
 				
 				
 				if(recordDokufDao!=null && strMgr.isNotNull(recordDokufDao.getDf1004())){
@@ -357,6 +383,74 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 			return successView;		
 		}
 
+	}
+	/**
+	 * Gets the request params once and for all since this params ARE NOT in Dokuf
+	 * @param contactInfoMap
+	 * @param request
+	 */
+	private void setMapOrderContactInformationParams(Map<String,Object> contactInfoMap, HttpServletRequest request){
+		//
+		contactInfoMap.put(this.ownSenderPartId, request.getParameter(this.ownSenderPartId));
+		contactInfoMap.put(this.ownSenderContactName, request.getParameter(this.ownSenderContactName));
+		contactInfoMap.put(this.ownSenderMobile, request.getParameter(this.ownSenderMobile));
+		contactInfoMap.put(this.ownSenderEmail, request.getParameter(this.ownSenderEmail));
+		//
+		contactInfoMap.put(this.ownReceiverPartId, request.getParameter(this.ownReceiverPartId));
+		contactInfoMap.put(this.ownReceiverContactName, request.getParameter(this.ownReceiverContactName));
+		contactInfoMap.put(this.ownReceiverMobile, request.getParameter(this.ownReceiverMobile));
+		contactInfoMap.put(this.ownReceiverEmail, request.getParameter(this.ownReceiverEmail));
+		
+	}
+	/**
+	 * 
+	 * @param dokufDao
+	 * @param contactInfoMap
+	 * @return
+	 */
+	private OrderContactInformationObject setOrderContactInformationObject (DokufDao dokufDao, Map<String,Object> contactInfoMap){
+		OrderContactInformationObject obj = new OrderContactInformationObject();
+		obj.setAvd(String.valueOf(dokufDao.getDfavd()));
+		obj.setOpd(String.valueOf(dokufDao.getDfopd()));
+		
+		//
+		obj.setOwnSenderContactName((String)contactInfoMap.get(this.ownSenderContactName));
+		obj.setOwnSenderMobile((String)contactInfoMap.get(this.ownSenderEmail));
+		obj.setOwnSenderEmail((String)contactInfoMap.get(this.ownSenderEmail));
+		//
+		obj.setOwnReceiverContactName((String)contactInfoMap.get(this.ownReceiverContactName));
+		obj.setOwnReceiverMobile((String)contactInfoMap.get(this.ownReceiverMobile));
+		obj.setOwnReceiverEmail((String)contactInfoMap.get(this.ownReceiverEmail));
+		
+		return obj;
+	}
+	/**
+	 * 
+	 * @param orderContactInfoObj
+	 * @return
+	 */
+	private DokufeDao setDokufeDao (OrderContactInformationObject orderContactInfoObj){
+		DokufeDao dao = new DokufeDao();
+		dao.setFe_dfavd(Integer.valueOf(orderContactInfoObj.getAvd()));
+		dao.setFe_dfopd(Integer.valueOf(orderContactInfoObj.getOpd()));
+		dao.setFe_dffbnr(Integer.valueOf(orderContactInfoObj.getOwnPartyFbnr()));
+		return dao;
+	}
+	/**
+	 * 
+	 * @param model
+	 * @param orderContactInformationObject
+	 */
+	private void setModelContactInformation(Map<String, Object> model, OrderContactInformationObject orderContactInformationObject){
+		
+		model.put(this.ownSenderContactName, orderContactInformationObject.getOwnSenderContactName());
+		model.put(this.ownSenderMobile,orderContactInformationObject.getOwnSenderMobile());
+		model.put(this.ownSenderEmail,orderContactInformationObject.getOwnSenderEmail());
+		//
+		model.put(this.ownReceiverContactName,orderContactInformationObject.getOwnReceiverContactName());
+		model.put(this.ownReceiverMobile,orderContactInformationObject.getOwnReceiverMobile());
+		model.put(this.ownReceiverEmail,orderContactInformationObject.getOwnReceiverEmail());
+		
 	}
 	/**
 	 * 

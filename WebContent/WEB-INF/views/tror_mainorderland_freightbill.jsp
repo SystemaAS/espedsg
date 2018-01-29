@@ -402,7 +402,31 @@
 								 	<td class="text11" >
 				 						<input type="text" class="inputTextMediumBlue" name="dfbref" id="dfbref" size="20" maxlength="17" value="${model.record.dfbref}">
 								 	</td>
-								</tr> 	
+								</tr> 
+								
+								<tr height="15"><td ></td></tr>
+				 				<tr>	
+					 				<td class="text12">&nbsp;<span title="ownSenderContactName"><spring:message code="systema.tror.orders.form.update.label.shipper.contactName"/></span></td>
+					 				<td class="text12">&nbsp;<span title="ownSenderMobile"><spring:message code="systema.tror.orders.form.update.label.shipper.mobile"/></span></td>
+		 						</tr>
+		 						<tr>	
+				 					<td class="text12" >
+				 						<input type="hidden" name="ownSenderPartId" id="ownSenderPartId" value='CN'>
+				 						<input type="text" class="inputTextMediumBlue" name="ownSenderContactName" id="ownSenderContactName" size="25" maxlength="60" value="${model.ownSenderContactName}">
+				 					</td>
+				 					<td class="text12">
+				 						<input type="text" class="inputTextMediumBlue" name="ownSenderMobile" id="ownSenderMobile" size="25" maxlength="60" value="${model.ownSenderMobile}">
+				 					</td>
+		 						</tr>	
+		 						<tr>	
+					 				<td class="text12">&nbsp;<span title="ownSenderEmail"><spring:message code="systema.tror.orders.form.update.label.shipper.email"/></span></td>
+		 						</tr>
+		 						<tr>	
+				 					<td class="text12" >
+				 						<input type="text" class="inputTextMediumBlue" name="ownSenderEmail" id="ownSenderEmail" size="25" maxlength="60" value="${model.ownSenderEmail}">
+				 					</td>
+		 						</tr>	
+				 				
 				 				<tr height="15"><td ></td></tr>	
 				 												 				
 								<tr>
@@ -487,8 +511,30 @@
 				 					<td class="text11" >
 				 						<input type="text" class="inputTextMediumBlue" name="dfmref" id="dfmref" size="20" maxlength="17" value="${model.record.dfmref}">
 								 	</td>
-								 </tr>	
-				 				<tr height="105"><td ></td></tr>
+								 </tr>
+								 <tr height="15"><td ></td></tr>
+				 				<tr>	
+					 				<td class="text12">&nbsp;<span title="ownReceiverContactName"><spring:message code="systema.tror.orders.form.update.label.consignee.contactName"/></span></td>
+					 				<td class="text12">&nbsp;<span title="ownReceiverMobile"><spring:message code="systema.tror.orders.form.update.label.consignee.mobile"/></span></td>
+		 						</tr>
+		 						<tr>	
+				 					<td class="text12" >
+				 						<input type="hidden" name="ownReceiverPartId" id="ownReceiverPartId" value='CZ'>
+				 						<input type="text" class="inputTextMediumBlue" name="ownReceiverContactName" id="ownReceiverContactName" size="25" maxlength="60" value="${model.ownReceiverContactName}">
+				 					</td>
+				 					<td class="text12">
+				 						<input type="text" class="inputTextMediumBlue" name="ownReceiverMobile" id="ownReceiverMobile" size="25" maxlength="60" value="${model.ownReceiverMobile}">
+				 					</td>
+		 						</tr>	
+		 						<tr>	
+					 				<td class="text12">&nbsp;<span title="ownReceiverEmail"><spring:message code="systema.tror.orders.form.update.label.consignee.email"/></span></td>
+		 						</tr>
+		 						<tr>	
+				 					<td class="text12" >
+				 						<input type="text" class="inputTextMediumBlue" name="ownReceiverEmail" id="ownReceiverEmail" size="25" maxlength="60" value="${model.ownReceiverEmail}">
+				 					</td>
+		 						</tr>	
+				 				<tr height="100"><td ></td></tr>
 				 				
 			 				</table>
 						 	</td>
