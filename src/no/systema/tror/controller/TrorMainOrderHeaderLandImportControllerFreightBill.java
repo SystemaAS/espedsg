@@ -249,10 +249,8 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		headf.setOwnEnhet2(request.getParameter("ownEnhet2"));
 		
 		Map<String,Object> contactInfoMap = new HashMap<String,Object>();
-		this.setMapOrderContactInformationParams(contactInfoMap, request);
+		this.setMapOrderContactInformationParams(model, contactInfoMap, request);
 		
-		
-		int dmlRetval = 0;
 		DokufDao savedRecord = null;
 		
 		if (appUser == null) {
@@ -285,9 +283,14 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 						}
 						//process message notes
 						this.processMessageNotes(model, appUser, request, recordToValidate);
+						//update dokufe - contact information
+						OrderContactInformationObject orderContactInfoObj = this.setOrderContactInformationObject(recordToValidate, contactInfoMap);
+						this.orderContactInformationMgr.updateContactInformation(appUser, orderContactInfoObj, this.setDokufeDao(orderContactInfoObj));
 						
 						DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
 						this.fetchMessageNotes(model, appUser, recordToValidate);
+						//fetch contact information
+						this.fetchContactInformation(appUser, recordToValidate, model, contactInfoMap);
 						
 						model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
@@ -312,9 +315,15 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 					} else {
 						//process message notes
 						this.processMessageNotes(model, appUser, request, recordToValidate);
+						//update dokufe - contact information
+						OrderContactInformationObject orderContactInfoObj = this.setOrderContactInformationObject(recordToValidate, contactInfoMap);
+						this.orderContactInformationMgr.updateContactInformation(appUser, orderContactInfoObj, this.setDokufeDao(orderContactInfoObj));
+						
 						//get record now (refreshed)
 						DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
 						this.fetchMessageNotes(model, appUser, recordToValidate);
+						//fetch contact information
+						this.fetchContactInformation(appUser, recordToValidate, model, contactInfoMap);
 						
 						model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
@@ -348,11 +357,8 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 				//List list = this.fetchFraktbrevList(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr());
 				recordDokufDao = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
 				this.fetchMessageNotes(model, appUser, recordDokufDao);
-				//populate kontaktuppgifter
-				OrderContactInformationObject orderContactInformationObject = this.setOrderContactInformationObject(recordToValidate, contactInfoMap);
-				this.orderContactInformationMgr.getContactInformation(appUser, this.setDokufeDao(orderContactInformationObject), this.PARTY_CONSIGNOR_CN, true, orderContactInformationObject);
-				this.orderContactInformationMgr.getContactInformation(appUser, this.setDokufeDao(orderContactInformationObject), this.PARTY_CONSIGNEE_CZ, true, orderContactInformationObject);
-				this.setModelContactInformation(model, orderContactInformationObject);				
+				//fetch contact information
+				this.fetchContactInformation(appUser, recordToValidate, model, contactInfoMap);
 				
 				
 				if(recordDokufDao!=null && strMgr.isNotNull(recordDokufDao.getDf1004())){
@@ -385,21 +391,43 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 
 	}
 	/**
+	 * Get all contact information
+	 * @param appUser
+	 * @param dokufDao
+	 * @param model
+	 * @param contactInfoMap
+	 */
+	private void fetchContactInformation(SystemaWebUser appUser, DokufDao dokufDao, Map<String,Object> model, Map<String,Object> contactInfoMap){
+		OrderContactInformationObject orderContactInformationObject = this.setOrderContactInformationObject(dokufDao, contactInfoMap);
+		this.orderContactInformationMgr.getContactInformation(appUser, this.setDokufeDao(orderContactInformationObject), this.PARTY_CONSIGNOR_CN, true, orderContactInformationObject);
+		this.orderContactInformationMgr.getContactInformation(appUser, this.setDokufeDao(orderContactInformationObject), this.PARTY_CONSIGNEE_CZ, true, orderContactInformationObject);
+		this.setModelContactInformation(model, orderContactInformationObject);				
+	}
+	/**
 	 * Gets the request params once and for all since this params ARE NOT in Dokuf
+	 * @param model
 	 * @param contactInfoMap
 	 * @param request
 	 */
-	private void setMapOrderContactInformationParams(Map<String,Object> contactInfoMap, HttpServletRequest request){
-		//
+	private void setMapOrderContactInformationParams(Map<String,Object> model, Map<String,Object> contactInfoMap, HttpServletRequest request){
+		//This map is for coming updates
 		contactInfoMap.put(this.ownSenderPartId, request.getParameter(this.ownSenderPartId));
 		contactInfoMap.put(this.ownSenderContactName, request.getParameter(this.ownSenderContactName));
 		contactInfoMap.put(this.ownSenderMobile, request.getParameter(this.ownSenderMobile));
 		contactInfoMap.put(this.ownSenderEmail, request.getParameter(this.ownSenderEmail));
-		//
 		contactInfoMap.put(this.ownReceiverPartId, request.getParameter(this.ownReceiverPartId));
 		contactInfoMap.put(this.ownReceiverContactName, request.getParameter(this.ownReceiverContactName));
 		contactInfoMap.put(this.ownReceiverMobile, request.getParameter(this.ownReceiverMobile));
 		contactInfoMap.put(this.ownReceiverEmail, request.getParameter(this.ownReceiverEmail));
+		//this map is just as a fallback for validation errors. The values here will be overridden in a successful update
+		model.put(this.ownSenderPartId, request.getParameter(this.ownSenderPartId));
+		model.put(this.ownSenderContactName, request.getParameter(this.ownSenderContactName));
+		model.put(this.ownSenderMobile, request.getParameter(this.ownSenderMobile));
+		model.put(this.ownSenderEmail, request.getParameter(this.ownSenderEmail));
+		model.put(this.ownReceiverPartId, request.getParameter(this.ownReceiverPartId));
+		model.put(this.ownReceiverContactName, request.getParameter(this.ownReceiverContactName));
+		model.put(this.ownReceiverMobile, request.getParameter(this.ownReceiverMobile));
+		model.put(this.ownReceiverEmail, request.getParameter(this.ownReceiverEmail));
 		
 	}
 	/**

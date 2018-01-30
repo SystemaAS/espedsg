@@ -1560,6 +1560,10 @@
 						 				    	<c:if test="${empty model.record.hest || model.record.hest == 'U' || model.record.hest == 'O' || model.record.hest == 'F' }">
 						 				    		<input class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'/>
 						 				    	</c:if>
+						 				    	<c:if test="${model.record.hepk4 == 'J' }">
+						 				    		<input class="inputFormSubmit submitSaveClazz" type="button" name="buttonToSad" id="buttonToSad" value='Til SAD'/>
+						 				    	</c:if>
+						 				    	
 						 				    </c:when>
 						 				    <c:otherwise>
 					 				    		<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submitnew" id="submitnew" value='<spring:message code="systema.tror.submit.createnew.order"/>'/>

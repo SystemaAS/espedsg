@@ -153,7 +153,7 @@ public class FreightBillMessageNoteManager {
 				this.updateMessageNoteConsignee(NULL_PAYLOAD, model, appUser, recordToValidate, TrorConstants.MODE_DELETE);
 				for(String linePayload: messageNotePayload){
 					linePayload = linePayload.replaceAll(CARRIAGE_RETURN, "");
-					logger.info("CONSIGNEE MESSAGE NOTE #########:" + linePayload);
+					//logger.info("CONSIGNEE MESSAGE NOTE #########:" + linePayload);
 					//insert this line
 					this.updateMessageNoteConsignee(linePayload, model, appUser, recordToValidate, TrorConstants.MODE_ADD);
 					
@@ -163,7 +163,7 @@ public class FreightBillMessageNoteManager {
 				this.updateMessageNoteCarrier(NULL_PAYLOAD, model, appUser, recordToValidate, TrorConstants.MODE_DELETE);
 				for(String linePayload: messageNotePayload){
 					linePayload = linePayload.replaceAll(CARRIAGE_RETURN, "");
-					logger.info("CARRIER MESSAGE NOTE #########:" + linePayload);
+					//logger.info("CARRIER MESSAGE NOTE #########:" + linePayload);
 					//insert this line
 					this.updateMessageNoteCarrier(linePayload, model, appUser, recordToValidate, TrorConstants.MODE_ADD);
 				}

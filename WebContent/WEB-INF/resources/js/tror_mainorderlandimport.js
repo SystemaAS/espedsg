@@ -12,7 +12,12 @@
 	  jq("#trorOrderForm").submit(function() {
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT}); 
 	  });
+	  jq("#buttonToSad").click(function() {
+		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+		  window.location = "tror_mainorderlist_toSadImport.do?avd="+ jq('#heavd').val() + '&opd=' + jq('#heopd').val() + "&sign=" + jq('#hesg').val();
+	  });
   });
+  
   
   
   
