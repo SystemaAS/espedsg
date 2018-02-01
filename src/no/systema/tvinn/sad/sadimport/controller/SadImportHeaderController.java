@@ -461,9 +461,7 @@ public class SadImportHeaderController {
 		//Crucial request parameters (Keys
 		//---------------------------------
 		String action = TvinnSadConstants.ACTION_SEND;
-		String opd = request.getParameter("opd");
-		String avd = request.getParameter("avd");
-		String sign = request.getParameter("sign");
+		
 		
 		//Action (doFetch, doUpdate, doCreate)
 		logger.info("Action:" + action);
@@ -481,7 +479,7 @@ public class SadImportHeaderController {
 			//-------------------
 			//add URL-parameter 
 			//-------------------
-			String urlRequestParamsKeys = this.getRequestUrlKeyParameters(action, avd, opd, sign, appUser);
+			String urlRequestParamsKeys = this.getRequestUrlKeyParameters(action, appUser, request);
 			//there are only key parameters in doSend. No other topic (record) specific parameters from GUI or such
 			String urlRequestParams = urlRequestParamsKeys;
 			//for debugging purposes
@@ -1345,11 +1343,46 @@ public class SadImportHeaderController {
 			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "sisg=" + sign);
 			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mode=" + TvinnSadConstants.MODE_ADD);
 			
-		}else if(TvinnSadConstants.ACTION_SEND.equals(action)){
+		}
+		return urlRequestParamsKeys.toString();
+	}
+	/**
+	 * 
+	 * @param action
+	 * @param appUser
+	 * @param request
+	 * @return
+	 */
+	private String getRequestUrlKeyParameters(String action, SystemaWebUser appUser, HttpServletRequest request){
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
+		String opd = request.getParameter("opd");
+		String avd = request.getParameter("avd");
+		String sign = request.getParameter("sign");
+		//
+		String m3039e = request.getParameter("m3039e");
+		String m2005b = request.getParameter("m2005b");
+		String m5004d = request.getParameter("m5004d");
+		String mven = request.getParameter("mven");
+		String m1004 = request.getParameter("m1004");
+		String m9n01 = request.getParameter("m9n01");
+		//date special
+		String m2005bISO = "";
+		if(m2005b!=null){
+			m2005bISO = this.dateFormatter.convertToDate_ISO(m2005b);
+		}
+		
+		if(TvinnSadConstants.ACTION_SEND.equals(action)){
 			urlRequestParamsKeys.append("user=" + appUser.getUser());
 			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
 			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
 			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mode=" + TvinnSadConstants.MODE_SEND);
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "m3039e=" + m3039e);
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "m2005b=" + m2005bISO);
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "m5004d=" + m5004d);
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mven=" + mven);
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "m1004=" + m1004);
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "m9n01=" + m9n01);
+			
 		}
 		return urlRequestParamsKeys.toString();
 	}

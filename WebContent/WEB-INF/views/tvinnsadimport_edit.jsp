@@ -1804,7 +1804,7 @@
 					 				    	<input tabindex=-1 class="inputFormSubmit" type="submit" name="submit" id="submit" onclick="javascript: form.action='tvinnsadimport_edit.do';" value='<spring:message code="systema.tvinn.sad.import.createnew.submit"/>'/>
 					 				    	&nbsp;&nbsp;
 					 				    	<c:if test="${not empty  model.record.sitdn && model.record.validUpdate}">
-					 				    		<input tabindex=-2 class="inputFormSubmit" type="submit" name="send" id="send" onclick="javascript: form.action='tvinnsadimport_send.do';" value='<spring:message code="systema.tvinn.sad.import.createnew.send"/>'/>
+					 				    		<input tabindex=-2 class="inputFormSubmit" type="button" name="sendButton" id="sendButton" onclick="javascript: form.action='tvinnsadimport_send.do';" value='<spring:message code="systema.tvinn.sad.import.createnew.send"/>'/>
 					 				    	</c:if>
 				 				    </c:when>
 				 				    <c:otherwise>
@@ -1824,7 +1824,8 @@
 		</tr>
 		<tr height="20"><td colspan="2">&nbsp;</td></tr>
 		<tr height="20"><td colspan="2">&nbsp;</td></tr>
-		<%-- suplerende info here (if needed) --%>			         
+		<%-- suplerende info here (if needed) --%>	
+				         
 	</table>
 	</form>  
 	</td>
@@ -1836,6 +1837,7 @@
  <tr>
 	<td>
 		<div id="dialogUpdateStatus" title="Dialog">
+			
 			<form action="tvinnsadimport_updateStatus.do" name="updateStatusForm" id="updateStatusForm" method="post">
 			 	<input type="hidden" name="currentAvd" id="currentAvd" value="${model.record.siavd}">
 			 	<input type="hidden" name="currentOpd" id="currentOpd" value="${model.record.sitdn}">
@@ -2002,5 +2004,84 @@
 		</div>		
 		</td>
 	</tr>
+
+   	 <%-- -------------------------- --%>	
+	 <%-- Send button's extra info   --%>	
+	 <%-- -------------------------- --%>	
+	 <tr>
+		<td>
+			<div id="dialogSendWithParameters" title="Dialog">
+			<form action="tvinnsadimport_send.do" name="sendWithParamtersForm" id="sendWithParamtersForm" method="post">
+			 	<input type="hidden" name="avd" id="avd" value="${model.record.siavd}">
+			 	<input type="hidden" name="opd" id="opd" value="${model.record.sitdn}">
+			 	<input type="hidden" name="sign" id="sign" value="${model.record.sign}">
+				<table>
+					<tr>
+						<td class="text12" align="left" title="m1n07">Meldings funksjon</td>
+						<td class="text12MediumBlue">
+							<select name="m1n07" id="m1n07">
+			            		<option value="">-velg-</option>
+			            		<option value="DFU">DFU</option>
+			            		<option value="DMA">DMA</option>
+			            		<option value="DFO">DFO</option>
+			            		<option value="DEN">DEN</option>
+			            		<option value="DKO">DKO</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="text12" align="left" title="m3039e">Til ekspedisjonsenhet</td>
+						<td class="text12MediumBlue">
+							<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue"  name="m3039e" id="m3039e" size="8" maxlength="6" value="${model.record.m3039e}">
+						</td>
+					</tr>
+					<tr>
+						<td class="text12" align="left" title="m2005b">Ønsket behandlingsdato</td>
+						<td class="text12MediumBlue">
+							<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue"  name="m2005b" id="m2005b" size="8" maxlength="6" value="${model.record.m2005b}">
+						</td>
+					</tr>
+					<tr>
+						<td class="text12" align="left" title="m5004d">Depositum beløp</td>
+						<td class="text12MediumBlue">
+							<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue"  name="m5004d" id="m5004d" size="12" maxlength="10" value="${model.record.m5004d}">
+						</td>
+					</tr>
+					<tr>
+						<td class="text12" align="left" title="mven">Ventegrupe</td>
+						<td class="text12MediumBlue">
+							<select name="mven" id="mven">
+			            		<option value="" <c:if test="${empty model.record.mven}"> selected </c:if> >Nej</option>
+			            		<option value="1" <c:if test="${model.record.mven == '1'}"> selected </c:if> >Ja</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="text12" align="left" title="m1004">Testekode</td>
+						<td class="text12MediumBlue">
+							<select name="m1004" id="m1004">
+			            		<option value="1" <c:if test="${model.record.m1004 == '1'}"> selected </c:if> >Test</option>
+			            		<option value="" <c:if test="${empty model.record.m1004}"> selected </c:if> >Prod</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="text12" align="left" title="m9n01">Eksped.prioritet</td>
+						<td class="text12MediumBlue">
+							<select name="m9n01" id="m9n01">
+			            		<option value="1" <c:if test="${empty model.record.m9n01 || model.record.m9n01 == '1'}"> selected </c:if> >Express</option>
+			            		<option value="2" <c:if test="${not empty model.record.m9n01 && model.record.m9n01 != '1'}"> selected </c:if> >Annen</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</form>
+			</div>
+		</td>
+	</tr> 
+		
+
+	
+ 
 
 	

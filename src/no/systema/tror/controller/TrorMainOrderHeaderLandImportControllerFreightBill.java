@@ -288,9 +288,9 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 						this.orderContactInformationMgr.updateContactInformation(appUser, orderContactInfoObj, this.setDokufeDao(orderContactInfoObj));
 						
 						DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
-						this.fetchMessageNotes(model, appUser, recordToValidate);
+						this.fetchMessageNotes(model, appUser, record);
 						//fetch contact information
-						this.fetchContactInformation(appUser, recordToValidate, model, contactInfoMap);
+						this.fetchContactInformation(appUser, record, model, contactInfoMap);
 						
 						model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
@@ -321,9 +321,9 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 						
 						//get record now (refreshed)
 						DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
-						this.fetchMessageNotes(model, appUser, recordToValidate);
+						this.fetchMessageNotes(model, appUser, record);
 						//fetch contact information
-						this.fetchContactInformation(appUser, recordToValidate, model, contactInfoMap);
+						this.fetchContactInformation(appUser, record, model, contactInfoMap);
 						
 						model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
@@ -354,12 +354,12 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 			} else { // Fetch
 				logger.info("FETCH branch");
 				DokufDao recordDokufDao = null;
-				//List list = this.fetchFraktbrevList(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr());
 				recordDokufDao = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
-				this.fetchMessageNotes(model, appUser, recordDokufDao);
-				//fetch contact information
-				this.fetchContactInformation(appUser, recordToValidate, model, contactInfoMap);
-				
+				if(recordDokufDao!=null){
+					this.fetchMessageNotes(model, appUser, recordDokufDao);
+					//fetch contact information
+					this.fetchContactInformation(appUser, recordDokufDao, model, contactInfoMap);
+				}
 				
 				if(recordDokufDao!=null && strMgr.isNotNull(recordDokufDao.getDf1004())){
 					//get invoice data (currency & amount... 

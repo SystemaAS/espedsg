@@ -135,6 +135,30 @@ public class JsonSadImportSpecificTopicRecord extends JsonAbstractGrandFatherRec
 		}
 		return this.sumbvDbl;
 	}
+	//Send function extra parameters
+	private String m3039e = null;
+	public void setM3039e(String value) {  this.m3039e = value; }
+	public String getM3039e() {return this.m3039e;}
+	
+	private String m2005b = null;
+	public void setM2005b(String value) {  this.m2005b = value; }
+	public String getM2005b() {return this.m2005b;}
+	
+	private String m5004d = null;
+	public void setM5004d(String value) {  this.m5004d = value; }
+	public String getM5004d() {return this.m5004d;}
+	
+	private String mven = null;
+	public void setMven(String value) {  this.mven = value; }
+	public String getMven() {return this.mven;}
+	
+	private String m1004 = null;
+	public void setM1004(String value) {  this.m1004 = value; }
+	public String getM1004() {return this.m1004;}
+	
+	private String m9n01 = null;
+	public void setM9n01(String value) {  this.m9n01 = value; }
+	public String getM9n01() {return this.m9n01;}
 	
 	
 	//in order to validate before a "send topic"
