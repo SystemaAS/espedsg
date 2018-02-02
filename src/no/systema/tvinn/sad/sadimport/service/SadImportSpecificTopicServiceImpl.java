@@ -9,7 +9,7 @@ import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopic
 import no.systema.tvinn.sad.sadimport.controller.SadImportHeaderController;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicRecord;
-
+import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicSendParametersContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicFaktTotalContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicCopiedFromTransportUppdragContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicCopiedContainer;
@@ -302,6 +302,20 @@ public class SadImportSpecificTopicServiceImpl implements SadImportSpecificTopic
 		}
 		return container;
 		
+	}
+	/**
+	 * 
+	 */
+	public JsonSadImportSpecificTopicSendParametersContainer getSadImportSpecificTopicSendParametersContainer (String utfPayload){
+		JsonSadImportSpecificTopicSendParametersContainer container = null;
+		try{
+			SadImportSpecificTopicMapper mapper = new SadImportSpecificTopicMapper();
+			container = mapper.getSendParametersContainer(utfPayload);
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return container;
 	}
 	
 }

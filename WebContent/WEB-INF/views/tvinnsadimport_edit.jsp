@@ -2017,42 +2017,42 @@
 			 	<input type="hidden" name="sign" id="sign" value="${model.record.sign}">
 				<table>
 					<tr>
-						<td class="text12" align="left" title="m1n07">Meldings funksjon</td>
+						<td class="text12" align="left" title="m1N07">Meldings funksjon</td>
 						<td class="text12MediumBlue">
-							<select name="m1n07" id="m1n07">
+							<select name="m1N07" id="m1N07">
 			            		<option value="">-velg-</option>
-			            		<option value="DFU">DFU</option>
-			            		<option value="DMA">DMA</option>
-			            		<option value="DFO">DFO</option>
-			            		<option value="DEN">DEN</option>
-			            		<option value="DKO">DKO</option>
+			            		<option value="DFU" <c:if test="${model.record.sendParametersRecord.m1N07 == 'DFU'}"> selected </c:if> >DFU</option>
+			            		<option value="DMA" <c:if test="${model.record.sendParametersRecord.m1N07 == 'DMA'}"> selected </c:if> >DMA</option>
+			            		<option value="DFO" <c:if test="${model.record.sendParametersRecord.m1N07 == 'DFO'}"> selected </c:if> >DFO</option>
+			            		<option value="DEN" <c:if test="${model.record.sendParametersRecord.m1N07 == 'DEN'}"> selected </c:if> >DEN</option>
+			            		<option value="DKO" <c:if test="${model.record.sendParametersRecord.m1N07 == 'DKO'}"> selected </c:if> >DKO</option>
 							</select>
 						</td>
 					</tr>
 					<tr>
 						<td class="text12" align="left" title="m3039e">Til ekspedisjonsenhet</td>
 						<td class="text12MediumBlue">
-							<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue"  name="m3039e" id="m3039e" size="8" maxlength="6" value="${model.record.m3039e}">
+							<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue"  name="m3039e" id="m3039e" size="8" maxlength="6" value="${model.record.sendParametersRecord.m3039e}">
 						</td>
 					</tr>
 					<tr>
 						<td class="text12" align="left" title="m2005b">Ønsket behandlingsdato</td>
 						<td class="text12MediumBlue">
-							<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue"  name="m2005b" id="m2005b" size="8" maxlength="6" value="${model.record.m2005b}">
+							<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue"  name="m2005b" id="m2005b" size="8" maxlength="6" value="${model.record.sendParametersRecord.m2005b}">
 						</td>
 					</tr>
 					<tr>
 						<td class="text12" align="left" title="m5004d">Depositum beløp</td>
 						<td class="text12MediumBlue">
-							<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue"  name="m5004d" id="m5004d" size="12" maxlength="10" value="${model.record.m5004d}">
+							<input onKeyPress="return numberKey(event)" style="text-align: right" type="text" class="inputTextMediumBlue"  name="m5004d" id="m5004d" size="12" maxlength="10" value="${model.record.sendParametersRecord.m5004d}">
 						</td>
 					</tr>
 					<tr>
 						<td class="text12" align="left" title="mven">Ventegrupe</td>
 						<td class="text12MediumBlue">
 							<select name="mven" id="mven">
-			            		<option value="" <c:if test="${empty model.record.mven}"> selected </c:if> >Nej</option>
-			            		<option value="1" <c:if test="${model.record.mven == '1'}"> selected </c:if> >Ja</option>
+			            		<option value="" <c:if test="${empty model.record.sendParametersRecord.mven}"> selected </c:if> >Nej</option>
+			            		<option value="1" <c:if test="${model.record.sendParametersRecord.mven == '1'}"> selected </c:if> >Ja</option>
 							</select>
 						</td>
 					</tr>
@@ -2060,8 +2060,8 @@
 						<td class="text12" align="left" title="m0035">Testekode</td>
 						<td class="text12MediumBlue">
 							<select name="m0035" id="m0035">
-			            		<option value="1" <c:if test="${model.record.m0035 == '1'}"> selected </c:if> >Test</option>
-			            		<option value="" <c:if test="${empty model.record.m0035}"> selected </c:if> >Prod</option>
+			            		<option value="1" <c:if test="${model.record.sendParametersRecord.m0035 == '1'}"> selected </c:if> >Test</option>
+			            		<option value="" <c:if test="${empty model.record.sendParametersRecord.m0035}"> selected </c:if> >Prod</option>
 							</select>
 						</td>
 					</tr>
@@ -2069,8 +2069,8 @@
 						<td class="text12" align="left" title="m9n01">Eksped.prioritet</td>
 						<td class="text12MediumBlue">
 							<select name="m9n01" id="m9n01">
-			            		<option value="1" <c:if test="${empty model.record.m9n01 || model.record.m9n01 == '1'}"> selected </c:if> >Express</option>
-			            		<option value="2" <c:if test="${not empty model.record.m9n01 && model.record.m9n01 != '1'}"> selected </c:if> >Annen</option>
+			            		<option value="1" <c:if test="${empty model.record.sendParametersRecord.m9n01 || model.record.sendParametersRecord.m9n01 == '1'}"> selected </c:if> >Express</option>
+			            		<option value="2" <c:if test="${not empty model.record.sendParametersRecord.m9n01 && model.record.sendParametersRecord.m9n01 != '1'}"> selected </c:if> >Annen</option>
 							</select>
 						</td>
 					</tr>

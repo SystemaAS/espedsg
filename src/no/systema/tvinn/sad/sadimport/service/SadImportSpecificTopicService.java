@@ -7,7 +7,8 @@ package no.systema.tvinn.sad.sadimport.service;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicFinansOpplysningerExternalContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicFinansOpplysningerExternalForUpdateContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicFaktTotalContainer;
-import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicFaktTotalRecord;
+import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicSendParametersContainer;
+
 
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicCopiedFromTransportUppdragContainer;
@@ -48,9 +49,9 @@ public interface SadImportSpecificTopicService {
 	public JsonSadImportTopicFinansOpplysningerExternalContainer getSadImportTopicFinansOpplysningerContainerContainerExternal (String utfPayload);
 	public JsonSadImportTopicFinansOpplysningerExternalContainer getSadImportTopicFinansOpplysningerContainerOneInvoiceExternal (String utfPayload);
 	public JsonSadImportTopicFinansOpplysningerExternalForUpdateContainer getSadImportTopicFinansOpplysningerContainerOneInvoiceExternalForUpdate (String utfPayload);
-	
-	
+
 	public JsonSadImportTopicIncotermsAttributesContainer getSadImportTopicIncotermsAttributesContainer (String utfPayload);
 	
+	public JsonSadImportSpecificTopicSendParametersContainer getSadImportSpecificTopicSendParametersContainer (String utfPayload);
 	
 }

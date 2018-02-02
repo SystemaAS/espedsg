@@ -48,7 +48,9 @@ import no.systema.tvinn.sad.sadimport.service.SadImportTopicListService;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicCopiedFromTransportUppdragContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicListContainer;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicCopiedContainer;
-import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicFaktTotalContainer;
+import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicSendParametersContainer;
+import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportSpecificTopicSendParametersRecord;
+
 
 import no.systema.tvinn.sad.sadimport.mapper.url.request.UrlRequestParameterMapper;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.items.JsonSadImportSpecificTopicItemContainer;
@@ -149,9 +151,9 @@ public class SadImportHeaderController {
 		logger.info("Method: " + method);
 		
 		SadImportSpecificTopicTotalItemLinesObject totalItemLinesObject = new SadImportSpecificTopicTotalItemLinesObject();
-		//---------------------------------
+		//----------------------------------
 		//Crucial request parameters (Keys)
-		//---------------------------------
+		//----------------------------------
 		String action = request.getParameter("action");
 		String opd = request.getParameter("opd");
 		String avd = request.getParameter("avd");
@@ -380,11 +382,14 @@ public class SadImportHeaderController {
 					    	}else{
 					    		//Update successfully done!
 					    		logger.info("[INFO] Record successfully updated, OK ");
+					    		//get SEND-parameters
+					    		this.fetchSendParameters(appUser, jsonSadImportSpecificTopicRecord);
 					    		//put domain objects
 					    		this.setDomainObjectsInView(session, model, jsonSadImportSpecificTopicRecord, totalItemLinesObject );
 					    		if(totalItemLinesObject.getSumOfAntalItemLines()>0 || this.ACTIVE_INNSTIKK_CODE.equals(jsonSadImportSpecificTopicRecord.getSimi())){
 					    			this.adjustValidUpdateFlag(model, jsonSadImportSpecificTopicRecord);
 					    		}
+					    		
 					    	}
 						}else{
 							rpgReturnResponseHandler.setErrorMessage("[ERROR] FATAL on CREATE, at tolldeklnr generation : " + rpgReturnResponseHandler.getErrorMessage());
@@ -509,6 +514,8 @@ public class SadImportHeaderController {
 		}
 		return successView;
 	}
+	
+	
 
 	
 	/**
@@ -1080,7 +1087,41 @@ public class SadImportHeaderController {
 	    	return totalItemLinesObject;
 	}
 
-	
+	/**
+	 * 
+	 * @param avd
+	 * @param opd
+	 * @param appUser
+	 * @param headerRecord
+	 */
+	public void fetchSendParameters(SystemaWebUser appUser, JsonSadImportSpecificTopicRecord headerRecord){
+			//---------------------------
+			//get BASE URL = RPG-PROGRAM
+            //---------------------------
+			String BASE_URL = SadImportUrlDataStore.SAD_IMPORT_BASE_FETCH_SPECIFIC_TOPIC_SEND_PARAMS_URL;
+			//-------------------
+			//add URL-parameter 
+			//-------------------
+			StringBuffer urlRequestParamsKeys = new StringBuffer();
+			urlRequestParamsKeys.append("user=" + appUser.getUser());
+			urlRequestParamsKeys.append("&avd=" + headerRecord.getSiavd() + "&opd=" + headerRecord.getSitdn());
+			
+			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+	    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
+	    	logger.info("URL PARAMS: " + urlRequestParamsKeys.toString());
+	    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys.toString());
+			
+	    	if(jsonPayload!=null){
+	    		JsonSadImportSpecificTopicSendParametersContainer container = this.sadImportSpecificTopicService.getSadImportSpecificTopicSendParametersContainer(jsonPayload);
+	    		if(container!=null){
+	    			for (JsonSadImportSpecificTopicSendParametersRecord record : container.getGetcmn()){
+	    				headerRecord.setSendParametersRecord(record);
+	    			}
+	    		}
+	    	}
+		
+	}
 	/**
 	 * Generates key seeds for an upcoming update (the generation of this keys creates also a new record ready to be updated)
 	 * The method must be seen as STEP ONE in an upcoming update [same transaction].
@@ -1359,7 +1400,7 @@ public class SadImportHeaderController {
 		String avd = request.getParameter("avd");
 		String sign = request.getParameter("sign");
 		//
-		String m1n07 = request.getParameter("m1n07");
+		String m1N07 = request.getParameter("m1N07");
 		String m3039e = request.getParameter("m3039e");
 		String m2005b = request.getParameter("m2005b");
 		String m5004d = request.getParameter("m5004d");
@@ -1377,7 +1418,7 @@ public class SadImportHeaderController {
 			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "avd=" + avd);
 			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "opd=" + opd);
 			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "mode=" + TvinnSadConstants.MODE_SEND);
-			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "m1n07=" + m1n07);
+			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "m1N07=" + m1N07);
 			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "m3039e=" + m3039e);
 			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "m2005b=" + m2005bISO);
 			urlRequestParamsKeys.append(TvinnSadConstants.URL_CHAR_DELIMETER_FOR_PARAMS_WITH_HTML_REQUEST + "m5004d=" + m5004d);
