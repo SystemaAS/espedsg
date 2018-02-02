@@ -779,33 +779,58 @@
 	            <td width="5">&nbsp;</td>
 	            <td >
 	                <table align="left" border="0" cellspacing="0" cellpadding="0">
-				 		<tr>
-				 			<td class="text12">
-				 				<b>&nbsp;22.</b>
-				 				<font class="text16RedBold" >*</font>
-				 				<span title="sveh_fabl">Fakt.total&nbsp;</span>
-				 			</td>
-				 			<td align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="sveh_fabl" id="sveh_fabl" size="20" maxlength="20" value="${model.record.sveh_fabl}"></td>
-				 			<td class="text12">&nbsp;<font class="text16RedBold" >*</font><span title="sveh_vakd">Valuta</span>
-				 				<%-- Note: onChange event in jQuery for this currency list --%>
-				 				<select class="inputTextMediumBlueMandatoryField" name="sveh_vakd" id="sveh_vakd">
-					            		<option value="">-Välj-</option>
-				 				  	<c:forEach var="currency" items="${model.mdxCodeList}" >
-                                	 	<option value="${currency.svkd_kd}"<c:if test="${model.record.sveh_vakd == currency.svkd_kd}"> selected </c:if> >${currency.svkd_kd}</option>
-									</c:forEach> 
-								</select>
-								<a tabindex="-1" id="sveh_vakdIdLink">
-									<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
-								</a>									
-			 				</td>
-		 				</tr>
-		 				<tr>
-			 				<td class="text12">
-				 				<b>&nbsp;23.</b>&nbsp;<span title="sveh_vaku"><font class="text16RedBold" >*</font>Kurs&nbsp;</span>
-				 			</td>
-				 			<td class="text12" align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="sveh_vaku" id="sveh_vaku" size="20" maxlength="20" value="${model.record.sveh_vaku}"></td>
-				 			<td class="text12" align="left" ><span title="sveh_vaom">Faktor</span><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="sveh_vaom" id="sveh_vaom" size="10" maxlength="10" value='${model.record.sveh_vaom}'></td>
-		 				</tr>
+	                	<c:choose>
+		                	<c:when test="${ empty model.record.invoiceListTotSum}">
+						 		<tr>
+						 			<td class="text12">
+						 				<b>&nbsp;22.</b>
+						 				<font class="text16RedBold" >*</font>
+						 				<span title="sveh_fabl">Fakt.total&nbsp;</span>
+						 			</td>
+						 			<td align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="sveh_fabl" id="sveh_fabl" size="20" maxlength="20" value="${model.record.sveh_fabl}"></td>
+						 			<td class="text12">&nbsp;<font class="text16RedBold" >*</font><span title="sveh_vakd">Valuta</span>
+						 				<%-- Note: onChange event in jQuery for this currency list --%>
+						 				<select class="inputTextMediumBlueMandatoryField" name="sveh_vakd" id="sveh_vakd">
+							            		<option value="">-Välj-</option>
+						 				  	<c:forEach var="currency" items="${model.mdxCodeList}" >
+		                                	 	<option value="${currency.svkd_kd}"<c:if test="${model.record.sveh_vakd == currency.svkd_kd}"> selected </c:if> >${currency.svkd_kd}</option>
+											</c:forEach> 
+										</select>
+										<a tabindex="-1" id="sveh_vakdIdLink">
+											<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0" alt="search" >
+										</a>									
+					 				</td>
+				 				</tr>
+				 				<tr>
+					 				<td class="text12">
+						 				<b>&nbsp;23.</b>&nbsp;<span title="sveh_vaku"><font class="text16RedBold" >*</font>Kurs&nbsp;</span>
+						 			</td>
+						 			<td class="text12" align="left" ><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlueMandatoryField" name="sveh_vaku" id="sveh_vaku" size="20" maxlength="20" value="${model.record.sveh_vaku}"></td>
+						 			<td class="text12" align="left" ><span title="sveh_vaom">Faktor</span><input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="sveh_vaom" id="sveh_vaom" size="10" maxlength="10" value='${model.record.sveh_vaom}'></td>
+				 				</tr>
+			 				</c:when>
+			 				<c:otherwise> <%-- otherwise READ ONLY --%>
+			 					<tr>
+						 			<td class="text12">
+						 				<b>&nbsp;22.</b>
+						 				<font class="text16RedBold" >*</font>
+						 				<span title="sveh_fabl">Fakt.total&nbsp;</span>
+						 			</td>
+						 			<td align="left" ><input readonly type="text" class="inputTextReadOnly" name="sveh_fabl" id="sveh_fabl" size="20" maxlength="20" value="${model.record.invoiceListTotSum}"></td>
+						 			<td class="text12">&nbsp;<font class="text16RedBold" >*</font><span title="sveh_vakd">Valuta</span>
+						 				<input readonly type="text" class="inputTextReadOnly" name="sveh_vakd" id="sveh_vakd" size="4" maxlength="3" value="${model.record.invoiceListTotValidCurrency}">						 												
+					 				</td>
+				 				</tr>
+				 				<tr>
+					 				<td class="text12">
+						 				<b>&nbsp;23.</b>&nbsp;<span title="sveh_vaku"><font class="text16RedBold" >*</font>Kurs&nbsp;</span>
+						 			</td>
+						 			<td class="text12" align="left" ><input readonly type="text" class="inputTextReadOnly" name="sveh_vaku" id="sveh_vaku" size="20" maxlength="20" value="${model.record.invoiceListTotKurs}"></td>
+						 			<td class="text12" align="left" ><span title="sveh_vaom">Faktor</span><input readonly type="text" class="inputTextReadOnly" name="sveh_vaom" id="sveh_vaom" size="10" maxlength="10" value='${model.record.sveh_vaom}'></td>
+				 				</tr>
+			 				</c:otherwise>
+		 				</c:choose>
+		 				
 		 				<tr height="10"><td></td></tr>
 		 				<tr>
 		 					<td class="text12Gray" align="right">
@@ -815,7 +840,11 @@
 				            <input readonly type="text" class="inputTextReadOnly"  name="invoiceListTotSum" id="invoiceListTotSum" size="15" value='${ model.record.invoiceListTotSum}'>
 				            &nbsp;&nbsp;
 				            <input readonly type="text" class="inputTextReadOnly"  name="invoiceListTotValidCurrency" id="invoiceListTotValidCurrency" size="5" value='${ model.record.invoiceListTotValidCurrency}'>
+				            
+				            <%-- Removed 2.feb.2018 (CB/DHL requirement. Should be automatic and the button should not be used manually ...
 				            &nbsp;<button title="Hente summen fra Finans.oppl." name="getInvoiceListaSumButton" id="getInvoiceListaSumButton" class="buttonGrayWithGreenFrame" type="button" >Hämta Fakt.total</button>
+				            --%>
+				            
 				            <input type="hidden" name="invoiceListTotKurs" id="invoiceListTotKurs" value='${ model.record.invoiceListTotKurs}'>
 				            </td>
 				        </tr>

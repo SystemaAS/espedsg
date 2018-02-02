@@ -2057,11 +2057,11 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="text12" align="left" title="m1004">Testekode</td>
+						<td class="text12" align="left" title="m0035">Testekode</td>
 						<td class="text12MediumBlue">
-							<select name="m1004" id="m1004">
-			            		<option value="1" <c:if test="${model.record.m1004 == '1'}"> selected </c:if> >Test</option>
-			            		<option value="" <c:if test="${empty model.record.m1004}"> selected </c:if> >Prod</option>
+							<select name="m0035" id="m0035">
+			            		<option value="1" <c:if test="${model.record.m0035 == '1'}"> selected </c:if> >Test</option>
+			            		<option value="" <c:if test="${empty model.record.m0035}"> selected </c:if> >Prod</option>
 							</select>
 						</td>
 					</tr>

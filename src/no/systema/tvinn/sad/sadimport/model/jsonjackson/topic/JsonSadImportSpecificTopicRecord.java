@@ -152,9 +152,9 @@ public class JsonSadImportSpecificTopicRecord extends JsonAbstractGrandFatherRec
 	public void setMven(String value) {  this.mven = value; }
 	public String getMven() {return this.mven;}
 	
-	private String m1004 = null;
-	public void setM1004(String value) {  this.m1004 = value; }
-	public String getM1004() {return this.m1004;}
+	private String m0035 = null;
+	public void setM0035(String value) {  this.m0035 = value; }
+	public String getM0035() {return this.m0035;}
 	
 	private String m9n01 = null;
 	public void setM9n01(String value) {  this.m9n01 = value; }

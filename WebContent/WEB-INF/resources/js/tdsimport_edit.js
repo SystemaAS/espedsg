@@ -32,8 +32,10 @@
   	//jQuery CALCULATOR (related to jquery.calculator.js and jquery.calculator.css
   	//-----------------------------------------------------------------------------
   	jq(function() {
-  		jq('#svih_fabl').calculator({ showOn: 'button',  
-  			buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+  		if (!jq("#svih_fabl").attr("readonly")){
+	  		jq('#svih_fabl').calculator({ showOn: 'button',  
+	  			buttonImageOnly: true, buttonImage: 'resources/images/calculator.png', decimalChar: ','});
+  		}
   	});
   	
   	//General functions
