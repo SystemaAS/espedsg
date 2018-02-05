@@ -21,6 +21,7 @@ import no.systema.ebooking.service.EbookingChildWindowService;
 import no.systema.ebooking.service.EbookingChildWindowServiceImpl;
 import no.systema.main.service.UrlCgiProxyService;
 import no.systema.main.service.UrlCgiProxyServiceImpl;
+import no.systema.main.util.DateTimeManager;
 import no.systema.main.validator.EmailValidator;
 
 /**
@@ -65,6 +66,14 @@ public class OrderHeaderValidator implements Validator {
 		
 		//Check rules
 		if(record!=null){
+			//Date check
+			if(record.getWsetdd()!=null && !"".equals(record.getWsetdd()) ){
+				boolean isValidDate = new DateTimeManager().isValidCurrentAndForwardDate(record.getWsetdd(), "yyyyMMdd");
+				if(!isValidDate){
+					errors.rejectValue("wsetdd", "systema.ebooking.orders.form.update.error.rule.avgangTidDtm1NotValid"); 
+				}
+			}
+			
 			//Fakturapart
 			if( (record.getHeknsf() !=null && !"".equals(record.getHeknsf())) && (record.getHeknkf()!=null && !"".equals(record.getHeknkf())) ){
 				errors.rejectValue("heknsf", "systema.ebooking.orders.form.update.error.rule.both.invoicees.invalid");
