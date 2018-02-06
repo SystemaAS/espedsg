@@ -11,10 +11,12 @@
 	    jq('#wsavd').change(function() {
 	    	//default
 	    	var knr = jq('#userCustnr').val();
+	    	var knrAlt = jq('#avvknr').val();
 	    	//override when applicable
-	    	if(jq('#avvknr').val()!=''){ 
-	    		knr = jq('#avvknr').val(); 
-	    	}	
+	    	if(knrAlt != null && knrAlt != ''){ 
+	    		knr = knrAlt; 
+	    	}
+	    	console.log("###########knr:" + knr);
 	    	updateOppdragTypeDropDown(knr);
     		updateIncotermsDropDown(knr);
 	    		
