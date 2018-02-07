@@ -265,6 +265,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 				validator.validate(recordToValidate, bindingResult);
 				if (bindingResult.hasErrors()) {
 					logger.info("[ERROR Validation] Record does not validate)");
+					model.put("action", MainMaintenanceConstants.ACTION_CREATE);
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				} else {
 					Map keyMap = new HashMap();
@@ -275,6 +276,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 					if (savedRecord == null) {
 						logger.info("[ERROR Validation] Record does not validate)");
 						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
+						model.put("action", MainMaintenanceConstants.ACTION_CREATE);
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 					} else {
 						String id = (String)keyMap.get(KEY_ID_FIRFB_TBL);
@@ -298,13 +300,16 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 				}
 
 			} else if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) { //Update
+				logger.info("Inside - UPDATE...");
 				this.adjustFields( recordToValidate,  headf);
 				//Validate
 				TrorOrderFraktbrevValidator validator = new TrorOrderFraktbrevValidator();
 				validator.validate(recordToValidate, bindingResult);
 				if (bindingResult.hasErrors()) {
 					logger.info("[ERROR Validation] Record does not validate)");
+					model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
+					
 				} else {
 					
 					savedRecord = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);

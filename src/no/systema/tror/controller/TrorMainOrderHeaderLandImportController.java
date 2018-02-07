@@ -182,7 +182,6 @@ public class TrorMainOrderHeaderLandImportController {
 		//logger.info("ORDER TOTALS STRING:" +  orderLineTotalsString);
 		//special case on Create New comming from the order list "Create new order"
 		String selectedTypeWithCreateNew = request.getParameter("selectedType");
-		JsonMainOrderTypesNewRecord orderTypes = this.getDefaultValuesForCreateNewOrder(model, selectedTypeWithCreateNew); 
 		
 		ModelAndView successView = new ModelAndView("tror_mainorderlandimport");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
@@ -261,7 +260,7 @@ public class TrorMainOrderHeaderLandImportController {
 			if(strMgr.isNotNull(recordToValidate.getHeopd()) && strMgr.isNotNull(recordToValidate.getHeavd()) ){
 				if(isValidRecord){
 					logger.info("HEOPD:" + recordToValidate.getHeopd());
-					JsonTrorOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, orderTypes, recordToValidate.getHeavd(), recordToValidate.getHeopd());
+					JsonTrorOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, recordToValidate.getHeavd(), recordToValidate.getHeopd());
 					//adjust some fields for presentation purposes
 					this.setSpecialValuesForPresentation(appUser, headerOrderRecord, model);
 					//split godsnr
@@ -274,14 +273,7 @@ public class TrorMainOrderHeaderLandImportController {
 					this.orderContactInformationMgr.getContactInformation(appUser, this.setDokufeDao(orderContactInformationObject), this.PARTY_CONSIGNEE_CZ, true, orderContactInformationObject);
 					this.setHeaderRecordContactInformation(headerOrderRecord, orderContactInformationObject);				
 					
-					//Only in case of Create new order (INSERT ORDER)
-					if(orderTypes!=null){
-						/*TODO 
-						if( "".equals(headerOrderRecord.getXfakBet()) ){
-							headerOrderRecord.setXfakBet(orderTypes.getNewSideSK());
-						}
-						*/
-					}
+					
 					//set always status as in list (since we do not get this value from back-end)
 					//TODO headerOrderRecord.setStatus(orderStatus);
 					//domain objects
@@ -327,6 +319,65 @@ public class TrorMainOrderHeaderLandImportController {
 		
 	}
 	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tror_mainorderlandimport_copy.do", method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doMainOrderCopy(@ModelAttribute ("record") JsonTrorOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		Map model = new HashMap();
+		
+		//logger.info("ORDER TOTALS STRING:" +  orderLineTotalsString);
+		//special case on Create New comming from the order list "Create new order"
+		String selectedTypeWithCreateNew = request.getParameter("selectedType");
+		JsonMainOrderTypesNewRecord orderTypes = this.getDefaultValuesForCreateNewOrder(model, selectedTypeWithCreateNew); 
+		
+		ModelAndView successView = new ModelAndView("tror_mainorderlandimport");
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			
+			//Fetch the source Oppd
+			logger.info("HEOPD:" + recordToValidate.getHeopd());
+			JsonTrorOrderHeaderRecord headerOrderRecord = this.getOrderRecord(appUser, model, recordToValidate.getHeavd(), recordToValidate.getHeopd());
+			//adjust some fields for presentation purposes
+			this.setSpecialValuesForPresentation(appUser, headerOrderRecord, model);
+			//split godsnr
+			this.splitGodsnr(headerOrderRecord);
+			//populate track and trace
+			//TODO ? this.populateTrackAndTrace(appUser, headerOrderRecord);
+			//populate kontaktuppgifter
+			/*OrderContactInformationObject orderContactInformationObject = this.setOrderContactInformationObject(headerOrderRecord);
+			this.orderContactInformationMgr.getContactInformation(appUser, this.setDokufeDao(orderContactInformationObject), this.PARTY_CONSIGNOR_CN, true, orderContactInformationObject);
+			this.orderContactInformationMgr.getContactInformation(appUser, this.setDokufeDao(orderContactInformationObject), this.PARTY_CONSIGNEE_CZ, true, orderContactInformationObject);
+			this.setHeaderRecordContactInformation(headerOrderRecord, orderContactInformationObject);				
+			*/
+			//Clean up
+			this.cleanKeyFieldsWhenCopy(headerOrderRecord);
+			//
+			this.setCodeDropDownMgr(appUser, model);
+			model.put("action", "doUpdate");
+			//put record in model
+			model.put(TrorConstants.DOMAIN_RECORD, headerOrderRecord);
+			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
+			logger.info("Host via HttpServletRequest.getHeader('Host'): " + request.getHeader("Host"));
+			
+			return successView;
+
+			
+		}
+		
+	}
+	/**
 	 * populate record from neutra object
 	 * 
 	 * @param headerOrderRecord
@@ -341,6 +392,43 @@ public class TrorMainOrderHeaderLandImportController {
 		headerOrderRecord.setOwnReceiverContactName(orderContactInformationObject.getOwnReceiverContactName());
 		headerOrderRecord.setOwnReceiverMobile(orderContactInformationObject.getOwnReceiverMobile());
 		headerOrderRecord.setOwnReceiverEmail(orderContactInformationObject.getOwnReceiverEmail());
+		
+	}
+	/**
+	 * 
+	 * @param headerOrderRecord
+	 */
+	private void cleanKeyFieldsWhenCopy(JsonTrorOrderHeaderRecord headerOrderRecord){
+		//opd
+		headerOrderRecord.setHeopd(null);
+		//
+		int today = Integer.parseInt(dateMgr.getCurrentDate_ISO("yyyyMMdd"));
+		headerOrderRecord.setHedtop(String.valueOf(today));
+		//
+		headerOrderRecord.setHedtr(null);
+		headerOrderRecord.setHentf(null);
+		headerOrderRecord.setHekdtm(null);
+		headerOrderRecord.setHetle(null);
+		headerOrderRecord.setHetll(null);
+		headerOrderRecord.setHegnn(null);
+		//
+		headerOrderRecord.setHepk1(null);
+		headerOrderRecord.setHepk2(null);
+		headerOrderRecord.setHepk3(null);
+		headerOrderRecord.setHepk4(null);
+		headerOrderRecord.setHepk5(null);
+		headerOrderRecord.setHepk6(null);
+		headerOrderRecord.setHepk7(null);
+		headerOrderRecord.setHepk8(null);
+		headerOrderRecord.setHepk9(null);
+		//
+		headerOrderRecord.setTravd0(null);
+		headerOrderRecord.setTropd0(null);
+		headerOrderRecord.setTravd1(null);
+		headerOrderRecord.setTropd1(null);
+		headerOrderRecord.setTravd2(null);
+		headerOrderRecord.setTropd2(null);
+		
 		
 	}
 	/**
@@ -821,7 +909,7 @@ public class TrorMainOrderHeaderLandImportController {
 	 * @param heopd
 	 * @return
 	 */
-	private JsonTrorOrderHeaderRecord getOrderRecord(SystemaWebUser appUser, Map model, JsonMainOrderTypesNewRecord orderTypes, String heavd, String heopd ){
+	private JsonTrorOrderHeaderRecord getOrderRecord(SystemaWebUser appUser, Map model, String heavd, String heopd ){
 		JsonTrorOrderHeaderRecord record = new JsonTrorOrderHeaderRecord();
 			
 		final String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_SPECIFIC_ORDER_URL;

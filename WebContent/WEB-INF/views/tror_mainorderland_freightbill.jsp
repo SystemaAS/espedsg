@@ -677,7 +677,16 @@
 							 				
 						 				</tr>
 						 				<tr>
-					 						<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfknsx" id="dfknsx" size="8" maxlength="8" value="${model.record.dfknsx}"></td>
+					 						<td class="text12" >
+							 					<c:choose>
+									 				<c:when test="${'0' != model.record.dfknsx}">
+							 							<input  onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfknsx" id="dfknsx" size="8" maxlength="8" value="${model.record.dfknsx}">
+							 						</c:when>
+							 						<c:otherwise>
+							 							<input  onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfknsx" id="dfknsx" size="8" maxlength="8" value="">
+							 						</c:otherwise>
+						 						</c:choose>
+						 					</td>
 						 					<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfknx" id="dfknx" size="10" maxlength="12" value="${model.record.dfknx}"></td>
 						 					<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfnavx" id="dfnavx" size="30" maxlength="30" value="${model.record.dfnavx}"></td>
 						 					<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfad1x" id="dfad1x" size="25" maxlength="30" value="${model.record.dfad1x}"></td>

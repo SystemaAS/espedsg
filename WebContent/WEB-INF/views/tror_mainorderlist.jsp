@@ -267,6 +267,8 @@
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.from"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.to"/></th>
 	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.fortullning"/></th>
+	                    <th class="text12"><spring:message code="systema.tror.orders.open.list.search.label.copy"/></th>
+	                    
 	                    <%-- START Print 
 	                    <th class="tableHeaderFieldEbookingPrint" align="center" title="Skriv ut">&nbsp;F.br&nbsp;</td>
 	                    <th class="tableHeaderFieldEbookingPrint" align="center" title="Skriv ut">&nbsp;Cmr&nbsp;</td>
@@ -374,6 +376,23 @@
 		               				</c:choose>	
 		               			</c:if>
 		               </td>
+		               <td width="2%" align="center" class="text11MediumBlue">
+		               		<c:if test="${ record.heur == 'A' }">
+           						<a style="cursor:pointer;" onClick="setBlockUI(this);" href="tror_mainorderlandimport_copy.do?heavd=${record.heavd}&heopd=${record.heopd}&hesg=${record.hesg}">
+		               				<span title="Kopiera Land import">
+		               					<img src="resources/images/copy.png" border="0" alt="copy">
+		               				</span>	
+		               			</a>
+	               			</c:if>
+	               			<c:if test="${ record.heur == 'B' }">
+	             						<a style="cursor:pointer;" onClick="setBlockUI(this);" href="tror_mainorderlandexport_copy.do?heavd=${record.heavd}&heopd=${record.heopd}&hesg=${record.hesg}">
+		               				<span title="Kopiera Land eksport">
+		               					<img src="resources/images/copy.png" border="0" alt="copy">
+		               				</span>	
+		               			</a>
+	               			</c:if>	
+		               </td>
+		               
 		               <td width="2%" align="center" class="text11MediumBlue">
 			           		<img class="updateStatus" id="updateStatus${counter.count}" style="vertical-align: middle; cursor:pointer;" src="resources/images/changeStatus.png" width="12px" height="12px" border="0" alt="change status">
 			           		<%-- change status dialog --%>
