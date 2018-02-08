@@ -331,10 +331,6 @@ public class TrorMainOrderHeaderLandImportController {
 		this.context = TdsAppContext.getApplicationContext();
 		Map model = new HashMap();
 		
-		//logger.info("ORDER TOTALS STRING:" +  orderLineTotalsString);
-		//special case on Create New comming from the order list "Create new order"
-		String selectedTypeWithCreateNew = request.getParameter("selectedType");
-		JsonMainOrderTypesNewRecord orderTypes = this.getDefaultValuesForCreateNewOrder(model, selectedTypeWithCreateNew); 
 		
 		ModelAndView successView = new ModelAndView("tror_mainorderlandimport");
 		SystemaWebUser appUser = this.loginValidator.getValidUser(session);

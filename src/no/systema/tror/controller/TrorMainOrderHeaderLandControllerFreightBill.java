@@ -86,8 +86,8 @@ import no.systema.tvinn.sad.z.maintenance.nctsexport.service.MaintNctsExportTrko
 @Controller
 @SessionAttributes(AppConstants.SYSTEMA_WEB_USER_KEY)
 @Scope("session")
-public class TrorMainOrderHeaderLandImportControllerFreightBill {
-	private static Logger logger = Logger.getLogger(TrorMainOrderHeaderLandImportControllerFreightBill.class.getName());
+public class TrorMainOrderHeaderLandControllerFreightBill {
+	private static Logger logger = Logger.getLogger(TrorMainOrderHeaderLandControllerFreightBill.class.getName());
 	private ModelAndView loginView = new ModelAndView("login");
 	private static final JsonDebugger jsonDebugger = new JsonDebugger(1500);
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
@@ -495,75 +495,7 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		this.freightBillMessageNoteManager.fetchMessageNoteConsignee(model, appUser, dokufDao);
 		this.freightBillMessageNoteManager.fetchMessageNoteCarrier(model, appUser, dokufDao);
 	}
-	/**
-	 * 
-	 * @param model
-	 * @param appUser
-	 * @param dokufDao
-	 */
-	/*
-	private void fetchMessageNoteConsignee(Map model, SystemaWebUser appUser, DokufDao dokufDao){
-		StringBuffer guiMessageNotePayload = new StringBuffer();
-		
-		JsonReader<JsonDtoContainer<Dok29Dao>> jsonReader = new JsonReader<JsonDtoContainer<Dok29Dao>>();
-		jsonReader.set(new JsonDtoContainer<Dok29Dao>());
-		final String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_DOK29_URL;
-		StringBuilder urlRequestParams = new StringBuilder();
-		urlRequestParams.append("user=" + appUser.getUser());
-		urlRequestParams.append("&d29avd=" + dokufDao.getDfavd());
-		urlRequestParams.append("&d29opd=" + dokufDao.getDfopd());
-		urlRequestParams.append("&d29fnr=" + dokufDao.getDffbnr());
-		
-		
-		logger.info("URL: " + BASE_URL);
-		logger.info("PARAMS: " + urlRequestParams.toString());
-		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		logger.info("jsonPayload=" + jsonPayload);
-		DokufDao record = null;
-		JsonDtoContainer<Dok29Dao> container = (JsonDtoContainer<Dok29Dao>) jsonReader.get(jsonPayload);
-		if (container != null) {
-			for (Dok29Dao dao : container.getDtoList()) {
-				guiMessageNotePayload.append(dao.getD29txt() + this.CARRIAGE_RETURN_PLAIN);
-			}
-		}
-		model.put("messageNoteConsignee", guiMessageNotePayload.toString());
-		
-	}
-	/**
-	 * 
-	 * @param model
-	 * @param appUser
-	 * @param dokufDao
-	 */
-	/*
-	private void fetchMessageNoteCarrier(Map model, SystemaWebUser appUser, DokufDao dokufDao){
-		StringBuffer guiMessageNotePayload = new StringBuffer();
-		
-		JsonReader<JsonDtoContainer<Dok36Dao>> jsonReader = new JsonReader<JsonDtoContainer<Dok36Dao>>();
-		jsonReader.set(new JsonDtoContainer<Dok36Dao>());
-		final String BASE_URL = TrorUrlDataStore.TROR_BASE_FETCH_DOK36_URL;
-		StringBuilder urlRequestParams = new StringBuilder();
-		urlRequestParams.append("user=" + appUser.getUser());
-		urlRequestParams.append("&d36avd=" + dokufDao.getDfavd());
-		urlRequestParams.append("&d36opd=" + dokufDao.getDfopd());
-		urlRequestParams.append("&d36fnr=" + dokufDao.getDffbnr());
-		
-		
-		logger.info("URL: " + BASE_URL);
-		logger.info("PARAMS: " + urlRequestParams.toString());
-		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		logger.info("jsonPayload=" + jsonPayload);
-		DokufDao record = null;
-		JsonDtoContainer<Dok36Dao> container = (JsonDtoContainer<Dok36Dao>) jsonReader.get(jsonPayload);
-		if (container != null) {
-			for (Dok36Dao dao : container.getDtoList()) {
-				guiMessageNotePayload.append(dao.getD36txt() + this.CARRIAGE_RETURN_PLAIN);
-			}
-		}
-		model.put("messageNoteCarrier", guiMessageNotePayload.toString());
-		
-	}
-	*/
+	
 	/**
 	 * 
 	 * @param model
@@ -580,112 +512,6 @@ public class TrorMainOrderHeaderLandImportControllerFreightBill {
 		List<String> messageNoteCarrierList = this.messageNoteMgr.getChunksOfMessageNoteAsList(messageNoteCarrier);
 		this.freightBillMessageNoteManager.updateMessageNote(model, messageNoteConsigneeList, appUser, MESSAGE_NOTE_PARTY_TYPE_CONSIGNEE, recordToValidate);
 		this.freightBillMessageNoteManager.updateMessageNote(model, messageNoteCarrierList, appUser, MESSAGE_NOTE_PARTY_TYPE_CARRIER, recordToValidate);
-	}
-	/**
-	 * 
-	 * @param model
-	 * @param messageNote
-	 * @param appUser
-	 */
-	/*
-	private void updateMessageNote(Map model, List<String> messageNotePayload, SystemaWebUser appUser, String partyType, DokufDao recordToValidate){
-		String CARRIAGE_RETURN = "[\n\r]";
-		String NULL_PAYLOAD = null;
-		//logger.info("A" + messageNotePayload); 
-		if(messageNotePayload!=null && !messageNotePayload.isEmpty()){
-			if(this.MESSAGE_NOTE_PARTY_TYPE_CONSIGNEE.equals(partyType)){
-				//delete all
-				this.updateMessageNoteConsignee(NULL_PAYLOAD, model, appUser, recordToValidate, TrorConstants.MODE_DELETE);
-				for(String linePayload: messageNotePayload){
-					linePayload = linePayload.replaceAll(CARRIAGE_RETURN, "");
-					logger.info("CONSIGNEE MESSAGE NOTE #########:" + linePayload);
-					//insert this line
-					this.updateMessageNoteConsignee(linePayload, model, appUser, recordToValidate, TrorConstants.MODE_ADD);
-					
-				}
-			}else if (this.MESSAGE_NOTE_PARTY_TYPE_CARRIER.equals(partyType)){
-				//delete all
-				this.updateMessageNoteCarrier(NULL_PAYLOAD, model, appUser, recordToValidate, TrorConstants.MODE_DELETE);
-				for(String linePayload: messageNotePayload){
-					linePayload = linePayload.replaceAll(CARRIAGE_RETURN, "");
-					logger.info("CARRIER MESSAGE NOTE #########:" + linePayload);
-					//insert this line
-					this.updateMessageNoteCarrier(linePayload, model, appUser, recordToValidate, TrorConstants.MODE_ADD);
-				}
-			}
-			
-		}
-	}
-	/**
-	 * 
-	 * @param payload
-	 * @param model
-	 * @param appUser
-	 * @param recordToValidate
-	 * @param MODE
-	 */
-	/*
-	private void updateMessageNoteConsignee(String payload, Map model, SystemaWebUser appUser, DokufDao recordToValidate, String MODE){
-		
-		JsonReader<JsonDtoContainer<Dok29Dao>> jsonReader = new JsonReader<JsonDtoContainer<Dok29Dao>>();
-		jsonReader.set(new JsonDtoContainer<Dok29Dao>());
-		final String BASE_URL = TrorUrlDataStore.TROR_BASE_DOK29_DML_UPDATE_URL;
-		StringBuilder urlRequestParams = new StringBuilder();
-		urlRequestParams.append("user=" + appUser.getUser());
-		urlRequestParams.append("&mode=" + MODE);
-		urlRequestParams.append("&d29avd=" + recordToValidate.getDfavd());
-		urlRequestParams.append("&d29opd=" + recordToValidate.getDfopd());
-		urlRequestParams.append("&d29fnr=" + recordToValidate.getDffbnr());
-		if(!MODE.equals("D")){
-			urlRequestParams.append("&d29txt=" + payload);
-		}
-		
-		logger.info("URL: " + BASE_URL);
-		logger.info("PARAMS: " + urlRequestParams.toString());
-		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		logger.info("jsonPayload=" + jsonPayload);
-		DokufDao record = null;
-		JsonDtoContainer<Dok29Dao> container = (JsonDtoContainer<Dok29Dao>) jsonReader.get(jsonPayload);
-		if (container != null) {
-			if(strMgr.isNotNull(container.getErrMsg())){
-				logger.info("ERROR on update from DOK29 .... check this out!" + " MODE:" + MODE);
-			}
-		}
-	}
-	/**
-	 * 
-	 * @param payload
-	 * @param model
-	 * @param appUser
-	 * @param recordToValidate
-	 * @param MODE
-	 */
-	/*
-	private void updateMessageNoteCarrier(String payload, Map model, SystemaWebUser appUser, DokufDao recordToValidate, String MODE){
-		
-		JsonReader<JsonDtoContainer<Dok36Dao>> jsonReader = new JsonReader<JsonDtoContainer<Dok36Dao>>();
-		jsonReader.set(new JsonDtoContainer<Dok36Dao>());
-		final String BASE_URL = TrorUrlDataStore.TROR_BASE_DOK36_DML_UPDATE_URL;
-		StringBuilder urlRequestParams = new StringBuilder();
-		urlRequestParams.append("user=" + appUser.getUser());
-		urlRequestParams.append("&mode=" + MODE);
-		urlRequestParams.append("&d36avd=" + recordToValidate.getDfavd());
-		urlRequestParams.append("&d36opd=" + recordToValidate.getDfopd());
-		urlRequestParams.append("&d36fnr=" + recordToValidate.getDffbnr());
-		if(!MODE.equals("D")){
-			urlRequestParams.append("&d36txt=" + payload);
-		}
-		logger.info("URL: " + BASE_URL);
-		logger.info("PARAMS: " + urlRequestParams.toString());
-		String jsonPayload = urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
-		logger.info("jsonPayload=" + jsonPayload);
-		DokufDao record = null;
-		JsonDtoContainer<Dok36Dao> container = (JsonDtoContainer<Dok36Dao>) jsonReader.get(jsonPayload);
-		if (container != null) {
-			if(strMgr.isNotNull(container.getErrMsg())){
-				logger.info("ERROR on update from DOK36 .... check this out!" + " MODE:" + MODE);
-			}
-		}
 	}
 	
 	/**

@@ -138,13 +138,16 @@
 									<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.turnr"/></td>
 									<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.oppdragnr"/></td>
 									<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.godsnr"/></td>
+									<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.godsnr"/> fra dato</td>
+									
 								</tr>
 								<tr>
-									<td class="text12" title="todo">&nbsp;<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="5" maxlength="4" value=''></td>
-									<td class="text12" title="todo">&nbsp;<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="5" maxlength="3" value=''></td>
-									<td class="text12" title="todo">&nbsp;<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="10" maxlength="8" value=''></td>
-									<td class="text12" title="todo">&nbsp;<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="10" maxlength="7" value=''></td>
-									<td class="text12" title="todo">&nbsp;<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="17" maxlength="15" value=''></td>
+									<td class="text12" title="todo"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="5" maxlength="4" value=''></td>
+									<td class="text12" title="todo"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="5" maxlength="3" value=''></td>
+									<td class="text12" title="todo"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="10" maxlength="8" value=''></td>
+									<td class="text12" title="todo"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="10" maxlength="7" value=''></td>
+									<td class="text12" title="todo"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="17" maxlength="15" value=''></td>
+									<td class="text12" title="todo"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="10" maxlength="8" value=''></td>
 								</tr>	
 							</table>
 							</td>
@@ -166,7 +169,7 @@
 							 		<td>
 								 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 									 		<tr>
-									 			<td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.oppdformular"/></td>
+									 			<td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.oppdformular"/>&nbsp;og fra dato</td>
 									            <td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.styckkfraktbrev"/></td>
 									            <td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.tpassfraktbrev"/></td>
 									            <td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.fsad"/></td>
@@ -182,6 +185,7 @@
 									 				  	<option value="J"<c:if test="${Xmodel.record.fakdm == 'J' || empty Xmodel.record.fakdm}"> selected </c:if> >Ja</option>
 														<option value="N"<c:if test="${Xmodel.record.fakdm == 'N'}"> selected </c:if> >Nei</option>
 													</select>
+													<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="10" maxlength="8" value=''>
 												</td>
 												<td align="left">
 								        			<select class="inputTextMediumBlue" name="todo" id="todo">
