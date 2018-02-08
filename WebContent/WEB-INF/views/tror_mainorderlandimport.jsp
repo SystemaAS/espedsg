@@ -1020,40 +1020,7 @@
 				 					</td>
 		 						</tr>	
 				 				<tr height="5"><td ></td></tr>
-				 				<%--
-				 				<tr>	
-				 					<td class="text12"><img onMouseOver="showPop('herfk_info');" onMouseOut="hidePop('herfk_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-					 					&nbsp;&nbsp;<span title="herfk"><spring:message code="systema.tror.orders.form.update.label.consignee.ref"/></span>
-						 				<div class="text11" style="position: relative;" align="left">
-										<span style="position:absolute; left:0px; top:0px; width:250px" id="herfk_info" class="popupWithInputText"  >
-											<font class="text11">
-							           			<b>Søk Mott.</b>
-							           			<div>
-							           			<p>Mottakers søkereferanse Fritt felt for utfylling. Begrep for senere søk/gjenfinning.</p>
-							           			</div>
-						           			</font>
-										</span>
-										</div>
-				 					</td>
-				 					<td class="text12">
-				 						<img style="vertical-align:middle;" src="resources/images/loading.png" width="15px" height="15px" border="0" alt="load/unload">
-				 						<span title="hesdl"><spring:message code="systema.tror.orders.form.update.label.unload"/></span>
-				 						<a href="javascript:void(0);" onClick="window.open('tror_childwindow_loadunloadplaces.do?action=doInit&caller=hesdl','postalcodeWin','top=300px,left=50px,height=600px,width=800px,scrollbars=no,status=no,location=no')">						 				
-						 					<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
-						 				</a>
-				 					</td>
-				 				</tr>
-				 				<tr>	
-				 					<td class="text12" >
-				 						<input type="text" class="inputTextMediumBlue" name="herfk" id="herfk" size="20" maxlength="35" value="${model.record.herfk}">
-				 					</td>
-				 					<td class="text12" >
-						 				<input type="text" class="inputTextMediumBlue" name="hesdl" id="hesdl" size="21" maxlength="20" value="${model.record.hesdl}">
-										
-						 			</td>
-				 				</tr>
-				 				<tr height="8"><td ></td></tr>
-				 				--%>
+				 				
 				 				
 								<tr>
 				 					<td class="text12Bold">&nbsp;

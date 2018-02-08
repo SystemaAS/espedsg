@@ -270,36 +270,37 @@
 				 				</td>	
 			 				</c:otherwise>
 		 				</c:choose>
-		 				<td align="right" class="text12White" width="50%">
-		 					<img style="vertical-align: middle;" onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');" width="9px" height="9px" src="resources/images/info3.png" border="0" alt="info">
-							STATUS
-							<img id="updateStatusImg" style="vertical-align: middle; cursor:pointer;" src="resources/images/changeStatus.png" width="11px" height="11px" border="0" alt="change status">
-		 					&nbsp;&nbsp;<font style="color: orangered"><b>${model.record.hest}</b></font>&nbsp;&nbsp;
-		 					<div class="text11" style="position: relative; display: inline;" align="left" >
-				 				<span style="position:absolute;left:-40px; top:5px; width:400px;" id="status_info" class="popupWithInputText text11"  >
-					           		<p>Status på oppdraget. Denne koden forteller hvor langt et oppdrag har kommet i
-										"syklusen" fra det første gang registreres til det er ferdig fakturert og avsluttet.</p> 
-				           			<ul>
-				           				<li><b>' '</b>&nbsp;(blank) "Åpent". Oppdraget er ikke fakturert og det er åpent for alle typer endringer.
-				           				<li><b>U</b>&nbsp;Booking / B/L er laget, men oppdrag er ikke bearbeidet. Hvis et oppdrag i sjø-modulen er påbegynt via Booking eller B/L, vill oppdraget inntil man går inn og jobber med det, ha denne statusen.</li>
-				           				<li><b>K</b>&nbsp;"Ferdigmeldt". Oppdraget ligger i kø for ferdigmeldte oppdrag. Man har fortsatt mulighet for å endre på fakturaen, eller omgjøre klarmeldingen.</li>
-				           				<li><b>C</b>&nbsp;"Klar for samlefaktura". Oppdraget ligger i kø for samlefaktura. Man har fremdeles mulighet for å endre på fakturaen eller fjerne fra samlefakturakø.</li>	
-				           				
-				           				<li><b>F</b>&nbsp;"Fakturert". Oppdraget er fakturert, men ennå ikke overført til økonomisystemet. Oppdraget kan hverken krediteres eller slettes i denne status. De enkelte fakturaer kan derimot slettes (MENU INV, punkt 6).Fakturanummerene merkes da i fakturajournalen med "**** SLETTET ***".</li>	
-				           				<li><b>G</b>&nbsp;"Merket for overføring". Oppdragene har denne status i tiden mellom merking for overføring til regnskap og selve overføringen.Ved denne status kan fakturaer slettes. Fakturanummerene merkes da i fakturajournalen med "**** SLETTET ****".Ordinær kreditering - se under.</li>	
-				           				<li><b>T</b>&nbsp;Overført men ikke oppdatert i statistikk. Et oppdrag med denne statusen er ferdig overført til regnskap, men ennå ikke oppdatert i statistikk.</li>	
-				           				<li><b>O</b>&nbsp;"Overført". Ferdig overført til regnskap. I denne status kan en faktura i sin helhet krediteres, men ikke slettes.</li>	
-				           				<li><b>S</b>&nbsp;"Slettet". Oppdraget er slettet via funksjon for sletting av oppdrag.</li>	
-				           				<li><b>X</b>&nbsp;"Under oppdatering ". Noen arbeider med oppdraget, og oppholder seg på oppdragsbildet. Hvis man, mens man er inne på et oppdrag, "mister" kontakten med systemet, eller det oppstår en feilsituasjon, vil oppdraget kunne bli "hengende" i status X.</li>	
-				           				<li><b>M</b>&nbsp;"Under oppdatering ". Oppdraget er låst fordi en overføring av import-MVA fra fortollingsprogrammet foregår akkurat nå. OBS! Som man forstår skal et oppdrag ha status 'X' eller 'M' kun en begrenset tidsperiode. Dersom oppdrag har denne status permanent skyldes dette unormalt jobbavbrudd - f.eks strømbrudd.
-				           						Ta i så fall kontakt med dataansvarlig slik at hun eller han kan rette statusen på oppdraget til ' '.</li>	
-				           							
-				           			</ul>
-								</span>	
-							</div>
-		 					
-		 					
-		 				</td>
+		 				
+		 				<c:if test="${not empty model.record.heopd}">
+			 				<td align="right" class="text12White" width="50%">
+			 					<img style="vertical-align: middle;" onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');" width="9px" height="9px" src="resources/images/info3.png" border="0" alt="info">
+								STATUS
+								<img id="updateStatusImg" style="vertical-align: middle; cursor:pointer;" src="resources/images/changeStatus.png" width="11px" height="11px" border="0" alt="change status">
+			 					&nbsp;&nbsp;<font style="color: orangered"><b>${model.record.hest}</b></font>&nbsp;&nbsp;
+			 					<div class="text11" style="position: relative; display: inline;" align="left" >
+					 				<span style="position:absolute;left:-40px; top:5px; width:400px;" id="status_info" class="popupWithInputText text11"  >
+						           		<p>Status på oppdraget. Denne koden forteller hvor langt et oppdrag har kommet i
+											"syklusen" fra det første gang registreres til det er ferdig fakturert og avsluttet.</p> 
+					           			<ul>
+					           				<li><b>' '</b>&nbsp;(blank) "Åpent". Oppdraget er ikke fakturert og det er åpent for alle typer endringer.
+					           				<li><b>U</b>&nbsp;Booking / B/L er laget, men oppdrag er ikke bearbeidet. Hvis et oppdrag i sjø-modulen er påbegynt via Booking eller B/L, vill oppdraget inntil man går inn og jobber med det, ha denne statusen.</li>
+					           				<li><b>K</b>&nbsp;"Ferdigmeldt". Oppdraget ligger i kø for ferdigmeldte oppdrag. Man har fortsatt mulighet for å endre på fakturaen, eller omgjøre klarmeldingen.</li>
+					           				<li><b>C</b>&nbsp;"Klar for samlefaktura". Oppdraget ligger i kø for samlefaktura. Man har fremdeles mulighet for å endre på fakturaen eller fjerne fra samlefakturakø.</li>	
+					           				
+					           				<li><b>F</b>&nbsp;"Fakturert". Oppdraget er fakturert, men ennå ikke overført til økonomisystemet. Oppdraget kan hverken krediteres eller slettes i denne status. De enkelte fakturaer kan derimot slettes (MENU INV, punkt 6).Fakturanummerene merkes da i fakturajournalen med "**** SLETTET ***".</li>	
+					           				<li><b>G</b>&nbsp;"Merket for overføring". Oppdragene har denne status i tiden mellom merking for overføring til regnskap og selve overføringen.Ved denne status kan fakturaer slettes. Fakturanummerene merkes da i fakturajournalen med "**** SLETTET ****".Ordinær kreditering - se under.</li>	
+					           				<li><b>T</b>&nbsp;Overført men ikke oppdatert i statistikk. Et oppdrag med denne statusen er ferdig overført til regnskap, men ennå ikke oppdatert i statistikk.</li>	
+					           				<li><b>O</b>&nbsp;"Overført". Ferdig overført til regnskap. I denne status kan en faktura i sin helhet krediteres, men ikke slettes.</li>	
+					           				<li><b>S</b>&nbsp;"Slettet". Oppdraget er slettet via funksjon for sletting av oppdrag.</li>	
+					           				<li><b>X</b>&nbsp;"Under oppdatering ". Noen arbeider med oppdraget, og oppholder seg på oppdragsbildet. Hvis man, mens man er inne på et oppdrag, "mister" kontakten med systemet, eller det oppstår en feilsituasjon, vil oppdraget kunne bli "hengende" i status X.</li>	
+					           				<li><b>M</b>&nbsp;"Under oppdatering ". Oppdraget er låst fordi en overføring av import-MVA fra fortollingsprogrammet foregår akkurat nå. OBS! Som man forstår skal et oppdrag ha status 'X' eller 'M' kun en begrenset tidsperiode. Dersom oppdrag har denne status permanent skyldes dette unormalt jobbavbrudd - f.eks strømbrudd.
+					           						Ta i så fall kontakt med dataansvarlig slik at hun eller han kan rette statusen på oppdraget til ' '.</li>	
+					           							
+					           			</ul>
+									</span>	
+								</div>
+			 				</td>
+		 				</c:if>
 	 				</tr>
  					</table>
            		</td>
@@ -418,48 +419,50 @@
 							 					</c:otherwise>
 							 					</c:choose>
 							 				</td>
-							 				<td class="text12" title="hepos1">
-							 					<img onMouseOver="showPop('hepos_info');" onMouseOut="hidePop('hepos_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-							 					<spring:message code="systema.tror.orders.form.update.label.position"/>
-							 				</td>
-							 				<td>	
-							 					<input type="text" class="inputTextMediumBlue" name="hepos1" id="hepos1/hepos2" size="8" maxlength="7" value="${model.record.hepos1}">
-							 					&nbsp;
-							 					<c:choose>
-						 						<c:when test="${'0' != model.record.hepos2}">
-							 						<input type="text" class="inputTextMediumBlue" name="hepos2" id="hepos2" size="5" maxlength="4" value="${model.record.hepos2}">
-							 					</c:when>
-							 					<c:otherwise>
-							 						<input type="text" class="inputTextMediumBlue" name="hepos2" id="hepos2" size="5" maxlength="4" value="">
-							 					</c:otherwise>
-							 					</c:choose>
-							 					<div class="text11" style="position: relative;" align="left" >
-									 				<span style="position:absolute; top:2px; width:200px;" id="hepos_info" class="popupWithInputText text11"  >
-										           		<p><b><spring:message code="systema.tror.orders.form.update.label.position"/></b></p> 
-									           			Hovedposisjon er 4 lang. Underposisjon er 4 lang. Overføres til rubrikk 49 på SAD-dokumentet
-														( konnossement nr. ).
+							 				<td class="text12">
+								 			<img onMouseOver="showPop('hevalt_info');" onMouseOut="hidePop('hevalt_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+								 			<span title="hetrcn"><spring:message code="systema.tror.orders.form.update.label.tillegg"/></span>
+								 			<div class="text11" style="position: relative;" align="left" >
+									 				<span style="position:absolute; top:2px; width:200px;" id="hevalt_info" class="popupWithInputText text11"  >
+										           		<p><b><spring:message code="systema.tror.orders.form.update.label.tillegg"/></b></p> 
+									           			Her kan ekstragebyr som står i et visst prosentforhold til frakten tastes.
+														(F.eks VAL 3,5 = valutatillegg tas inn med 3,5 prosent av fraktbeløpet).
+														På fakturaen vil da komme et ekstragebyr mot den side som belastes frakt.
 													</span>	
-												</div>
-							 					
-							 				</td>
+											</div>
+								 			</td>
+								 			<td class="text12">
+								 				<input type="text" class="inputTextMediumBlue" name="hevalt" id="hevalt" size="4" maxlength="3" value="${model.record.hevalt}">
+								 				&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="hevalp" id="hevalp" size="8" maxlength="7" value="${model.record.hevalp}">
+								 			</td>
 							 				
 							 			</tr>
 							 			<tr>	
-							 				<td class="text12" title="hegn:${model.record.hegn}">
-							 					<img onMouseOver="showPop('hegn_info');" onMouseOut="hidePop('hegn_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-							 					<spring:message code="systema.tror.orders.form.update.label.godsnr"/>
+							 				<td class="text12" title="hetll">
+							 					<img onMouseOver="showPop('hetll_info');" onMouseOut="hidePop('hetll_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+							 					<spring:message code="systema.tror.orders.form.update.label.lopenr"/>
 							 					<div class="text11" style="position: relative;" align="left" >
-									 				<span style="position:absolute; top:2px; width:200px;" id="hegn_info" class="popupWithInputText text11"  >
-										           		<p><b><spring:message code="systema.tror.orders.form.update.label.godsnr"/></b></p> 
-									           			Her tastes forsendelsens godsnummer.
+									 				<span style="position:absolute; top:2px; width:200px;" id="hetll_info" class="popupWithInputText text11"  >
+										           		<p><b><spring:message code="systema.tror.orders.form.update.label.lopenr"/></b></p> 
+									           			Her tastes SAD - løpenummer.
 													</span>	
 												</div>
 							 				</td>
-							 				
-							 				<td colspan="3" class="text12">
-							 					<input type="text" class="inputTextMediumBlue" name="ownHegn1" id="ownHegn1" size="5" maxlength="4" value="${model.record.ownHegn1}">
-							 					<input type="text" class="inputTextMediumBlue" name="ownHegn2" id="ownHegn2" size="6" maxlength="5" value="${model.record.ownHegn2}">
-							 					<input type="text" class="inputTextMediumBlue" name="ownHegn3" id="ownHegn3" size="7" maxlength="6" value="${model.record.ownHegn3}">
+							 				<td class="text12">
+							 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="hetll" id="hetll" size="11" maxlength="10" value="${model.record.hetll}">
+							 				</td>
+							 				<td class="text12" title="hetle">
+							 					<img onMouseOver="showPop('hetle_info');" onMouseOut="hidePop('hetle_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+							 					<spring:message code="systema.tror.orders.form.update.label.eksp.enhet"/>
+							 					<div class="text11" style="position: relative;" align="left" >
+									 				<span style="position:absolute; top:2px; width:200px;" id="hetle_info" class="popupWithInputText text11"  >
+										           		<p><b><spring:message code="systema.tror.orders.form.update.label.eksp.enhet"/></b></p> 
+									           			Her tastes SAD - ekspeditionsenhet
+													</span>	
+												</div>
+							 				</td>
+							 				<td class="text12">
+							 					<input type="text" class="inputTextMediumBlue" name="hetle" id="hetle" size="7" maxlength="6" value="${model.record.hetle}">
 							 				</td>
 							 				<td class="text12">
 							 					<img onMouseOver="showPop('hesdl_info');" onMouseOut="hidePop('hesdl_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
@@ -481,7 +484,22 @@
 												</div>
 											</td>
 						 				</tr>
-						 				
+						 				<tr>	
+							 				<td class="text12" title="hestd">
+							 					<img onMouseOver="showPop('hestd_info');" onMouseOut="hidePop('hestd_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
+							 					<spring:message code="systema.tror.orders.form.update.label.baerer"/>
+							 					<div class="text11" style="position: relative;" align="left" >
+									 				<span style="position:absolute; top:2px; width:200px;" id="hestd_info" class="popupWithInputText text11"  >
+										           		<p><b><spring:message code="systema.tror.orders.form.update.label.baerer"/></b></p> 
+									           			
+													</span>	
+												</div>
+							 				</td>
+							 				<td class="text12">
+							 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="hestd" id="hestd" size="5" maxlength="4" value="${model.record.hestd}">
+							 				</td>
+						 				</tr>
+
 						 				</table>
 					 				</td>
 					 				
@@ -569,30 +587,7 @@
 							 				<td><input type="text" class="inputTextMediumBlue" name="hehawb" id="hehawb" size="10" maxlength="9" value="${model.record.hehawb}"></td>
 							 			</tr>
 							 			
-							 			<tr>
-								 			<td colspan="6" align="left" >
-							 				<table class="tableBorderWithRoundCornersLightGray" border="0">
-								 			<tr>	
-									 			<td class="text12">
-									 			<img onMouseOver="showPop('hevalt_info');" onMouseOut="hidePop('hevalt_info');"style="vertical-align:middle;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-									 			<span title="hetrcn"><spring:message code="systema.tror.orders.form.update.label.tillegg"/></span>
-									 			<div class="text11" style="position: relative;" align="left" >
-										 				<span style="position:absolute; top:2px; width:200px;" id="hevalt_info" class="popupWithInputText text11"  >
-											           		<p><b><spring:message code="systema.tror.orders.form.update.label.tillegg"/></b></p> 
-										           			Her kan ekstragebyr som står i et visst prosentforhold til frakten tastes.
-															(F.eks VAL 3,5 = valutatillegg tas inn med 3,5 prosent av fraktbeløpet).
-															På fakturaen vil da komme et ekstragebyr mot den side som belastes frakt.
-														</span>	
-												</div>
-									 			</td>
-									 			<td class="text12">
-									 				<input type="text" class="inputTextMediumBlue" name="hevalt" id="hevalt" size="4" maxlength="3" value="${model.record.hevalt}">
-									 				&nbsp;<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue" name="hevalp" id="hevalp" size="8" maxlength="7" value="${model.record.hevalp}">
-									 			</td>
-								 			</tr>
-								 			</table>
-								 			</td>
-							 			</tr>
+							 			
 							 			</table>
 						 			</td>
 					 			</tr>
@@ -766,44 +761,30 @@
 				 				</tr>
 				 				
 				 				<tr height="5"><td ></td></tr>	
-				 				<%--
 				 				<tr>	
-				 					<td class="text12">
-										<img onMouseOver="showPop('herfa_info');" onMouseOut="hidePop('herfa_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-					 					<span title="herfa"><spring:message code="systema.tror.orders.form.update.label.avsRef"/></span>						 				
-										<div class="text11" style="position: relative;" align="left">
-										<span style="position:absolute; left:0px; top:0px; width:250px" id="herfa_info" class="popupWithInputText"  >
-											<font class="text11">
-							           			<b>Søk Avs.</b>
-							           			<div>
-							           			<p>Avsenders søkereferanse <br>
-							           				Begrep for senere søk/gjenfinning.</p>
-							           			</div>
-						           			</font>
-										</span>
-										</div>
-									</td>
-				 					<td class="text12">
-				 						<span title="hesdla">
-				 							<img style="vertical-align:middle;" src="resources/images/loading.png" width="15px" height="15px" border="0" alt="load/unload">
-				 							<spring:message code="systema.tror.orders.form.update.label.load"/>
-				 							<a href="javascript:void(0);" onClick="window.open('tror_childwindow_loadunloadplaces.do?action=doInit&&caller=hesdla','postalcodeWin','top=300px,left=50px,height=600px,width=800px,scrollbars=no,status=no,location=no')">						 				
-						 						<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
-						 					</a>
-				 						</span>
+					 				<td class="text12">&nbsp;<span title="ownSenderContactName"><spring:message code="systema.tror.orders.form.update.label.shipper.contactName"/></span></td>
+					 				<td class="text12">&nbsp;<span title="ownSenderMobile"><spring:message code="systema.tror.orders.form.update.label.shipper.mobile"/></span></td>
+		 						</tr>
+		 						<tr>	
+				 					<td class="text12" >
+				 						<input type="hidden" name="ownSenderPartId" id="ownSenderPartId" value='CN'>
+				 						<input type="text" class="inputTextMediumBlue" name="ownSenderContactName" id="ownSenderContactName" size="25" maxlength="60" value="${model.record.ownSenderContactName}">
 				 					</td>
-				 				</tr>
-				 				<tr>	
+				 					<td class="text12">
+				 						<input type="text" class="inputTextMediumBlue" name="ownSenderMobile" id="ownSenderMobile" size="25" maxlength="60" value="${model.record.ownSenderMobile}">
+				 					</td>
+		 						</tr>	
+		 						<tr>	
+					 				<td class="text12">&nbsp;<span title="ownSenderEmail"><spring:message code="systema.tror.orders.form.update.label.shipper.email"/></span></td>
+		 						</tr>
+		 						<tr>	
 				 					<td class="text12" >
-				 						<input type="text" class="inputTextMediumBlue" name="herfa" id="herfa" size="20" maxlength="35" value="${model.record.herfa}">
-								 	</td>
-				 					<td class="text12" >
-						 				<input type="text" class="inputTextMediumBlue" name="hesdla" id="hesdla" size="21" maxlength="20" value="${model.record.hesdla}">
-										
-						 			</td>
-				 				</tr>
-				 				<tr height="8"><td ></td></tr>
-				 				--%>
+				 						<input type="text" class="inputTextMediumBlue" name="ownSenderEmail" id="ownSenderEmail" size="25" maxlength="60" value="${model.record.ownSenderEmail}">
+				 					</td>
+		 						</tr>	
+				 				
+				 				<tr height="5"><td ></td></tr>	
+				 				
 				 																 				
 								<tr>
 				 					<td class="text12Bold">&nbsp;
@@ -986,40 +967,28 @@
 				 				</tr>
 				 				
 				 				<tr height="5"><td ></td></tr>
-				 				<%--
 				 				<tr>	
-				 					<td class="text12"><img onMouseOver="showPop('herfk_info');" onMouseOut="hidePop('herfk_info');"style="vertical-align:bottom;" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
-					 					&nbsp;&nbsp;<span title="herfk"><spring:message code="systema.tror.orders.form.update.label.consignee.ref"/></span>
-						 				<div class="text11" style="position: relative;" align="left">
-										<span style="position:absolute; left:0px; top:0px; width:250px" id="herfk_info" class="popupWithInputText"  >
-											<font class="text11">
-							           			<b>Søk Mott.</b>
-							           			<div>
-							           			<p>Mottakers søkereferanse Fritt felt for utfylling. Begrep for senere søk/gjenfinning.</p>
-							           			</div>
-						           			</font>
-										</span>
-										</div>
+					 				<td class="text12">&nbsp;<span title="ownReceiverContactName"><spring:message code="systema.tror.orders.form.update.label.consignee.contactName"/></span></td>
+					 				<td class="text12">&nbsp;<span title="ownReceiverMobile"><spring:message code="systema.tror.orders.form.update.label.consignee.mobile"/></span></td>
+		 						</tr>
+		 						<tr>	
+				 					<td class="text12" >
+				 						<input type="hidden" name="ownReceiverPartId" id="ownReceiverPartId" value='CZ'>
+				 						<input type="text" class="inputTextMediumBlue" name="ownReceiverContactName" id="ownReceiverContactName" size="25" maxlength="60" value="${model.record.ownReceiverContactName}">
 				 					</td>
 				 					<td class="text12">
-				 						<img style="vertical-align:middle;" src="resources/images/loading.png" width="15px" height="15px" border="0" alt="load/unload">
-				 						<span title="hesdl"><spring:message code="systema.tror.orders.form.update.label.unload"/></span>
-				 						<a href="javascript:void(0);" onClick="window.open('tror_childwindow_loadunloadplaces.do?action=doInit&caller=hesdl','postalcodeWin','top=300px,left=50px,height=600px,width=800px,scrollbars=no,status=no,location=no')">						 				
-						 					<img id="imgToSearch" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
-						 				</a>
+				 						<input type="text" class="inputTextMediumBlue" name="ownReceiverMobile" id="ownReceiverMobile" size="25" maxlength="60" value="${model.record.ownReceiverMobile}">
 				 					</td>
-				 				</tr>
-				 				<tr>	
+		 						</tr>	
+		 						<tr>	
+					 				<td class="text12">&nbsp;<span title="ownReceiverEmail"><spring:message code="systema.tror.orders.form.update.label.consignee.email"/></span></td>
+		 						</tr>
+		 						<tr>	
 				 					<td class="text12" >
-				 						<input type="text" class="inputTextMediumBlue" name="herfk" id="herfk" size="20" maxlength="35" value="${model.record.herfk}">
+				 						<input type="text" class="inputTextMediumBlue" name="ownReceiverEmail" id="ownReceiverEmail" size="25" maxlength="60" value="${model.record.ownReceiverEmail}">
 				 					</td>
-				 					<td class="text12" >
-						 				<input type="text" class="inputTextMediumBlue" name="hesdl" id="hesdl" size="21" maxlength="20" value="${model.record.hesdl}">
-										
-						 			</td>
-				 				</tr>
-				 				<tr height="8"><td ></td></tr>
-				 				--%>
+		 						</tr>	
+				 				<tr height="5"><td ></td></tr>
 				 				
 								<tr>
 				 					<td class="text12Bold">&nbsp;

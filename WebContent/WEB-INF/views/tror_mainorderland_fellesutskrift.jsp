@@ -130,8 +130,8 @@
 					<table width="99%" cellspacing="0" border="0">
  	   	 				<tr height="30px"><td ></td></tr>
  	   	 				<tr>
-							<td >
-							<table width="50%" border="0">
+							<td  width="50%" >
+							<table width="100%" border="0">
 								<tr>
 									<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.avd"/></td>
 									<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.sign"/></td>
