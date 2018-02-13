@@ -18,7 +18,7 @@ import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderDummyContainer;
  * 
  * 
  */
-public class TrorMainOrderHeaderFlyimportServiceImpl implements TrorMainOrderHeaderLandimportService {
+public class TrorMainOrderHeaderFlyimportServiceImpl implements TrorMainOrderHeaderFlyimportService {
 
 	/**
 	 * Gets defualt values from HEDUMMY/MEMBER (TABLE)

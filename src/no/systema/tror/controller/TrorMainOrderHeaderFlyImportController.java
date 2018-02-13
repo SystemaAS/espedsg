@@ -484,14 +484,14 @@ public class TrorMainOrderHeaderFlyImportController {
 		if (TrorConstants.ACTION_UPDATE.equals(action)) {
 			if (updateId != null && !"".equals(updateId)) {
 				//logger.info("UPDATE!!!");
-				//To implement? -->dmlRetval = this.landImportMgr.updateRecord(appUser, recordToLog, TrorConstants.MODE_UPDATE, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
+				//do not implement -->dmlRetval = this.landImportMgr.updateRecord(appUser, recordToLog, TrorConstants.MODE_UPDATE, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
 			} else {
 				//logger.info("CREATE NEW!!!"); Will always be the case... as for today (20171221)
 				dmlRetval = this.flyMgr.updateRecord(appUser, recordToLog, TrorConstants.MODE_ADD, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
 			}
 		} else if (TrorConstants.ACTION_DELETE.equals(action)) {
 			//logger.info("DELETE !!!");
-			//To implement? -->dmlRetval = this.landImportMgr.updateRecord(appUser, recordToLog, TrorConstants.MODE_DELETE, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
+			//do not implement -->dmlRetval = this.landImportMgr.updateRecord(appUser, recordToLog, TrorConstants.MODE_DELETE, errMsg, this.urlCgiProxyService, this.urlRequestParameterMapper);
 		}
 		// check for Update errors
 		if (dmlRetval < 0) {
