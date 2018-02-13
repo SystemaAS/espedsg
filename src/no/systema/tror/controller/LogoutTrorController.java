@@ -40,6 +40,7 @@ public class LogoutTrorController {
 			//session.removeAttribute(TrorConstants.SESSION_RECORD_ORDER_TROR_LANDIMPORT);
 			//session.removeAttribute(TrorConstants.SESSION_RECORD_ORDER_TROR_LANDEXPORT);
 			session.removeAttribute(TrorConstants.SESSION_RECORD_ORDER_TROR_LAND);
+			session.removeAttribute(TrorConstants.SESSION_RECORD_ORDER_TROR_FLY);
 			session.removeAttribute(TrorConstants.SESSION_SUBSYSTEM_ORDER_TROR);
 			
 			

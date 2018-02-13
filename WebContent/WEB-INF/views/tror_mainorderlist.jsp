@@ -210,8 +210,8 @@
 					        		<option value="">-velg-</option>
 									<option value="A" <c:if test="${searchFilterTror.ttype == 'A'}"> selected </c:if> ><spring:message code="systema.tror.order.suborder.landimport"/></option>
 									<option value="B" <c:if test="${searchFilterTror.ttype == 'B'}"> selected </c:if> ><spring:message code="systema.tror.order.suborder.landexport"/></option>
-									<option value="C" <c:if test="${searchFilterTror.ttype == 'C'}"> selected </c:if> ><spring:message code="systema.tror.order.suborder.airimport"/></option>
-									<option value="D" <c:if test="${searchFilterTror.ttype == 'D'}"> selected </c:if> ><spring:message code="systema.tror.order.suborder.airexport"/></option>
+									<option value="C" <c:if test="${searchFilterTror.ttype == 'C'}"> selected </c:if> ><spring:message code="systema.tror.order.suborder.flyimport"/></option>
+									<option value="D" <c:if test="${searchFilterTror.ttype == 'D'}"> selected </c:if> ><spring:message code="systema.tror.order.suborder.flyexport"/></option>
 								</select>
 					        </td>
 					        <td><input type="text" class="inputText" name="godsNr" id="godsNr" size="10" maxlength="20" value='${searchFilterTror.godsNr}'></td>
@@ -306,6 +306,12 @@
 		    		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
 		    		    			</a>
 	    		    			</c:if>
+	    		    			<c:if test="${ record.heur == 'C' }">
+					           		<a style="cursor:pointer;" id="@opd_${record.heopd}@alinkOpenOrdersListId_${counter.count}"
+					           			onClick="setBlockUI(this);" href="tror_mainorderflyimport.do?action=doFetch&heavd=${record.heavd}&heopd=${record.heopd}&status=${Xrecord.status}">
+		    		    				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">
+		    		    			</a>
+	    		    			</c:if>
     		    			</c:if>
 			           </td>
 		               <td title="${record.heopd}" class="text11MediumBlue" id="opd_${record.heopd}@${counter.count}" >
@@ -327,11 +333,11 @@
 	           				</c:if>
 	           				<c:if test="${ record.heur == 'C' }">
 	           					<img style="vertical-align:middle;" src="resources/images/airplaneYellow.png" width="16px" height="16px" border="0" alt="update sub-order">
-	           					&nbsp;<spring:message code="systema.tror.order.suborder.airimport"/>
+	           					&nbsp;<spring:message code="systema.tror.order.suborder.flyimport"/>
 	           				</c:if>
 	           				<c:if test="${ record.heur == 'D' }">
 	           					<img style="vertical-align:middle;" src="resources/images/airplaneBlue.png" width="16px" height="16px" border="0" alt="update sub-order">
-	           					&nbsp;<spring:message code="systema.tror.order.suborder.airexport"/>
+	           					&nbsp;<spring:message code="systema.tror.order.suborder.flyexport"/>
 	           				</c:if>
 			           </td>
 		               <td align="left" class="text11MediumBlue">&nbsp;${record.hegn}</td>
@@ -472,8 +478,8 @@
 								<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="selectedType" id="selectedType">
 									<option value="A"><spring:message code="systema.tror.order.suborder.landimport"/></option>
 									<option value="B"><spring:message code="systema.tror.order.suborder.landexport"/></option>
-									<option value="C"><spring:message code="systema.tror.order.suborder.airimport"/></option>
-									<option value="D"><spring:message code="systema.tror.order.suborder.airexport"/></option>
+									<option value="C"><spring:message code="systema.tror.order.suborder.flyimport"/></option>
+									<option value="D"><spring:message code="systema.tror.order.suborder.flyexport"/></option>
 								</select>
 								&nbsp;&nbsp;<div style="display:inline;" id="imagePreview"></div>
 							</td>
