@@ -39,6 +39,14 @@
 
 <script type="text/javascript">
 "use strict";
+jq(function() {
+	jq("#selectFradato").datepicker({ 
+		  dateFormat: 'yymmdd'  
+	});
+	jq("#selectTildato").datepicker({ 
+		  dateFormat: 'yymmdd'  
+	});
+});
 var jq = jQuery.noConflict();
 var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Vennligst vent...";
 var tolldataSize;
@@ -196,15 +204,13 @@ function popItUp(url) {
 
 function load_data() {
 	var runningUrl = baseUrl;
-	var selectedYear = jq('#selectYear').val();
+	var selectedFradato = jq('#selectFradato').val();
+	var selectedTildato = jq('#selectTildato').val();
 	var selectedAvd = jq('#selectAvd').val();
 	var selectedSign = jq('#selectSign').val();
 	var selectedKundenr = jq('#selectKundenr').val();
 	var selectedKundenr_avs = jq('#selectKundenr_avs').val();
 
-	if (selectedYear != "" )	{
-		runningUrl = runningUrl + "&registreringsdato="+selectedYear;
-	}	
 	if (selectedAvd != null && selectedAvd != "")	{
 		runningUrl = runningUrl + "&avdelings="+selectedAvd; 
 	}
@@ -217,6 +223,19 @@ function load_data() {
 	if (selectedKundenr_avs != "" )	{
 		runningUrl = runningUrl + "&avsender="+selectedKundenr_avs;
 	}	
+	if (selectedFradato != null && selectedFradato != "") {
+		runningUrl = runningUrl + "&fradato="+selectedFradato;		
+	} else {
+		alert('Fra dato er obligatorisk.'); 
+		return "no data found";
+	}
+	if (selectedTildato != null && selectedTildato != "") {
+		runningUrl = runningUrl + "&tildato="+selectedTildato;
+	} else {
+		alert('Til dato er obligatorisk.'); 
+		return "no data found";
+	}
+
 	console.log("runningUrl="+runningUrl); 		
 	
     jq.blockUI({message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
@@ -283,27 +302,7 @@ function load_data() {
 		var  edimDim  = toll.dimension(function(d) {return d.edim;});
 		var  avsenderLandDim  = toll.dimension(function(d) {return d.avsender_land;});
 // 		var  avsnittDim  = toll.dimension(function(d) {return d.avsnitt;});
-// 	    var  openDaysDim = toll.dimension(function (d) {
-// 		        var deklDato = d.deklarasjonsdato;
-// 		        var regDato = d.registreringsdato;
-// 		        if (deklDato == 0) {
-// 		        	return 'Ikke ferdig';
-// 		        }
-// 				var antallDager = deklDato - regDato;
-// 		        if (antallDager <= 1) {   //0-1
-// 		            return '0-1';
-// 		        } else if (antallDager > 1 && antallDager <= 4) { //2-4
-// 		            return '2-4';
-// 		        } else if (antallDager > 4 && antallDager <= 9) { //5-9
-// 		            return '5-9';
-// 		        } else {
-// 		            return 'mer enn 9'; //> 9
-// 		        }
-// 	    });		
 	    var  openDaysDim = toll.dimension(function (d) {
-	        if (d.deklarasjonsdato == 0) {
-	        	return 'Ikke ferdig';
-	        }
 			var antallDager = d.antall_dager;
 	        if (antallDager <= 1) {   //0-1
 	            return '0-1';
@@ -325,7 +324,6 @@ function load_data() {
 		});	
 		//Charts 
 		var  typeChart   = dc.pieChart("#chart-ring-type");
-// 		var  yearChart   = dc.pieChart("#chart-ring-year");
 		var  avdChart   = dc.pieChart('#chart-ring-avd');
 		var  sisgChart   = dc.pieChart('#chart-ring-sisg');
 		var  edimChart   = dc.pieChart('#chart-ring-edim');
@@ -340,7 +338,6 @@ function load_data() {
 		var  antalloff_vareposterDisplay = dc.numberDisplay("#antalloff_vareposter");	
 		var  dcDataTable;
 		//Groups
-// 		var  yearDimGroup = yearDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  typeDimGroup = typeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
@@ -533,27 +530,6 @@ function load_data() {
 			    ].join('\n');	
 		});		
 
-
-
-
-// 		yearChart
-// 		    .width(300)
-// 		    .height(300)
-// 		    .dimension(yearDim)
-// 		    .group(yearDimGroup)
-// 		    .externalRadiusPadding(50)
-// 		    .innerRadius(30)
-// 		    .on("filtered", getFiltersValues)
-// 		    .emptyTitle('tom')
-// 		    .title(function (d) {
-// 			  	var percentage;
-// 			  	percentage = d.value / d3.sum(yearDimGroup.all(), function(d){ return d.value; })
-// 	            return [
-// 	                d.key + ':',
-// 	                percentageFormat(percentage)
-// 	            ].join('\n');	
-// 			});	
-	   
 		avdChart
 		    .width(300)
 		    .height(300)
@@ -787,12 +763,6 @@ function load_data() {
 			typeChart.filterAll();
 			dc.redrawAll();
 		});
-	
-// 		d3.selectAll('a#year').on('click', function () {
-// 			yearChart.filterAll();
-// 			dc.redrawAll();
-// 		});
-	
 		d3.selectAll('a#avd').on('click', function () {
 			avdChart.filterAll();
 			dc.redrawAll();
@@ -960,7 +930,6 @@ function load_data() {
 		function getFiltersValues() {
 		    var filters = [
 		        { name: 'type', value: typeChart.filters()},
-// 		        { name: 'year', value: yearChart.filters()},
 		        { name: 'avd',  value: avdChart.filters()},
 		        { name: 'sisg', value: sisgChart.filters()},
 		        { name: 'edim', value:  edimChart.filters()},
@@ -992,7 +961,6 @@ function load_data() {
 		    }
 		    if (parsed) {
 		        filter(typeChart, 1);
-// 		        filter(yearChart, 2);
 		        filter(avdChart, 3);
 		        filter(sisgChart, 4);
 		        filter(edimChart, 5);
@@ -1072,14 +1040,6 @@ window.addEventListener('error', function (e) {
 		 	    <td>&nbsp;
 				<div class="container-fluid">
 				  <div class="row">
-					<div class="col-md-1 text12">
-						<font class="text12">År:</font><br>
-						<select name="selectYear" id="selectYear" >
-							<c:forEach var="record" items="${model.fromYearList}" >
-								<option value="${record}">${record}</option>
-	  						</c:forEach>  
-	  					</select>
-	  				</div>
 	  				
 					<div class="col-md-1 text12">
 						<font class="text12">Avdeling:</font><br>
@@ -1098,9 +1058,19 @@ window.addEventListener('error', function (e) {
 							</c:forEach>   
 						</select>					
 					</div>
-					
+	
+					<div class="col-md-1 text12">
+						<font class="text12">Fra dato:</font><br>
+						<input type="text" class="inputTextMediumBlueMandatoryField" name="selectFradato" id="selectFradato" size="9" maxlength="8">
+	  				</div>	 	
+	
+					<div class="col-md-1 text12">
+						<font class="text12">Til dato:</font><br>
+						<input type="text" class="inputTextMediumBlueMandatoryField" name="selectTildato" id="selectTildato" size="9" maxlength="8">
+	  				</div>	
+
 					<div class="col-md-2 text12">
-  		    			<font class="text12">&nbsp;&nbsp;Mottaker:</font><br>
+  		    			<font class="text12">Mottaker:</font><br>
 						<input type="text" class="inputText" name="selectKundenr" id="selectKundenr" size="9" maxlength="8" >  	
 						<a tabindex="-1" id="kundenrLink">
 							<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0">
@@ -1108,14 +1078,15 @@ window.addEventListener('error', function (e) {
 					</div> 	
 
 					<div class="col-md-2 text12">
-  		    			<font class="text12">&nbsp;&nbsp;Avsender:</font><br>
+  		    			<font class="text12">Avsender:</font><br>
 						<input type="text" class="inputText" name="selectKundenr_avs" id="selectKundenr_avs" size="9" maxlength="8" >  	
 						<a tabindex="-1" id="kundenr_avsLink">
 							<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0">
 						</a>&nbsp;	
 					</div> 
 
-	  		    	<div class="col-md-5" align="right">
+	  		    	<div class="col-md-3" align="right">
+	  		    		<br>
 	   	              	<button class="inputFormSubmit" onclick="load_data()" autofocus>Hent data</button> 
 					</div>	
 	
@@ -1235,14 +1206,7 @@ window.addEventListener('error', function (e) {
 						    <a class="reset" id="inputtype" style="display: none;"> - <i>tilbakestill filter</i></a>
  							<div class="clear"></div>			
 				        </div>
-<!--  
-						<div class="col-md-3" id="chart-ring-year">
-							<h3 class="text12" align="center">År</h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="year" style="display: none;"> - <i>tilbakestill filter</i></a>
-						    <div class="clear"></div>	
-				        </div>
--->
+
 				    </div>
 				  </div>  
    
