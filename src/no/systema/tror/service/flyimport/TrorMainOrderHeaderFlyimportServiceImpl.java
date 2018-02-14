@@ -3,11 +3,11 @@
  */
 package no.systema.tror.service.flyimport;
 
-import no.systema.tror.mapper.jsonjackson.JsonTrorOrderHeaderMapperLandimport;
-import no.systema.tror.mapper.jsonjackson.order.invoice.JsonTrorOrderLandImportInvoiceMapper;
+import no.systema.tror.mapper.jsonjackson.JsonTrorOrderHeaderMapperFlyimport;
+import no.systema.tror.mapper.jsonjackson.order.invoice.JsonTrorOrderFlyImportInvoiceMapper;
 
-import no.systema.tror.model.jsonjackson.order.invoice.JsonTrorOrderLandImportInvoiceContainer;
-import no.systema.tror.service.landimport.TrorMainOrderHeaderLandimportService;
+import no.systema.tror.model.jsonjackson.order.invoice.JsonTrorOrderFlyImportInvoiceContainer;
+import no.systema.tror.service.flyimport.TrorMainOrderHeaderFlyimportService;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderContainer;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderDummyContainer;
 
@@ -26,7 +26,7 @@ public class TrorMainOrderHeaderFlyimportServiceImpl implements TrorMainOrderHea
 	public JsonTrorOrderHeaderDummyContainer getOrderHeaderDummyContainer(String utfPayload){
 		JsonTrorOrderHeaderDummyContainer container = null;
 		try{
-			JsonTrorOrderHeaderMapperLandimport mapper = new JsonTrorOrderHeaderMapperLandimport();
+			JsonTrorOrderHeaderMapperFlyimport mapper = new JsonTrorOrderHeaderMapperFlyimport();
 			container = mapper.getDummyContainer(utfPayload);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -39,7 +39,7 @@ public class TrorMainOrderHeaderFlyimportServiceImpl implements TrorMainOrderHea
 	public JsonTrorOrderHeaderContainer getOrderHeaderContainer(String utfPayload) {
 		JsonTrorOrderHeaderContainer container = null;
 		try{
-			JsonTrorOrderHeaderMapperLandimport mapper = new JsonTrorOrderHeaderMapperLandimport();
+			JsonTrorOrderHeaderMapperFlyimport mapper = new JsonTrorOrderHeaderMapperFlyimport();
 			container = mapper.getContainer(utfPayload);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -49,10 +49,10 @@ public class TrorMainOrderHeaderFlyimportServiceImpl implements TrorMainOrderHea
 	/**
 	 * 
 	 */
-	public JsonTrorOrderLandImportInvoiceContainer getOrderInvoiceContainer(String utfPayload) {
-		JsonTrorOrderLandImportInvoiceContainer container = null;
+	public JsonTrorOrderFlyImportInvoiceContainer getOrderInvoiceContainer(String utfPayload) {
+		JsonTrorOrderFlyImportInvoiceContainer container = null;
 		try{
-			JsonTrorOrderLandImportInvoiceMapper mapper = new JsonTrorOrderLandImportInvoiceMapper();
+			JsonTrorOrderFlyImportInvoiceMapper mapper = new JsonTrorOrderFlyImportInvoiceMapper();
 			container = mapper.getContainer(utfPayload);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -65,7 +65,7 @@ public class TrorMainOrderHeaderFlyimportServiceImpl implements TrorMainOrderHea
 	public JsonTrorOrderHeaderContainer getOrderHeaderContainerStatusUpdate(String utfPayload) {
 		JsonTrorOrderHeaderContainer container = null;
 		try{
-			JsonTrorOrderHeaderMapperLandimport mapper = new JsonTrorOrderHeaderMapperLandimport();
+			JsonTrorOrderHeaderMapperFlyimport mapper = new JsonTrorOrderHeaderMapperFlyimport();
 			container = mapper.getContainerStatusUpdate(utfPayload);
 		}catch(Exception e){
 			e.printStackTrace();
