@@ -200,6 +200,7 @@ function load_data() {
 	var selectedAvd = jq('#selectAvd').val();
 	var selectedSign = jq('#selectSign').val();
 	var selectedKundenr = jq('#selectKundenr').val();
+	var selectedKundenr_avs = jq('#selectKundenr_avs').val();
 
 	if (selectedYear != "" )	{
 		runningUrl = runningUrl + "&registreringsdato="+selectedYear;
@@ -213,6 +214,9 @@ function load_data() {
 	if (selectedKundenr != "" )	{
 		runningUrl = runningUrl + "&mottaker="+selectedKundenr;
 	}
+	if (selectedKundenr_avs != "" )	{
+		runningUrl = runningUrl + "&avsender="+selectedKundenr_avs;
+	}	
 	console.log("runningUrl="+runningUrl); 		
 	
     jq.blockUI({message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
@@ -255,9 +259,13 @@ function load_data() {
 		  d.deklarasjonsdato = +d.deklarasjonsdato;
 		  d.signatur =   d.signatur;
 		  d.mottaker =   d.mottaker;
+		  d.avsender =   d.avsender;
 		  d.edim =   d.edim;
 // 		  d.avsnitt = d.avsnitt;
 		  d.inputtype = d.inputtype;
+		  d.extern_referanse = d.extern_referanse;
+		  d.antall_dager =  d.antall_dager;
+		  d.avsender_land = d.avsender_land;
 		});
 
 		// set crossfilter. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
@@ -273,25 +281,41 @@ function load_data() {
 		var  sisgDim  = toll.dimension(function(d) {return d.signatur;});
 		var  typeDim  = toll.dimension(function(d) {return d.type;});
 		var  edimDim  = toll.dimension(function(d) {return d.edim;});
+		var  avsenderLandDim  = toll.dimension(function(d) {return d.avsender_land;});
 // 		var  avsnittDim  = toll.dimension(function(d) {return d.avsnitt;});
+// 	    var  openDaysDim = toll.dimension(function (d) {
+// 		        var deklDato = d.deklarasjonsdato;
+// 		        var regDato = d.registreringsdato;
+// 		        if (deklDato == 0) {
+// 		        	return 'Ikke ferdig';
+// 		        }
+// 				var antallDager = deklDato - regDato;
+// 		        if (antallDager <= 1) {   //0-1
+// 		            return '0-1';
+// 		        } else if (antallDager > 1 && antallDager <= 4) { //2-4
+// 		            return '2-4';
+// 		        } else if (antallDager > 4 && antallDager <= 9) { //5-9
+// 		            return '5-9';
+// 		        } else {
+// 		            return 'mer enn 9'; //> 9
+// 		        }
+// 	    });		
 	    var  openDaysDim = toll.dimension(function (d) {
-		        var deklDato = d.deklarasjonsdato;
-		        var regDato = d.registreringsdato;
-		        if (deklDato == 0) {
-		        	return 'Ikke ferdig';
-		        }
-				var antallDager = deklDato - regDato;
-		        if (antallDager <= 1) {   //0-1
-		            return '0-1';
-		        } else if (antallDager > 1 && antallDager <= 4) { //2-4
-		            return '2-4';
-		        } else if (antallDager > 4 && antallDager <= 9) { //5-9
-		            return '5-9';
-		        } else {
-		            return 'mer enn 9'; //> 9
-		        }
-	    });		
-		var  inputTypeDim  = toll.dimension(function(d) {
+	        if (d.deklarasjonsdato == 0) {
+	        	return 'Ikke ferdig';
+	        }
+			var antallDager = d.antall_dager;
+	        if (antallDager <= 1) {   //0-1
+	            return '0-1';
+	        } else if (antallDager > 1 && antallDager <= 4) { //2-4
+	            return '2-4';
+	        } else if (antallDager > 4 && antallDager <= 9) { //5-9
+	            return '5-9';
+	        } else {
+	            return 'mer enn 9'; //> 9
+	        }
+    	});		
+	    var  inputTypeDim  = toll.dimension(function(d) {
 	        var inputType = d.inputtype;
 	        if (inputType != null && inputType != "") {
 	        	return 'EDI';
@@ -308,6 +332,7 @@ function load_data() {
 		var  inputTypeChart   = dc.pieChart('#chart-ring-inputtype');
 // 		var  avsnittChart   = dc.pieChart('#chart-ring-avsnitt'); 
 		var  openDaysChart   = dc.pieChart('#chart-ring-opendays');
+		var  avsenderLandChart   = dc.pieChart('#chart-ring-avsenderland');
 		var  varuposterChart = dc.barChart("#chart-varuposter");
 		var  dataCount = dc.dataCount('#data-count')	 
 		var  antallDisplay = dc.numberDisplay("#antall");	
@@ -323,6 +348,7 @@ function load_data() {
 // 		var  avsnittDimGroup = avsnittDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  inputTypeDimGroup = inputTypeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  openDaysDimGroup = openDaysDim.group().reduceSum(function(d) {return d.reg_vareposter;});
+		var  avsenderLandDimGroup = avsenderLandDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		//Group reduce
 	    var dateDimGroup =  dateDim.group().reduce(   
 	            /* callback for when data is added to the current filter results */
@@ -486,7 +512,30 @@ function load_data() {
 	                percentageFormat(percentage)
 	            ].join('\n');	
 		});			
-		
+
+		avsenderLandChart 
+			.width(300)
+			.height(300)
+			.dimension(avsenderLandDim)
+			.group(avsenderLandDimGroup)
+			.externalRadiusPadding(50)
+			.legend(dc.legend().y(10).itemHeight(8).gap(3))
+			.slicesCap(25)
+			.innerRadius(30)
+			.on("filtered", getFiltersValues)
+			.emptyTitle('tom')
+			.title(function (d) {
+			  	var percentage;
+			  	percentage = d.value / d3.sum(avsenderLandDimGroup.all(), function(d){ return d.value; })
+			    return [
+			        d.key + ':',
+			        percentageFormat(percentage)
+			    ].join('\n');	
+		});		
+
+
+
+
 // 		yearChart
 // 		    .width(300)
 // 		    .height(300)
@@ -768,6 +817,10 @@ function load_data() {
 			openDaysChart.filterAll();
 			dc.redrawAll();
 		});		
+		d3.selectAll('a#avsenderland').on('click', function () {
+			avsenderLandChart.filterAll();
+			dc.redrawAll();
+		});	
 		
 		d3.selectAll('a#varuposter').on('click', function () {
 			varuposterChart.filterAll();
@@ -801,7 +854,7 @@ function load_data() {
 	        var saveData = data.map(function(obj) {
 	            return {avdeling: obj.avdeling, deklarasjonsnr: obj.deklarasjonsnr, reg_vareposter: obj.reg_vareposter, 
 	            		off_vareposter: obj.off_vareposter, registreringsdato: obj.registreringsdato,
-	            		signatur: obj.signatur, mottaker: obj.mottaker, merknad: obj.edim};
+	            		signatur: obj.signatur, mottaker: obj.mottaker,  avsender: obj.avsender, ext_referanse: obj.extern_referanse,merknad: obj.edim};
 	        });
 	       
 			var blob = new Blob([d3.tsv.format(saveData)], {type: "application/ms-excel;charset=utf-8"});  // text/csv
@@ -837,7 +890,9 @@ function load_data() {
 		      function (d) { return d.registreringsdato; },
 		      function (d) { return d.signatur ; },
 		      function (d) { return d.mottaker ; },
+		      function (d) { return d.avsender ; }, 
 		      function (d) { return d.type ; },
+		      function (d) { return d.extern_referanse ; },
 		      function (d) { return d.edim ; }
 		    ])
 		    .on('renderlet', function (table) {
@@ -870,7 +925,9 @@ function load_data() {
 		            { "data": "registreringsdato" },
 		            { "data": "signatur" },
 		            { "data": "mottaker" },
+		            { "data": "avsender" },
 		            { "data": "type" },
+		            { "data": "extern_referanse" },
 		            { "data": "edim" }
 		        ],			
 				destroy : true,
@@ -1050,7 +1107,15 @@ window.addEventListener('error', function (e) {
 						</a>&nbsp;	
 					</div> 	
 
-	  		    	<div class="col-md-7" align="right">
+					<div class="col-md-2 text12">
+  		    			<font class="text12">&nbsp;&nbsp;Avsender:</font><br>
+						<input type="text" class="inputText" name="selectKundenr_avs" id="selectKundenr_avs" size="9" maxlength="8" >  	
+						<a tabindex="-1" id="kundenr_avsLink">
+							<img style="cursor:pointer;vertical-align: middle;" src="resources/images/find.png" width="14px" height="14px" border="0">
+						</a>&nbsp;	
+					</div> 
+
+	  		    	<div class="col-md-5" align="right">
 	   	              	<button class="inputFormSubmit" onclick="load_data()" autofocus>Hent data</button> 
 					</div>	
 	
@@ -1149,6 +1214,13 @@ window.addEventListener('error', function (e) {
 						    <div class="clear"></div>	
 				        </div>
 
+						<div class="col-md-3" id="chart-ring-avsenderland">
+							<h3 class="text12" align="center">Avsender land</h3>
+						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
+						    <a class="reset" id="avsenderland" style="display: none;"> - <i>tilbakestill filter</i></a>
+						    <div class="clear"></div>	
+				        </div>
+
 						<div class="col-md-3" id="chart-ring-type">
 						 	<h3 class="text12" align="center">Import / Eksport</h3>
 						    <span class="reset" style="display: none;">filter: <span class="filter"></span>
@@ -1216,7 +1288,9 @@ window.addEventListener('error', function (e) {
 				            <th>registreringsdato</th>
 				            <th>signatur</th>
 				            <th>mottaker</th>
+				            <th>avsender</th>
 				            <th>type</th>
+				            <th>ext.referanse</th>
 				            <th>merknad</th>
 <!-- 
 				            <th>avsnitt</th>

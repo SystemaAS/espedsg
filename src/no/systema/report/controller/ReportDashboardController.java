@@ -112,7 +112,7 @@ public class ReportDashboardController {
 
 			//setLabels(appUser, model, caller);
 			
-			if ("selectKundenr".equals(caller)) { // Reuse of mainmaintenance_childwindow_customer.jsp
+			if ("selectKundenr".equals(caller) || "selectKundenr_avs".equals(caller)) { // Reuse of mainmaintenance_childwindow_customer.jsp
 				model.put("ctype", caller);
 				successViewCustomer.addObject(TvinnSadConstants.DOMAIN_MODEL, model);
 				return successViewCustomer;
@@ -173,7 +173,10 @@ public class ReportDashboardController {
 
 		if ("selectKundenr".equals(caller)) { 
 			list = getKunder(appUser);
-		} else {
+		} else if ("selectKundenr_avs".equals(caller)) { 
+			list = getKunder(appUser);
+		} 		
+		else {
 			throw new IllegalArgumentException(caller + " is not supported.");
 		}
 

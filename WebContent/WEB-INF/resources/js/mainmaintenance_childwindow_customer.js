@@ -125,8 +125,12 @@
 				  opener.jq('#selectKundenr').val(knr);
 				  opener.jq('#selectKundenr').change();
 				  opener.jq('#selectKundenr').focus();	  
+			  } else if(callerType == 'selectKundenr_avs') { //Analyse-view
+				  opener.jq('#selectKundenr_avs').val(knr);
+				  opener.jq('#selectKundenr_avs').change();
+				  opener.jq('#selectKundenr_avs').focus();	  
 			  //Maintenance TDS Export Kunders vareregister		
-			  }else if(callerType == 'mainttdsexport_kundreg'){
+			  }	else if(callerType == 'mainttdsexport_kundreg'){
 				  //must redirect on parent window
 				  window.opener.location.href = "mainmaintenancecundf_vareexp_se_from_tdsexportmaint.do?kundnr=" + knr + "&knavn=" + knavn + "&firma=" + firma;
 
