@@ -138,13 +138,13 @@ public class JsonEspedsgRoadmapController {
 		obj = new RoadmapObject();
 		obj.setId("2");obj.setSubject("Upgrade to Java 8");
 		obj.setText("Java team");
-		obj.setStatus("R");
+		obj.setStatus("G");
 		list.add(obj);
 		//
 		obj = new RoadmapObject();
 		obj.setId("3");obj.setSubject("Upgrade to Spring 4");
 		obj.setText("Java team");
-		obj.setStatus("R");
+		obj.setStatus("G");
 		list.add(obj);
 		//
 		obj = new RoadmapObject();

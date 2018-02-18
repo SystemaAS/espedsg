@@ -56,7 +56,9 @@ public class SystemaWebUser {
 	//MAIN MAINTENANCE
 	public static final String ACTIVE_MENU_MAIN_MAINTENANCE = "MAIN_MAINTENANCE";
 	
-	
+	//TEST SUITES
+	public static final String ACTIVE_MENU_TEST_SUITES = "TEST_SUITES";
+		
 	//TRANSPORTDISP
 	public static final String ACTIVE_MENU_TRANSPORT_DISP = "TRANSPORT_DISP";
 	//SPØRRING PÅ OPPDRAG
@@ -122,6 +124,10 @@ public class SystemaWebUser {
 	private String cssEspedsgMaintenance = "espedsgmaintenance.css"; 
 	public void setCssEspedsgMaintenance(String value) {  this.cssEspedsgMaintenance = value; }
 	public String getCssEspedsgMaintenance() { return this.cssEspedsgMaintenance;}
+	
+	private String cssEspedsgTestersuite = "espedsgmaintenance.css"; 
+	public void setCssEspedsgTestersuite(String value) {  this.cssEspedsgTestersuite = value; }
+	public String getCssEspedsgTestersuite() { return this.cssEspedsgTestersuite;}
 	
 	private String tomcatPort = null; 
 	public void setTomcatPort(String value) {  this.tomcatPort = value; }
