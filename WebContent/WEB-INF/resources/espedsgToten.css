@@ -1385,7 +1385,9 @@ END override jQuery elements
 .text11LightGreen{  
     font-family: Helvetica Neue, verdana, Arial, sans-serif; font-size: 11px; color: #7cbf4c; 
 }
-
+.text11SkyBlue{  
+    font-family: Helvetica Neue, verdana, Arial, sans-serif; font-size: 11px; color: #4E78A0; 
+}
 .text11White{  
     font-family: Helvetica Neue, verdana, Arial, sans-serif; font-size: 11px; color:#FFFFFF;
 }

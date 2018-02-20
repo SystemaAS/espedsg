@@ -32,6 +32,10 @@ public class TrorUrlDataStore {
 	//http://gw.systema.no:8080/syjservicestror/syjsDOKUFM.do?user=OSCAR&fmavd=1&fmopd=52919&fmfbnr=1&fmmknr=2
 	static public String TROR_BASE_FETCH_DOKUFM_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKUFM.do?";
 	
+	//http://gw.systema.no:8080/syjservicestror/syjsDOKUF.do?user=OSCAR&dfavd=1&dfopd=999&dffbnr=1
+	static public String TROR_BASE_FETCH_DOKEFIM_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKEFIM.do?";
+		
+	
 	//http://gw.systema.no:8080/syjservicestror/syjsDOK29.do?user=OSCAR&d29avd=1&d29opd=52919&d29fnr=1
 	static public String TROR_BASE_FETCH_DOK29_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOK29.do?";
 	

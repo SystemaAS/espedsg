@@ -92,7 +92,16 @@
 							</a>
 						</td>
 					</c:if>
-					<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+					
+					<c:if test="${model.record.hepk5 == 'J' || model.record.hepk5 == 'P'}">
+						<%-- <td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>  --%>
+						<td width="1px" class="tabFantomSpace" align="center" nowrap>
+							<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderfly_airfreightbill_gate.do?imavd=${model.record.heavd}&sign=${model.record.hesg}&imopd=${model.record.heopd}">
+								<img style="vertical-align: bottom" src="resources/images/sort_down.png" width="8" height="8" border="0" alt="air">
+							</a>
+						</td>
+					</c:if>
+					
 					<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
 						<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderfly_ttrace.do?avd=${model.record.heavd}&sign=${model.record.hesg}&opd=${model.record.heopd}">
 							<img style="vertical-align: bottom" src="resources/images/sort_down.png" width="10" height="10" border="0" alt="show more">
@@ -1318,6 +1327,15 @@
 											  <option value="J"<c:if test="${model.record.hepk4 == 'J'}"> selected </c:if> >Ja</option>
 											  <option value="N"<c:if test="${model.record.hepk4 == 'N'}"> selected </c:if> >Nei</option>
 											  <option value="P"<c:if test="${model.record.hepk4 == 'P'}"> selected </c:if> >P</option>
+											</select>
+						    			</td>
+						    			<td class="text12" title="hepk5">&nbsp;<spring:message code="systema.tror.orders.form.update.label.flyfraktbrev"/></td>
+							    		<td class="text12">
+							    			<select class="inputTextMediumBlue" name="hepk5" id="hepk5" >
+							 				  <option value="">-velg-</option>
+											  <option value="J"<c:if test="${model.record.hepk5 == 'J'}"> selected </c:if> >Ja</option>
+											  <option value="N"<c:if test="${model.record.hepk5 == 'N'}"> selected </c:if> >Nei</option>
+											  <option value="P"<c:if test="${model.record.hepk5 == 'P'}"> selected </c:if> >P</option>
 											</select>
 						    			</td>
 						 			
