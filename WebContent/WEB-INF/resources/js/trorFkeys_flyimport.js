@@ -71,7 +71,7 @@
 		  	}else if (charCode == f8){
 	  			 //Archive link 
 	  			 setBlockUIKeys();
-	  			window.location.href = "tror_mainorderfly_budget.do?avd=" + jq('#fkeysavd').val() + + "&sign=" + jq('#fkeyssign').val() + "&opd=" + jq('#fkeysopd').val() ; 
+	  			window.location.href = "tror_mainorderfly_airfreightbill_gate.do?imavd=" + jq('#fkeysavd').val() + "&sign=" + jq('#fkeyssign').val() + "&imopd=" + jq('#fkeysopd').val() ; 
 		  		 
 		  	}else if (charCode == f2){
 	  			 //Orderlist link 

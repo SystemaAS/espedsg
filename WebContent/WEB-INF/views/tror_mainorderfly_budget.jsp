@@ -96,11 +96,16 @@
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.frisokvei.tab"/></font>&nbsp;<font class="text10Orange">F7</font>
 				</a>
 			</td>
-			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
-			<td width="12%" valign="bottom" class="tab" align="center" nowrap>
-				<img style="vertical-align: bottom" src="resources/images/budget.png" width="16" height="16" border="0" alt="show archive">
-				<font class="tabLink">&nbsp;<spring:message code="systema.tror.order.budget.tab"/></font>&nbsp;<font class="text10Orange">F8</font>
-			</td>
+			<c:if test="${recordOrderTrorFly.hepk5 == 'J' || recordOrderTrorFly.hepk5 == 'P'}">
+				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
+				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
+					<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderfly_airfreightbill_gate.do?imavd=${recordOrderTrorFly.heavd}&sign=${recordOrderTrorFly.hesg}&imopd=${recordOrderTrorFly.heopd}">
+						<img style="vertical-align: bottom" src="resources/images/pen.png" width="16" height="16" border="0" alt="Awb">
+						<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.flyfraktbrev.tab"/></font>&nbsp;<font class="text10Orange">F8</font>
+					</a>
+				</td>
+			</c:if>
+			
 			<c:if test="${recordOrderTrorFly.hepk1 == 'J' || recordOrderTrorFly.hepk1 == 'P'}">
 				<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 				<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
@@ -148,8 +153,44 @@
 							</c:otherwise>
 						</c:choose>
 		   				<%-- separator --%>
-		       			<tr height="10"><td></td></tr> 
-				
+		       			<tr height="20"><td></td></tr> 
+		       			
+						<tr> <!-- Second tab row... -->
+			 	   	 		<td align="center" width="99%">
+			 					<table class="formFrameHeaderTransparent" width="99%" cellspacing="0" border="0" cellpadding="0">
+									<tr height="20"> 
+										<td width="12%" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+											<a id="alinkMoreTrackTrace" onClick="setBlockUI(this);" href="tror_mainorderfly_ttrace.do?avd=${recordOrderTrorFly.heavd}&sign=${recordOrderTrorFly.hesg}&opd=${recordOrderTrorFly.heopd}">
+												<font class="tabDisabledLinkMinor">&nbsp;<spring:message code="systema.tror.order.more.tab.tracktrace.subtab"/></font>&nbsp;						
+											</a>
+										</td>
+										<td width="12%" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+											<a id="alinkMoreTrackTraceGeneral" onClick="setBlockUI(this);" href="tror_mainorderfly_ttrace_general.do?ttavd=${recordOrderTrorFly.heavd}&ttopd=${recordOrderTrorFly.heopd}">
+												<font class="tabDisabledLinkMinor">&nbsp;<spring:message code="systema.tror.order.more.tab.tracktracegrl.subtab"/></font>&nbsp;					
+											</a>
+										</td>
+										<td width="12%" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+											<a id="alinkEdiLogging" onClick="setBlockUI(this);" href="tror_mainorderfly_logging.do?avd=${recordOrderTrorFly.heavd}&sign=${recordOrderTrorFly.hesg}&opd=${recordOrderTrorFly.heopd}">
+												<font class="tabDisabledLinkMinor">&nbsp;<spring:message code="systema.tror.order.more.tab.edilog.subtab"/></font>&nbsp;					
+											</a>
+										</td>
+										
+										<td width="12%" valign="bottom" class="tabDisabledSub" align="center" nowrap>
+											<a id="alinkArchive" onClick="setBlockUI(this);" href="tror_mainorderfly_archive.do?avd=${recordOrderTrorFly.heavd}&sign=${recordOrderTrorFly.hesg}&opd=${recordOrderTrorFly.heopd}">
+												<font class="tabDisabledLinkMinor">&nbsp;<spring:message code="systema.tror.order.more.tab.archive.subtab"/></font>&nbsp;					
+											</a>
+										</td>
+										<td width="12%" valign="bottom" class="tabSub" align="center" nowrap>
+											<font class="tabLinkMinor">&nbsp;<spring:message code="systema.tror.order.budget.tab"/></font>&nbsp;					
+										</td>
+										
+									 	<td width="80%" class="tabFantomSpace" align="center" nowrap></td>
+									</tr>
+									
+								</table>
+							</td>
+			 	   	 	</tr> <!-- End second tab row -->
+   	 		
 						<tr>
 							<td class="text11" >
 							<%-- this table wrapper is needed for the datatables width --%>
