@@ -19,9 +19,6 @@
 	
 
 <form action="tror_mainorderfly_freightbill_edit.do" name="formRecord" id="formRecord" method="post">
-<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
-	<tr>
-	<td>
 	
 	<%-- tab container component --%>
 	<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">

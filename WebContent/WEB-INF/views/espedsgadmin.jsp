@@ -79,12 +79,12 @@
 				                       <tr class="tableOddRow" height="20" >
 				                   </c:otherwise>
 				               </c:choose>
-				               <td width="20%" class="tableCellFirst" nowrap ><font class="text12MediumBlue">&nbsp;${customer.name}&nbsp;</font></td>
-		                       <td width="10%" class="tableCell" nowrap ><font class="text12MediumBlue">&nbsp;${customer.version}&nbsp;</font></td>
+				               <td width="20%" class="tableCellFirst" nowrap ><font class="text11MediumBlue">&nbsp;${customer.name}&nbsp;</font></td>
+		                       <td width="10%" class="tableCell" nowrap ><font class="text11MediumBlue">&nbsp;${customer.version}&nbsp;</font></td>
 		                       <td width="20%" class="tableCell" nowrap >
 		                       	<c:choose>
 				               		<c:when test="${'DSV' == customer.name || 'DHL' == customer.name || 'Schenker NO' == customer.name}">
-	                       				<font class="text12Gray">&nbsp;&nbsp;${customer.url}&nbsp;&nbsp;</font>		                       			
+	                       				<font class="text11Gray">&nbsp;&nbsp;${customer.url}&nbsp;&nbsp;</font>		                       			
 		                       		</c:when>
 		                       		<c:otherwise>
 		                       			<a tabindex="-1" class="text14" target="_blank" href="${customer.url}">
@@ -98,19 +98,20 @@
 					               <c:when test="${module!='-1'}">
 						               <td class="tableCell" nowrap >&nbsp;
 							               	<c:if test="${ fn:startsWith(module, 'SKAT')}">
-							               		<img valign="bottom" src="resources/images/countryFlags/Flag_DK.gif" height="12" border="0" alt="country">
+							               		<img valign="bottom" src="resources/images/countryFlags/Flag_DK.gif" height="11" border="0" alt="country">
 							               	</c:if>
 							               	<c:if test="${ fn:startsWith(module, 'TDS')}">
-							               		<img valign="bottom" src="resources/images/countryFlags/Flag_SE.gif" height="12" border="0" alt="country">
+							               		<img valign="bottom" src="resources/images/countryFlags/Flag_SE.gif" height="11" border="0" alt="country">
 							               	</c:if>
 							               	<c:if test="${ fn:startsWith(module, 'SAD') || fn:startsWith(module, 'UFORT') || fn:startsWith(module, 'SPØ') || fn:startsWith(module, 'AVG') }">
-							               		<img valign="bottom" src="resources/images/countryFlags/Flag_NO.gif" height="12" border="0" alt="country">
+							               		<img valign="bottom" src="resources/images/countryFlags/Flag_NO.gif" height="11" border="0" alt="country">
 							               	</c:if>
-							               	<c:if test="${ fn:startsWith(module, 'PRIS') || fn:startsWith(module, 'WORK') || fn:startsWith(module, 'EFAK') || fn:startsWith(module, 'EBOOK') || fn:startsWith(module, 'STATISTIKK')  }">
-							               		<img valign="bottom" src="resources/images/countryFlags/Flag_NO.gif" height="12" border="0" alt="country">
+							               	<c:if test="${ fn:startsWith(module, 'PRIS') || fn:startsWith(module, 'WORK') || fn:startsWith(module, 'EFAK') || fn:startsWith(module, 'EBOOK') 
+							               		|| fn:startsWith(module, 'ANALYSE') || fn:startsWith(module, 'ALTINN')  }">
+							               		<img valign="bottom" src="resources/images/countryFlags/Flag_NO.gif" height="11" border="0" alt="country">
 							               	</c:if>
 																		               	
-							               	<font class="text12">&nbsp;${module}&nbsp;</font>
+							               	<font class="text11">&nbsp;${module}&nbsp;</font>
 						               </td>
     					               </c:when>
 					               <c:otherwise>
