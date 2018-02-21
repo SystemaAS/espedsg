@@ -150,7 +150,7 @@
 				
 				
    				<%-- separator --%>
-       			<tr height="10"><td></td></tr> 
+       			<tr height="10"><td>&nbsp;</td></tr> 
 				
 				<tr>
 					<td class="text11" >
@@ -177,7 +177,7 @@
 							               <tr class="tableRow" height="20" >
 							                
 							               <td align="center" width="2%" class="text11" >
-							     				<a id="recordUpdate_${record.imlop}" onClick="setBlockUI(this);" href="tror_mainorderfly_airfreightbill_edit.do?imavd=${record.imavd}&sign=${Xrecord.imsg}&imopd=${record.imopd}&imlop=${record.imlop}">
+							     				<a id="recordUpdate_${record.imlop}" onClick="setBlockUI(this);" href="tror_mainorderfly_airfreightbill_imp_edit.do?action=doFetch&imavd=${record.imavd}&sign=${Xrecord.imsg}&imopd=${record.imopd}&imlop=${record.imlop}">
 							     					<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;						               				
 					               				</a>
 						               	   </td>

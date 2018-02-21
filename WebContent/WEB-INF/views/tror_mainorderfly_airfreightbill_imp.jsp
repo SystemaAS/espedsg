@@ -6,7 +6,7 @@
 	<%-- specific jQuery functions for this JSP (must reside under the resource map since this has been
 		specified in servlet.xml as static <mvc:resources mapping="/resources/**" location="WEB-INF/resources/" order="1"/> --%>
 	<SCRIPT type="text/javascript" src="resources/js/trorglobal_edit.js?ver=${user.versionEspedsg}"></SCRIPT>	
-	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderfly_airfreightbill.js?ver=${user.versionEspedsg}"></SCRIPT>
+	<SCRIPT type="text/javascript" src="resources/js/tror_mainorderfly_airfreightbill_imp.js?ver=${user.versionEspedsg}"></SCRIPT>
 	<SCRIPT type="text/javascript" src="resources/js/trorFkeys_flyimport.js?ver=${user.versionEspedsg}"></SCRIPT>
 	
 	<%-- for dialog popup --%>
@@ -18,8 +18,10 @@
 	</style>
 	
 
-<form action="tror_mainorderfly_airfreightbill_edit.do" name="formRecord" id="formRecord" method="post">
-
+<form action="tror_mainorderfly_airfreightbill_imp_edit.do" name="formRecord" id="formRecord" method="post">
+<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
+	<tr>
+	<td>	
 	<%-- tab container component --%>
 	<table width="100%"  class="text11" cellspacing="0" border="0" cellpadding="0">
 		<%-- This part right here allows for the dynamic allocation of a JSP depending on whether it is IMPORT or EXPORT --%>
@@ -172,14 +174,36 @@
 		</td>
 		</tr>		
 	</c:if>
-	
+	<tr>
+		<td>
 			<%-- this table wrapper is necessary to apply the css class with the thin border --%>
-			<table style="width:83%" id="wrapperTable" class="tabThinBorderWhite" cellspacing="0">
-			<tr height="10"><td>&nbsp;</td></tr> 
-			<%-- FORM HEADER --%>
-	 		<tr>
+			<table width="100%" id="wrapperTable" class="tabThinBorderWhite" cellspacing="0">
+				<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
+				<input type="hidden" name="action" id="action" value='${model.action}'>
+				<input type="hidden" name="imavd" id="imavd" value='${recordOrderTrorFly.heavd}'>
+				<input type="hidden" name="imopd" id="imopd" value='${recordOrderTrorFly.heopd}'>
+				<input type="hidden" name="sign" id="sign" value='${recordOrderTrorFly.hesg}'>
+					
+				<%--for F-Keys shortcuts. Used only in trorFkeys_...js --%>
+				<input type="hidden" name="fkeysavd" id="fkeysavd" value='${recordOrderTrorFly.heavd}'>
+				<input type="hidden" name="fkeysopd" id="fkeysopd" value='${recordOrderTrorFly.heopd}'>
+				<input type="hidden" name="fkyessign" id="fkyessign" value='${recordOrderTrorFly.hesg}'>
+				<c:choose>
+					<c:when test="${recordOrderTrorFly.heur == 'C'}">
+						<input type="hidden" name="fkyessubsys" id="fkyessubsys" value='mainorderflyimport'>
+					</c:when>
+					<c:otherwise>
+						<c:if test="${recordOrderTrorFly.heur == 'D'}">
+							<input type="hidden" name="fkyessubsys" id="fkyessubsys" value='mainorderflyexport'>
+						</c:if>
+					</c:otherwise>
+				</c:choose>
+				
+			<tr height="10"><td>&nbsp;</td></tr>
+			
+			<tr>
            		<td>
-        			<table class="dashboardFrameHeader" width="50%" align="left" border="0" cellspacing="0" cellpadding="0">
+        			<table class="dashboardFrameHeader" width="40%" align="left" border="0" cellspacing="0" cellpadding="0">
 			 		<tr height="15">
 			 			
 			 			<td align="left" class="text14White">
@@ -191,47 +215,15 @@
  					</table>
            		</td>
             </tr>
-            <%-- FORM DETAIL --%>
-            <tr ondrop="drop(event)" ondragover="allowDrop(event)" >
-            		<td>
-            		<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
-					<input type="hidden" name="action" id="action" value='${model.action}'>
-					<input type="hidden" name="dfavd" id="dfavd" value='${recordOrderTrorFly.heavd}'>
-					<input type="hidden" name="dfopd" id="dfopd" value='${recordOrderTrorFly.heopd}'>
-					<input type="hidden" name="sign" id="sign" value='${recordOrderTrorFly.hesg}'>
-						
-					<%-- dfri = F as offsett. Always. Old rule in order to acquire status "active" ... --%>
-					<input type="hidden" name="dfri" id="dfri" value='F'> 
-					<%--for F-Keys shortcuts. Used only in trorFkeys_...js --%>
-					<input type="hidden" name="fkeysavd" id="fkeysavd" value='${recordOrderTrorFly.heavd}'>
-					<input type="hidden" name="fkeysopd" id="fkeysopd" value='${recordOrderTrorFly.heopd}'>
-					<input type="hidden" name="fkyessign" id="fkyessign" value='${recordOrderTrorFly.hesg}'>
-					<c:choose>
-						<c:when test="${recordOrderTrorFly.heur == 'C'}">
-							<input type="hidden" name="fkyessubsys" id="fkyessubsys" value='mainorderflyimport'>
-						</c:when>
-						<c:otherwise>
-							<c:if test="${recordOrderTrorFly.heur == 'D'}">
-								<input type="hidden" name="fkyessubsys" id="fkyessubsys" value='mainorderflyexport'>
-							</c:if>
-						</c:otherwise>
-					</c:choose>
-					
-					<c:if test="${not empty model.record.df1004}">
-						<input type="hidden" name="dffbnr" id="dffbnr" value='${model.record.dffbnr}'>
-						<input type="hidden" name="df1004" id="df1004" value='${model.record.df1004}'>
-						
-						<%-- <input type="hidden" name="dfsg" id="dfsg" value='${model.record.dfsg}'> sign --%>
-						<%-- <input type="hidden" name="dfst" id="dfst" value='${model.record.dfst}'> status --%>
-						
-					</c:if>
-					
-					<table class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" width="50%" align="left" border="0" cellspacing="0" cellpadding="0">
+
+            <tr >
+           		<td>
+            		<table width="40%" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" align="left" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="5"><td ></td></tr>
 				 		
 						<tr>
 				 			<td valign="top">
-				 			 <table align="center" style="width:95%" class="tableBorderWithRoundCornersLightYellow" cellspacing="1" cellpadding="1" border="0">
+				 			 <table align="center" class="tableBorderWithRoundCornersLightYellow" cellspacing="1" cellpadding="1" border="0">
 						 		<tr height="10"><td ></td></tr>
 						 		<tr>
 					 				<td class="text12">&nbsp;<span title="imlop">Løpenr.</span>
@@ -273,7 +265,7 @@
 								 	</td>
 								</tr> 
 								
-								<tr height="15"><td ></td></tr>
+								<tr height="25"><td ></td></tr>
 				 				<tr>	
 					 				<td class="text12">&nbsp;<span title="todo">Awbnr man/aut.</span></td>
 					 				<td class="text12">&nbsp;<span title="todo">Frankatur</span></td>
@@ -282,13 +274,13 @@
 		 						</tr>
 		 						<tr>	
 				 					<td class="text12" >
-				 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="12" maxlength="11" value="${model.record.todo}">
+				 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="12" maxlength="11" value="${Xmodel.record.todo}">
 				 					</td>
 				 					<td class="text12">
 				 						<input type="text" class="inputTextMediumBlue" name="hefr" id="hefr" size="4" maxlength="3" value="${model.record.hefr}">
 				 					</td>
 				 					<td class="text12">
-				 						<input type="text" class="inputTextMediumBlue" name="domoms" id="domoms" size="2" maxlength="1" value="${model.record.domoms}">
+				 						<input type="text" class="inputTextMediumBlue" name="domoms" id="domoms" size="2" maxlength="1" value="${Xmodel.record.domoms}">
 				 					</td>
 		 						</tr>	
 		 						<tr>	
@@ -296,28 +288,36 @@
 		 						</tr>
 		 						<tr>	
 				 					<td class="text12" >
-				 						<input type="text" class="inputTextMediumBlue" name="hekns" id="hekns" size="9" maxlength="8" value="${model.record.hekns}">
-				 						&nbsp;&nbsp;<input type="text" class="inputTextMediumBlue" name="own" id="hekns" size="25" maxlength="20" value="${model[model.record.hekns]}">
-				 					</td>
-				 					<td class="text12" >
+				 						<input type="text" class="inputTextMediumBlue" name="hekns" id="hekns" size="9" maxlength="8" value="${Xmodel.record.hekns}">
 				 						
 				 					</td>
+				 					<td colspan="3" class="text12" >
+				 						<input type="text" class="inputTextMediumBlue" name="own" id="hekns" size="25" maxlength="20" value="${Xmodel[model.record.hekns]}">
+				 					</td>
 		 						</tr>	
-				 				<tr height="15"><td ></td></tr>	
-
+				 				<tr height="15"><td ></td></tr>
+				 				<tr>
+	 				 				<td colspan="5" align="right">
+						 				<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'>
+										&nbsp;&nbsp;<input class="inputFormSubmitGray" type="button" name="backToFlyfraktbrevGateButton" id="backToFlyfraktbrevGateButton" value='Til flyfraktb.lista'>	
+									</td>
+								</tr>
 							 </table>
 						 	</td>
 					 	</tr>
 					 	<tr height="5"><td ></td></tr>
 					 	
 					 </table>
+					 
 				</td>
 			</tr>
-			<tr height="5"><td ></td></tr>
 			
 			<tr height="10"><td ></td></tr>
-	</table>
-</form>		
+		</table>
+		</td>
+	</tr>
+</table>
+</form>
 <!-- ======================= footer ===========================-->
 <jsp:include page="/WEB-INF/views/footer.jsp" />
 <!-- =====================end footer ==========================-->
