@@ -127,6 +127,7 @@
 	</td>
 	</tr>
 		
+	
    	<%-- ---------------------- --%>
    	<%-- LIST of existent ITEMs --%>
    	<%-- ---------------------- --%>
@@ -151,6 +152,19 @@
 				
    				<%-- separator --%>
        			<tr height="10"><td>&nbsp;</td></tr> 
+				
+				<tr height="10">
+				<td colspan="2">
+					<form action="tror_mainorderfly_airfreightbill_imp_edit.do" name="formRecord" id="formRecord" method="post">
+						<input type="hidden" name="applicationUser" id="applicationUser" value='${user.user}'>
+						<input type="hidden" name="action" id="action" value='doFetch'>
+						<input type="hidden" name="imavd" id="imavd" value='${recordOrderTrorFly.heavd}'>
+						<input type="hidden" name="imopd" id="imopd" value='${recordOrderTrorFly.heopd}'>
+						<input type="hidden" name="sign" id="sign" value='${recordOrderTrorFly.hesg}'>
+						
+						<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'>
+					</form>
+				</td>
 				
 				<tr>
 					<td class="text11" >

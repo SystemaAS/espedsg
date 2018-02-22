@@ -345,13 +345,15 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 				logger.info("FETCH branch");
 				DokefimDao recordDokefimDao = this.fetchRecord(model, appUser, recordToValidate.getImavd(), recordToValidate.getImopd(), recordToValidate.getImlop());
 				
-				if(recordDokefimDao!=null && recordDokefimDao.getImopd()>0){
+				if(recordDokefimDao!=null && recordDokefimDao.getImlop()>0){
 					//get invoice data (currency & amount... 
 					//12.Jan.2018: TODO--> after meeting (CB,JOVO,OT)a lot of issues CRUD must be resolved before we allow the end-user to input these 2 fields on GUI.
 					model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordDokefimDao);
 				}else{
-					//User will prepare the view for a future create-new fraktbrev. 
+					//get the lopenr (increase +1 from the last lopnr in table)
+					recordToValidate.setImlop(this.getNewLopenr(model, appUser, recordToValidate.getImavd(), recordToValidate.getImopd(), recordToValidate.getImlop()));
+					//Prepare the view for a future create-new fraktbrev.
 					model.put("action", MainMaintenanceConstants.ACTION_CREATE);
 					//Here we prepare the form with default values from the "Oppdrag"
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
@@ -390,6 +392,26 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 		}
 		
 		return dao;
+	
+	}
+	/**
+	 * Next counter
+	 * @param model
+	 * @param appUser
+	 * @param imavd
+	 * @param imopd
+	 * @param imlop
+	 * @return
+	 */
+	private int getNewLopenr(Map model, SystemaWebUser appUser, int imavd, int imopd, int imlop) {
+		int retval = 0;
+		List<DokefimDao> list = this.fetchFlyImportFraktbrevList(model, appUser, imavd, imopd, imlop);
+		for (DokefimDao record : list ){
+			logger.info("imlop:" + record.getImlop());
+			retval = record.getImlop();
+		}
+		
+		return retval++;
 	
 	}
 	

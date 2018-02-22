@@ -235,7 +235,7 @@
 					 				<td class="text12">&nbsp;<span title="trsta4">Produktkode</span></td>
 					 			</tr>
 					 			<tr>	
-				 					<td class="text12"><input type="text" class="inputTextMediumBlue" name="imlop" id="imlop" size="4" maxlength="3" value="${model.record.imlop}"></td>
+				 					<td class="text12"><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="imlop" id="imlop" size="4" maxlength="3" value="${model.record.imlop}"></td>
 				 					<td class="text12"><input type="text" class="inputTextMediumBlue" name="trsta4" id="trsta4" size="2" maxlength="1" value="${model.record.trsta4}"></td>
 				 				</tr>
 					 			<tr>	
