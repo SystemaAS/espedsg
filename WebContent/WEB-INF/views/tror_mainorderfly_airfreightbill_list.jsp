@@ -162,7 +162,7 @@
 						<input type="hidden" name="imopd" id="imopd" value='${recordOrderTrorFly.heopd}'>
 						<input type="hidden" name="sign" id="sign" value='${recordOrderTrorFly.hesg}'>
 						
-						<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'>
+						&nbsp;<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='Lage ny'>
 					</form>
 				</td>
 				
@@ -206,7 +206,7 @@
 							               <%-- DELETE cell --%>							           
 							               <td width="2%" class="text11" align="center">
 							               	    <%-- <c:if test="${not empty record.imlop && record.todo != 'P'}"> <%-- status P = not removable --%>
-							                   		<a style="cursor:pointer;" id="avd_${record.imavd}@opd_${record.imopd}@id_${record.imlop}@sign_${Xrecord.todo}" onClick="doDeleteItemLine(this);" tabindex=-1 >
+							                   		<a style="cursor:pointer;" id="avd_${record.imavd}@opd_${record.imopd}@id_${record.imlop}" onClick="doDeleteItemLine(this);" tabindex=-1 >
 									               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
 									               	</a>&nbsp;
 									               	

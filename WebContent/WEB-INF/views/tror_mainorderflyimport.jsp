@@ -87,7 +87,7 @@
 					<c:if test="${model.record.hepk5 == 'J' || model.record.hepk5 == 'P'}">
 						<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 						<td width="12%" valign="bottom" class="tabDisabled" align="center" nowrap>
-							<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderfly_airfreightbill_gate.do?imavd=${model.record.heavd}&sign=${model.record.hesg}&imopd=${model.record.heopd}">
+							<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderfly_airfreightbill_gate.do?avd=${model.record.heavd}&sign=${model.record.hesg}&opd=${model.record.heopd}">
 								<img style="vertical-align: bottom" src="resources/images/pen.png" width="16" height="16" border="0" alt="Awb">
 								<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.order.flyfraktbrev.tab"/></font>&nbsp;<font class="text10Orange">F8</font>
 							</a>

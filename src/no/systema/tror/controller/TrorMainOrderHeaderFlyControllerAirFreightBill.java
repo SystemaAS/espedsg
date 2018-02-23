@@ -91,38 +91,52 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	private StringManager strMgr = new StringManager();
-	private RpgReturnResponseHandler rpgReturnResponseHandler = new RpgReturnResponseHandler();
-	private FlyImportExportManager flyMgr = new FlyImportExportManager();
-	private MessageNoteManager messageNoteMgr = new MessageNoteManager();
-	private FreightBillMessageNoteManager freightBillMessageNoteManager = null;
-	private OrderContactInformationManager orderContactInformationMgr = null;
-	
-	private final String KEY_ID_TRAN_TBL = "idTran";
-	private final String KEY_ID_FIRFB_TBL = "idFirfb";
-	private final String CARRIAGE_RETURN_PLAIN = "\n";
-	private final String MESSAGE_NOTE_PARTY_TYPE_CONSIGNEE = "consignee";
-	private final String MESSAGE_NOTE_PARTY_TYPE_CARRIER = "carrier";
 	//
-	private final String PARTY_CONSIGNOR_CN = "CN";
-	private final String PARTY_CONSIGNEE_CZ = "CZ";
-	//Contact information fields
-	private final String ownSenderPartId = "ownSenderPartId";
-	private final String ownSenderContactName = "ownSenderContactName";
-	private final String ownSenderMobile = "ownSenderMobile";
-	private final String ownSenderEmail = "ownSenderEmail";
-	
-	private final String ownReceiverPartId = "ownReceiverPartId";
-	private final String ownReceiverContactName = "ownReceiverContactName";
-	private final String ownReceiverMobile = "ownReceiverMobile";
-	private final String ownReceiverEmail = "ownReceiverEmail";
-	
-	
+	private final String HEUR_TYPE_FLY_IMPORT = "C";
+	private final String HEUR_TYPE_FLY_EXPORT = "D";
 	
 	@PostConstruct
 	public void initIt() throws Exception {
 		//init managers
-		freightBillMessageNoteManager = new FreightBillMessageNoteManager(this.urlCgiProxyService);
-		orderContactInformationMgr = new OrderContactInformationManager(this.urlCgiProxyService);
+		
+	}
+	/**
+	 * Main gate of redirection to either flyimport or flyexport ...
+	 * 
+	 * The reason is that both share the same dokef-table but only flyimport uses dokefim (as a pre-data view previous to dokef).
+	 * In addition, both (import or export) must go through their own gates in order to go to a list (in case of several flyfraktbrev)
+	 * or go directly to the view (if there is only one flyfraktbrev)
+	 * 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tror_mainorderfly_airfreightbill_gate.do", method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView tror_mainorderland_airfreightbill_gate(HttpSession session, HttpServletRequest request){
+		ModelAndView successView = null; 
+		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
+		Map model = new HashMap();
+		String avd = request.getParameter("avd");
+		String opd = request.getParameter("opd");
+		String sign = request.getParameter("sign");
+		
+		if (appUser == null) {
+			return this.loginView;
+		} else {
+			JsonTrorOrderHeaderRecord headerOrderRecord = (JsonTrorOrderHeaderRecord)session.getAttribute(TrorConstants.SESSION_RECORD_ORDER_TROR_FLY);
+			
+			if(this.HEUR_TYPE_FLY_IMPORT.equals(headerOrderRecord.getHeur())){
+				logger.info("Redirecting to import gate ...");
+				successView = new ModelAndView("redirect:tror_mainorderfly_airfreightbill_imp_gate.do?" + "&imavd=" + avd + "&imopd=" + opd + "&sign=" + sign);
+				
+			}else{
+				logger.info("Redirecting to export gate ...");
+				successView = new ModelAndView("redirect:tror_mainorderfly_airfreightbill_exp_gate.do?" + "&dfavd=" + avd + "&dfopd=" + opd + "&sign=" + sign);
+			}
+			
+			
+		}
+		return successView;
 	}
 	/**
 	 * 
@@ -132,17 +146,17 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderfly_airfreightbill_gate.do", method={RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView tror_mainorderland_airfreightbill_gate(@ModelAttribute ("record") DokefimDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+	@RequestMapping(value="tror_mainorderfly_airfreightbill_imp_gate.do", method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView tror_mainorderland_airfreightbill_imp_gate(@ModelAttribute ("record") DokefimDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = null; 
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map model = new HashMap();
 		String sign = request.getParameter("sign");
 		
-		
 		if (appUser == null) {
 			return this.loginView;
 		} else {
+			logger.info("inside: opd=" + recordToValidate.getImopd());
 			List<DokefimDao> list = this.fetchFlyImportFraktbrevList(model, appUser, recordToValidate.getImavd(), recordToValidate.getImopd(), recordToValidate.getImlop());
 			if(list!=null && list.size()>1){
 				successView = new ModelAndView("tror_mainorderfly_airfreightbill_list");
@@ -150,8 +164,9 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 				
 				successView.addObject(MainMaintenanceConstants.DOMAIN_MODEL, model);
 			}else{
+				
 				//this will send the request with an implicit action of doFetch
-				successView = new ModelAndView("redirect:tror_mainorderfly_airfreightbill_edit.do?" + "&dfavd=" + recordToValidate.getImavd() + "&sign=" + sign + "&dfopd=" + recordToValidate.getImopd());
+				successView = new ModelAndView("redirect:tror_mainorderfly_airfreightbill_imp_edit.do?" + "&dfavd=" + recordToValidate.getImavd() + "&sign=" + sign + "&dfopd=" + recordToValidate.getImopd());
 			}
 		}
 		return successView;
@@ -171,7 +186,7 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 		String action = request.getParameter("action");
 		String updateId = request.getParameter("updateId");
 		String sign = request.getParameter("sign");
-		ModelAndView successView = new ModelAndView("redirect:tror_mainorderfly_airfreightbill_gate.do?" + "&dfavd=" + recordToValidate.getImavd() + "&sign=" + sign + "&dfopd=" + recordToValidate.getImopd());
+		ModelAndView successView = new ModelAndView("redirect:tror_mainorderfly_airfreightbill_imp_gate.do?" + "&imavd=" + recordToValidate.getImavd() + "&sign=" + sign + "&imopd=" + recordToValidate.getImopd());
 		
 		StringBuffer errMsg = new StringBuffer();
 		JsonTrorOrderHeaderRecord headf = new JsonTrorOrderHeaderRecord();
@@ -209,18 +224,15 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 
 			}  else if (MainMaintenanceConstants.ACTION_DELETE.equals(action)) { //Delete
 				logger.info("Inside - DELETE");
-				//TODO -->COVI savedRecord = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
-				
-				/* TODO -- error handling ... (change successview among others ...)
+				savedRecord = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
 				if (savedRecord == null) {
 					logger.info("[ERROR Validation] Record does not validate)");
 					model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-					
 				} else {
-					DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
-					model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
-				}*/
+					DokefimDao recordDokefimDao = this.fetchRecord(model, appUser, recordToValidate.getImavd(), recordToValidate.getImopd(), recordToValidate.getImlop());
+					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordDokefimDao);
+				}
 				
 
 			} 
@@ -240,6 +252,7 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 	@RequestMapping(value="tror_mainorderfly_airfreightbill_imp_edit.do", method={RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView tror_mainorderland_freightbill_edit(@ModelAttribute ("record") DokefimDao recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		ModelAndView successView = new ModelAndView("tror_mainorderfly_airfreightbill_imp");
+		
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		Map<String,Object> model = new HashMap<String,Object>();
 		String action = request.getParameter("action");
@@ -263,7 +276,7 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 					model.put("action", MainMaintenanceConstants.ACTION_CREATE);
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 				} else {
-					/*
+					
 					savedRecord = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_ADD, errMsg);
 					if (savedRecord == null) {
 						logger.info("[ERROR Validation] Record does not validate)");
@@ -271,25 +284,13 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 						model.put("action", MainMaintenanceConstants.ACTION_CREATE);
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 					} else {
-						String id = (String)keyMap.get(KEY_ID_FIRFB_TBL);
-						if(strMgr.isNotNull(id)){
-							this.updateFirfbCounter(appUser.getUser(), id);
-						}
-						//process message notes
-						this.processMessageNotes(model, appUser, request, recordToValidate);
-						//update dokufe - contact information
-						OrderContactInformationObject orderContactInfoObj = this.setOrderContactInformationObject(recordToValidate, contactInfoMap);
-						this.orderContactInformationMgr.updateContactInformation(appUser, orderContactInfoObj, this.setDokufeDao(orderContactInfoObj));
 						
-						DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
-						this.fetchMessageNotes(model, appUser, record);
-						//fetch contact information
-						this.fetchContactInformation(appUser, record, model, contactInfoMap);
+						DokefimDao recordDokefimDao = this.fetchRecord(model, appUser, recordToValidate.getImavd(), recordToValidate.getImopd(), recordToValidate.getImlop());
 						
 						model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
-						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordDokefimDao);
 					}
-					*/
+					
 				}
 
 			} else if (MainMaintenanceConstants.ACTION_UPDATE.equals(action)) { //Update
@@ -303,7 +304,7 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 					
 				} else {
-					/*
+					
 					savedRecord = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_UPDATE, errMsg);
 					if (savedRecord == null) {
 						logger.info("[ERROR Validation] Record does not validate)");
@@ -312,35 +313,25 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 					} else {
 						
 						//get record now (refreshed)
-						DokefimDao record = fetchRecord(appUser, recordToValidate.getImavd(), recordToValidate.getImopd(), recordToValidate.getImlop(), model);
-						
+						DokefimDao recordDokefimDao = this.fetchRecord(model, appUser, recordToValidate.getImavd(), recordToValidate.getImopd(), recordToValidate.getImlop());
 						model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
-						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordDokefimDao);
 					}
-					*/
+					
 				}
+				
 			} else if (MainMaintenanceConstants.ACTION_DELETE.equals(action)) { //Delete
-				/*
-				this.adjustFields( recordToValidate,  headf);
-				//Validate
-				TrorOrderFraktbrevValidator validator = new TrorOrderFraktbrevValidator();
-				validator.validate(recordToValidate, bindingResult);
-				if (bindingResult.hasErrors()) {
-					logger.info("[ERROR Validation] Record does not validate)");
-					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
-				} else {
+
 					savedRecord = updateRecord(appUser, recordToValidate, MainMaintenanceConstants.MODE_DELETE, errMsg);
 					if (savedRecord == null) {
 						logger.info("[ERROR Validation] Record does not validate)");
 						model.put(MainMaintenanceConstants.ASPECT_ERROR_MESSAGE, errMsg.toString());
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordToValidate);
 					} else {
-						DokufDao record = fetchRecord(appUser, recordToValidate.getDfavd(), recordToValidate.getDfopd(), recordToValidate.getDffbnr(), model);
-						model.put(MainMaintenanceConstants.DOMAIN_RECORD, record);
+						DokefimDao recordDokefimDao = this.fetchRecord(model, appUser, recordToValidate.getImavd(), recordToValidate.getImopd(), recordToValidate.getImlop());
+						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordDokefimDao);
 					}
-				}
-				*/
-				
+
 			} else { // Fetch
 				logger.info("FETCH branch");
 				DokefimDao recordDokefimDao = this.fetchRecord(model, appUser, recordToValidate.getImavd(), recordToValidate.getImopd(), recordToValidate.getImlop());
@@ -386,11 +377,12 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 	
 	private DokefimDao fetchRecord(Map model, SystemaWebUser appUser, int imavd, int imopd, int imlop) {
 		DokefimDao dao = null;
-		List<DokefimDao> list = this.fetchFlyImportFraktbrevList(model, appUser, imavd, imopd, imlop);
-		for (DokefimDao record : list ){
-			dao = record;
+		if(imlop>0){
+			List<DokefimDao> list = this.fetchFlyImportFraktbrevList(model, appUser, imavd, imopd, imlop);
+			for (DokefimDao record : list ){
+				dao = record;
+			}
 		}
-		
 		return dao;
 	
 	}
@@ -407,11 +399,11 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 		int retval = 0;
 		List<DokefimDao> list = this.fetchFlyImportFraktbrevList(model, appUser, imavd, imopd, imlop);
 		for (DokefimDao record : list ){
-			logger.info("imlop:" + record.getImlop());
+			//logger.info("imlop:" + record.getImlop());
 			retval = record.getImlop();
 		}
 		
-		return retval++;
+		return ++retval;
 	
 	}
 	
@@ -437,6 +429,7 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 		if(imlop>0){
 			urlRequestParams.append("&imlop=" + imlop);
 		}
+		
 		
 		logger.info("URL: " + BASE_URL);
 		logger.info("PARAMS: " + urlRequestParams.toString());
@@ -472,7 +465,7 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 			}
 			//
 			logger.info("URL: " + BASE_URL);
-    		logger.info("PARAMS: " + urlRequestParams.toString());
+    		//logger.info("PARAMS: " + urlRequestParams.toString());
     		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
     		Collection<JsonMaintMainCundfRecord> cundfList = new ArrayList<JsonMaintMainCundfRecord>();
     		if (jsonPayload != null) {
@@ -530,12 +523,12 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 	 * @param errMsg
 	 * @return
 	 */
-	/*
-	private DokufDao updateRecord(SystemaWebUser appUser, DokufDao record, String mode, StringBuffer errMsg) {
-		DokufDao savedRecord = null;
-		JsonReader<JsonDtoContainer<DokufDao>> jsonReader = new JsonReader<JsonDtoContainer<DokufDao>>();
-		jsonReader.set(new JsonDtoContainer<DokufDao>());
-		final String BASE_URL = TrorUrlDataStore.TROR_BASE_DOKUF_DML_UPDATE_URL;
+	
+	private DokefimDao updateRecord(SystemaWebUser appUser, DokefimDao record, String mode, StringBuffer errMsg) {
+		DokefimDao savedRecord = null;
+		JsonReader<JsonDtoContainer<DokefimDao>> jsonReader = new JsonReader<JsonDtoContainer<DokefimDao>>();
+		jsonReader.set(new JsonDtoContainer<DokefimDao>());
+		final String BASE_URL = TrorUrlDataStore.TROR_BASE_DOKEFIM_DML_UPDATE_URL;
 		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=" + mode + "&lang=" +appUser.getUsrLang();
 		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString(record);
 		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
@@ -543,19 +536,19 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		logger.info("URL PARAMS: " + urlRequestParams);
-		List<DokufDao> list = new ArrayList<DokufDao>();
+		List<DokefimDao> list = new ArrayList<DokefimDao>();
 		String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
 		logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		
 		if (jsonPayload != null) {
-			JsonDtoContainer<DokufDao> container = (JsonDtoContainer<DokufDao>) jsonReader.get(jsonPayload);
+			JsonDtoContainer<DokefimDao> container = (JsonDtoContainer<DokefimDao>) jsonReader.get(jsonPayload);
 			if (container != null) {
 				if (container.getErrMsg() != null && !"".equals(container.getErrMsg())) {
 					errMsg.append(container.getErrMsg());
 					return null;
 				}
-				list = (List<DokufDao>) container.getDtoList();
-				for (DokufDao dao : list) {
+				list = (List<DokefimDao>) container.getDtoList();
+				for (DokefimDao dao : list) {
 					savedRecord = dao;
 				}
 			}
@@ -564,7 +557,7 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 		logger.info("savedRecord="+ReflectionToStringBuilder.toString(savedRecord));
 		return savedRecord;
 	}	
-	*/
+	
 	
 	/**
 	 * 

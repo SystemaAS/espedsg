@@ -73,35 +73,46 @@
   
   jq(function() {
 	  //custom validity
-	  jq('#dfsg').focus(function() {
-	    	if(jq('#dfsg').val()!=''){
-	    		refreshCustomValidity(jq('#dfsg')[0]);
-	  		}
-	  });
-	  jq('#dfbela').focus(function() {
-	    	if(jq('#dfbela').val()!=''){
-	    		refreshCustomValidity(jq('#dfbela')[0]);
+	  jq('#trsta4').focus(function() {
+	    	if(jq('#trsta4').val()!=''){
+	    		refreshCustomValidity(jq('#trsta4')[0]);
 	  		}
 	  });
 	  
+	  jq('#hekns').focus(function() {
+	    	if(jq('#hekns').val()!=''){
+	    		refreshCustomValidity(jq('#hekns')[0]);
+	  		}
+	  });
+	  
+	  jq('#hesdf').focus(function() {
+	    	if(jq('#hesdf').val()!=''){
+	    		refreshCustomValidity(jq('#hesdf')[0]);
+	  		}
+	  });
+	  jq('#hesdt').focus(function() {
+	    	if(jq('#hesdt').val()!=''){
+	    		refreshCustomValidity(jq('#hesdt')[0]);
+	  		}
+	  });
+	  jq('#hefr').focus(function() {
+	    	if(jq('#hefr').val()!=''){
+	    		refreshCustomValidity(jq('#hefr')[0]);
+	  		}
+	  });
+	  jq('#domoms').focus(function() {
+	    	if(jq('#domoms').val()!=''){
+	    		refreshCustomValidity(jq('#domoms')[0]);
+	  		}
+	  });
+	 
 	  //backButton
 	  jq('#backToFlyfraktbrevGateButton').click(function() {
 		  jq.blockUI({ message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
-		  window.location = "tror_mainorderfly_airfreightbill_gate.do?imavd=" + jq('#imavd').val() + "&sign=" + jq('#sign').val() + "&imopd=" + jq('#imopd').val() ;
+		  window.location = "tror_mainorderfly_airfreightbill_imp_gate.do?imavd=" + jq('#imavd').val() + "&sign=" + jq('#sign').val() + "&imopd=" + jq('#imopd').val() ;
 	  });
 	  
-	  //Buyer
-	  /*
-	  jq('#trorBuyerIdLink').click(function() {
-		  jq('#trorBuyerIdLink').attr('target','_blank');
-		  window.open('mainmaintenance_childwindow_customer.do?action=doFind&ctype=tror_by_fb&knr=' + jq('#dfknsm').val(),"customerWin","top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no");
-	  });
-	  jq('#trorBuyerIdLink').keypress(function(e){ //extra feature for the end user
-		  if(e.which == 13) {
-			  jq('#trorBuyerIdLink').click();
-		  }
-	  });
-	  */
+	  
   });
 	  
 	  

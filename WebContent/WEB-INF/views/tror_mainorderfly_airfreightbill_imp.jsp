@@ -236,7 +236,7 @@
 					 			</tr>
 					 			<tr>	
 				 					<td class="text12"><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="imlop" id="imlop" size="4" maxlength="3" value="${model.record.imlop}"></td>
-				 					<td class="text12"><input type="text" class="inputTextMediumBlue" name="trsta4" id="trsta4" size="2" maxlength="1" value="${model.record.trsta4}"></td>
+				 					<td class="text12"><input type="text" class="inputTextMediumBlueMandatoryField" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" name="trsta4" id="trsta4" size="2" maxlength="1" value="${model.record.trsta4}"></td>
 				 				</tr>
 					 			<tr>	
 					 				<td class="text12">&nbsp;<span title="todo">Flyselskap</span>
@@ -247,40 +247,47 @@
 					 			</tr>
 								<tr>	
 				 					<td class="text12" >
-				 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="4" maxlength="3" value="${Xmodel.record.todo}">
+				 						<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="todo" id="todo" size="4" maxlength="3" value="${Xmodel.record.todo}">
 				 					</td>
 				 					
 				 				</tr>
 				 				<tr>	
-					 				<td class="text12">&nbsp;<span title="todo">&nbsp;Fra flyplass</span></td>
-					 				<td class="text12">&nbsp;<span title="todo">&nbsp;Til flyplass</span></td>
+					 				<td class="text12">&nbsp;<span title="hesdf">&nbsp;Fra flyplass</span></td>
+					 				<td class="text12">&nbsp;<span title="hesdt">&nbsp;Til flyplass</span></td>
 					 				
 					 			</tr>
 					 			<tr>	
 				 					<td class="text11" >
-				 						<input type="text" class="inputTextMediumBlue" name="hesdf" id="hesdf" size="6" maxlength="5" value="${model.record.hesdf}">
+				 						<input type="text" class="inputTextMediumBlueMandatoryField" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" name="hesdf" id="hesdf" size="6" maxlength="5" value="${model.record.hesdf}">
+								 		&nbsp;<input type="text" readonly class="inputTextReadOnly" name="helka" id="helka" size="3" maxlength="2" value="${model.record.helka}">
 								 	</td>
+								 	
 								 	<td class="text11" >
-				 						<input type="text" class="inputTextMediumBlue" name="hesdt" id="hesdt" size="6" maxlength="5" value="${model.record.hesdt}">
+				 						<input type="text" class="inputTextMediumBlueMandatoryField" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')"  name="hesdt" id="hesdt" size="6" maxlength="5" value="${model.record.hesdt}">
+				 						&nbsp;<input type="text" readonly class="inputTextReadOnly" name="helkk" id="helkk" size="3" maxlength="2" value="${model.record.helkk}">
 								 	</td>
 								</tr> 
 								
 								<tr height="25"><td ></td></tr>
 				 				<tr>	
-					 				<td class="text12">&nbsp;<span title="todo">Awbnr man/aut.</span></td>
-					 				<td class="text12">&nbsp;<span title="todo">Frankatur</span></td>
-					 				<td class="text12">&nbsp;<span title="todo">Moms</span></td>
+					 				<td class="text12">&nbsp;<span title="hegn">Awbnr man/aut.</span></td>
+					 				<td class="text12">&nbsp;<span title="hefr">Frankatur</span></td>
+					 				<td class="text12">&nbsp;<span title="domoms">Moms</span></td>
 					 				
 		 						</tr>
 		 						<tr>	
 				 					<td class="text12" >
-				 						<input type="text" class="inputTextMediumBlue" name="todo" id="todo" size="12" maxlength="11" value="${Xmodel.record.todo}">
+				 						<input type="text" class="inputTextMediumBlue" name="hegn" id="hegn" size="12" maxlength="11" value="${model.record.hegn}">
 				 					</td>
 				 					<td class="text12">
-				 						<input type="text" class="inputTextMediumBlue" name="hefr" id="hefr" size="4" maxlength="3" value="${model.record.hefr}">
+				 						<input type="text" class="inputTextMediumBlueMandatoryField" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" name="hefr" id="hefr" size="4" maxlength="3" value="${model.record.hefr}">
 				 					</td>
 				 					<td class="text12">
-				 						<input type="text" class="inputTextMediumBlue" name="domoms" id="domoms" size="2" maxlength="1" value="${Xmodel.record.domoms}">
+				 						<select  class="inputTextMediumBlueMandatoryField" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" name="domoms" id="domoms" >
+					 						<option value="J"<c:if test="${model.record.domoms == 'J'}"> selected </c:if> >Ja</option>
+						 				  	<option value="N"<c:if test="${model.record.domoms == 'N'}"> selected </c:if> >Nei</option>
+						 				  	
+										</select>
 				 					</td>
 		 						</tr>	
 		 						<tr>	
@@ -288,18 +295,19 @@
 		 						</tr>
 		 						<tr>	
 				 					<td class="text12" >
-				 						<input type="text" class="inputTextMediumBlue" name="hekns" id="hekns" size="9" maxlength="8" value="${Xmodel.record.hekns}">
+				 						<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlueMandatoryField" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" name="hekns" id="hekns" size="9" maxlength="8" value="${model.record.hekns}">
 				 						
 				 					</td>
 				 					<td colspan="3" class="text12" >
-				 						<input type="text" class="inputTextMediumBlue" name="own" id="hekns" size="25" maxlength="20" value="${Xmodel[model.record.hekns]}">
+				 						<input type="text" class="inputTextMediumBlue" name="ownHekns" id="ownHekns" size="25" maxlength="20" value="${model[model.record.hekns]}">
 				 					</td>
 		 						</tr>	
 				 				<tr height="15"><td ></td></tr>
 				 				<tr>
 	 				 				<td colspan="5" align="right">
 						 				<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'>
-										&nbsp;&nbsp;<input class="inputFormSubmitGray" type="button" name="backToFlyfraktbrevGateButton" id="backToFlyfraktbrevGateButton" value='Til flyfraktb.lista'>	
+										&nbsp;&nbsp;<input class="inputFormSubmitGray" type="button" name="backToFlyfraktbrevGateButton" id="backToFlyfraktbrevGateButton" value='Til flyfraktb.lista'>
+
 									</td>
 								</tr>
 							 </table>

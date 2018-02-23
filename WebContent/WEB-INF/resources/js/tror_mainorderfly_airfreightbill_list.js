@@ -1,4 +1,4 @@
-  //this variable is a global jQuery var instead of using "$" all the time. Very handy
+//this variable is a global jQuery var instead of using "$" all the time. Very handy
   var jq = jQuery.noConflict();
   var counterIndex = 0;
   var BLOCKUI_OVERLAY_MESSAGE_DEFAULT = "Please wait...";
@@ -110,7 +110,7 @@
 		var avd = record[0].replace("avd_","");
 		var opd = record[1].replace("opd_","");
 		var id = record[2].replace("id_","");
-		var sign = record[3].replace("sign_","");
+		//var sign = record[3].replace("sign_","");
 	
 		//Start dialog
 		jq('<div></div>').dialog({
@@ -121,7 +121,7 @@
 	      		jq( this ).dialog( "close" );
 		            //do delete
 		            jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
-		            window.location = "tror_mainorderfly_airfreightbill_list_edit.do?action=doDelete" + "&imavd=" + avd + "&imopd=" + opd + "&imlop=" + id + "&sign=" + sign ;
+		            window.location = "tror_mainorderfly_airfreightbill_list_edit.do?action=doDelete" + "&imavd=" + avd + "&imopd=" + opd + "&imlop=" + id;
 		        },
 		        Avbryt: function() {
 		            jq( this ).dialog( "close" );

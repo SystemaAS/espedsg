@@ -77,7 +77,12 @@ public class TrorUrlDataStore {
 	static public String TROR_BASE_DOK29_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOK29_U.do?";
 	//http://gw.systema.no:8080/syjservicestror/syjsDOK36_U.do?user=OSCAR&d36avd=1&d36opd=100&d36fnr=1....and all the rest...&mode=A/D
 	static public String TROR_BASE_DOK36_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOK36_U.do?";
-			
+	
+	//http://gw.systema.no:8080/syjservicestror/syjsDOKEFIM_U.do?user=OSCAR&imavd=2&imopd=100&imlop=1....and all the rest in DokufDao...&mode=U/A/D
+	static public String TROR_BASE_DOKEFIM_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKEFIM_U.do?";
+	//http://gw.systema.no:8080/syjservicestror/syjsDOKEF_U.do?user=OSCAR&dfavd=1&dfopd=100&dflop=1&....and all the rest...&mode=U/A/D
+    static public String TROR_BASE_DOKEF_DML_UPDATE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsDOKEF_U.do?";
+		
 
 	/**
 	//[2.1] Message Note management (Consignee, Carrier, Internal)
