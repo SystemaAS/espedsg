@@ -35,6 +35,9 @@
 
 .col-md-4 { margin-right: -30px; margin-left: 15px;  }
 
+.ui-dialog{font-size:10pt;}
+.ui-datepicker { font-size:9pt;}
+
 </style>
 
 <script type="text/javascript">
@@ -834,19 +837,8 @@ function load_data() {
 	
 		var displayed = false;
 		var dataTable;
-		jq('#showTable' ).click(function() {
-		   if (displayed) {
-			  jq( '#detailsTable' ).toggle();
-			  displayed = false;
-			  dataTable = null;
-			 console.log("dataTable nulled.")
-		   } else {
-		   	  jq( '#detailsTable' ).toggle( "slow", function() {
-			   		renderDataTable();
-		   	  });
-		   }
-		});
-	
+		closeDataTable(); //sanity check, close on Hent Data
+		
 	    dcDataTable = dc.dataTable('#data-table');
 		dcDataTable
 		    .dimension(tollAllDim) 
@@ -881,6 +873,12 @@ function load_data() {
 			displayed = true;
 		}
 
+		function closeDataTable() {
+		  	jq( '#detailsTable' ).toggle(false);
+		  	displayed = false;
+		  	dataTable = null;
+		 	console.log("dataTable closed.")			
+		}
     	
 		function setupDataTable() {
 			var dataTable =jq('#data-table').DataTable({
@@ -905,14 +903,16 @@ function load_data() {
 					{
 						"targets" : 0,
 					    "render": function ( data, type, row, meta ) {
-					    	if (row.type == 'Import') {
+					    	if (row.type == 'I') {
 						    	var url= baseImportUrl+'&avd='+row.avdeling+'&opd='+row.deklarasjonsnr+'&sysg=${user.signatur}';
 						    	var href = '<a href="#"'+ ' onclick="javascript:popItUp(\''+url+'\');"'+'>'+data+'</a>';
 						    	return href;
-					    	} else {
+					    	} else if (row.type == 'E') {
 						    	var url= baseExportUrl+'&avd='+row.avdeling+'&opd='+row.deklarasjonsnr+'&sysg=${user.signatur}';
 						    	var href = '<a href="#"'+ ' onclick="javascript:popItUp(\''+url+'\');"'+'>'+data+'</a>';
 						    	return href;
+					    	} else {
+					    		alert('Error: Import/Export-type må vare I eller E.');
 					    	}
 					    }
 					}
@@ -972,6 +972,17 @@ function load_data() {
 		dc.renderAll(); 
 		
 		//initFilters();
+		
+		jq('#showTable' ).click(function() {
+			   if (displayed) {
+				 closeDataTable();
+			   } else {
+			   	  jq( '#detailsTable' ).toggle( "slow", function() {
+				   		renderDataTable();
+			   	  });
+			   }
+		});
+		
 		
 		jq(document).ready(function() {
 			jq('#detailsTable').toggle(false); //default hide
@@ -1069,7 +1080,7 @@ window.addEventListener('error', function (e) {
 						<input type="text" class="inputTextMediumBlueMandatoryField" name="selectTildato" id="selectTildato" size="9" maxlength="8">
 	  				</div>	
 
-					<div class="col-md-2 text12">
+					<div class="col-md-1 text12 text-nowrap">
   		    			<font class="text12">Mottaker:</font><br>
 						<input type="text" class="inputText" name="selectKundenr" id="selectKundenr" size="9" maxlength="8" >  	
 						<a tabindex="-1" id="kundenrLink">
@@ -1085,7 +1096,7 @@ window.addEventListener('error', function (e) {
 						</a>&nbsp;	
 					</div> 
 
-	  		    	<div class="col-md-3" align="right">
+	  		    	<div class="col-md-4" align="right">
 	  		    		<br>
 	   	              	<button class="inputFormSubmit" onclick="load_data()" autofocus>Hent data</button> 
 					</div>	
