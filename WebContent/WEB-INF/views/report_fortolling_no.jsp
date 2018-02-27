@@ -33,7 +33,8 @@
   margin-left: 15px;
 }
 
-.col-md-4 { margin-right: -30px; margin-left: 15px;  }
+
+//.col-md-4 { margin-right: -30px; margin-left: 15px;  }
 
 .ui-dialog{font-size:10pt;}
 .ui-datepicker { font-size:9pt;}
@@ -191,15 +192,6 @@ function getSignaturDesc(id) {
 
 }
 
-// function getAvsnittDesc(id) {
-// 	var desc =  _.findWhere(avsnitter,{sadkaa02:id});		
-// 	if (desc != null && desc != "") {
-// 		return desc.sadkaa03;
-// 	} else {
-// 		return "["+id+" ikke funnet.]";		
-// 	}
-// }
-
 function popItUp(url) {
 	 var myWindow = window.open(url, "", "top=200px,left=1000px,height=700px,width=1100px,scrollbars=no,status=no,location=no");
 	 
@@ -283,11 +275,31 @@ function load_data() {
 		  d.mottaker =   d.mottaker;
 		  d.avsender =   d.avsender;
 		  d.edim =   d.edim;
-// 		  d.avsnitt = d.avsnitt;
 		  d.inputtype = d.inputtype;
 		  d.extern_referanse = d.extern_referanse;
 		  d.antall_dager =  d.antall_dager;
 		  d.avsender_land = d.avsender_land;
+		  d.wai = +d.wai;
+		  d.waii = +d.waii;
+		  d.waiii = +d.waiii;
+		  d.waiv = d.waiv;
+		  d.wav = +d.wav;
+		  d.wavi = +d.wavi;
+		  d.wavii = +d.wavii;
+		  d.waviii = +d.waviii;
+		  d.waix = +d.waix;
+		  d.wax = +d.wax;
+		  d.waxi = +d.waxi;
+		  d.waxii = +d.waxii;
+		  d.waxiii = +d.waxiii;
+		  d.waxiv = +d.waxiv;
+		  d.waxv = +d.waxv;
+		  d.waxvi = +d.waxvi;
+		  d.waxvii = +d.waxvii;
+		  d.waxviii = +d.waxviii;
+		  d.waxvix = +d.waxvix;
+		  d.waxx = +d.waxx;
+		  d.waxxi = +d.waxxi;
 		});
 
 		// set crossfilter. Crossfilter runs in the browser and the practical limit is somewhere around half a million to a million rows of data.
@@ -297,14 +309,12 @@ function load_data() {
 		//Dimensions
 		var  tollAllDim = toll.dimension(function(d) {return d;});	
 		var  dateDim  = toll.dimension(function(d) {return d.date;});
-// 		var  yearDim  = toll.dimension(function(d) {return d.year;});
 	    var  monthDim = toll.dimension(function (d) {return d.month;});	
 		var  avdDim  = toll.dimension(function(d) {return d.avdeling;});
 		var  sisgDim  = toll.dimension(function(d) {return d.signatur;});
 		var  typeDim  = toll.dimension(function(d) {return d.type;});
 		var  edimDim  = toll.dimension(function(d) {return d.edim;});
 		var  avsenderLandDim  = toll.dimension(function(d) {return d.avsender_land;});
-// 		var  avsnittDim  = toll.dimension(function(d) {return d.avsnitt;});
 	    var  openDaysDim = toll.dimension(function (d) {
 			var antallDager = d.antall_dager;
 	        if (antallDager <= 1) {   //0-1
@@ -331,21 +341,40 @@ function load_data() {
 		var  sisgChart   = dc.pieChart('#chart-ring-sisg');
 		var  edimChart   = dc.pieChart('#chart-ring-edim');
 		var  inputTypeChart   = dc.pieChart('#chart-ring-inputtype');
-// 		var  avsnittChart   = dc.pieChart('#chart-ring-avsnitt'); 
 		var  openDaysChart   = dc.pieChart('#chart-ring-opendays');
 		var  avsenderLandChart   = dc.pieChart('#chart-ring-avsenderland');
 		var  varuposterChart = dc.barChart("#chart-varuposter");
-		var  dataCount = dc.dataCount('#data-count')	 
+		var  dataCount = dc.dataCount('#data-count');	 
 		var  antallDisplay = dc.numberDisplay("#antall");	
 		var  antallreg_vareposterDisplay = dc.numberDisplay("#antallreg_vareposter");	
 		var  antalloff_vareposterDisplay = dc.numberDisplay("#antalloff_vareposter");	
 		var  dcDataTable;
+ 		var  waiDisplay = dc.numberDisplay("#wai");	
+ 		var  waiiDisplay = dc.numberDisplay("#waii");	
+		var  waiiiDisplay = dc.numberDisplay("#waiii");	
+		var  waivDisplay = dc.numberDisplay("#waiv");	
+		var  wavDisplay = dc.numberDisplay("#wav");	
+		var  waviDisplay = dc.numberDisplay("#wavi");	
+		var  waviiDisplay = dc.numberDisplay("#wavii");	
+		var  waviiiDisplay = dc.numberDisplay("#waviii");	
+		var  waixDisplay = dc.numberDisplay("#waix");	
+		var  waxDisplay = dc.numberDisplay("#wax");	
+		var  waxiDisplay = dc.numberDisplay("#waxi");	
+		var  waxiiDisplay = dc.numberDisplay("#waxii");	
+		var  waxiiiDisplay = dc.numberDisplay("#waxiii");	
+		var  waxivDisplay = dc.numberDisplay("#waxiv");	
+		var  waxvDisplay = dc.numberDisplay("#waxv");	
+		var  waxviDisplay = dc.numberDisplay("#waxvi");	
+		var  waxviiDisplay = dc.numberDisplay("#waxvii");	
+		var  waxviiiDisplay = dc.numberDisplay("#waxviii");	
+		var  waxvixDisplay = dc.numberDisplay("#waxvix");	
+		var  waxxDisplay = dc.numberDisplay("#waxx");	
+		var  waxxiDisplay = dc.numberDisplay("#waxxi");	
 		//Groups
 		var  avdDimGroup = avdDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  sisgDimGroup = sisgDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  typeDimGroup = typeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  edimDimGroup = edimDim.group().reduceSum(function(d) {return d.reg_vareposter;});
-// 		var  avsnittDimGroup = avsnittDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  inputTypeDimGroup = inputTypeDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  openDaysDimGroup = openDaysDim.group().reduceSum(function(d) {return d.reg_vareposter;});
 		var  avsenderLandDimGroup = avsenderLandDim.group().reduceSum(function(d) {return d.reg_vareposter;});
@@ -403,6 +432,27 @@ function load_data() {
 	                ++p.count;
 	                p.sum_reg_vareposter += v.reg_vareposter;   
 	                p.sum_off_vareposter  += v.off_vareposter;
+	                p.wai += v.wai;
+	                p.waii += v.waii;
+	                p.waiii += v.waiii;
+	                p.wav += v.wav;
+	                p.waiv += v.waiv;
+	                p.wavi += v.wavi;
+	                p.wavii += v.wavii;
+	                p.waviii += v.waviii;
+	                p.waix += v.waix;
+	                p.wax += v.wax;
+	                p.waxi += v.waxi;
+	                p.waxii += v.waxii;
+	                p.waxiii += v.waxiii;
+	                p.waxiv += v.waxiv;
+	                p.waxv += v.waxv;
+	                p.waxvi += v.waxvi;
+	                p.waxvii += v.waxvii;
+	                p.waxviii += v.waxviii;
+	                p.waxvix += v.waxvix;
+	                p.waxx += v.waxx;
+	                p.waxxi += v.waxxi;
 	                return p;
 	            },
 	            /* callback for when data is removed from the current filter results */
@@ -410,6 +460,27 @@ function load_data() {
 	                --p.count;
 	                p.sum_reg_vareposter -= v.reg_vareposter; 
 	                p.sum_off_vareposter -= v.off_vareposter;   
+	                p.wai -= v.wai;
+	                p.waii -= v.waii;
+	                p.waiii -= v.waiii;
+	                p.wav -= v.wav;
+	                p.waiv -= v.waiv;
+	                p.wavi -= v.wavi;
+	                p.wavii -= v.wavii;
+	                p.waviii -= v.waviii;
+	                p.waix -= v.waix;
+	                p.wax -= v.wax;
+	                p.waxi -= v.waxi;
+	                p.waxii -= v.waxii;
+	                p.waxiii -= v.waxiii;
+	                p.waxiv -= v.waxiv;
+	                p.waxv -= v.waxv;
+	                p.waxvi -= v.waxvi;
+	                p.waxvii -= v.waxvii;
+	                p.waxviii -= v.waxviii;
+	                p.waxvix -= v.waxvix;
+	                p.waxx -= v.waxx;
+	                p.waxxi -= v.waxxi;
 	                return p;
 	            },
 	            /* initialize p */
@@ -417,11 +488,32 @@ function load_data() {
 	                return {
 	                    count: 0,
 	                    sum_reg_vareposter: 0,
-	                    sum_off_vareposter: 0
+	                    sum_off_vareposter: 0,
+	                    wai : 0,
+	                    waii : 0,
+	                    waiii : 0,
+	                    wav : 0,
+	                    waiv : 0,
+	                    wavi : 0,
+	                    wavii : 0,
+	                    waviii : 0,
+	                    waix : 0,
+	                    wax : 0,
+	                    waxi : 0,
+	                    waxii : 0,
+	                    waxiii : 0,
+	                    waxiv : 0,
+	                    waxv : 0,
+	                    waxvi : 0,
+	                    waxvii : 0,
+	                    waxviii : 0,
+	                    waxvix : 0,
+	                    waxx : 0,
+	                    waxxi : 0
 	                };
 	            }
 	    );  
-	  
+	    
 		typeChart
 		    .width(300)
 		    .height(300)
@@ -457,42 +549,7 @@ function load_data() {
 	                percentageFormat(percentage)
 	            ].join('\n');	
 		});			
-/*		
-		avsnittChart
-		    .width(300)
-		    .height(300)
-		    .dimension(avsnittDim)
-		    .group(avsnittDimGroup)
-		    .slicesCap(25)
-		    .externalRadiusPadding(50)
-		    .legend(dc.legend().y(10).itemHeight(8).gap(3))
-		    .innerRadius(30)
-		    .renderLabel(true)
-		    .on("filtered", getFiltersValues)
-			.on('renderlet', function (chart) {
-					var legends = chart.selectAll(".dc-legend-item");
-			   		legends
-			   			.append('title').text(function (d) {
-						  	var percentage;
-						  	percentage = d.data / d3.sum(avsnittDimGroup.all(), function(d){ return d.value; })
-				            return [
-				                d.name + ':',
-				                getAvsnittDesc(d.name),     
-				                percentageFormat(percentage)
-				            ].join('\n');	
-			   			});
-             })	
-		    .emptyTitle('tom')
-		    .title(function (d) {
-			  	var percentage;
-			  	percentage = d.value / d3.sum(avsnittDimGroup.all(), function(d){ return d.value; })
-	            return [
-	                d.key + ':',
-	                getAvsnittDesc(d.key),     
-	                percentageFormat(percentage)
-	            ].join('\n');		
-		});			
-*/	
+
 		openDaysChart 
 		    .width(300)
 		    .height(300)
@@ -689,7 +746,237 @@ function load_data() {
 					return p.value.sum_off_vareposter;
 			});	
 
+		waiDisplay
+		.group(omsetningsGroup)  
+		.formatNumber(d3.format(".g"))
+		.html({
+		     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+		     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+		     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+		.valueAccessor(function (p) {
+				return p.value.wai;
+		});			
 
+		waiiDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.waii;
+			});	
+
+		waiiiDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.waiii;
+			});	
+
+		waivDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.waiv;
+			});	
+		
+		wavDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.wav;
+			});	
+
+		waviDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.wavi;
+			});			
+
+		waviiDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.wavii;
+			});			
+
+		waviiiDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.waviii;
+			});			
+
+		waixDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.waix;
+			});			
+
+		waxDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.wax;
+			});		
+		
+		waxiDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.waxi;
+			});		
+
+		waxiiDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.waxii;
+			});		
+
+		waxiiiDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.waxiii;
+			});	
+
+		waxivDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.waxiv;
+			});			
+
+		waxvDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.waxv;
+			});				
+
+		waxviDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.waxvi;
+			});			
+
+		waxviiDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.waxvii;
+			});			
+
+		waxviiiDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.waxviii;
+			});			
+
+		waxvixDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.waxvix;
+			});			
+		
+		waxxDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.waxx;
+			});	
+
+		waxxiDisplay
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.waxxi;
+			});	
+		
 		varuposterChart
 			.width(1200)
 			.height(500)
@@ -778,10 +1065,6 @@ function load_data() {
 			edimChart.filterAll();
 			dc.redrawAll();
 		});	
-// 		d3.selectAll('a#avsnitt').on('click', function () {
-// 			avsnittChart.filterAll();
-// 			dc.redrawAll();
-// 		});			
 		d3.selectAll('a#inputtype').on('click', function () {
 			inputTypeChart.filterAll();
 			dc.redrawAll();
@@ -912,7 +1195,7 @@ function load_data() {
 						    	var href = '<a href="#"'+ ' onclick="javascript:popItUp(\''+url+'\');"'+'>'+data+'</a>';
 						    	return href;
 					    	} else {
-					    		alert('Error: Import/Export-type må vare I eller E.');
+					    		alert('System error: Import/Export-type må vare I eller E.');
 					    	}
 					    }
 					}
@@ -1013,7 +1296,7 @@ window.addEventListener('error', function (e) {
 	  if (e instanceof TypeError) {
 			//what todo  
 	  } else {
-		  alert('Uforutsett fel har intreffet. Vennligst gör forfrisk på fane Fortolling(NO).');
+		  alert('Uforutsett fel har intreffet. Vennligst gør forfrisk på fane Fortolling(NO).');
 	  }
 	  
 });
@@ -1180,14 +1463,6 @@ window.addEventListener('error', function (e) {
 						    <a class="reset" id="avd" style="display: none;"> - <i>tilbakestill filter</i></a>
 						    <div class="clear"></div>		
 				     	</div>
-<!--  
-						<div class="col-md-3" id="chart-ring-avsnitt">
-						 	<h3 class="text12" align="center">Avsnitt</h3>
-						    <span class="reset" style="display: none;">filter: <span class="filter"></span></span>
-						    <a class="reset" id="avsnitt" style="display: none;"> - <i>tilbakestill filter</i></a>
- 							<div class="clear"></div>			
-				        </div>
- -->
 	
 						<div class="col-md-3" id="chart-ring-opendays">
 							<h3 class="text12" align="center">Antall dager</h3>
@@ -1220,6 +1495,79 @@ window.addEventListener('error', function (e) {
 
 				    </div>
 				  </div>  
+  
+   				  <div class="row">
+						<div class="col-md-12">
+						   <h3 class="text12">Avsnitt</h3>
+					   </div>
+				  </div>  				  
+			      <div class="row">
+			        <div class="col-md-3">
+			            <div class="row">
+			                <div class="col-md-2" id="wai" align="center">
+			                     <h3 class="text12">I</h3></div>
+			                <div class="col-md-2" id="waii" align="center">
+			                     <h3 class="text12">II</h3></div>
+			                <div class="col-md-2" id="wai" align="center">
+			                     <h3 class="text12">III</h3></div>
+			                <div class="col-md-2" id="waiv" align="center">
+			                     <h3 class="text12">IV</h3></div>
+			                 <div class="col-md-2" id="wav" align="center">
+			                    <h3 class="text12">V</h3></div>                   
+			                 <div class="col-md-2" id="wavi" align="center">
+			                     <h3 class="text12">VI</h3></div>                       
+			            </div>
+			        </div>
+			        <div class="col-md-3">
+			            <div class="row">
+			                <div class="col-md-2" id="wavii" align="center">
+			                    <h3 class="text12">VII</h3></div>
+			                <div class="col-md-2" id="wavii" align="center">
+			                    <h3 class="text12">VII</h3></div>
+			                <div class="col-md-2" id="waix" align="center">
+			                    <h3 class="text12">IX</h3></div>
+			                <div class="col-md-2" id="wax" align="center">
+			                    <h3 class="text12">X</h3></div>
+			                 <div class="col-md-2" id="waxi" align="center">
+			                    <h3 class="text12">XI</h3></div>                   
+			                 <div class="col-md-2" id="waxii" align="center">
+			                    <h3 class="text12">XII</h3></div>                       
+			            </div>
+			        </div>
+			        <div class="col-md-3">
+			            <div class="row">
+			                <div class="col-md-2" id="waxiii" align="center">
+			                    <h3 class="text12">XIII</h3></div>
+			                <div class="col-md-2" id="waxiv" align="center">
+			                    <h3 class="text12">XIV</h3></div>
+			                <div class="col-md-2" id="waxv" align="center">
+			                    <h3 class="text12">XV</h3></div>
+			                <div class="col-md-2" id="waxvi" align="center">
+			                    <h3 class="text12">XVI</h3></div>
+			                 <div class="col-md-2" id="waxvii" align="center">
+			                    <h3 class="text12">XVII</h3></div>                   
+			                 <div class="col-md-2" id="waxviii" align="center">
+			                    <h3 class="text12">XVIII</h3></div>                       
+			            </div>
+			        </div>
+			        <div class="col-md-3">
+			            <div class="row">
+			                <div class="col-md-2" id="waxviv" align="center">
+			                    <h3 class="text12">XVIV</h3></div>
+			                <div class="col-md-2" id="waxx" align="center">
+			                    <h3 class="text12">XX</h3></div>
+			                <div class="col-md-2" id="waxxi" align="center">
+			                    <h3 class="text12">XXI</h3></div>
+			                <div class="col-md-2" >
+			                    <h3 class="text12"></h3></div>
+			                <div class="col-md-2">
+			                    <h3 class="text12"></h3></div>
+			            </div>
+			        </div>
+			      </div>	
+	
+				  
+				  <div class="padded-row"></div>			  
    
  				  <div class="row">
 				    <div class="col-md-12" id="data-count"></div>
@@ -1267,9 +1615,6 @@ window.addEventListener('error', function (e) {
 				            <th>type</th>
 				            <th>ext.referanse</th>
 				            <th>merknad</th>
-<!-- 
-				            <th>avsnitt</th>
- -->
 				          </tr>
 				        </thead>
 
