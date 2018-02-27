@@ -33,8 +33,7 @@
   margin-left: 15px;
 }
 
-
-//.col-md-4 { margin-right: -30px; margin-left: 15px;  }
+.col-md-4 { margin-right: -30px; margin-left: 15px;  }
 
 .ui-dialog{font-size:10pt;}
 .ui-datepicker { font-size:9pt;}
@@ -74,7 +73,7 @@ var colorMap = {
         "off_vp": "#f19411"
     };	
 
-//Preload desc for avdeling, merknader
+//Preload desc for merknader, avdeling, signaturer
 d3.queue()
 	.defer(function(merknaderDescUrl, callback) {
 			d3.json(merknaderDescUrl, function(error, data) {
@@ -136,26 +135,6 @@ d3.queue()
 				
 			})
 	 }, signaturerDescUrl)	
-// 	.defer(function(avsnittDescUrl, callback) {
-// 			d3.json(avsnittDescUrl, function(error, data) {
-// 				if (error) {
-// 					jq.unblockUI();
-// 				}
-
-// 				callback(error, data);
-
-// 				if (data.dtoList == '') {
-// 					jq.unblockUI();
-// 					alert('Ingen data for avsnitt.');  
-// 					return "no data found";
-// 				} else {
-// 					avsnitter = data.dtoList;
-// 				}
-				
-// 				//console.log(" 1 Desc XV="+_.findWhere(avsnitter,{sadkaa02:'XV'}).sadkaa03);		
-				
-// 			})
-// 	 }, avsnittDescUrl)		 
 	.awaitAll(function(error, data) { 
 			if (error) console.log("error",error);
 	});
@@ -521,7 +500,6 @@ function load_data() {
 		    .group(typeDimGroup)
 		    .externalRadiusPadding(50)
 		    .innerRadius(30)
-		    .on("filtered", getFiltersValues)
 		    .emptyTitle('tom')
 		    .title(function (d) {
 			  	var percentage;
@@ -539,7 +517,6 @@ function load_data() {
 		    .group(inputTypeDimGroup)
 		    .externalRadiusPadding(50)
 		    .innerRadius(30)
-		    .on("filtered", getFiltersValues)
 		    .emptyTitle('tom')
 		    .title(function (d) {
 			  	var percentage;
@@ -559,7 +536,6 @@ function load_data() {
 		    .legend(dc.legend().y(10).itemHeight(8).gap(3))
 		    .slicesCap(25)
 		    .innerRadius(30)
-		    .on("filtered", getFiltersValues)
 		    .emptyTitle('tom')
 		    .title(function (d) {
 			  	var percentage;
@@ -579,7 +555,6 @@ function load_data() {
 			.legend(dc.legend().y(10).itemHeight(8).gap(3))
 			.slicesCap(25)
 			.innerRadius(30)
-			.on("filtered", getFiltersValues)
 			.emptyTitle('tom')
 			.title(function (d) {
 			  	var percentage;
@@ -600,7 +575,6 @@ function load_data() {
 		    .renderLabel(true)
 		    .externalRadiusPadding(50)
 		    .legend(dc.legend().y(10).itemHeight(8).gap(3))
-		    .on("filtered", getFiltersValues)
 			.on('renderlet', function (chart) {
 					var legends = chart.selectAll(".dc-legend-item");
 			   		legends
@@ -635,7 +609,6 @@ function load_data() {
 		    .legend(dc.legend().y(10).itemHeight(8).gap(3))
 		    .dimension(sisgDim)
 		    .group(sisgDimGroup)
-		    .on("filtered", getFiltersValues)
 			.on('renderlet', function (chart) {
 					var legends = chart.selectAll(".dc-legend-item");
 			   		legends
@@ -750,9 +723,9 @@ function load_data() {
 		.group(omsetningsGroup)  
 		.formatNumber(d3.format(".g"))
 		.html({
-		     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-		     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-		     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+		     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+		     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+		     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 		.valueAccessor(function (p) {
 				return p.value.wai;
 		});			
@@ -761,9 +734,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.waii;
 			});	
@@ -772,9 +745,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.waiii;
 			});	
@@ -783,9 +756,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.waiv;
 			});	
@@ -794,9 +767,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.wav;
 			});	
@@ -805,9 +778,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.wavi;
 			});			
@@ -816,9 +789,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.wavii;
 			});			
@@ -827,9 +800,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.waviii;
 			});			
@@ -838,9 +811,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.waix;
 			});			
@@ -849,9 +822,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.wax;
 			});		
@@ -860,9 +833,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.waxi;
 			});		
@@ -871,9 +844,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.waxii;
 			});		
@@ -882,9 +855,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.waxiii;
 			});	
@@ -893,9 +866,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.waxiv;
 			});			
@@ -904,9 +877,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.waxv;
 			});				
@@ -915,9 +888,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.waxvi;
 			});			
@@ -926,9 +899,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.waxvii;
 			});			
@@ -937,9 +910,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.waxviii;
 			});			
@@ -948,9 +921,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.waxvix;
 			});			
@@ -959,9 +932,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.waxx;
 			});	
@@ -970,9 +943,9 @@ function load_data() {
 			.group(omsetningsGroup)  
 			.formatNumber(d3.format(".g"))
 			.html({
-			     one:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     some:'<span style=\"color:steelblue; font-size: 12px;\">%number</span>',
-			     none:'<span style=\"color:steelblue; font-size: 12px;\">-</span>'})		
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
 			.valueAccessor(function (p) {
 					return p.value.waxxi;
 			});	
@@ -1143,16 +1116,20 @@ function load_data() {
 		    .on('renderlet', function (table) {
 		      	// each time table is rendered remove nasty extra row dc.js insists on adding
 		     	table.select('tr.dc-table-group').remove();
-		      	
-				if (dataTable != null && dataTable != "")	{
-					dataTable =setupDataTable();
+// 		      	console.log("dataTable",dataTable, "on renderlet.");
+		      	console.log("displayed",displayed);
+// 				if (dataTable != null && dataTable != "")	{
+				if (displayed)	{	
+					console.log("doing setupDataTable on renderlet.");
+					dataTable = setupDataTable();
 				} 	      	
 		      	
 	 		});	    
 		
 		function renderDataTable() {
-		    dcDataTable.render();
-		    dataTable = setupDataTable();
+		    console.log("renderDataTable, displayed", displayed);
+			dcDataTable.render();
+ 		    dataTable = setupDataTable();
 			displayed = true;
 		}
 
@@ -1160,11 +1137,10 @@ function load_data() {
 		  	jq( '#detailsTable' ).toggle(false);
 		  	displayed = false;
 		  	dataTable = null;
-		 	console.log("dataTable closed.")			
 		}
     	
 		function setupDataTable() {
-			var dataTable =jq('#data-table').DataTable({
+			var dataTable2 =jq('#data-table').DataTable({
 				"dom" : '<"top">t<"bottom"f><"clear">',
 				"scrollY" : "200px",
 				"scrollCollapse" : false,
@@ -1206,69 +1182,29 @@ function load_data() {
 		        }
 			}); 	
 			
-			return dataTable;
+			return dataTable2;
 			
 		}
 
-		function getFiltersValues() {
-		    var filters = [
-		        { name: 'type', value: typeChart.filters()},
-		        { name: 'avd',  value: avdChart.filters()},
-		        { name: 'sisg', value: sisgChart.filters()},
-		        { name: 'edim', value:  edimChart.filters()},
-		        { name: 'varuposter', value: varuposterChart.filters()}];
-		    var recursiveEncoded = jq.param( filters );
-		    location.hash = recursiveEncoded;
-		}
-		
-		
-		// Init chart filters
-		function initFilters() {
-			//console.log("initFilter");
-			// Get hash values
-		    var parseHash = /^#type=([A-Za-z0-9,_\-\/\s]*)&avd=([A-Za-z0-9,_\-\/\s]*)&sisg=([A-Za-z0-9,_\-\/\s]*)&edim=([A-Za-z0-9,_\-\/\s]*)$/;
-		    var parsed = parseHash.exec(decodeURIComponent(location.hash));
-			//console.log("parsed="+parsed);
-		    function filter(chart, rank) {  // for instance chart = typeChart and rank in URL hash = 1
-		  
-		    	//chart
-		        if (parsed[rank] == "") {
-		            chart.filter(null);
-		        }
-		        else {
-		            var filterValues = parsed[rank].split(",");
-		            for (var i = 0; i < filterValues.length; i++ ) {
-		                chart.filter(filterValues[i]);
-		            }
-		        }
-		    }
-		    if (parsed) {
-		        filter(typeChart, 1);
-		        filter(avdChart, 3);
-		        filter(sisgChart, 4);
-		        filter(edimChart, 5);
-		    }
-		}
-	
 		tolldataSize = toll.size();
 		  
 		dc.renderAll(); 
 		
-		//initFilters();
-		
 		jq('#showTable' ).click(function() {
-			   if (displayed) {
+			console.log("showTable,click, displayed", displayed);
+			if (displayed) {
 				 closeDataTable();
-			   } else {
+			} else {
 			   	  jq( '#detailsTable' ).toggle( "slow", function() {
 				   		renderDataTable();
 			   	  });
-			   }
+			}
 		});
 		
 		
 		jq(document).ready(function() {
-			jq('#detailsTable').toggle(false); //default hide
+			console.log("jq(document).ready....");
+// 			jq('#detailsTable').toggle(false); //default hide
 			jq('#toggleArea').toggle(true); 
 		});
 		
@@ -1379,7 +1315,7 @@ window.addEventListener('error', function (e) {
 						</a>&nbsp;	
 					</div> 
 
-	  		    	<div class="col-md-4" align="right">
+	  		    	<div class="col-md-5" align="right">
 	  		    		<br>
 	   	              	<button class="inputFormSubmit" onclick="load_data()" autofocus>Hent data</button> 
 					</div>	
@@ -1504,38 +1440,39 @@ window.addEventListener('error', function (e) {
 			      <div class="row">
 			        <div class="col-md-3">
 			            <div class="row">
+			                <div class="col-md-2">&nbsp;</div>
 			                <div class="col-md-2" id="wai" align="center">
 			                     <h3 class="text12">I</h3></div>
 			                <div class="col-md-2" id="waii" align="center">
 			                     <h3 class="text12">II</h3></div>
-			                <div class="col-md-2" id="wai" align="center">
+			                <div class="col-md-2" id="waiii" align="center">
 			                     <h3 class="text12">III</h3></div>
 			                <div class="col-md-2" id="waiv" align="center">
 			                     <h3 class="text12">IV</h3></div>
 			                 <div class="col-md-2" id="wav" align="center">
-			                    <h3 class="text12">V</h3></div>                   
-			                 <div class="col-md-2" id="wavi" align="center">
-			                     <h3 class="text12">VI</h3></div>                       
+			                     <h3 class="text12">V</h3></div>                   
 			            </div>
 			        </div>
 			        <div class="col-md-3">
 			            <div class="row">
+			                <div class="col-md-2" id="wavi" align="center">
+			                     <h3 class="text12">VI</h3></div>  
 			                <div class="col-md-2" id="wavii" align="center">
 			                    <h3 class="text12">VII</h3></div>
-			                <div class="col-md-2" id="wavii" align="center">
-			                    <h3 class="text12">VII</h3></div>
+			                <div class="col-md-2" id="waviii" align="center">
+			                    <h3 class="text12">VIII</h3></div>
 			                <div class="col-md-2" id="waix" align="center">
 			                    <h3 class="text12">IX</h3></div>
 			                <div class="col-md-2" id="wax" align="center">
 			                    <h3 class="text12">X</h3></div>
 			                 <div class="col-md-2" id="waxi" align="center">
 			                    <h3 class="text12">XI</h3></div>                   
-			                 <div class="col-md-2" id="waxii" align="center">
-			                    <h3 class="text12">XII</h3></div>                       
 			            </div>
 			        </div>
 			        <div class="col-md-3">
 			            <div class="row">
+			                <div class="col-md-2" id="waxii" align="center">
+			                    <h3 class="text12">XII</h3></div>  
 			                <div class="col-md-2" id="waxiii" align="center">
 			                    <h3 class="text12">XIII</h3></div>
 			                <div class="col-md-2" id="waxiv" align="center">
@@ -1544,29 +1481,25 @@ window.addEventListener('error', function (e) {
 			                    <h3 class="text12">XV</h3></div>
 			                <div class="col-md-2" id="waxvi" align="center">
 			                    <h3 class="text12">XVI</h3></div>
-			                 <div class="col-md-2" id="waxvii" align="center">
-			                    <h3 class="text12">XVII</h3></div>                   
-			                 <div class="col-md-2" id="waxviii" align="center">
-			                    <h3 class="text12">XVIII</h3></div>                       
+				            <div class="col-md-2" id="waxvii" align="center">
+			                    <h3 class="text12">XVII</h3></div> 			                    
 			            </div>
 			        </div>
 			        <div class="col-md-3">
 			            <div class="row">
-			                <div class="col-md-2" id="waxviv" align="center">
-			                    <h3 class="text12">XVIV</h3></div>
+				            <div class="col-md-2" id="waxviii" align="center">
+			                    <h3 class="text12">XVIII</h3></div> 	
+			                <div class="col-md-2" id="waxvix" align="center">
+			                    <h3 class="text12">XIX</h3></div>
 			                <div class="col-md-2" id="waxx" align="center">
 			                    <h3 class="text12">XX</h3></div>
 			                <div class="col-md-2" id="waxxi" align="center">
 			                    <h3 class="text12">XXI</h3></div>
-			                <div class="col-md-2" >
-			                    <h3 class="text12"></h3></div>
-			                <div class="col-md-2">
-			                    <h3 class="text12"></h3></div>
+			                <div class="col-md-4">&nbsp;</div>
 			            </div>
 			        </div>
 			      </div>	
 	
-				  
 				  <div class="padded-row"></div>			  
    
  				  <div class="row">
