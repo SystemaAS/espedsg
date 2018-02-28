@@ -73,6 +73,9 @@ var colorMap = {
         "off_vp": "#f19411"
     };	
 
+
+// var loaded_data;
+
 //Preload desc for merknader, avdeling, signaturer
 d3.queue()
 	.defer(function(merknaderDescUrl, callback) {
@@ -177,6 +180,9 @@ function popItUp(url) {
 }	
 
 function load_data() {
+
+	jq('#detailsTable').toggle(false); //default hide
+	
 	var runningUrl = baseUrl;
 	var selectedFradato = jq('#selectFradato').val();
 	var selectedTildato = jq('#selectTildato').val();
@@ -720,15 +726,15 @@ function load_data() {
 			});	
 
 		waiDisplay
-		.group(omsetningsGroup)  
-		.formatNumber(d3.format(".g"))
-		.html({
-		     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
-		     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
-		     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
-		.valueAccessor(function (p) {
-				return p.value.wai;
-		});			
+			.group(omsetningsGroup)  
+			.formatNumber(d3.format(".g"))
+			.html({
+			     one:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     some:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">%number</span>',
+			     none:'<span style=\"color:steelblue; font-size: 14px; vertical-align: top;\">-</span>'})		
+			.valueAccessor(function (p) {
+					return p.value.wai;
+			});			
 
 		waiiDisplay
 			.group(omsetningsGroup)  
@@ -1091,10 +1097,7 @@ function load_data() {
 	        saveAs(blob, 'fortolling_no-' + today + '.xls');
 	    });	
 	
-		var displayed = false;
 		var dataTable;
-		closeDataTable(); //sanity check, close on Hent Data
-		
 	    dcDataTable = dc.dataTable('#data-table');
 		dcDataTable
 		    .dimension(tollAllDim) 
@@ -1116,30 +1119,22 @@ function load_data() {
 		    .on('renderlet', function (table) {
 		      	// each time table is rendered remove nasty extra row dc.js insists on adding
 		     	table.select('tr.dc-table-group').remove();
-// 		      	console.log("dataTable",dataTable, "on renderlet.");
-		      	console.log("displayed",displayed);
-// 				if (dataTable != null && dataTable != "")	{
-				if (displayed)	{	
-					console.log("doing setupDataTable on renderlet.");
-					dataTable = setupDataTable();
-				} 	      	
+				if (jq( '#detailsTable' ).is(":visible")) {	
+					console.log("detailsTable is visible, doing setupDataTable on renderlet.");
+ 					dataTable = setupDataTable();
+  				} 	      	
 		      	
 	 		});	    
 		
 		function renderDataTable() {
-		    console.log("renderDataTable, displayed", displayed);
+		    console.log("renderDataTable..");
 			dcDataTable.render();
- 		    dataTable = setupDataTable();
-			displayed = true;
+    		dataTable = setupDataTable();
 		}
 
-		function closeDataTable() {
-		  	jq( '#detailsTable' ).toggle(false);
-		  	displayed = false;
-		  	dataTable = null;
-		}
     	
 		function setupDataTable() {
+			console.log("setupDataTable..");
 			var dataTable2 =jq('#data-table').DataTable({
 				"dom" : '<"top">t<"bottom"f><"clear">',
 				"scrollY" : "200px",
@@ -1190,37 +1185,41 @@ function load_data() {
 		  
 		dc.renderAll(); 
 		
-		jq('#showTable' ).click(function() {
-			console.log("showTable,click, displayed", displayed);
-			if (displayed) {
-				 closeDataTable();
-			} else {
-			   	  jq( '#detailsTable' ).toggle( "slow", function() {
-				   		renderDataTable();
-			   	  });
-			}
-		});
-		
+		jq('#showTable' ).unbind('click').click(function() {  //to avoid multiple definition, hence running load_data() over again.
+		//jq('#showTable' ).click(function() {
+			if (jq( '#detailsTable' ).is(":visible")) {
+				     console.log("detailsTable is visible");
+				  } else {
+					  console.log("detailsTable is NOT visible, calling renderDataTable();");
+					  renderDataTable();
+				}
+			
+			jq( '#detailsTable' ).toggle("slow");
+			
+		});			
 		
 		jq(document).ready(function() {
 			console.log("jq(document).ready....");
-// 			jq('#detailsTable').toggle(false); //default hide
+ 			jq('#detailsTable').toggle(false); //default hide
 			jq('#toggleArea').toggle(true); 
 		});
 		
 		jq.unblockUI();
-	    
+
 	});
+	
 
-}
+
+}  //function load_data()
  
-
 jq(document).ready(function() {
 	jq('select#selectVarekode').selectList();
 	jq('select#selectSign').selectList();
 	jq('select#selectAvd').selectList();
 	jq('#detailsTable').toggle(false); //default hide
 	jq('#toggleArea').toggle(false); //default hide
+	
+	
 });	
 
 
@@ -1500,8 +1499,6 @@ window.addEventListener('error', function (e) {
 			        </div>
 			      </div>	
 	
-				  <div class="padded-row"></div>			  
-   
  				  <div class="row">
 				    <div class="col-md-12" id="data-count"></div>
 				  </div>  
@@ -1529,9 +1526,7 @@ window.addEventListener('error', function (e) {
 						</div>
 					</div>
 				  </div>	
-				   
-				  <div class="padded-row"></div>
-	
+
 				  <div class="row" id="detailsTable">
 				    <div class="col-md-12">
 				       <table class="display" id="data-table" cellspacing="0" width="100%">
