@@ -137,7 +137,7 @@
 			<input type="hidden" name="dkeh_syop" id="dkeh_syop" value='${model.record.dkeh_syop}'>
 			<input type="hidden" name="dkeh_sysg" id="dkeh_sysg" value='${model.record.dkeh_sysg}'>
 			<input type="hidden" name="dkeh_syst" id="dkeh_syst" value='${model.record.dkeh_syst}'>
-			<input type="hidden" name="dkeh_sydt" id="dkeh_sydt" value='${model.record.dkeh_sydt}'>
+			<%-- <input type="hidden" name="dkeh_sydt" id="dkeh_sydt" value='${model.record.dkeh_sydt}'>  --%>
 			<input type="hidden" name="dkeh_07" id="dkeh_07" value='${model.record.dkeh_07}'>
 		<tr height="4">
 			<td colspan="2">&nbsp;
@@ -184,7 +184,8 @@
 			<tr>
 				<td align="left" class="text12MediumBlue" >
 					&nbsp;&nbsp;&nbsp;&nbsp;<span title="dkeh_mrn">MRN-nr:&nbsp;</span><b>${model.record.dkeh_mrn}</b>
-					&nbsp;&nbsp;&nbsp;&nbsp;<span title="dkeh_sydt">Dato:&nbsp;</span><b>${model.record.dkeh_sydt}</b>
+					&nbsp;&nbsp;&nbsp;&nbsp;<span title="dkeh_sydt">Dato:&nbsp;</span><%-- <b>${model.record.dkeh_sydt}</b> --%>
+					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dkeh_sydt" id="dkeh_sydt" size="8" maxlength="8" value="${model.record.dkeh_sydt}">
 					&nbsp;&nbsp;<img onMouseOver="showPop('status_info');" onMouseOut="hidePop('status_info');" width="12px" height="12px" src="resources/images/info3.png" border="0" alt="info">
 					<span title="dkeh_syst">Stat</span><a tabindex=-1 id="updateStatusLink" runat="server" href="#"><font class="text12MediumBlue">u</font></a>s:
 					<b>

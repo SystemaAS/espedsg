@@ -243,6 +243,9 @@
   	  jq("#dkeh_28c").datepicker({ 
 		  dateFormat: 'yymmdd'  
 	  });
+  	  jq("#dkeh_sydt").datepicker({ 
+		  dateFormat: 'yymmdd'  
+	  });
 	  
   	  jq("#dkeh_ymd1").datetimepicker({ 
   		  dateFormat: 'yymmdd',

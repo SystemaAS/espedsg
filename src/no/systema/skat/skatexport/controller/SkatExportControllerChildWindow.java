@@ -10,6 +10,9 @@ import org.apache.log4j.Logger;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import javawebparts.core.org.apache.commons.lang.StringUtils;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -210,7 +213,7 @@ public class SkatExportControllerChildWindow {
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		
 		Map model = new HashMap();
-		String urlRequestParamsKeys = null;
+		StringBuffer urlRequestParamsKeys = new StringBuffer();
 		//Catch required action (doFetch or doUpdate)
 		
 		if(appUser==null){
@@ -220,8 +223,13 @@ public class SkatExportControllerChildWindow {
 			//---------------------------
 			//get BASE URL = RPG-PROGRAM
             //---------------------------
+			String avd = request.getParameter("avd");
+			//logger.info("AVD:" + avd);
 			String BASE_URL_FETCH = SkatExportUrlDataStore.SKAT_EXPORT_BASE_FETCH_TOPIC_LIST_EXTERNAL_REFERENCES_URL;
-			urlRequestParamsKeys = "user=" + appUser.getUser();
+			urlRequestParamsKeys.append("user=" + appUser.getUser());
+			if(StringUtils.isNotEmpty(avd)){
+				urlRequestParamsKeys.append("&avd=" + avd);
+			}
 			
 			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 			logger.info("FETCH av list... ");
@@ -230,7 +238,7 @@ public class SkatExportControllerChildWindow {
 	    	//--------------------------------------
 	    	//EXECUTE the FETCH (RPG program) here
 	    	//--------------------------------------
-			String jsonPayloadFetch = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys);
+			String jsonPayloadFetch = this.urlCgiProxyService.getJsonContent(BASE_URL_FETCH, urlRequestParamsKeys.toString());
 			
 			//Debug --> 
 	    	//logger.info(jsonPayloadFetch);
