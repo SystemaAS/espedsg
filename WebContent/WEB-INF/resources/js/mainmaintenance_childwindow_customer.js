@@ -223,6 +223,10 @@
 				  
 				  //opener.jq('#todo').val(land);
 			  
+			  } else if (callerType =='tror_flyiavs'){
+				  opener.jq('#hekns').val(knr);
+				  opener.jq('#ownHekns').val(knavn);
+				  
 			  }
 			  
 			  

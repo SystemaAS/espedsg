@@ -226,34 +226,47 @@
 				 			 <table align="center" class="tableBorderWithRoundCornersLightYellow" cellspacing="1" cellpadding="1" border="0">
 						 		<tr height="10"><td ></td></tr>
 						 		<tr>
-					 				<td class="text12">&nbsp;<span title="imlop">Løpenr.</span>
-					 					
-	 									<a tabindex="-1" id="trorSellerAddressesIdLink" >
+					 				<td class="text12">&nbsp;<span title="imlop">Løpenr.</span></td>
+					 				<td class="text12">&nbsp;<span title="trsta4">Produktkode</span>
+					 					<a tabindex="-1" id="prodKodeIdLink" >
 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
-										</a>	 									
+										</a>
 					 				</td>
-					 				<td class="text12">&nbsp;<span title="trsta4">Produktkode</span></td>
 					 			</tr>
 					 			<tr>	
 				 					<td class="text12"><input readonly tabindex=-1 type="text" class="inputTextReadOnly" name="imlop" id="imlop" size="4" maxlength="3" value="${model.record.imlop}"></td>
 				 					<td class="text12"><input type="text" class="inputTextMediumBlueMandatoryField" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" name="trsta4" id="trsta4" size="2" maxlength="1" value="${model.record.trsta4}"></td>
 				 				</tr>
 					 			<tr>	
-					 				<td class="text12">&nbsp;<span title="todo">Flyselskap</span>
-					 					<a tabindex="-1" id="trorTodoIdLink" >
+					 				<td class="text12">&nbsp;<span title="hegn5_7">Flyselskap</span>
+					 					<a tabindex="-1" id="flyselskapIdLink" >
 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 										</a>	 	
 					 				</td>
 					 			</tr>
 								<tr>	
 				 					<td class="text12" >
-				 						<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="todo" id="todo" size="4" maxlength="3" value="${Xmodel.record.todo}">
+				 						<c:choose>
+					 						<c:when test="${ not empty model.record.hegn && fn:length(model.record.hegn)>8}">
+					 							<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="hegn5_7" id="hegn5_7" size="4" maxlength="3" value="${fn:substring(model.record.hegn, 4, 7)}">
+					 						</c:when>
+					 						<c:otherwise>
+					 							<input type="text" onKeyPress="return numberKey(event)" class="inputTextMediumBlue" name="hegn5_7" id="hegn5_7" size="4" maxlength="3" value="">
+					 						</c:otherwise>
+				 						</c:choose>
 				 					</td>
-				 					
 				 				</tr>
 				 				<tr>	
-					 				<td class="text12">&nbsp;<span title="hesdf">&nbsp;Fra flyplass</span></td>
-					 				<td class="text12">&nbsp;<span title="hesdt">&nbsp;Til flyplass</span></td>
+					 				<td class="text12">&nbsp;<span title="hesdf">&nbsp;Fra flyplass</span>
+					 					<a tabindex="-1" id="flyplassFromIdLink" >
+											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+										</a>	
+					 				</td>
+					 				<td class="text12">&nbsp;<span title="hesdt">&nbsp;Til flyplass</span>
+					 					<a tabindex="-1" id="flyplassToIdLink" >
+											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+										</a>	
+					 				</td>
 					 				
 					 			</tr>
 					 			<tr>	
@@ -271,7 +284,11 @@
 								<tr height="25"><td ></td></tr>
 				 				<tr>	
 					 				<td class="text12">&nbsp;<span title="hegn">Awbnr man/aut.</span></td>
-					 				<td class="text12">&nbsp;<span title="hefr">Frankatur</span></td>
+					 				<td class="text12">&nbsp;<span title="hefr">Frankatur</span>
+					 					<a tabindex="-1" id="incotermsIdLink" >
+											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+										</a>	
+					 				</td>
 					 				<td class="text12">&nbsp;<span title="domoms">Moms</span></td>
 					 				
 		 						</tr>
@@ -291,7 +308,11 @@
 				 					</td>
 		 						</tr>	
 		 						<tr>	
-					 				<td class="text12">&nbsp;<span title="hekns">Avsender</span></td>
+					 				<td class="text12">&nbsp;<span title="hekns/ownHekns">Avsender</span>
+					 					<a tabindex="-1" id="trorAvsenderImportIdLink" >
+											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
+										</a>
+					 				</td>
 		 						</tr>
 		 						<tr>	
 				 					<td class="text12" >

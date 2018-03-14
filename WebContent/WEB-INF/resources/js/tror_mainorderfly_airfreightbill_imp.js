@@ -112,6 +112,70 @@
 		  window.location = "tror_mainorderfly_airfreightbill_imp_gate.do?imavd=" + jq('#imavd').val() + "&sign=" + jq('#sign').val() + "&imopd=" + jq('#imopd').val() ;
 	  });
 	  
+	  //START - CHILDWINDOWS
+	  //Produktkode
+	  jq('#prodKodeIdLink').click(function() {
+		  jq('#prodKodeIdLink').attr('target','_blank');
+		  window.open('tror_mainorderflyimport_childwindow_airproducts.do?action=doFind',"produktKodeWin","top=300px,left=400px,height=600px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#prodKodeIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#prodKodeIdLink').click();
+		  }
+	  });
+	  //Flyselskap
+	  jq('#flyselskapIdLink').click(function() {
+		  jq('#flyselskapIdLink').attr('target','_blank');
+		  window.open('tror_mainorderflyimport_childwindow_airlines.do?action=doFind',"airlineWin","top=300px,left=400px,height=700px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#flyselskapIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#flyselskapIdLink').click();
+		  }
+	  });
+	 //Flyplass
+	  jq('#flyplassFromIdLink').click(function() {
+		  jq('#flyplassFromIdLink').attr('target','_blank');
+		  window.open('tror_mainorderflyimport_childwindow_cities.do?action=doFind&ctype=fr&st2kod=' + jq('#hesdf').val(), "cityWin","top=300px,left=400px,height=700px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#flyplassFromIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#flyplassFromIdLink').click();
+		  }
+	  });
+	  jq('#flyplassToIdLink').click(function() {
+		  jq('#flyplassToIdLink').attr('target','_blank');
+		  window.open('tror_mainorderflyimport_childwindow_cities.do?action=doFind&st2kod=' + jq('#hesdt').val(), "cityWin","top=300px,left=400px,height=700px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#flyplassToIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#flyplassToIdLink').click();
+		  }
+	  });
+	  //incoterms
+	  
+	  jq('#incotermsIdLink').click(function() {
+		  jq('#incotermsIdLink').attr('target','_blank');
+		  window.open('tror_mainorderflyimport_childwindow_incoterms.do?action=doFind', "incotermsWin","top=300px,left=400px,height=700px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#incotermsIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#incotermsIdLink').click();
+		  }
+	  });
+	  
+	  //Avsender (customer search)
+	  jq('#trorAvsenderImportIdLink').click(function() {
+		  jq('#trorAvsenderImportIdLink').attr('target','_blank');
+		  window.open('mainmaintenance_childwindow_customer.do?action=doFind&ctype=tror_flyiavs&knr=' + jq('#hekns').val(),"customerWin","top=300px,left=150px,height=800px,width=900px,scrollbars=no,status=no,location=no");
+	  });
+	  jq('#trorAvsenderImportIdLink').keypress(function(e){ //extra feature for the end user
+		  if(e.which == 13) {
+			  jq('#trorAvsenderImportIdLink').click();
+		  }
+	  });
+	  //END - CHILDWINDOWS
+	  
 	  
   });
 	  

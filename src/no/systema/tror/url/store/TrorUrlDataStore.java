@@ -163,7 +163,16 @@ public class TrorUrlDataStore {
 	static public String TROR_BASE_CHILDWINDOW_GEBYR_CODES_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJINQGEB.pgm";
 	//http://gw.systema.no:8080/syjservicestror/syjsPONRN.do?user=OSCAR&ponnr=0010
 	static public String TROR_BASE_CHILDWINDOW_POSTALCODE_PONRN_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsPONRN.do";
-		
+	
+	//http://gw.systema.no:8080/syjservicestror/syjsKODTFLP.do?user=OSCAR
+	static public String TROR_BASE_CHILDWINDOW_AIRPRODUCTS_KODTFLP_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsKODTFLP.do";
+	//http://gw.systema.no:8080/syjservicestror/syjsKODTFLP.do?user=OSCAR
+	static public String TROR_BASE_CHILDWINDOW_AIRLINES_KODTFS_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsKODTFS.do";
+	//http://gw.systema.no:8080/syjservicestror/syjsKODTFLP.do?user=OSCAR
+	static public String TROR_BASE_CHILDWINDOW_CITIES_STED2_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsSTED2.do";
+	//http://gw.systema.no:8080/syjservicestror/syjsKODTFR.do?user=OSCAR
+	static public String TROR_BASE_CHILDWINDOW_INCOTERMS_KODTFR_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicestror/syjsKODTFR.do";
+						
 	/**
 	//---------------------------------------------------
 	//[2] GENERAL CODES - for country (AS400 from TVINN) 
