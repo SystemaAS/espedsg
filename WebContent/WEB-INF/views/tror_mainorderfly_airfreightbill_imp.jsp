@@ -327,8 +327,9 @@
 				 				<tr>
 	 				 				<td colspan="5" align="right">
 						 				<input class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'>
-										&nbsp;&nbsp;<input class="inputFormSubmitGray" type="button" name="backToFlyfraktbrevGateButton" id="backToFlyfraktbrevGateButton" value='Til flyfraktb.lista'>
-
+						 				&nbsp;<input class="inputFormSubmit" type="button" name="onwardButton" id="onwardButton" value='Videre'>
+										&nbsp;&nbsp;<input class="inputFormSubmitGray" type="button" name="backToFlyfraktbrevGateButton" id="backToFlyfraktbrevGateButton" value='Tilbake til flyfraktb.lista'>
+										
 									</td>
 								</tr>
 							 </table>

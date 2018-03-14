@@ -112,6 +112,12 @@
 		  window.location = "tror_mainorderfly_airfreightbill_imp_gate.do?imavd=" + jq('#imavd').val() + "&sign=" + jq('#sign').val() + "&imopd=" + jq('#imopd').val() ;
 	  });
 	  
+	  //onwardButton
+	  jq('#onwardButton').click(function() {
+		  jq.blockUI({ message : BLOCKUI_OVERLAY_MESSAGE_DEFAULT });
+		  window.location = "tror_mainorderfly_airfreightbill_edit.do?dflop=" + jq('#imlop').val() + "&dfavd=" + jq('#imavd').val() + "&sign=" + jq('#sign').val() + "&dfopd=" + jq('#imopd').val() ;
+	  });
+	  
 	  //START - CHILDWINDOWS
 	  //Produktkode
 	  jq('#prodKodeIdLink').click(function() {
