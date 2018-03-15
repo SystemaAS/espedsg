@@ -569,127 +569,142 @@
 					 	<tr height="5"><td ></td></tr>
 					 	
 					 	<tr>
-				 			<td valign="top" width="50%" >
-				 			<table width="98%">
+				 			<td colspan="2" valign="top">
+				 			<table class="tableBorderWithRoundCorners" width="99%">
+				 				<%--
 							 	<tr>
 				 					<td class="text14Bold">&nbsp;
 				 						<img style="vertical-align: bottom;" width="24px" height="24px" src="resources/images/lorry.png" border="0" alt="lorry">
 				 						10.&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.carrier"/>
 				 					</td>
 								</tr>
+								 --%>
 				 				<tr>
-				 					<td colspan="8">
-				 					<table class="tableBorderWithRoundCorners" width="100%">
-					 					<tr>
+				 					<td >
+				 					<table border="0">
+				 						<tr>
+					 						<td valign="top" >
+				 							<table class="tableBorderWithRoundCornersLightGray">
+					 						<tr>
 					 					
-							 				<td class="text12">&nbsp;<span title="dftran"><spring:message code="systema.tror.fraktbrev.form.update.label.carrier.id"/>&nbsp;</span>
-							 					<a tabindex="-1" id="trorCarrierIdLink" >
-		 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
-		 										</a>
-							 				</td>
-							 				<td class="text12" >
-							 					<c:choose>
-								 				<c:when test="${'0' != Xmodel.record.dftran}">
-						 							<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dftran" id="dftran" size="9" maxlength="8" value="${Xmodel.record.dftran}">
-						 						</c:when>
-						 						<c:otherwise>
-						 							<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dftran" id="dftran" size="9" maxlength="8" value="">
-						 						</c:otherwise>
-						 						</c:choose>
-							 				</td>
-							 				
-						 					<td class="text12">&nbsp;<span title="dfnat"><spring:message code="systema.tror.fraktbrev.form.update.label.carrier.name"/>&nbsp;</span></td>
-							 				<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfnat" id="dfnat" size="21" maxlength="20" value="${Xmodel.record.dfnat}"></td>
-							 				<td class="text12">&nbsp;<span title="dfknm"><b>23.</b>&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.carrier.kundnr.transport"/>&nbsp;</span></td>
-							 				<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfknm" id="dfknm" size="15" maxlength="12" value="${Xmodel.record.dfknm}"></td>
+								 				<td class="text12">&nbsp;<span title="dfroa1"><b><spring:message code="systema.tror.flyfraktbrev.form.update.label.routing"/></b></span></td>
+								 				<td class="text12" >
+								 					<input type="text" class="inputTextMediumBlue" name="dfroa1" id="dfroa1" size="4" maxlength="3" value="${model.record.dfroa1}">
+								 				</td>
+							 					<td class="text12" >
+								 					<input type="text" class="inputTextMediumBlue" name="dfrob1" id="dfrob1" size="8" maxlength="7" value="${model.record.dfrob1}">
+							 					</td>
+							 					<td class="text12" >
+								 					<input type="text" class="inputTextMediumBlue" name="dfroc1" id="dfroc1" size="3" maxlength="2" value="${model.record.dfroc1}">
+							 					</td>
+							 					<td width="5">&nbsp;</td>
+							 					<td class="text12SkyBlue">&nbsp;<span title="dfetd1"><spring:message code="systema.tror.flyfraktbrev.form.update.label.etd"/></span></td>
+								 				<td class="text12" >
+								 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfetd1" id="dfetd1" size="5" maxlength="4" value="${model.record.dfetd1}">
+								 				</td>
+								 				<td class="text12SkyBlue" >	
+							 						<span title="dfeta1"><spring:message code="systema.tror.flyfraktbrev.form.update.label.eta"/></span>
+							 					</td>
+							 					<td class="text12" >	
+								 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfeta1" id="dfeta1" size="5" maxlength="4" value="${model.record.dfeta1}">
+								 				</td>
+								 				<td class="text12SkyBlue" >	
+							 						<span title="dfeda1"><spring:message code="systema.tror.flyfraktbrev.form.update.label.estday"/></span>
+							 					</td>
+							 					<td class="text12" >	
+								 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfeda1" id="dfeda1" size="3" maxlength="2" value="${model.record.dfeda1}">							 					
+							 					</td>
+							 					
+							 					<td width="10">
+								 				<td class="text12">&nbsp;<span title="dfroa2"><b><spring:message code="systema.tror.flyfraktbrev.form.update.label.routing"/>-2</b></span></td>
+								 				<td class="text12" >
+								 					<input type="text" class="inputTextMediumBlue" name="dfroa2" id="dfroa2" size="4" maxlength="3" value="${model.record.dfroa2}">
+								 				</td>
+								 				<td class="text12" >	
+								 					<input type="text" class="inputTextMediumBlue" name="dfrob2" id="dfrob2" size="8" maxlength="7" value="${model.record.dfrob2}">
+								 				</td>
+								 				<td class="text12" >	
+								 					<input type="text" class="inputTextMediumBlue" name="dfroc2" id="dfroc2" size="3" maxlength="2" value="${model.record.dfroc2}">
+							 					</td>
+							 					<td width="5">&nbsp;</td>
+							 					<td class="text12SkyBlue">&nbsp;<span title="dfetd1"><spring:message code="systema.tror.flyfraktbrev.form.update.label.etd"/></span></td>
+								 				<td class="text12" >
+								 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfetd2" id="dfetd2" size="5" maxlength="4" value="${model.record.dfetd2}">
+								 				</td>	
+								 				<td class="text12SkyBlue" >	
+							 						<span title="dfeta1"><spring:message code="systema.tror.flyfraktbrev.form.update.label.eta"/></span>
+							 					</td>
+							 					<td class="text12" >	
+								 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfeta2" id="dfeta2" size="5" maxlength="4" value="${model.record.dfeta2}">
+								 				</td>
+								 				<td class="text12SkyBlue" >	
+							 						<span title="dfeda1"><spring:message code="systema.tror.flyfraktbrev.form.update.label.estday"/></span>
+							 					</td>
+							 					<td class="text12" >	
+								 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfeda2" id="dfeda2" size="3" maxlength="2" value="${model.record.dfeda2}">							 					
+							 					</td>
+						 					</tr>
+						 					
+					 						<tr>
+							 					<td class="text12">&nbsp;<span title="dfroa3"><b><spring:message code="systema.tror.flyfraktbrev.form.update.label.routing"/>-3</b></span></td>
+								 				<td class="text12" >
+								 					<input type="text" class="inputTextMediumBlue" name="dfroa3" id="dfroa3" size="4" maxlength="3" value="${model.record.dfroa3}">
+								 				</td>	
+								 				<td class="text12" >	
+								 					<input type="text" class="inputTextMediumBlue" name="dfrob3" id="dfrob3" size="8" maxlength="7" value="${model.record.dfrob3}">
+								 				</td>
+								 				<td class="text12" >	
+								 					<input type="text" class="inputTextMediumBlue" name="dfroc3" id="dfroc3" size="3" maxlength="2" value="${model.record.dfroc3}">
+							 					</td>
+							 					<td width="5">&nbsp;</td>
+							 					<td class="text12SkyBlue">&nbsp;<span title="dfetd1"><spring:message code="systema.tror.flyfraktbrev.form.update.label.etd"/></span></td>
+								 				<td class="text12" >
+								 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfetd3" id="dfetd3" size="5" maxlength="4" value="${model.record.dfetd3}">
+								 				</td>
+								 				<td class="text12SkyBlue" >	
+							 						<span title="dfeta1"><spring:message code="systema.tror.flyfraktbrev.form.update.label.eta"/></span>
+							 					</td>
+							 					<td class="text12" >	
+								 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfeta3" id="dfeta3" size="5" maxlength="4" value="${model.record.dfeta3}">
+								 				</td>
+								 				<td class="text12SkyBlue" >	
+							 						<span title="dfeda1"><spring:message code="systema.tror.flyfraktbrev.form.update.label.estday"/></span>
+							 					</td>
+							 					<td class="text12" >	
+								 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfeda3" id="dfeda3" size="3" maxlength="2" value="${model.record.dfeda3}">							 					
+							 					</td>
+						 					</tr>
+						 					</table>
+						 					</td>
 						 				</tr>
-						 				<tr>
-							 				<td class="text12">&nbsp;<span title="dfprok"><b>14.</b>&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.carrier.productCode"/>&nbsp;</span></td>
-							 				<td colspan="2" class="text12" >
-							 					<select name="dfprok" id="dfprok" class="inputTextMediumBlue" >
-							 						<option value="">-velg-</option>
-								 				  	<c:forEach var="record" items="${model.produktList}" >
-								 				  		<option value='${record.kfkod}' <c:if test="${record.kfkod == Xmodel.record.dfprok}"> selected </c:if> >${record.kfkod}</option>
-													</c:forEach>  
-												</select>
-												<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_productcodes_flyimport_fraktbrev.do?action=doFind&ctype=flyimport_fb','customerWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
-	 												<img id="imgProductcodes" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
-	 											</a>
-							 				</td>
-							 			</tr>
-							 			<tr>	
-						 					<td class="text12">&nbsp;<span title="dfpro1"><spring:message code="systema.tror.fraktbrev.form.update.label.carrier.productCode.txt1"/>&nbsp;</span></td>
-							 				<td colspan="4" class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfpro1" id="dfpro1" size="35" maxlength="30" value="${Xmodel.record.dfpro1}"></td>
-							 			</tr>
-							 			<tr height="29"><td ></td></tr>
+						 				
+						 				
 									</table>
 									</td>				 				
 					 			</tr>
 						 	</table>
 						 	</td>
-						 	<td valign="top" width="50%" >
-				 			<table width="98%">
-						 		<tr>
-				 					<td class="text14Bold">&nbsp;
-				 						<img style="vertical-align: bottom;" width="20px" height="24px" src="resources/images/addressIcon.png" border="0" alt="del.address">
-				 						07. / 09.&nbsp;<spring:message code="systema.tror.fraktbrev.form.update.label.deliveryaddress"/>
-				 					</td>
-								</tr>
-				 				<tr>
-				 					<td colspan="2">
-				 					<table class="tableBorderWithRoundCorners" width="100%">
-					 					<tr>
-							 				<td class="text12">&nbsp;<span title="dfnavl"><spring:message code="systema.tror.fraktbrev.form.update.label.deliveryaddress.name"/>&nbsp;</span></td>
-							 				<td class="text12">&nbsp;<span title="dfad1l"><spring:message code="systema.tror.fraktbrev.form.update.label.deliveryaddress.adr1"/>&nbsp;</span></td>
-							 				<td class="text12">&nbsp;<span title="dfad1l"><spring:message code="systema.tror.fraktbrev.form.update.label.deliveryaddress.adr2"/>&nbsp;</span></td>
-						 				</tr>
-						 				<tr>	
-						 					<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfnavl" id="dfnavl" size="30" maxlength="30" value="${Xmodel.record.dfnavl}"></td>
-						 					<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfad1l" id="dfad1l" size="25" maxlength="30" value="${Xmodel.record.dfad1l}"></td>
-						 					<td class="text12" ><input  type="text" class="inputTextMediumBlue" name="dfad2l" id="dfad2l" size="25" maxlength="30" value="${Xmodel.record.dfad2l}"></td>
-					 					</tr>
-					 					<tr>
-							 				<td class="text12">&nbsp;<span title="dfpoul"><spring:message code="systema.tror.fraktbrev.form.update.label.deliveryaddress.postcode"/></span>
-							 				<a tabindex="-1" id="trorPostalCodePonrnIdLink" >
-	 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
-	 										</a>
-							 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span title="dfadul"><spring:message code="systema.tror.fraktbrev.form.update.label.deliveryaddress.adr3"/></span>&nbsp;</td>
-						 				</tr>
-						 				<tr>	
-						 					<td colspan="2" class="text12" >
-						 						<c:choose>
-								 				<c:when test="${'0' != Xmodel.record.dfpoul}">
-						 							<input  onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfpoul" id="dfpoul" size="5" maxlength="4" value="${Xmodel.record.dfpoul}">
-						 						</c:when>
-						 						<c:otherwise>
-						 							<input  onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue" name="dfpoul" id="dfpoul" size="5" maxlength="4" value="">
-						 						</c:otherwise>
-						 						</c:choose>
-						 						
-						 						<input  type="text" class="inputTextMediumBlue" name="dfadul" id="dfadul" size="25" maxlength="25" value="${Xmodel.record.dfadul}">
-						 					</td>
-					 					</tr>
-					 					<tr height="12"><td ></td></tr>
-									</table>
-									</td>				 				
-					 			</tr>
- 							</table>
- 							</td>
 					 	</tr>
 					 	
-					 	<tr height="1"><td ></td></tr>
 					 	<tr>
 				 			<td colspan="2" valign="top" width="100%" >
 				 			<table width="99%">
-							 	<tr>
-				 					<td class="text14Bold">&nbsp;</td>
-								</tr>
+				 				<tr height="4"><td ></td></tr>
 				 				<tr>
-				 					<td colspan="8">
-				 					<table class="tableBorderWithRoundCorners" width="100%" border="1">
+				 					<td >
+				 					<table class="tableBorderWithRoundCorners" width="100%" border="0">
 				 						<tr>
 				 						<td>
 				 							<table width="50%" >
+				 								<tr>	
+										 			<td class="text12">
+										 				<span title="dfinfa">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.label.info"/></span>
+								 					</td>
+									 				<td colspan="10" class="text12">
+									 					<input type="text" class="inputTextMediumBlue" name="dfinf1" id="dfinf1" size="36" maxlength="35" value="${model.record.dfinf1}">
+									 					&nbsp;<input type="text" class="inputTextMediumBlue" name="dfinf2" id="dfinf2" size="36" maxlength="35" value="${model.record.dfinf2}">
+									 				</td>
+									 			</tr>	
 				 								<tr>	
 										 			<td class="text12">
 										 				<span title="dfval">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.label.currency"/></span>
@@ -733,7 +748,8 @@
 									 	</tr>
 									 	<tr>
 				 							<td colspan="10">
-				 							<table width="78%" >		
+				 							<table width="78%" >
+				 								<tr height="5"><td ></td></tr>	
 							 					<tr>	
 										 			<td class="text12">
 										 				<span title="dfinfa">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.label.hinfo"/></span>
@@ -797,110 +813,81 @@
 												<table align="left" border="0" style="width:100%;" >
 												<tr class="tableHeaderField10" >
 													
-										 			<td align="left" valign="bottom" class="tableHeaderFieldFirst11"><span title="dfgm/dfgm2">&nbsp;<b>33.</b><spring:message code="systema.tror.fraktbrev.form.detail.update.label.marks"/></span></td>
-										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dfnt">&nbsp;<font class="text12RedBold" >*</font><b>34.</b><spring:message code="systema.tror.fraktbrev.form.detail.update.label.antal"/>&nbsp;</span></td>
-										 			<td align="center" valign="bottom" class="tableHeaderField11"><span title="ownEnhet1/ownEnhet2">&nbsp;<b>35.</b><spring:message code="systema.tror.fraktbrev.form.detail.update.label.forpak"/></span></td>
-										 			<td align="left" valign="bottom" class="tableHeaderField11"><span title="dfvs/dfvs2">&nbsp;<b>35.</b><spring:message code="systema.tror.fraktbrev.form.detail.update.label.goodsDesc"/></span></td>
-										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dfvkt/dfvktf">&nbsp;<b>36.</b><spring:message code="systema.tror.fraktbrev.form.detail.update.label.weight"/>&nbsp;</span></td>
-										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dfm3">&nbsp;<b>37.</b><spring:message code="systema.tror.fraktbrev.form.detail.update.label.m3"/>&nbsp;</span></td>
-										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dflm">&nbsp;<b>37.</b><spring:message code="systema.tror.fraktbrev.form.detail.update.label.lm.fa"/>&nbsp;</span></td>
+										 			<td align="right" valign="bottom" class="tableHeaderFieldFirst11"><span title="dfnt1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.antall"/></span></td>
+										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dfvkt1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.vekt"/>&nbsp;</span></td>
+										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dfrc1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.rateClass"/></span></td>
+										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dfcom1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.ino"/></span></td>
+										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dffbv1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.fvekt"/>&nbsp;</span></td>
+										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dfrk1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.p"/>&nbsp;</span></td>
+										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dfrpr1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.rate"/>&nbsp;</span></td>
+										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dfblt1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.total"/>&nbsp;</span></td>
+										 			<td align="left" valign="bottom" class="tableHeaderField11"><span title="dfvs1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.itemdesc"/>&nbsp;</span></td>
 										 		</tr>
 										 		<tr class="tableRow">
-										 			<td align="left" class="tableCell" nowrap>
-									 					<input type="text" class="inputTextMediumBlue11" name="dfgm" id="dfgm" size="16" maxlength="15" value="${Xmodel.record.dfgm}">
+										 			<td align="right" class="tableCellFirst" >
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfnt1" id="dfnt1" size="5" maxlength="4" value="${model.record.dfnt1}">
 									 				</td>
-									 				<td align="right" class="tableCell" nowrap>
-										 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfnt" id="dfnt" size="8" maxlength="7" value="${Xmodel.record.dfnt}">
+									 				<td align="right" class="tableCell" >
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfvkt1" id="dfvkt1" size="9" maxlength="8" value="${fn:replace(model.record.dfvkt1,'.',',')}">
 									 				</td>
-									 				<td align="center" class="tableCell" nowrap>
-										 				<select name="ownEnhet1" id="ownEnhet1">
-										 					<option value="" >-velg-</option>
-										 					<c:forEach var="record" items="${model.enhetList}" varStatus="counter">
-										 						<c:choose>
-										 							<c:when test="${not empty model.uom1 }" >
-											 							<option value='${record.tkkode}' <c:if test="${ model.uom1 == record.tkkode }"> selected </c:if> >${record.tkkode}</option>
-											 						</c:when>
-											 						<c:otherwise>
-											 							<option value='${record.tkkode}'>${record.tkkode}</option>
-											 						</c:otherwise>
-										 						</c:choose>
-										 					</c:forEach>
-														</select>
-														
-														<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_unitcodes.do?action=doFind&ctype=tror_flyimport_e1','unitWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
-				 											<img id="imgTransporttype" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="12px" width="12px" border="0" alt="search">
-				 										</a>
-														
+									 				<td align="right" class="tableCell" >
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" name="dfrc1" id="dfrc1" size="2" maxlength="1" value="${model.record.dfrc1}">
 									 				</td>
-									 				<td align="left" class="tableCell" nowrap>
-									 					<fmt:parseNumber scope="request" var="uom1Length" type="number" value="${model.uom1Length}" />
-									 					<c:choose>
-									 						<c:when test="${not empty model.uom1 && not empty Xmodel.record.dfvs && fn:length(Xmodel.record.dfvs) > uom1Length}" >
-										 						<input type="text" class="inputTextMediumBlue11" name="dfvs" id="dfvs" size="30" maxlength="25" value="${ fn:substring(Xmodel.record.dfvs, uom1Length, fn:length(Xmodel.record.dfvs)) }">		
-										 					</c:when>
-										 					<c:otherwise>
-										 						<input title="plaitxt" type="text" class="inputTextMediumBlue11" name="dfvs" id="dfvs" size="30" maxlength="25" value="${ Xmodel.record.dfvs }">
-										 					</c:otherwise>
-									 					</c:choose>
+									 				<td align="right" class="tableCell" >
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" name="dfcom1" id="dfcom1" size="5" maxlength="4" value="${model.record.dfcom1}">
 									 				</td>
-									 				<td align="right" class="tableCell" nowrap>
-										 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfvkt" id="dfvkt" size="10" maxlength="9" value="${Xmodel.record.dfvkt}">
+									 				<td align="right" class="tableCell" >
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dffbv1" id="dffbv1" size="9" maxlength="8" value="${fn:replace(model.record.dffbv1,'.',',')}">
+									 				</td>
+									 				<td align="right" class="tableCell" >
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrk1" id="dfrk1" size="2" maxlength="1" value="${model.record.dfrk1}">
+									 				</td>
+									 				<td align="right" class="tableCell" >
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrpr1" id="dfrpr1" size="10" maxlength="9" value="${fn:replace(model.record.dfrpr1,'.',',')}">
+									 				</td>
+									 				<td align="right" class="tableCell" >
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfblt1" id="dfblt1" size="14" maxlength="13" value="${fn:replace(model.record.dfblt1,'.',',')}">
+									 				</td>
+									 				<td align="left" class="tableCell" >
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" name="dfvs1" id="dfvs1" size="26" maxlength="25" value="${model.record.dfvs1}">
 									 				</td>
 									 				
-									 				<td align="right" class="tableCell" nowrap>
-										 				<input onFocus="calculateVolume(this);" onBlur="checkVolumeNewLine(this);" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfm3" id="dfm3" size="12" maxlength="11" value="${fn:replace(Xmodel.record.dfm3,'.',',')}">
-									 				</td>
-									 				<td align="right" class="tableCell" nowrap>
-										 				<input onBlur="checkLmNewLine(this);validateNewItemLine();" onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dflm" id="dflm" size="8" maxlength="7" value="${fn:replace(Xmodel.record.dflm,'.',',')}">
-									 				</td>
 									 			</tr>
 									 			<tr class="tableRow">
-										 			<td align="left" class="tableCell" nowrap>
-									 					<input type="text" class="inputTextMediumBlue11" name="dfgm2" id="dfgm2" size="16" maxlength="15" value="${Xmodel.record.dfgm2}">
+										 			<td align="right" class="tableCellFirst" >
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfnt2" id="dfnt2" size="5" maxlength="4" value="${model.record.dfnt2}">
 									 				</td>
-									 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
-									 				<td align="center" class="tableCell" >
-									 					<%-- OBSOLETE ?
-										 				<select name="ownEnhet2" id="ownEnhet2">
-										 					<option value="" >-velg-</option>
-										 					<c:forEach var="record" items="${model.enhetList}" varStatus="counter">
-											 					<c:choose>
-											 						<c:when test="${not empty Xmodel.record.dfvs2 && fn:length(Xmodel.record.dfvs2) > 2}" >
-											 							<option value='${record.tkkode}' <c:if test="${ fn:substring(Xmodel.record.dfvs2, 0, 2) == record.tkkode }"> selected </c:if> >${record.tkkode}</option>
-											 						</c:when>
-											 						<c:otherwise>
-											 							<option value='${record.tkkode}' >${record.tkkode}</option>
-											 						</c:otherwise>
-										 						</c:choose>
-									 						</c:forEach>
-														</select>
-														<a href="javascript:void(0);" onClick="window.open('tror_mainorder_childwindow_unitcodes.do?action=doFind&ctype=tror_flyimport_e2','unitWin','top=300px,left=150px,height=600px,width=800px,scrollbars=no,status=no,location=no')">
-				 											<img id="imgTransporttype" align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="12px" width="12px" border="0" alt="search">
-				 										</a>
-				 										 --%>
-										 				
+									 				<td align="right" class="tableCell" >
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfvkt2" id="dfvkt2" size="9" maxlength="8" value="${fn:replace(model.record.dfvkt2,'.',',')}">
 									 				</td>
-									 				<td align="left" class="tableCell" nowrap>
-									 					<input type="text" class="inputTextMediumBlue11" name="dfvs2" id="dfvs2" size="30" maxlength="25" value="${ Xmodel.record.dfvs2 }">
+									 				<td align="right" class="tableCell" >
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrc2" id="dfrc2" size="2" maxlength="1" value="${model.record.dfrc2}">
 									 				</td>
-									 				<td align="right" class="tableCell">
-									 					<c:choose>
-										 				<c:when test="${'0' != Xmodel.record.dfvktf}">
-								 							<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfvktf" id="dfvktf" size="10" maxlength="9" value="${Xmodel.record.dfvktf}">
-								 						</c:when>
-								 						<c:otherwise>
-								 							<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfvktf" id="dfvktf" size="10" maxlength="9" value="">
-								 						</c:otherwise>
-								 						</c:choose>
+									 				<td align="right" class="tableCell" >
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfcom2" id="dfcom2" size="5" maxlength="4" value="${model.record.dfcom2}">
 									 				</td>
-									 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
-									 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
+									 				<td align="right" class="tableCell" >
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dffbv2" id="dffbv2" size="9" maxlength="8" value="${fn:replace(model.record.dffbv2,'.',',')}">
+									 				</td>
+									 				<td align="right" class="tableCell" >
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrk2" id="dfrk2" size="2" maxlength="1" value="${model.record.dfrk2}">
+									 				</td>
+									 				<td align="right" class="tableCell" >
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrpr2" id="dfrpr2" size="10" maxlength="9" value="${fn:replace(model.record.dfrpr2,'.',',')}">
+									 				</td>
+									 				<td align="right" class="tableCell" >
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfblt2" id="dfblt2" size="14" maxlength="13" value="${fn:replace(model.record.dfblt2,'.',',')}">
+									 				</td>
+									 				<td align="left" class="tableCell" >
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" name="dfvs2" id="dfvs2" size="26" maxlength="25" value="${model.record.dfvs2}">
+									 				</td>
+									 				
 									 			</tr>
+									 			
 									 			
 									 			</table>
 								 			</td>
 							 			</tr>
-							 			<%-- </c:if>  --%>
 									<tr height="5"><td ></td></tr>
 				 				</table>
 			           		</td>
@@ -923,25 +910,6 @@
 						    </td>
 						</tr>
 						
-						<tr>
-							<td colspan="2">
-							<table style="width:50%;">
-							<tr>
-	 				
-					 			<td valign="top" class="text12">Melding til Mottaker</td>
-					 			<td valign="top" class="text12">
-					 				<textarea class="text12" style="resize: none;overflow-y: scroll;" id="messageNoteConsignee" name="messageNoteConsignee" limit='65,10' cols="80" rows="6" >${model.messageNoteConsignee}</textarea>
-				 				</td>
-			 				</tr>
-			 				<tr>
-					 			<td valign="top" class="text12">Melding til Transportør</td>
-					 			<td valign="top" class="text12">
-					 				<textarea class="text12" style="resize: none;overflow-y: scroll;" id="messageNoteCarrier" name="messageNoteCarrier" limit='65,10' cols="80" rows="6">${model.messageNoteCarrier}</textarea>
-				 				</td>
-			 				</tr>
-		 					</table>
-		 					</td>
-		 				</tr>
 	 				</table>
             		</td>
             </tr>
