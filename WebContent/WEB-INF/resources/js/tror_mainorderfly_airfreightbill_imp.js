@@ -182,7 +182,67 @@
 	  });
 	  //END - CHILDWINDOWS
 	  
-	  
   });
+  
+  
+  //-----------------------
+  //INIT CUSTOMER Object
+  //-----------------------
+  var map = {};
+  var NOT_EXISTS = "NOT EXISTS";
+  //init the customer object in javascript (will be put into a map)
+  var customer = new Object();
+  //fields
+  customer.kundnr = "";customer.knavn = "";customer.adr1 = "";customer.postnr = "";
+  customer.adr2 = "";customer.adr3 = ""; customer.land = ""; customer.auxnavn=""; customer.auxtlf=""; customer.auxmail="";
+  //--------------------------------------------------------------------------------------
+  //Extra behavior for Customer number ( without using (choose from list) extra roundtrip)
+  //--------------------------------------------------------------------------------------
+  jq(function() {  
+	  	//SHIPPER/CONSIGNOR
+	    jq('#hekns').blur(function() {
+	    	getSender();
+		});
+  });    
+	    
+    function getSender(){
+    	var hekns = jq('#hekns').val();
+		if(hekns!=null && hekns!=""){
+    		jq.getJSON('getCustomer_Flyimport.do', {
+			applicationUser : jq('#applicationUser').val(),
+			id : jq('#hekns').val(),
+			ajax : 'true'
+    		}, function(data) {
+				//alert("Hello");
+				var len = data.length;
+				for ( var i = 0; i < len; i++) {
+					customer = new Object();
+					customer.kundnr = data[i].kundnr;
+					customer.knavn = data[i].knavn;
+					customer.postnr = data[i].postnr;
+					customer.adr1 = data[i].adr1;
+					customer.adr2 = data[i].adr2;
+					customer.adr3 = data[i].adr3;
+					customer.land = data[i].syland;
+					//customer.auxtlf = data[i].auxtlf;
+					//customer.auxmail = data[i].auxmail;
+					map[customer.kundnr] = customer;
+				}
+				if(len > 0){
+					jq('#ownHekns').removeClass( "isa_error" );
+					
+					//always show seller
+					var seller = customer.knavn;
+					jq('#ownHekns').val(seller);
+
+				}else{
+					jq('#ownHekns').val(NOT_EXISTS);
+					jq('#ownHekns').addClass( "isa_error" );
+
+				}
+    		});
+		}
+    }
+
 	  
 	  

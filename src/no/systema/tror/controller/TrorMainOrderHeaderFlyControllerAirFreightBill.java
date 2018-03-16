@@ -289,6 +289,10 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 						
 						model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordDokefimDao);
+						session.setAttribute(TrorConstants.SESSION_RECORD_FLYFRAKTBREV_IMPORT_HEADER_TROR_FLY, recordDokefimDao);
+						session.setAttribute(TrorConstants.SESSION_RECORD_FLYFRAKTBREV_IMPORT_HEADER_TROR_FLY_OWNSENDERNAME, model.get(recordDokefimDao.getHekns()));
+						
+						
 					}
 					
 				}
@@ -316,6 +320,9 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 						DokefimDao recordDokefimDao = this.fetchRecord(model, appUser, recordToValidate.getImavd(), recordToValidate.getImopd(), recordToValidate.getImlop());
 						model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordDokefimDao);
+						session.setAttribute(TrorConstants.SESSION_RECORD_FLYFRAKTBREV_IMPORT_HEADER_TROR_FLY, recordDokefimDao);
+						session.setAttribute(TrorConstants.SESSION_RECORD_FLYFRAKTBREV_IMPORT_HEADER_TROR_FLY_OWNSENDERNAME, model.get(recordDokefimDao.getHekns()));
+						
 					}
 					
 				}
@@ -330,6 +337,8 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 					} else {
 						DokefimDao recordDokefimDao = this.fetchRecord(model, appUser, recordToValidate.getImavd(), recordToValidate.getImopd(), recordToValidate.getImlop());
 						model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordDokefimDao);
+						session.removeAttribute(TrorConstants.SESSION_RECORD_FLYFRAKTBREV_IMPORT_HEADER_TROR_FLY);
+						session.removeAttribute(TrorConstants.SESSION_RECORD_FLYFRAKTBREV_IMPORT_HEADER_TROR_FLY_OWNSENDERNAME);
 					}
 
 			} else { // Fetch
@@ -341,6 +350,10 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 					//12.Jan.2018: TODO--> after meeting (CB,JOVO,OT)a lot of issues CRUD must be resolved before we allow the end-user to input these 2 fields on GUI.
 					model.put("action", MainMaintenanceConstants.ACTION_UPDATE);
 					model.put(MainMaintenanceConstants.DOMAIN_RECORD, recordDokefimDao);
+					session.setAttribute(TrorConstants.SESSION_RECORD_FLYFRAKTBREV_IMPORT_HEADER_TROR_FLY, recordDokefimDao);
+					session.setAttribute(TrorConstants.SESSION_RECORD_FLYFRAKTBREV_IMPORT_HEADER_TROR_FLY_OWNSENDERNAME, model.get(recordDokefimDao.getHekns()));
+					//logger.info("XXXX:" + model.get(recordDokefimDao.getHekns()));
+					
 				}else{
 					//get the lopenr (increase +1 from the last lopnr in table)
 					recordToValidate.setImlop(this.getNewLopenr(model, appUser, recordToValidate.getImavd(), recordToValidate.getImopd(), recordToValidate.getImlop()));
@@ -622,7 +635,8 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 		JsonDtoContainer<DokefDao> container = (JsonDtoContainer<DokefDao>) jsonReader.get(jsonPayload);
 		if (container != null) {
 			retval = container.getDtoList();
-			/*for(DokefDao dao : container.getDtoList()){
+			/*
+			for(DokefDao dao : container.getDtoList()){
 				this.getCustomerInfo(appUser, String.valueOf(dao.getHekns()), model );
 			}*/
 		}
