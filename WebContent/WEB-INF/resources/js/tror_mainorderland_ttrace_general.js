@@ -203,14 +203,16 @@
   }
 
   jq(document).ready(function() {
+	  var lang = jq('#language').val(); 
+  	  
     //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
     jq('#tblMain').dataTable( {
-  	  //"dom": '<"top">t<"bottom"f><"clear">',
-  	  "dom": '<"top">rt<"bottom"f><"clear">',
+  	  	"dom": '<"top">rt<"bottom"f><"clear">',
 		  "scrollY":  "200px",
 		  "order": [ [ 4, "asc" ], [ 5, "asc" ] ],
 		  "scrollCollapse":  true,
-		  "lengthMenu": [ 25, 50]
+		  "lengthMenu": [ 25, 50],
+		  "language": { "url": getLanguage(lang) }
 	  });
     //event on input field for search
     jq('input.tblMain_filter').on( 'keyup click', function () {

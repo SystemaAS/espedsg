@@ -309,6 +309,8 @@
     }
 
     jq(document).ready(function() {
+    	var lang = jq('#language').val(); 
+  	  	
       //init table (no ajax, no columns since the payload is already there by means of HTML produced on the back-end)
       jq('#tblBudget').dataTable( {
     	  //"dom": '<"top">t<"bottom"f><"clear">',
@@ -317,7 +319,8 @@
   		  "tabIndex":   -1,
   		  "order": [ [ 3, "asc" ] ],
   		  "scrollCollapse":  true,
-  		  "lengthMenu": [ 25, 50]
+  		  "lengthMenu": [ 25, 50],
+  		"language": { "url": getLanguage(lang) }
   	  });
       //event on input field for search
       jq('input.tblBudget_filter').on( 'keyup click', function () {

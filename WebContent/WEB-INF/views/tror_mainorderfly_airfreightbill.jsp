@@ -216,6 +216,7 @@
 					<input type="hidden" name="action" id="action" value='${model.action}'>
 					<input type="hidden" name="dfavd" id="dfavd" value='${recordOrderTrorFly.heavd}'>
 					<input type="hidden" name="dfopd" id="dfopd" value='${recordOrderTrorFly.heopd}'>
+					<input type="hidden" name="dflop" id="dflop" value='${recordFlyfraktbrevImportHeaderTrorFly.imlop}'>
 					<input type="hidden" name="sign" id="sign" value='${recordOrderTrorFly.hesg}'>
 						
 					<%-- dfri = F as offsett. Always. Old rule in order to acquire status "active" ... --%>
@@ -243,20 +244,52 @@
 								<table class="text12" border="0">
 								
 					 			<tr>
-					 				<td class="text14">&nbsp;<span title="todo"><spring:message code="systema.tror.flyfraktbrev.form.update.label.fwb"/></span></td>
+					 				<td class="text14">
+					 					<img style="vertical-align: middle;" onMouseOver="showPop('fwb_info');" onMouseOut="hidePop('fwb_info');" width="9px" height="9px" src="resources/images/info3.png" border="0" alt="info">
+					 					<span title="dfcmn"><spring:message code="systema.tror.flyfraktbrev.form.update.label.fwb"/></span>
+					 					<div class="text11" style="position: relative; display: inline;" align="left" >
+							 				<span style="position:absolute;left:20px; width:250px;" id="fwb_info" class="popupWithInputText text11"  >
+							           		<p>
+							           		Dette feltet benyttes kun ved overføring av FWB   (FWB = Elektronisk fraktbrev) til flyselskap handling agent. Brukes kun hvis Tradevision er installert.
+											Gyldige koder:
+											<ul>
+											<li><b>J</b> AWB skal sendes elektronisk.</li>
+											<li><b>N</b> AWB skal ikke sendes. Kode J vil bli beholdt selv om FWB allerede er sendt. Hvis AWB blir endret skal også korrigert FWB automatisk bli avsendt.</li>
+											</ul>
+											Hvis man registrerer HAWB vil dette feltet automatisk bli oppdatert med kode N.
+											</p> 
+						           			
+											</span>	
+										</div>
+					 				</td>
 					 				<td class="text14" >
-					 					<select  name="todo" id="todo" class="inputTextMediumBlue" >
+					 					<select  name="dfcmn" id="dfcmn" class="inputTextMediumBlue" >
 					 						<option value="">-velg-</option>
-						 				  	<option value="N"<c:if test="${Xmodel.record.dfcmn == 'N'}"> selected </c:if> >Nei</option>
-						 				  	<option value="J"<c:if test="${Xmodel.record.dfcmn == 'J'}"> selected </c:if> >Ja</option>
+						 				  	<option value="N"<c:if test="${model.record.dfcmn == 'N'}"> selected </c:if> >Nei</option>
+						 				  	<option value="J"<c:if test="${model.record.dfcmn == 'J'}"> selected </c:if> >Ja</option>
 										</select>
 									</td>
+									
 									<td width="5px" class="text14" >&nbsp;</td>		
-					 				<td class="text14"><span title="dfkdme"><spring:message code="systema.tror.flyfraktbrev.form.update.label.merkelapp"/></span></td>
+					 				<td class="text14">
+					 					<img style="vertical-align: middle;" onMouseOver="showPop('merkelapp_info');" onMouseOut="hidePop('merkelapp_info');" width="9px" height="9px" src="resources/images/info3.png" border="0" alt="info">
+										<span title="dfkdme"><spring:message code="systema.tror.flyfraktbrev.form.update.label.merkelapp"/></span>
+	 					 				<div class="text11" style="position: relative; display: inline;" align="left" >
+							 				<span style="position:absolute;left:20px; width:250px;" id="merkelapp_info" class="popupWithInputText text11"  >
+							           		<p>
+							           		Tast <b>J</b>,<b>N</b> eller <b>S</b> for merkelapp. Ved J så skrives automatisk merkelapper iht antall kolli på awb.
+											Kode B gir adresselapper i tillegg til ordinære. Ved kode S så skrives Bar Code Merkelapp hvis TradeVision og Thermoprinter er installert.
+											</p> 
+											</span>	
+										</div>
+					 				</td>
 					 				<td class="text14" >
 					 					<select  name="dfkdme" id="dfkdme" class="inputTextMediumBlue" >
 					 						<option value="">-velg-</option>
+						 				  	<option value="J"<c:if test="${model.record.dfkdme == 'J'}"> selected </c:if> >Ja</option>
+						 				  	<option value="N"<c:if test="${model.record.dfkdme == 'N'}"> selected </c:if> >Nei</option>
 						 				  	<option value="S"<c:if test="${model.record.dfkdme == 'S'}"> selected </c:if> >S</option>
+						 				  	
 										</select>	
 					 				</td>
 					 				<td width="5px" class="text14" >&nbsp;</td>	
@@ -576,11 +609,85 @@
 													
 										 			<td width="10%" align="right" valign="bottom" class="tableHeaderFieldFirst11"><span title="dfnt1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.antall"/></span></td>
 										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dfvkt1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.vekt"/>&nbsp;</span></td>
-										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dfrc1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.rateClass"/></span></td>
+										 			<td align="right" valign="bottom" class="tableHeaderField11">
+										 				<img style="vertical-align: middle;" onMouseOver="showPop('rc_info');" onMouseOut="hidePop('rc_info');" width="9px" height="9px" src="resources/images/info3.png" border="0" alt="info">
+										 				<span title="dfrc1"><spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.rateClass"/></span>
+										 				<div class="text11" style="position: relative; display: inline;" align="left" >
+											 				<span style="position:absolute;top:-55px; width:400px;" id="rc_info" class="popupWithInputText text11"  >
+												           		<p>Feltet må fylles ut med en av følgende gyldige koder:</p> 
+											           			<ul>
+											           				<li><b>B</b>&nbsp;BASIC CHARGE
+											           				<li><b>C</b>&nbsp;SPECIFIC COMMODITY RATE</li>
+											           				<li><b>E</b>&nbsp;ULD ADDITIONAL RATE</li>
+											           				<li><b>K</b>&nbsp;RATE PER KILOGRAMME</li>	
+											           				
+											           				<li><b>M</b>&nbsp;MINIMUM CHARGE</li>	
+											           				<li><b>N</b>&nbsp;NORMAL RATE</li>	
+											           				<li><b>Q</b>&nbsp;QUANTITY RATE</li>	
+											           				<li><b>R</b>&nbsp;CLASS RATE REDUCTION</li>	
+											           				<li><b>S</b>&nbsp;CLASS RATE SURCHARGE</li>	
+											           				<li><b>U</b>&nbsp;ULD BASIC CHARGE OR RATE</li>	
+											           				<li><b>X</b>&nbsp;ULD ADDITIONAL INFORMATION</li>	
+											           				<li><b>Y</b>&nbsp;ULD DISCOUNT</li>	
+							
+										           			</ul>
+										           			<p>
+										           			Ved å benytte F-4 kan man søke i kode/tekstregister for gyldige rate class koder (MENU MAINT2, punkt 13).Ved M/N/Q i RC tastes normalt kun en ratelinje.
+															Skal Base + kg rate benyttes er det krav til at det tastes to ratelinjer.På første ratelinje tastes kode B i RC og baseprisen i ratefeltet.
+															</p>
+															<p>
+															På annen ratelinje tastes kode K i RC og pr.kg. raten i ratefeltet.
+															(Feltet Fvekt må fylles ut på begge linjene.)
+															Eks:
+															Ant.      Vekt.    RC.      I.no       Fvekt    P Rate.....         Total     Varebetegn....
+															0002     27,0      B                     27,0      300,00              300,00  BROCHURES
+															K                     27,0      14,20                383,00
+															</p>
+															<p>	
+															Hvis SAS Priority Cargo skal benyttes tastes ratelinjene som vist ovenfor, men man taster i tillegg kode P eller D i feltet P.
+															Hvis systemet finner brutto eller kundeavtalte rater vil disse automatisk oppdatere ratelinjene når man benytter enter-tasten.
+															For å sjekke om det ligger rater på aktuell strekning /flyselskap / kunde kan man derfor taste enter før man begynner registrering.
+															</p>
+															<p>		
+															NB: gjelder kun for HAWB.
+															Hvis man ønsker å få teksten "As agreed" skrevet ut på fraktbrevet istedenfor rate og totalbeløp er dette mulig ved å taste kode A i feltet P (se under). Vær oppmerksom på at man, avhengig av hvilken RC kode man benytter, allikevel må taste informasjon i de feltene det er krav til.
+															Hvis man benytter RC kodene M/N/Q/B/K/C/E/U/X/Y er det også krav til at man taster rate.
+											           		</p>
+															</span>	
+														</div>
+										 			</td>
 										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dfcom1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.ino"/></span></td>
 										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dffbv1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.fvekt"/>&nbsp;</span></td>
 										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dfrk1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.p"/>&nbsp;</span></td>
-										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dfrpr1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.rate"/>&nbsp;</span></td>
+										 			<td align="right" valign="bottom" class="tableHeaderField11">
+										 				<img style="vertical-align: middle;" onMouseOver="showPop('rate_info');" onMouseOut="hidePop('rate_info');" width="9px" height="9px" src="resources/images/info3.png" border="0" alt="info">
+										 				<span title="dfrpr1"><spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.rate"/>&nbsp;</span>
+										 				<div class="text11" style="position: relative; display: inline;" align="left" >
+											 				<span style="position:absolute;top:-55px; width:250px;" id="rate_info" class="popupWithInputText text11"  >
+											           		<p>
+											           		<b>RATE</b>
+											           		I ratefeltet tastes raten som skal benyttes på flyfraktbrevet.
+															Hvis det er tastet kode B eller M i RC feltet skal Baseprisen / Minimumsprisen tastes i dette feltet.
+															Feltet for total blir da oppdatert med samme beløp.
+															Hvis det er tastet kode N / Q / K i RC feltet skal selve raten pr. kg. tastes.
+															Feltet for total blir da oppdatert med Fvekt x raten.
+															</p> 
+										           			
+										           			<p>
+										           			<b>RATE CONSTRUCTION</b>
+										           			Ved konstruksjon av rater benyttes flg. teknikk: Hvis man f. eks. har en forsendelse til Las Vegas
+															via Los Angeles og skal legge til konstruksjonsrate for strekningen LAX - LAS tastes denne separat i egen linje på skjermbildet.
+															Man har 10 kll / 450 kg og tilleggsraten er NOK 1,60.
+															Raten OSL - LAX er NOK 25,60.
+															Ant       Vekt     RC       Fvekt    Rate     Total
+															10        450,0    Q         450,0    25,60    11520,00
+															LAS                 Q         450,0      1,60        720,00
+															</p>
+															
+															</span>	
+														</div>
+										 				
+										 			</td>
 										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dfblt1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.total"/>&nbsp;</span></td>
 										 			<td align="left" valign="bottom" class="tableHeaderField11"><span title="dfvs1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.itemdesc"/>&nbsp;</span></td>
 										 		</tr>
@@ -592,7 +699,12 @@
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfvkt1" id="dfvkt1" size="9" maxlength="8" value="${fn:replace(model.record.dfvkt1,'.',',')}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
-									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrc1" id="dfrc1" size="2" maxlength="1" value="${model.record.dfrc1}">
+									 					<select name="dfrc1" id="dfrc1">
+									 					<option value="">-velg-</option>
+										 				  	<c:forEach var="record" items="${model.rateClassCodeList}" >
+										 				  		<option value="${record}"<c:if test="${model.record.dfrc1 == record }"> selected </c:if> >${record}</option>
+															</c:forEach>
+									 					</select>
 									 				</td>
 									 				<td align="right" class="tableCell" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfcom1" id="dfcom1" size="5" maxlength="4" value="${model.record.dfcom1}">
@@ -622,7 +734,12 @@
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfvkt2" id="dfvkt2" size="9" maxlength="8" value="${fn:replace(model.record.dfvkt2,'.',',')}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
-									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrc2" id="dfrc2" size="2" maxlength="1" value="${model.record.dfrc2}">
+									 					<select name="dfrc2" id="dfrc2">
+									 					<option value="">-velg-</option>
+										 				  	<c:forEach var="record" items="${model.rateClassCodeList}" >
+										 				  		<option value="${record}"<c:if test="${model.record.dfrc2 == record }"> selected </c:if> >${record}</option>
+															</c:forEach>
+									 					</select>
 									 				</td>
 									 				<td align="right" class="tableCell" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfcom2" id="dfcom2" size="5" maxlength="4" value="${model.record.dfcom2}">
@@ -631,7 +748,9 @@
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dffbv2" id="dffbv2" size="9" maxlength="8" value="${fn:replace(model.record.dffbv2,'.',',')}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
+									 					<%--
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrk2" id="dfrk2" size="2" maxlength="1" value="${model.record.dfrk2}">
+									 					 --%>
 									 				</td>
 									 				<td align="right" class="tableCell" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrpr2" id="dfrpr2" size="10" maxlength="9" value="${fn:replace(model.record.dfrpr2,'.',',')}">
@@ -652,7 +771,12 @@
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfvkt3" id="dfvkt3" size="9" maxlength="8" value="${fn:replace(model.record.dfvkt3,'.',',')}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
-									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrc3" id="dfrc3" size="2" maxlength="1" value="${model.record.dfrc3}">
+									 					<select name="dfrc3" id="dfrc3">
+									 					<option value="">-velg-</option>
+										 				  	<c:forEach var="record" items="${model.rateClassCodeList}" >
+										 				  		<option value="${record}"<c:if test="${model.record.dfrc3 == record }"> selected </c:if> >${record}</option>
+															</c:forEach>
+									 					</select>
 									 				</td>
 									 				<td align="right" class="tableCell" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfcom3" id="dfcom3" size="5" maxlength="4" value="${model.record.dfcom3}">
@@ -661,7 +785,9 @@
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dffbv3" id="dffbv3" size="9" maxlength="8" value="${fn:replace(model.record.dffbv3,'.',',')}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
+									 					<%--
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrk3" id="dfrk3" size="2" maxlength="1" value="${model.record.dfrk3}">
+									 					 --%>
 									 				</td>
 									 				<td align="right" class="tableCell" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrpr3" id="dfrpr3" size="10" maxlength="9" value="${fn:replace(model.record.dfrpr3,'.',',')}">
@@ -683,7 +809,12 @@
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfvkt4" id="dfvkt4" size="9" maxlength="8" value="${fn:replace(model.record.dfvkt4,'.',',')}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
-									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrc4" id="dfrc4" size="2" maxlength="1" value="${model.record.dfrc4}">
+									 					<select name="dfrc4" id="dfrc4">
+									 					<option value="">-velg-</option>
+										 				  	<c:forEach var="record" items="${model.rateClassCodeList}" >
+										 				  		<option value="${record}"<c:if test="${model.record.dfrc4 == record }"> selected </c:if> >${record}</option>
+															</c:forEach>
+									 					</select>
 									 				</td>
 									 				<td align="right" class="tableCell" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfcom4" id="dfcom4" size="5" maxlength="4" value="${model.record.dfcom4}">
@@ -692,7 +823,9 @@
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dffbv4" id="dffbv4" size="9" maxlength="8" value="${fn:replace(model.record.dffbv4,'.',',')}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
+									 					 <%--
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrk4" id="dfrk4" size="2" maxlength="1" value="${model.record.dfrk4}">
+									 					 --%>
 									 				</td>
 									 				<td align="right" class="tableCell" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrpr4" id="dfrpr4" size="10" maxlength="9" value="${fn:replace(model.record.dfrpr4,'.',',')}">
@@ -713,7 +846,12 @@
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfvkt5" id="dfvkt5" size="9" maxlength="8" value="${fn:replace(model.record.dfvkt5,'.',',')}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
-									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrc5" id="dfrc5" size="2" maxlength="1" value="${model.record.dfrc5}">
+									 					<select name="dfrc5" id="dfrc5">
+									 					<option value="">-velg-</option>
+										 				  	<c:forEach var="record" items="${model.rateClassCodeList}" >
+										 				  		<option value="${record}"<c:if test="${model.record.dfrc5 == record }"> selected </c:if> >${record}</option>
+															</c:forEach>
+									 					</select>
 									 				</td>
 									 				<td align="right" class="tableCell" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfcom5" id="dfcom5" size="5" maxlength="4" value="${model.record.dfcom5}">
@@ -722,7 +860,9 @@
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dffbv5" id="dffbv5" size="9" maxlength="8" value="${fn:replace(model.record.dffbv5,'.',',')}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
+									 					<%--
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrk5" id="dfrk5" size="2" maxlength="1" value="${model.record.dfrk5}">
+									 					 --%>
 									 				</td>
 									 				<td align="right" class="tableCell" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrpr5" id="dfrpr5" size="10" maxlength="9" value="${fn:replace(model.record.dfrpr5,'.',',')}">
@@ -743,7 +883,12 @@
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfvkt6" id="dfvkt6" size="9" maxlength="8" value="${fn:replace(model.record.dfvkt6,'.',',')}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
-									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrc6" id="dfrc6" size="2" maxlength="1" value="${model.record.dfrc6}">
+									 					<select name="dfrc6" id="dfrc6">
+									 					<option value="">-velg-</option>
+										 				  	<c:forEach var="record" items="${model.rateClassCodeList}" >
+										 				  		<option value="${record}"<c:if test="${model.record.dfrc6 == record }"> selected </c:if> >${record}</option>
+															</c:forEach>
+									 					</select>
 									 				</td>
 									 				<td align="right" class="tableCell" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfcom6" id="dfcom6" size="5" maxlength="4" value="${model.record.dfcom6}">
@@ -752,7 +897,9 @@
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dffbv6" id="dffbv6" size="9" maxlength="8" value="${fn:replace(model.record.dffbv6,'.',',')}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
+									 					<%--
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrk6" id="dfrk6" size="2" maxlength="1" value="${model.record.dfrk6}">
+									 					 --%>
 									 				</td>
 									 				<td align="right" class="tableCell" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrpr6" id="dfrpr6" size="10" maxlength="9" value="${fn:replace(model.record.dfrpr6,'.',',')}">
@@ -829,43 +976,47 @@
 									 			</tr>
 									 			<tr height="5"><td align="left" ></td></tr>
 									 			<tr>
-									 			<td valign="top" colspan="10" >
-	        										<table width="60%" align="left" class="tableBorderWithRoundCornersLightYellow" cellspacing="1" cellpadding="0">
+									 			<td valign="top" colspan="8" >
+	        										<table width="100%" align="left" class="tableBorderWithRoundCornersLightYellow" cellspacing="1" cellpadding="0">
 	        											<tr height="3"><td align="left" ></td></tr>
 		        										<tr>
-		        											<td class="text12">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.label.charge.dueCarrier"/></td>
+		        											<td class="text12"><span title="dfkddc/dfbldc">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.label.charge.dueCarrier"/></span></td>
 		        											<td>	
-		        												<input type="text" class="inputTextMediumBlue11" name="dfkddc" id="dfkddc" size="2" maxlength="1" value="${model.record.dfkddc}">
+		        												<select name="dfkddc" id="dfkddc">
+											 						<option value="">-velg-</option>
+												 				  	<option value="P"<c:if test="${model.record.dfkddc == 'P' }"> selected </c:if> >Prepaid</option>
+																	<option value="C"<c:if test="${model.record.dfkddc == 'C' }"> selected </c:if> >Collect</option>
+																</select>
 		        											</td>
 		        											<td>	
 		        												<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" name="dfbldc" id="dfbldc" size="12" maxlength="10" value="${fn:replace(model.record.dfbldc,'.',',')}">
 		        											</td>
-		        											<td class="text12"><spring:message code="systema.tror.flyfraktbrev.form.update.label.charge.valuation"/></td>
+		        											<td class="text12"><span title="dfbla"><spring:message code="systema.tror.flyfraktbrev.form.update.label.charge.valuation"/></span></td>
 		        											<td>	
 		        												<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" name="dfbla" id="dfbla" size="12" maxlength="10" value="${fn:replace(model.record.dfbla,'.',',')}">
 		        											</td>
-		        											<td class="text12"><spring:message code="systema.tror.flyfraktbrev.form.update.label.charge.weight"/></td>
+		        											<td class="text12"><span title="dfnett"><spring:message code="systema.tror.flyfraktbrev.form.update.label.charge.weight"/></span></td>
 		        											<td>	
 		        												<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" name="dfnett" id="dfnett" size="12" maxlength="10" value="${fn:replace(model.record.dfnett,'.',',')}">
 		        											</td>
 		        										</tr>
 		        										<tr>
-		        											<td class="text12">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.label.charge.dueAgent"/></td>
+		        											<td class="text12"><span title="todo">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.label.charge.dueAgent"/></span></td>
 		        											<td>&nbsp;</td>
 		        											<td>	
 		        												<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="12" maxlength="10" value="${Xmodel.record.todo}">
 		        											</td>
-		        											<td class="text12"><spring:message code="systema.tror.flyfraktbrev.form.update.label.charge.tax"/></td>
+		        											<td class="text12"><span title="dfblav"><spring:message code="systema.tror.flyfraktbrev.form.update.label.charge.tax"/></span></td>
 		        											<td>	
 		        												<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" name="dfblav" id="dfblav" size="12" maxlength="10" value="${fn:replace(model.record.dfblav,'.',',')}">
 		        											</td>
-		        											<td class="text12">R</td>
+		        											<td class="text12"><span title="todo">R</span></td>
 		        											<td>	
 		        												<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="12" maxlength="10" value="${Xmodel.record.todo}">
 		        											</td>
 		        										</tr>
 		        										<tr>
-		        											<td class="text12">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.label.charge.text"/></td>
+		        											<td class="text12"><span title="dfft">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.label.charge.text"/></span></td>
 		        											<td colspan="10">	
 		        												<input type="text" class="inputTextMediumBlue11" name="dfft" id="dfft" size="45" maxlength="41" value="${model.record.dfft}">
 		        											</td>
@@ -874,10 +1025,11 @@
 		        										<tr height="3"><td align="left" ></td></tr>
 		        										</table>
 	        										</td>
-									 			
+									 				<td valign="bottom" align="right">
+														<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'/>
+								 				    </td>
 									 			</tr>
-									 			
-									 			
+
 									 			</table>
 								 			</td>
 							 			</tr>
@@ -886,6 +1038,7 @@
 			           		</td>
 			            </tr>
 						
+						<%--
 						<tr>
 							<td colspan="2">
 								<table style="width:98%;">
@@ -894,14 +1047,14 @@
 					 				    <label class="text11Red" id="orderLineErrMsgPlaceHolder"></label>
 				 				    </td>
 									<td align="right">
-										<c:if test="${not empty Xmodel.record.dfopd}">
-					 				    	<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'/>
-					 				    </c:if>
+										<input tabindex=-1 class="inputFormSubmit submitSaveClazz" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'/>
+					 				
 				 				    </td>
 							    </tr>
 							    </table>
 						    </td>
 						</tr>
+						 --%>
 						
 	 				</table>
             		</td>

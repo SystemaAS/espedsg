@@ -192,6 +192,51 @@ public class CodeDropDownMgr {
 		}
 	
 	}
+	/**
+	 * 
+	 * @param urlCgiProxyService
+	 * @param listPopulationService
+	 * @param model
+	 * @param appUser
+	 */
+	public void populateCodesHtmlDropDownsFromJsonRateClass(UrlCgiProxyService urlCgiProxyService, TrorDropDownListPopulationService listPopulationService,
+			Map model, SystemaWebUser appUser){
+		//fill in html lists here
+		try{
+			/*
+			String CODES_URL = TrorUrlDataStore.TROR_TODO_RATECLASS_CODES_URL;
+			StringBuffer urlRequestParamsKeys = new StringBuffer();
+			urlRequestParamsKeys.append("user=" + appUser.getUser());
+			
+			//Now build the payload and send to the back end via the drop down service
+			//logger.info("CODES_URL:" + CODES_URL);
+			//logger.info("CODES PARAMS:" + urlRequestParamsKeys.toString());
+			String utfPayload = urlCgiProxyService.getJsonContent(CODES_URL, urlRequestParamsKeys.toString());
+			//debug
+			//logger.info(utfPayload);
+			JsonTrorCurrencyCodeContainer codeContainer = listPopulationService.getCurrencyContainer(utfPayload);
+			List<JsonTrorCurrencyCodeRecord> list = new ArrayList();
+			
+			//Take some exception into consideration here or run the default to populate the final list
+			for(JsonTrorCurrencyCodeRecord codeRecord: codeContainer.getDtoList()){
+				//default
+				list.add(codeRecord);
+			}
+			*/
+			List<String> list = new ArrayList();
+			list.add("B");list.add("C");list.add("E");
+			list.add("K");list.add("M");list.add("N");
+			list.add("Q");list.add("R");list.add("S");
+			list.add("U");list.add("X");list.add("Y");
+			
+			model.put(TrorConstants.RESOURCE_MODEL_KEY_RATE_CLASS_CODE_LIST, list);
+			
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	
+	}
 	
 	
 	/**

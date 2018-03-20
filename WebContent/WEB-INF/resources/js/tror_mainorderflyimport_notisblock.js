@@ -91,6 +91,8 @@
     }
 
     jq(document).ready(function() {
+      var lang = jq('#language').val(); 
+  	  	
       //Aspects in general 
       jq('#updCancelButton').hide();
     	
@@ -102,7 +104,8 @@
   		  "tabIndex":   -1,
   		  "order": [[ 1, "asc" ]],
   		  "scrollCollapse":  true,
-  		  "lengthMenu": [ 25, 50]
+  		  "lengthMenu": [ 25, 50],
+  		"language": { "url": getLanguage(lang) }
   	  });
       //event on input field for search
       jq('input.tblNotes_filter').on( 'keyup click', function () {
