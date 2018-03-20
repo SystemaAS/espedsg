@@ -133,21 +133,21 @@
 							<td  >
 							<table width="55%" border="0">
 								<tr>
-									<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.avd"/></td>
-									<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.sign"/></td>
-									<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.turnr"/></td>
-									<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.oppdragnr"/></td>
-									<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.godsnr"/></td>
-									<td class="text12" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.godsnr"/> fra dato</td>
+									<td class="text12" title="wsavd">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.avd"/></td>
+									<td class="text12" title="wssg">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.sign"/></td>
+									<td class="text12" title="wspro">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.turnr"/></td>
+									<td class="text12" title="wsopd">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.oppdragnr"/></td>
+									<td class="text12" title="wsgn">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.godsnr"/></td>
+									<td class="text12" title="wsdt1">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.godsnr"/> fra dato</td>
 									
 								</tr>
 								<tr>
-									<td class="text12" title="todo"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="5" maxlength="4" value=''></td>
-									<td class="text12" title="todo"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="5" maxlength="3" value=''></td>
-									<td class="text12" title="todo"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="10" maxlength="8" value=''></td>
-									<td class="text12" title="todo"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="10" maxlength="7" value=''></td>
-									<td class="text12" title="todo"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="17" maxlength="15" value=''></td>
-									<td class="text12" title="todo"><input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="10" maxlength="8" value=''></td>
+									<td class="text12" ><input type="text" class="inputTextMediumBlue"  name="wsavd" id="wsavd" size="5" maxlength="4" value=''></td>
+									<td class="text12" ><input type="text" class="inputTextMediumBlue"  name="wssg" id="wssg" size="5" maxlength="3" value=''></td>
+									<td class="text12" ><input type="text" class="inputTextMediumBlue"  name="wspro" id="wspro" size="10" maxlength="8" value=''></td>
+									<td class="text12" ><input type="text" class="inputTextMediumBlue"  name="wsopd" id="wsopd" size="10" maxlength="7" value=''></td>
+									<td class="text12" ><input type="text" class="inputTextMediumBlue"  name="wsgn" id="wsgn" size="17" maxlength="15" value=''></td>
+									<td class="text12" ><input type="text" class="inputTextMediumBlue"  name="wsdt1" id="wsdt1" size="10" maxlength="8" value=''></td>
 								</tr>	
 							</table>
 							</td>
@@ -156,63 +156,52 @@
 
 						<tr>
 						<td>	
-							<table width="80%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+							<table width="85%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
 						 		<tr height="15">
 						 			<td class="text12White" align="left" >
 						 				<b>&nbsp;&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.parameter"/></b>
 					 				</td>
 				 				</tr>
 			 				</table>
-							<table width="80%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+							<table width="85%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
 						 		<tr height="15"><td class="text" align="left"></td></tr>
 						 		<tr>
 							 		<td>
 								 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 									 		<tr>
-									 			<td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.oppdformular"/>&nbsp;og fra dato</td>
-									            <td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.styckkfraktbrev"/></td>
-									            <td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.tpassfraktbrev"/></td>
+									 			<td class="text12" align="left" title="of/wsdt2">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.oppdformular"/>&nbsp;og fra dato</td>
+									            <td class="text12" align="left" title="vf">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.styckkfraktbrev"/></td>
+									            <td class="text12" align="left" title="tpfb">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.tpassfraktbrev"/></td>
 									            <td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.fsad"/></td>
-									            <td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.inlandflyfraktbrev"/></td>
-									            <td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.losselista"/></td>
-									            <td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.ffaktura"/></td>
-									       		<td class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.cmr"/></td>
+									            <td class="text12" align="left" title="iffb">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.inlandflyfraktbrev"/></td>
+									            <td class="text12" align="left" title="loss">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.losselista"/></td>
+									            <td class="text12" align="left" title="ffak">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.ffaktura"/></td>
+									       		<td class="text12" align="left" title="cm">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.cmr"/></td>
+									       		<td class="text12" align="left" title="sakode/satype">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.sArk"/></td>
+									       		<td class="text12" align="left" title="wssum">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.belopLabels"/></td>
+									       		
 									        </tr>
 									        <tr>
 									 			<td align="left">
-								        			<select class="inputTextMediumBlue" name="todo" id="todo">
+								        			<select class="inputTextMediumBlue" name="of" id="of">
 								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.fakdm == 'J' || empty Xmodel.record.fakdm}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.fakdm == 'N'}"> selected </c:if> >Nei</option>
+									 				  	<option value="J"<c:if test="${Xmodel.record.of == 'J' || empty Xmodel.record.of}"> selected </c:if> >Ja</option>
+														<option value="N"<c:if test="${Xmodel.record.of == 'N'}"> selected </c:if> >Nei</option>
 													</select>
-													<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="10" maxlength="8" value=''>
+													<input type="text" class="inputTextMediumBlue"  name="wsdt2" id="wsdt2" size="8" maxlength="6" value=''>
 												</td>
 												<td align="left">
-								        			<select class="inputTextMediumBlue" name="todo" id="todo">
+								        			<select class="inputTextMediumBlue" name="vf" id="vf">
 								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.fakdm == 'J' || empty Xmodel.record.fakdm}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.fakdm == 'N'}"> selected </c:if> >Nei</option>
-													</select>
-												</td>
-												<td align="left">
-								        			<select class="inputTextMediumBlue" name="todo" id="todo">
-								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.fakdm == 'J' || empty Xmodel.record.fakdm}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.fakdm == 'N'}"> selected </c:if> >Nei</option>
+									 				  	<option value="J"<c:if test="${Xmodel.record.vf == 'J' || empty Xmodel.record.vf}"> selected </c:if> >Ja</option>
+														<option value="N"<c:if test="${Xmodel.record.vf == 'N'}"> selected </c:if> >Nei</option>
 													</select>
 												</td>
 												<td align="left">
-								        			<select class="inputTextMediumBlue" name="todo" id="todo">
+								        			<select class="inputTextMediumBlue" name="tpfb" id="tpfb">
 								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.fakdm == 'J' || empty Xmodel.record.fakdm}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.fakdm == 'N'}"> selected </c:if> >Nei</option>
-													</select>
-												</td>
-												<td align="left">
-								        			<select class="inputTextMediumBlue" name="todo" id="todo">
-								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.fakdm == 'J' || empty Xmodel.record.fakdm}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.fakdm == 'N'}"> selected </c:if> >Nei</option>
+									 				  	<option value="J"<c:if test="${Xmodel.record.tpfb == 'J' || empty Xmodel.record.tpfb}"> selected </c:if> >Ja</option>
+														<option value="N"<c:if test="${Xmodel.record.tpfb == 'N'}"> selected </c:if> >Nei</option>
 													</select>
 												</td>
 												<td align="left">
@@ -223,59 +212,104 @@
 													</select>
 												</td>
 												<td align="left">
-								        			<select class="inputTextMediumBlue" name="todo" id="todo">
+								        			<select class="inputTextMediumBlue" name="iffb" id="iffb">
 								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.fakdm == 'J' || empty Xmodel.record.fakdm}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.fakdm == 'N'}"> selected </c:if> >Nei</option>
+									 				  	<option value="J"<c:if test="${Xmodel.record.iffb == 'J' || empty Xmodel.record.iffb}"> selected </c:if> >Ja</option>
+														<option value="N"<c:if test="${Xmodel.record.iffb == 'N'}"> selected </c:if> >Nei</option>
 													</select>
 												</td>
 												<td align="left">
-								        			<select class="inputTextMediumBlue" name="todo" id="todo">
+								        			<select class="inputTextMediumBlue" name="loss" id="loss">
 								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.fakdm == 'J' || empty Xmodel.record.fakdm}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.fakdm == 'N'}"> selected </c:if> >Nei</option>
+									 				  	<option value="J"<c:if test="${Xmodel.record.loss == 'J' || empty Xmodel.record.loss}"> selected </c:if> >Ja</option>
+														<option value="N"<c:if test="${Xmodel.record.loss == 'N'}"> selected </c:if> >Nei</option>
 													</select>
-												</td>								
+												</td>
+												<td align="left">
+								        			<select class="inputTextMediumBlue" name="ffak" id="ffak">
+								 						<option value="">-velg-</option>
+									 				  	<option value="J"<c:if test="${Xmodel.record.ffak == 'J' || empty Xmodel.record.ffak}"> selected </c:if> >Ja</option>
+														<option value="N"<c:if test="${Xmodel.record.ffak == 'N'}"> selected </c:if> >Nei</option>
+													</select>
+												</td>
+												<td align="left">
+								        			<select class="inputTextMediumBlue" name="cm" id="cm">
+								 						<option value="">-velg-</option>
+									 				  	<option value="J"<c:if test="${Xmodel.record.cm == 'J' || empty Xmodel.record.cm}"> selected </c:if> >Ja</option>
+														<option value="N"<c:if test="${Xmodel.record.cm == 'N'}"> selected </c:if> >Nei</option>
+													</select>
+												</td>
+												<td align="left">
+								        			<input type="text" class="inputTextMediumBlue"  name="sakode" id="sakode" size="4" maxlength="2" value=''>
+								        			<input type="text" class="inputTextMediumBlue"  name="satype" id="satype" size="2" maxlength="1" value=''>
+												</td>	
+												<td align="left">
+								        			<select class="inputTextMediumBlue" name="wssum" id="wssum">
+								 						<option value="">-velg-</option>
+									 				  	<option value="J"<c:if test="${Xmodel.record.wssum == 'J' || empty Xmodel.record.wssum}"> selected </c:if> >Beløp</option>
+														<option value="L"<c:if test="${Xmodel.record.wssum == 'L'}"> selected </c:if> >Labels</option>
+													</select>
+												</td>
+												
+																			
 									        </tr>
 									        <tr height="10px"><td class="text" align="left"></td></tr>
 									        <tr>
 									 			<td valign="top" colspan="3">
 									 				<table >
 									 					<tr>
-									 						<td colspan="3" class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.faktoppdtyper"/></td>
+									 						<td colspan="3" class="text12" align="left" title="wsms1-6">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.faktoppdtyper"/></td>
 									 					</tr>
 									 					<tr>
 												        	<td align="left">
-											        			<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="4" maxlength="2" value=''>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsms1" id="wsms1" size="4" maxlength="2" value=''>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsms2" id="wsms2" size="4" maxlength="2" value=''>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsms3" id="wsms3" size="4" maxlength="2" value=''>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsms4" id="wsms4" size="4" maxlength="2" value=''>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsms5" id="wsms5" size="4" maxlength="2" value=''>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsms6" id="wsms6" size="4" maxlength="2" value=''>
 											        		</td>		
 												        </tr>
 									 				</table>
 									 			</td>
-									 			<td valign="top" colspan="6">
+									 			<td valign="top" colspan="3">
+									 				<table >
+									 					<tr>
+									 						<td colspan="3" class="text12" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.utelatoppdtyper"/></td>
+									 					</tr>
+									 					<tr>
+												        	<td align="left">
+											        			<input type="text" class="inputTextMediumBlue"  name="wsot1" id="wsot1" size="4" maxlength="2" value=''>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsot2" id="wsot2" size="4" maxlength="2" value=''>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsot3" id="wsot3" size="4" maxlength="2" value=''>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsot4" id="wsot4" size="4" maxlength="2" value=''>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsot5" id="wsot5" size="4" maxlength="2" value=''>
+											        			
+											        		</td>		
+												        </tr>
+									 				</table>
+									 			</td>
+									 			
+									 			<td valign="top" colspan="3">
 									 				<table class="tableBorderWithRoundCornersLightGray"	>
 									 					<tr>
-									 						<td class="text12MediumBlue" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.jobbko"/></td>
-									            			<td class="text12MediumBlue" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.avskriver"/></td>
-									            			<td class="text12MediumBlue" align="left" title="todo">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.avskriver.mlapp"/></td>
+									 						<td class="text12MediumBlue" align="left" title="jbk">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.jobbko"/></td>
+									            			<td class="text12MediumBlue" align="left" title="wsprt">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.avskriver"/></td>
+									            			<td class="text12MediumBlue" align="left" title="wsprt2">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.avskriver.mlapp"/></td>
 									            		</tr>
 									            		<tr>
 									            			<td align="left">
-											        			<select class="inputTextMediumBlue" name="todo" id="todo">
+											        			<select class="inputTextMediumBlue" name="jbk" id="jbk">
 											 						<option value="">-velg-</option>
-												 				  	<option value="J"<c:if test="${Xmodel.record.fakdm == 'J' || empty Xmodel.record.fakdm}"> selected </c:if> >Ja</option>
-																	<option value="N"<c:if test="${Xmodel.record.fakdm == 'N'}"> selected </c:if> >Nei</option>
+												 				  	<option value="J"<c:if test="${Xmodel.record.jbk == 'J' || empty Xmodel.record.jbk}"> selected </c:if> >Ja</option>
+																	<option value="N"<c:if test="${Xmodel.record.jbk == 'N'}"> selected </c:if> >Nei</option>
 																</select>
 															</td>
 															<td align="left">
-											        			<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="12" maxlength="10" value=''>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsprt" id="wsprt" size="12" maxlength="10" value=''>
 											        		</td>
 											        		<td align="left">
-											        			<input type="text" class="inputTextMediumBlue"  name="todo" id="todo" size="12" maxlength="10" value=''>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsprt2" id="wsprt2" size="12" maxlength="10" value=''>
 											        		</td>		
 									            		</tr>
 									 				</table>
