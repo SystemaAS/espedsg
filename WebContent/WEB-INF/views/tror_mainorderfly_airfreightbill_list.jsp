@@ -175,14 +175,14 @@
 								<table id="tblMain" class="display compact cell-border" >
 									<thead>
 									<tr style="background-color:#DDDDDD">
-										<th align="center" width="2%" class="text12" >&nbsp;<span title="todo">Endre&nbsp;</span></th>
-										<th align="center" class="text12" width="2%" >&nbsp;<span title="todo">Lnr.</span></th>  
-										<th align="left" class="text12" width="10%" >&nbsp;<span title="hehawb">Awbnr.&nbsp;</span></th>
-										<th class="text12" width="5%" >&nbsp;<span title="hesdf">Fra flyplass</span></th> 
-										<th class="text12" width="5%" >&nbsp;<span title="hesdt">Til flyplass</span></th>
-										<th class="text12" width="5%" >&nbsp;<span title="hefr">Frankatur</span></th>
+										<th align="center" width="2%" class="text12" >&nbsp;<span>Endre&nbsp;</span></th>
+										<th align="center" class="text12" width="2%" >&nbsp;<span title="imlop">Lnr.</span></th>  
+										<th align="left" class="text12" width="10%" >&nbsp;<span title="hehawb"><spring:message code="systema.tror.flyfraktbrev.import.dokefim.form.update.label.awbnr.manualOrAuto"/>&nbsp;</span></th>
+										<th class="text12" width="15%" >&nbsp;<span title="hesdf"><spring:message code="systema.tror.flyfraktbrev.import.dokefim.form.update.label.airportOfDeparture"/></span></th> 
+										<th class="text12" width="15%" >&nbsp;<span title="hesdt"><spring:message code="systema.tror.flyfraktbrev.import.dokefim.form.update.label.airportOfDestination"/></span></th>
+										<th class="text12" width="5%" >&nbsp;<span title="hefr"><spring:message code="systema.tror.flyfraktbrev.import.dokefim.form.update.label.incoterms"/></span></th>
 										 
-										<th align="left" class="text12" >&nbsp;<span title="todo">Avsender</span></th> 
+										<th align="left" class="text12" >&nbsp;<span title="todo"><spring:message code="systema.tror.flyfraktbrev.import.dokefim.form.update.label.shipper"/></span></th> 
 										<th align="center" width="2%" class="text12" >&nbsp;Slett&nbsp;</th>
 					               </tr> 
 					               </thead>
@@ -197,9 +197,9 @@
 						               	   </td>
 						               	   <td align="center" class="text11" >${record.imlop}</td>
 						               	   <td align="left" class="text11" align="left">${record.hegn}</td>
-							               <td align="center" class="text11" width="10%" >${record.hesdf}&nbsp;&nbsp;<font class="text11SkyBlue">${record.helka}</font></td>
-							               <td align="center" class="text11" width="10%" >${record.hesdt}&nbsp;&nbsp;<font class="text11SkyBlue">${record.helkk}</font></td>
-						               	   <td align="center" class="text11" width="10%" >${record.hefr}</td>
+							               <td align="center" class="text11" width="15%" >${record.hesdf}&nbsp;&nbsp;<font class="text11SkyBlue">${record.helka}</font></td>
+							               <td align="center" class="text11" width="15%" >${record.hesdt}&nbsp;&nbsp;<font class="text11SkyBlue">${record.helkk}</font></td>
+						               	   <td align="center" class="text11" width="5%" >${record.hefr}</td>
 						               	   
 							               <td align="left" class="text11" >${model[record.hekns]}</td>
 						               	   

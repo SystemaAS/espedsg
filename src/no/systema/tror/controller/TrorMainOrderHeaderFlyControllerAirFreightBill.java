@@ -635,10 +635,12 @@ public class TrorMainOrderHeaderFlyControllerAirFreightBill {
 		JsonDtoContainer<DokefDao> container = (JsonDtoContainer<DokefDao>) jsonReader.get(jsonPayload);
 		if (container != null) {
 			retval = container.getDtoList();
-			/*
 			for(DokefDao dao : container.getDtoList()){
-				this.getCustomerInfo(appUser, String.valueOf(dao.getHekns()), model );
-			}*/
+				//this variable is not serialized on db as all other totals...
+				BigDecimal x = dao.getDffbv1().add(dao.getDffbv2().add(dao.getDffbv3().add(dao.getDffbv4().add(dao.getDffbv5().add(dao.getDffbv6())))));
+				//logger.info("FVekt:!!!!!!!:" + x);
+				model.put("fvektTotal", x);
+			}
 		}
 		return retval;
 	

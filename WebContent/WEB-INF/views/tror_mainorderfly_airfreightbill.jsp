@@ -191,7 +191,7 @@
 					 			<td align="left" class="text14White">
 									&nbsp;<img style="vertical-align:bottom;" src="resources/images/complete-icon.png" width="16" hight="16" border="0" alt="edit">	
 									&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.label.title"/>
-									&nbsp;&nbsp;&nbsp;&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.label.mawb"/>:<font style="color: yellow"><b>${recordFlyfraktbrevImportHeaderTrorFly.hegn}</b></font>
+									&nbsp;&nbsp;&nbsp;&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.label.mawb"/>:&nbsp;<font style="color: yellow"><b>${recordFlyfraktbrevImportHeaderTrorFly.hegn}</b></font>
 									&nbsp;&nbsp;&nbsp;&nbsp;<font style="color: black"><b>${model.record.dfavd} / ${model.record.dfopd} / ${model.record.dflop} / ${model.record.dfsg}</b></font>
 									&nbsp;&nbsp;
 									
@@ -282,7 +282,7 @@
 						 		<tr height="10"><td ></td></tr>
 						 		<tr>
 						 			<td>
-						 			<table style="width:90%" >
+						 			<table style="width:100%" >
 					 		 		<tr>
 						 				<td class="text12">&nbsp;<span title="todo"><spring:message code="systema.tror.flyfraktbrev.form.update.label.name"/></span></td>
 						 				<td class="text12">&nbsp;<span title="dftlfk"><spring:message code="systema.tror.flyfraktbrev.form.update.label.from"/></span></td>
@@ -292,7 +292,7 @@
 						 				
 						 			</tr>
 						 			<tr>	
-						 				<td class="text12"><input readonly type="text" class="inputTextReadOnly" name="ownSenderName" id="ownSenderName" size="35" maxlength="50" value="${ownSenderName}"></td>
+						 				<td class="text12"><input readonly type="text" class="inputTextReadOnly" name="ownSenderName" id="ownSenderName" size="30" maxlength="50" value="${ownSenderName}"></td>
 					 					<td class="text12"><input readonly type="text" class="inputTextReadOnly" name="header_imp.hesdf" id="header_imp.hesdf" size="4" maxlength="3" value="${recordFlyfraktbrevImportHeaderTrorFly.hesdf}"></td>
 					 					<td class="text12"><input readonly type="text" class="inputTextReadOnly" name="header_imp.hesdt" id="header_imp.hesdt" size="4" maxlength="3" value="${recordFlyfraktbrevImportHeaderTrorFly.hesdt}"></td>
 					 					<td class="text12"><input readonly type="text" class="inputTextReadOnly" name="header_imp.hefr" id="header_imp.hefr" size="4" maxlength="3" value="${recordFlyfraktbrevImportHeaderTrorFly.hefr}"></td>
@@ -317,7 +317,7 @@
 						 				
 						 			</tr>
 						 			<tr>	<%--${model[model.record.hekns]} --%>
-					 					<td class="text12"><input readonly type="text" class="inputTextReadOnly" name="todo" id="todo" size="35" maxlength="50" value="${recordOrderTrorFly.henak}"></td>
+					 					<td class="text12"><input readonly type="text" class="inputTextReadOnly" name="todo" id="todo" size="30" maxlength="50" value="${recordOrderTrorFly.henak}"></td>
 					 					<td class="text12"><input type="text" class="inputTextMediumBlue" name="dftlfk" id="dftlfk" size="16" maxlength="15" value="${model.record.dftlfk}"></td>
 					 				</tr>
 					 				</table>
@@ -456,7 +456,7 @@
 				 					<table class="tableBorderWithRoundCorners" width="100%" border="0">
 				 						<tr>
 				 						<td>
-				 							<table width="50%" >
+				 							<table width="80%" >
 				 								<tr>	
 										 			<td class="text12">
 										 				<span title="dfinfa">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.label.info"/></span>
@@ -509,7 +509,7 @@
 									 	</tr>
 									 	<tr>
 				 							<td colspan="10">
-				 							<table width="78%" >
+				 							<table width="85%" >
 				 								<tr height="5"><td ></td></tr>	
 							 					<tr>	
 										 			<td class="text12">
@@ -574,7 +574,7 @@
 												<table align="left" border="0" style="width:100%;" >
 												<tr class="tableHeaderField10" >
 													
-										 			<td align="right" valign="bottom" class="tableHeaderFieldFirst11"><span title="dfnt1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.antall"/></span></td>
+										 			<td width="10%" align="right" valign="bottom" class="tableHeaderFieldFirst11"><span title="dfnt1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.antall"/></span></td>
 										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dfvkt1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.vekt"/>&nbsp;</span></td>
 										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dfrc1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.rateClass"/></span></td>
 										 			<td align="right" valign="bottom" class="tableHeaderField11"><span title="dfcom1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.ino"/></span></td>
@@ -585,17 +585,17 @@
 										 			<td align="left" valign="bottom" class="tableHeaderField11"><span title="dfvs1">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.itemdesc"/>&nbsp;</span></td>
 										 		</tr>
 										 		<tr class="tableRow">
-										 			<td align="right" class="tableCellFirst" >
+										 			<td width="10%" align="right" class="tableCellFirst" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfnt1" id="dfnt1" size="5" maxlength="4" value="${model.record.dfnt1}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfvkt1" id="dfvkt1" size="9" maxlength="8" value="${fn:replace(model.record.dfvkt1,'.',',')}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
-									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" name="dfrc1" id="dfrc1" size="2" maxlength="1" value="${model.record.dfrc1}">
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfrc1" id="dfrc1" size="2" maxlength="1" value="${model.record.dfrc1}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
-									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" name="dfcom1" id="dfcom1" size="5" maxlength="4" value="${model.record.dfcom1}">
+									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfcom1" id="dfcom1" size="5" maxlength="4" value="${model.record.dfcom1}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dffbv1" id="dffbv1" size="9" maxlength="8" value="${fn:replace(model.record.dffbv1,'.',',')}">
@@ -615,7 +615,7 @@
 									 				
 									 			</tr>
 									 			<tr class="tableRow">
-										 			<td align="right" class="tableCellFirst" >
+										 			<td width="10%" align="right" class="tableCellFirst" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfnt2" id="dfnt2" size="5" maxlength="4" value="${model.record.dfnt2}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
@@ -645,7 +645,7 @@
 									 				
 									 			</tr>
 									 			<tr class="tableRow">
-										 			<td align="right" class="tableCellFirst" >
+										 			<td width="10%" align="right" class="tableCellFirst" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfnt3" id="dfnt3" size="5" maxlength="4" value="${model.record.dfnt3}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
@@ -676,7 +676,7 @@
 									 			</tr>
 									 			
 									 			<tr class="tableRow">
-										 			<td align="right" class="tableCellFirst" >
+										 			<td width="10%" align="right" class="tableCellFirst" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfnt4" id="dfnt4" size="5" maxlength="4" value="${model.record.dfnt4}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
@@ -706,7 +706,7 @@
 									 				
 									 			</tr>
 									 			<tr class="tableRow">
-										 			<td align="right" class="tableCellFirst" >
+										 			<td width="10%" align="right" class="tableCellFirst" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfnt5" id="dfnt5" size="5" maxlength="4" value="${model.record.dfnt5}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
@@ -736,7 +736,7 @@
 									 				
 									 			</tr>
 									 			<tr class="tableRow">
-										 			<td align="right" class="tableCellFirst" >
+										 			<td width="10%" align="right" class="tableCellFirst" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfnt6" id="dfnt6" size="5" maxlength="4" value="${model.record.dfnt6}">
 									 				</td>
 									 				<td align="right" class="tableCell" >
@@ -763,25 +763,29 @@
 									 				<td align="left" class="tableCell" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" name="dfvs6" id="dfvs6" size="26" maxlength="25" value="${model.record.dfvs6}">
 									 				</td>
-									 				
 									 			</tr>
-									 			
 									 			<tr class="tableRow">
-										 			<td align="right" class="tableCellFirst" >&nbsp;</td>
+									 				<td nowrap width="10%" align="right" class="tableCellFirst" >&nbsp;
+									 					<b><spring:message code="systema.tror.flyfraktbrev.form.update.itemlines.label.totalSum"/>&nbsp;</span></b>
+										 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										 				<input readonly type="text" class="inputTextReadOnly" style="font-weight: bold; text-align: right;" name="dfntt" id="dfntt" size="8" maxlength="10" value="${fn:replace(model.record.dfntt,'.',',')}">
+										 			</td>	
+									 				<td align="right" class="tableCell" >&nbsp;<input readonly type="text" class="inputTextReadOnly" style="font-weight: bold;text-align: right;" name="dfvktt" id="dfvktt" size="10" maxlength="12" value="${fn:replace(model.record.dfvktt,'.',',')}"></td>
 									 				<td align="right" class="tableCell" >&nbsp;</td>
 									 				<td align="right" class="tableCell" >&nbsp;</td>
+									 				<td align="right" class="tableCell" >&nbsp;<input readonly type="text" class="inputTextReadOnly" style="font-weight: bold;text-align: right;" name="nothing" id="nothing" size="10" maxlength="12" value="${fn:replace(model.fvektTotal,'.',',')}"></td>
 									 				<td align="right" class="tableCell" >&nbsp;</td>
 									 				<td align="right" class="tableCell" >&nbsp;</td>
-									 				<td align="right" class="tableCell" >&nbsp;</td>
-									 				<td align="right" class="tableCell" >&nbsp;</td>
-									 				<td align="right" class="tableCell" >&nbsp;</td>
-									 				<td align="left" class="tableCell" >
+									 				<td align="right" class="tableCell" >&nbsp;<input readonly type="text" class="inputTextReadOnly" style="font-weight: bold;text-align: right;" name="dfblt" id="dfblt" size="10" maxlength="12" value="${fn:replace(model.record.dfblt,'.',',')}"></td>
+									 				
+										 			<td align="left" class="tableCell" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" name="dfvs7" id="dfvs7" size="26" maxlength="25" value="${model.record.dfvs7}">
 									 				</td>
 									 				
 									 			</tr>
 									 			<tr class="tableRow">
-										 			<td align="right" class="tableCellFirst" >&nbsp;</td>
+									 					
+										 			<td width="10%" align="right" class="tableCellFirst" >&nbsp;</td>
 									 				<td align="right" class="tableCell" >&nbsp;</td>
 									 				<td align="right" class="tableCell" >&nbsp;</td>
 									 				<td align="right" class="tableCell" >&nbsp;</td>
@@ -789,13 +793,14 @@
 									 				<td align="right" class="tableCell" >&nbsp;</td>
 									 				<td align="right" class="tableCell" >&nbsp;</td>
 									 				<td align="right" class="tableCell" >&nbsp;</td>
+									 				
 									 				<td align="left" class="tableCell" >
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" name="dfvs8" id="dfvs8" size="26" maxlength="25" value="${model.record.dfvs8}">
 									 				</td>
 									 				
 									 			</tr>
 									 			<tr class="tableRow">
-										 			<td align="right" class="tableCellFirst" >&nbsp;</td>
+										 			<td width="5%" align="right" class="tableCellFirst" >&nbsp;</td>
 									 				<td align="right" class="tableCell" >&nbsp;</td>
 									 				<td align="right" class="tableCell" >&nbsp;</td>
 									 				<td align="right" class="tableCell" >&nbsp;</td>
@@ -809,7 +814,7 @@
 									 				
 									 			</tr>
 									 			<tr class="tableRow">
-										 			<td align="right" class="tableCellFirst" >&nbsp;</td>
+									 				<td width="5%" align="right" class="tableCellFirst" >&nbsp;</td>
 									 				<td align="right" class="tableCell" >&nbsp;</td>
 									 				<td align="right" class="tableCell" >&nbsp;</td>
 									 				<td align="right" class="tableCell" >&nbsp;</td>
@@ -821,6 +826,55 @@
 									 					<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" name="dfvs10" id="dfvs10" size="26" maxlength="25" value="${model.record.dfvs10}">
 									 				</td>
 									 				
+									 			</tr>
+									 			<tr height="5"><td align="left" ></td></tr>
+									 			<tr>
+									 			<td valign="top" colspan="10" >
+	        										<table width="60%" align="left" class="tableBorderWithRoundCornersLightYellow" cellspacing="1" cellpadding="0">
+	        											<tr height="3"><td align="left" ></td></tr>
+		        										<tr>
+		        											<td class="text12">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.label.charge.dueCarrier"/></td>
+		        											<td>	
+		        												<input type="text" class="inputTextMediumBlue11" name="dfkddc" id="dfkddc" size="2" maxlength="1" value="${model.record.dfkddc}">
+		        											</td>
+		        											<td>	
+		        												<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" name="dfbldc" id="dfbldc" size="12" maxlength="10" value="${fn:replace(model.record.dfbldc,'.',',')}">
+		        											</td>
+		        											<td class="text12"><spring:message code="systema.tror.flyfraktbrev.form.update.label.charge.valuation"/></td>
+		        											<td>	
+		        												<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" name="dfbla" id="dfbla" size="12" maxlength="10" value="${fn:replace(model.record.dfbla,'.',',')}">
+		        											</td>
+		        											<td class="text12"><spring:message code="systema.tror.flyfraktbrev.form.update.label.charge.weight"/></td>
+		        											<td>	
+		        												<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" name="dfnett" id="dfnett" size="12" maxlength="10" value="${fn:replace(model.record.dfnett,'.',',')}">
+		        											</td>
+		        										</tr>
+		        										<tr>
+		        											<td class="text12">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.label.charge.dueAgent"/></td>
+		        											<td>&nbsp;</td>
+		        											<td>	
+		        												<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="12" maxlength="10" value="${Xmodel.record.todo}">
+		        											</td>
+		        											<td class="text12"><spring:message code="systema.tror.flyfraktbrev.form.update.label.charge.tax"/></td>
+		        											<td>	
+		        												<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" name="dfblav" id="dfblav" size="12" maxlength="10" value="${fn:replace(model.record.dfblav,'.',',')}">
+		        											</td>
+		        											<td class="text12">R</td>
+		        											<td>	
+		        												<input onKeyPress="return amountKey(event)" type="text" class="inputTextMediumBlue11" name="todo" id="todo" size="12" maxlength="10" value="${Xmodel.record.todo}">
+		        											</td>
+		        										</tr>
+		        										<tr>
+		        											<td class="text12">&nbsp;<spring:message code="systema.tror.flyfraktbrev.form.update.label.charge.text"/></td>
+		        											<td colspan="10">	
+		        												<input type="text" class="inputTextMediumBlue11" name="dfft" id="dfft" size="45" maxlength="41" value="${model.record.dfft}">
+		        											</td>
+		        											
+		        										</tr>
+		        										<tr height="3"><td align="left" ></td></tr>
+		        										</table>
+	        										</td>
+									 			
 									 			</tr>
 									 			
 									 			

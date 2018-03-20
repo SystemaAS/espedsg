@@ -203,7 +203,7 @@
 			
 			<tr>
            		<td>
-        			<table class="dashboardFrameHeader" width="40%" align="left" border="0" cellspacing="0" cellpadding="0">
+        			<table class="dashboardFrameHeader" width="50%" align="left" border="0" cellspacing="0" cellpadding="0">
 			 		<tr height="15">
 			 			
 			 			<td align="left" class="text14White">
@@ -218,7 +218,7 @@
 
             <tr >
            		<td>
-            		<table width="40%" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" align="left" border="0" cellspacing="0" cellpadding="0">
+            		<table width="50%" class="tableBorderWithRoundCorners3D_RoundOnlyOnBottom" align="left" border="0" cellspacing="0" cellpadding="0">
 				 		<tr height="5"><td ></td></tr>
 				 		
 						<tr>
@@ -226,8 +226,8 @@
 				 			 <table align="center" class="tableBorderWithRoundCornersLightYellow" cellspacing="1" cellpadding="1" border="0">
 						 		<tr height="10"><td ></td></tr>
 						 		<tr>
-					 				<td class="text12">&nbsp;<span title="imlop">Løpenr.</span></td>
-					 				<td class="text12">&nbsp;<span title="trsta4">Produktkode</span>
+					 				<td class="text12">&nbsp;<span title="imlop"><spring:message code="systema.tror.flyfraktbrev.import.dokefim.form.update.label.lopenr"/></span></td>
+					 				<td class="text12">&nbsp;<span title="trsta4"><spring:message code="systema.tror.flyfraktbrev.import.dokefim.form.update.label.productCode"/></span>
 					 					<a tabindex="-1" id="prodKodeIdLink" >
 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 										</a>
@@ -238,7 +238,7 @@
 				 					<td class="text12"><input type="text" class="inputTextMediumBlueMandatoryField" required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" name="trsta4" id="trsta4" size="2" maxlength="1" value="${model.record.trsta4}"></td>
 				 				</tr>
 					 			<tr>	
-					 				<td class="text12">&nbsp;<span title="hegn5_7">Flyselskap</span>
+					 				<td class="text12">&nbsp;<span title="hegn5_7"><spring:message code="systema.tror.flyfraktbrev.import.dokefim.form.update.label.carrier"/></span>
 					 					<a tabindex="-1" id="flyselskapIdLink" >
 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 										</a>	 	
@@ -257,12 +257,12 @@
 				 					</td>
 				 				</tr>
 				 				<tr>	
-					 				<td class="text12">&nbsp;<span title="hesdf">&nbsp;Fra flyplass</span>
+					 				<td class="text12">&nbsp;<span title="hesdf">&nbsp;<spring:message code="systema.tror.flyfraktbrev.import.dokefim.form.update.label.airportOfDeparture"/></span>
 					 					<a tabindex="-1" id="flyplassFromIdLink" >
 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 										</a>	
 					 				</td>
-					 				<td class="text12">&nbsp;<span title="hesdt">&nbsp;Til flyplass</span>
+					 				<td class="text12">&nbsp;<span title="hesdt">&nbsp;<spring:message code="systema.tror.flyfraktbrev.import.dokefim.form.update.label.airportOfDestination"/></span>
 					 					<a tabindex="-1" id="flyplassToIdLink" >
 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 										</a>	
@@ -283,13 +283,13 @@
 								
 								<tr height="25"><td ></td></tr>
 				 				<tr>	
-					 				<td class="text12">&nbsp;<span title="hegn">Awbnr man/aut.</span></td>
-					 				<td class="text12">&nbsp;<span title="hefr">Frankatur</span>
+					 				<td class="text12">&nbsp;<span title="hegn"><spring:message code="systema.tror.flyfraktbrev.import.dokefim.form.update.label.awbnr.manualOrAuto"/></span></td>
+					 				<td class="text12">&nbsp;<span title="hefr"><spring:message code="systema.tror.flyfraktbrev.import.dokefim.form.update.label.incoterms"/></span>
 					 					<a tabindex="-1" id="incotermsIdLink" >
 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 										</a>	
 					 				</td>
-					 				<td class="text12">&nbsp;<span title="domoms">Moms</span></td>
+					 				<td class="text12">&nbsp;<span title="domoms"><spring:message code="systema.tror.flyfraktbrev.import.dokefim.form.update.label.vat"/></span></td>
 					 				
 		 						</tr>
 		 						<tr>	
@@ -308,7 +308,7 @@
 				 					</td>
 		 						</tr>	
 		 						<tr>	
-					 				<td class="text12">&nbsp;<span title="hekns/ownHekns">Avsender</span>
+					 				<td class="text12">&nbsp;<span title="hekns/ownHekns"><spring:message code="systema.tror.flyfraktbrev.import.dokefim.form.update.label.shipper"/></span>
 					 					<a tabindex="-1" id="trorAvsenderImportIdLink" >
 											<img align="bottom" style="cursor:pointer;" src="resources/images/find.png" height="13px" width="13px" border="0" alt="search">
 										</a>
