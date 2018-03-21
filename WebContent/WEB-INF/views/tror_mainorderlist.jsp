@@ -38,7 +38,7 @@
 			</td>
 			<td width="1px" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderland_fellesutskrift.do" > 	
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderland_fellesutskrift.do?avd=${searchFilterTror.avd}&sign=${searchFilterTror.sign}" > 	
 					<img style="vertical-align:middle;" src="resources/images/printer2.png" width="12px" height="12px" border="0" alt="create new">
 					<font class="tabDisabledLink"><spring:message code="systema.tror.fellesprint.tab"/></font>
 				</a>

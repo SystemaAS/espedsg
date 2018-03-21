@@ -27,7 +27,7 @@
 		<tr height="2"><td></td></tr>
 		<tr height="25"> 
 			<td width="15%" valign="bottom" class="tabDisabled" align="center" nowrap>
-				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlist.do?action=doFind&sign=${recordOrderTrorLand.hesg}" > 	
+				<a class="text14" onClick="setBlockUI(this);" href="tror_mainorderlist.do?action=doFind&avd=${model.avd}&sign=${model.sign}" > 	
 					<img style="vertical-align:middle;" src="resources/images/bulletGreen.png" width="6px" height="6px" border="0" alt="open orders">
 					<font class="tabDisabledLink">&nbsp;<spring:message code="systema.tror.orderlist.tab"/></font>&nbsp;<font class="text10Orange">F2</font>
 				</a>
@@ -142,12 +142,12 @@
 									
 								</tr>
 								<tr>
-									<td class="text12" ><input type="text" class="inputTextMediumBlue"  name="wsavd" id="wsavd" size="5" maxlength="4" value=''></td>
-									<td class="text12" ><input type="text" class="inputTextMediumBlue"  name="wssg" id="wssg" size="5" maxlength="3" value=''></td>
-									<td class="text12" ><input type="text" class="inputTextMediumBlue"  name="wspro" id="wspro" size="10" maxlength="8" value=''></td>
-									<td class="text12" ><input type="text" class="inputTextMediumBlue"  name="wsopd" id="wsopd" size="10" maxlength="7" value=''></td>
-									<td class="text12" ><input type="text" class="inputTextMediumBlue"  name="wsgn" id="wsgn" size="17" maxlength="15" value=''></td>
-									<td class="text12" ><input type="text" class="inputTextMediumBlue"  name="wsdt1" id="wsdt1" size="10" maxlength="8" value=''></td>
+									<td class="text12" ><input type="text" class="inputTextMediumBlue"  name="wsavd" id="wsavd" size="5" maxlength="4" value='${model.record.wsavd}'></td>
+									<td class="text12" ><input type="text" class="inputTextMediumBlue"  name="wssg" id="wssg" size="5" maxlength="3" value='${model.record.wssg}'></td>
+									<td class="text12" ><input type="text" class="inputTextMediumBlue"  name="wspro" id="wspro" size="10" maxlength="8" value='${model.record.wspro}'></td>
+									<td class="text12" ><input type="text" class="inputTextMediumBlue"  name="wsopd" id="wsopd" size="10" maxlength="7" value='${model.record.wsopd}'></td>
+									<td class="text12" ><input type="text" class="inputTextMediumBlue"  name="wsgn" id="wsgn" size="17" maxlength="15" value='${model.record.wsgn}'></td>
+									<td class="text12" ><input type="text" class="inputTextMediumBlue"  name="wsdt1" id="wsdt1" size="10" maxlength="8" value='${model.record.wsdt1}'></td>
 								</tr>	
 							</table>
 							</td>

@@ -6,6 +6,16 @@
 		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
 	  }
   	
+  	jq(function() { 
+  		jq("#wsdt1").datepicker({ 
+  			dateFormat: 'ddmmy' 
+  			//defaultDate: "-6m"	  
+  		});
+  		jq("#wsdt2").datepicker({ 
+  			dateFormat: 'ddmmy', 
+  			defaultDate: "-7d"	  
+  		});
+  	});
   	
   //----------------------------------------
     //START Model dialog "Create new order"

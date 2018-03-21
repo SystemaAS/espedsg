@@ -410,6 +410,8 @@ public class TrorMainOrderListController {
 		String avd = request.getParameter("avd");
 		String sign = request.getParameter("sign");
 		String opd = request.getParameter("opd");
+		model.put("avd", avd);
+		model.put("sign", sign);
 		
 		//this.setDomainObjectsInView(request, model);
 		//check user (should be in session already)

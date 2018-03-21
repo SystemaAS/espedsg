@@ -287,8 +287,10 @@ http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 	<bean id="trorMainOrderHeaderLandexportChildwindowService" class="no.systema.tror.service.landexport.TrorMainOrderHeaderLandexportChildwindowServiceImpl"/>
 	<!-- Fly import -->
 	<bean id="trorMainOrderHeaderFlyimportService" class="no.systema.tror.service.flyimport.TrorMainOrderHeaderFlyimportServiceImpl"/>
+	<!-- Fellesutskrift -->
+	<bean id="trorMainOrderFellesutskriftService" class="no.systema.tror.service.fellesutskrift.TrorMainOrderFellesutskriftServiceImpl"/>
 	
-    
+	
 	<!-- ==============================  -->
 	<!-- SYSTEMA SPECIFIC CUSTOMER/APPL  -->
 	<!-- ==============================  -->
