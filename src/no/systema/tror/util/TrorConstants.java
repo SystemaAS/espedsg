@@ -30,6 +30,8 @@ public final class TrorConstants {
 	public static final String ACTION_CREATE = "doCreate";
 	public static final String ACTION_DELETE = "doDelete";
 	public static final String ACTION_SEND = "doSend";
+	public static final String ACTION_EXECUTE = "doExecute";
+	
 	
 	//update modes
 	public static final String MODE_UPDATE = "U";

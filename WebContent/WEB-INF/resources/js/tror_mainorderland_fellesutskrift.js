@@ -12,8 +12,8 @@
   			//defaultDate: "-6m"	  
   		});
   		jq("#wsdt2").datepicker({ 
-  			dateFormat: 'ddmmy', 
-  			defaultDate: "-7d"	  
+  			dateFormat: 'ddmmy' 
+  			//defaultDate: "-7d"	  
   		});
   	});
   	

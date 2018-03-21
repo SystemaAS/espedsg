@@ -40,25 +40,28 @@ import no.systema.main.util.JsonDebugger;
 import no.systema.main.util.StringManager;
 import no.systema.main.util.DateTimeManager;
 import no.systema.main.validator.LoginValidator;
-import no.systema.transportdisp.filter.SearchFilterTransportDispWorkflowShippingPlanningOrdersList;
 import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
 import no.systema.transportdisp.util.RpgReturnResponseHandler;
 import no.systema.transportdisp.util.TransportDispConstants;
 import no.systema.tror.filter.SearchFilterTrorMainList;
+import no.systema.tror.mapper.url.request.UrlRequestParameterMapper;
+import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
 //EBOOKING
 import no.systema.tror.model.jsonjackson.JsonTrorOrderListContainer;
 import no.systema.tror.model.jsonjackson.JsonTrorOrderListRecord;
+import no.systema.tror.model.jsonjackson.fellesutskrift.JsonTrorOrderFellesutskriftContainer;
+import no.systema.tror.model.jsonjackson.fellesutskrift.JsonTrorOrderFellesutskriftRecord;
+
 import no.systema.tror.service.TrorMainOrderListService;
+import no.systema.tror.service.fellesutskrift.TrorMainOrderFellesutskriftService;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.url.store.TrorUrlDataStore;
 import no.systema.tror.util.manager.CodeDropDownMgr;
-import no.systema.tvinn.sad.sadimport.filter.SearchFilterSadImportTopicList;
 import no.systema.tvinn.sad.sadimport.model.jsonjackson.topic.JsonSadImportTopicListContainer;
 import no.systema.tvinn.sad.sadimport.service.SadImportTopicListService;
 import no.systema.tvinn.sad.sadimport.url.store.SadImportUrlDataStore;
 import no.systema.tvinn.sad.sadexport.url.store.SadExportUrlDataStore;
 
-import no.systema.tvinn.sad.util.TvinnSadConstants;
 //import no.systema.tror.util.RpgReturnResponseHandler;
 import no.systema.tror.util.TrorConstants;
 import no.systema.z.main.maintenance.service.MaintMainKodtaService;
@@ -84,6 +87,8 @@ public class TrorMainOrderListController {
 	private StringManager strMgr = new StringManager();
 	private CodeDropDownMgr codeDropDownMgr = new CodeDropDownMgr();
 	private DateTimeManager dateTimeMgr = new DateTimeManager();
+	private UrlRequestParameterMapper urlRequestParameterMapper = new UrlRequestParameterMapper();
+	
 	@PostConstruct
 	public void initIt() throws Exception {
 		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
@@ -393,67 +398,72 @@ public class TrorMainOrderListController {
 	}
 	
 	/**
-	 * Renders the GUI view
-	 * 
+	 * This method is used for init and for further execution (instead for CRUD)
+	 * @param recordToValidate
+	 * @param bindingResult
 	 * @param session
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="tror_mainorderland_fellesutskrift.do",  method= RequestMethod.GET)
-	public ModelAndView doMore(HttpSession session, HttpServletRequest request){
+	@RequestMapping(value="tror_mainorderland_fellesutskrift.do",  method={RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView doFellesutskrift(@ModelAttribute ("record") JsonTrorOrderFellesutskriftRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
 		Map model = new HashMap();
 		SystemaWebUser appUser = (SystemaWebUser)session.getAttribute(AppConstants.SYSTEMA_WEB_USER_KEY);
 		//String messageFromContext = this.context.getMessage("user.label",new Object[0], request.getLocale());
 		ModelAndView successView = new ModelAndView("tror_mainorderland_fellesutskrift");
-		logger.info("Method: doMore [RequestMapping-->tror_mainorderland_fellesutskrift.do]");
+		logger.info("Method: doFellesutskrift [RequestMapping-->tror_mainorderland_fellesutskrift.do]");
 		
 		String avd = request.getParameter("avd");
 		String sign = request.getParameter("sign");
 		String opd = request.getParameter("opd");
+		String action = request.getParameter("action");
 		model.put("avd", avd);
 		model.put("sign", sign);
 		
-		//this.setDomainObjectsInView(request, model);
 		//check user (should be in session already)
 		if(appUser==null){
 			return loginView;
 			
 		}else{
-			//---------------------------
-			//get BASE URL = RPG-PROGRAM
-            //---------------------------
-			/*String BASE_URL = TrorUrlDataStore.TROR_BASE_ARCHIVE_FOR_SPECIFIC_TOPIC_URL;
-			//url params
-			String urlRequestParamsKeys = this.getRequestUrlKeyParameters(avd, opd, appUser);
-			//for debug purposes in GUI
-			session.setAttribute(TrorConstants.ACTIVE_URL_RPG_TROR, BASE_URL  + "==>params: " + urlRequestParamsKeys.toString()); 
 			
-			logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+			if(TrorConstants.ACTION_EXECUTE.equals(action)){
+				//---------------------------
+				//get BASE URL = RPG-PROGRAM
+	            //---------------------------
+				String BASE_URL = TrorUrlDataStore.TROR_BASE_EXECUTE_FELLESUTSKRIFT_URL;
+				String urlRequestParamsKeys = "user=" + appUser.getUser();
+				String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString((recordToValidate));
+				//put the final valid param. string
+				urlRequestParams = urlRequestParamsKeys + urlRequestParams;
+				
+				logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		    	logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
-		    	logger.info("URL PARAMS: " + urlRequestParamsKeys);
-		    	//--------------------------------------
-		    	//EXECUTE the FETCH (RPG program) here
-		    	//--------------------------------------
-		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParamsKeys);
-				//Debug --> 
-		    	logger.info(" --> jsonPayload:" + jsonPayload);
+		    	logger.info("URL PARAMS:" + urlRequestParams);
+		    	
+		    	
+		    	String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+		    	//Debug --> 
+		    	logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
 		    	logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
 		    	
-			if(jsonPayload!=null){
-				JsonTrorOrderHeaderArchiveContainer container = this.trorMainOrderHeaderService.getArchiveContainer(jsonPayload);
-	    		//add domain objects here
-	    		this.setDomainObjectsInView(model, container);
-	    		this.setDomainObjectsInView(request, model);
-	    		
-	    		successView.addObject(TrorConstants.DOMAIN_MODEL, model);
-				successView.addObject(TrorConstants.DOMAIN_LIST,container.getArchiveElements());
-		    		
-	    	}else{
-				logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
-				return loginView;
+				if(jsonPayload!=null){
+					JsonTrorOrderFellesutskriftContainer container = this.trorMainOrderFellesutskriftService.getFellesutskriftContainer(jsonPayload);
+		    		//ok now with execution ...
+					
+		    	}else{
+					logger.fatal("NO CONTENT on jsonPayload from URL... ??? <Null>");
+					return loginView;
+				}
+			}else{
+				recordToValidate.setWsavd(avd);
+				recordToValidate.setWssg(sign);
+				recordToValidate.setWsdt2(this.dateTimeMgr.getNewDateFromNow("ddMMyy", -7));
 			}
-			*/
+			
+			model.put(TrorConstants.DOMAIN_RECORD, recordToValidate);
 			this.setCodeDropDownMgr(appUser, model);
+			//here we prepare for the update
+			model.put("action", TrorConstants.ACTION_EXECUTE);
 			successView.addObject(TrorConstants.DOMAIN_MODEL , model);
 		}
 		return successView;
@@ -706,6 +716,16 @@ public class TrorMainOrderListController {
 	@Required
 	public void setSadImportTopicListService (SadImportTopicListService value){ this.sadImportTopicListService = value; }
 	public SadImportTopicListService getSadImportTopicListService(){ return this.sadImportTopicListService; }
+	
+	
+	@Qualifier ("trorMainOrderFellesutskriftService")
+	private TrorMainOrderFellesutskriftService trorMainOrderFellesutskriftService;
+	@Autowired
+	@Required
+	public void setTrorMainOrderFellesutskriftService (TrorMainOrderFellesutskriftService value){ this.trorMainOrderFellesutskriftService = value; }
+	public TrorMainOrderFellesutskriftService getTrorMainOrderFellesutskriftService(){ return this.trorMainOrderFellesutskriftService; }
+	
+	
 	
 }
 

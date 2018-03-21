@@ -245,7 +245,7 @@ public class TrorUrlDataStore {
 		//----------------------------------------------------------
 		//http://gw.systema.no/sycgip/TJGE28R.pgm?user=JOVO&avd=75&opd=155651
 		static public String TROR_BASE_FETCH_MAIN_ORDER_FRISOKVEI_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE28R.pgm";
-		//http://gw.systema.no/sycgip/tjge29R.pgm?user=JOVO&avd=75&opd=155651&mode=A&fskode=IFB&fssok=test&fsdokk=...	
+		//http://gw.systema.no/sycgip/TJGE29R.pgm?user=JOVO&avd=75&opd=155651&mode=A&fskode=IFB&fssok=test&fsdokk=...	
 		static public String TROR_BASE_UPDATE_MAIN_ORDER_FRISOKVEI_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE29R.pgm";
 			
 		//----------------------------------------------------------------
@@ -255,6 +255,12 @@ public class TrorUrlDataStore {
 		static public String TROR_BASE_FETCH_TRACK_AND_TRACE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTRACKF.do";
 		//http://gw.systema.no/sycgip/tjge27ru.pgm?user=JOVO&bnr=1318923&mode=U&bupCc=20&bupAr=15&bupMn
 		static public String TROR_BASE_UPDATE_TRACK_AND_TRACE_URL = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/syjservicesbcore/syjsTRACKF_U.do";
-				
+		
+		//----------------------------------------------------------------
+		//[3] FETCH/UPDATE/CREATE/DELETE Fellesutskrift general
+		//----------------------------------------------------------------
+		//http://http://gw.systema.no/sycgip/TSYFAPR1.pgm?user=OSCAR&wsavd=1&wssg=OT ... etc
+		static public String TROR_BASE_EXECUTE_FELLESUTSKRIFT_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSYFAPR1.pgm";
+		
 	
 }

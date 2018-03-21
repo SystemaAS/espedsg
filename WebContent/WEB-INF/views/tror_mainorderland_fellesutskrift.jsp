@@ -116,22 +116,23 @@
 	
 	<tr>
 		<td>
+			<form action="tror_mainorderland_fellesutskrift.do" name="trorFellesutskriftForm" id="trorFellesutskriftForm" method="post">
 			<%-- this table wrapper is necessary to apply the css class with the thin border --%>
 			<table style="width:100%" id="wrapperTable" class="tabThinBorderWhite" cellspacing="0" border="0" cellpadding="0">
 			<%--for F-Keys shortcuts. Used only in trorFkeys_...js --%>
-			<input type="hidden" name="fkeysavd" id="fkeysavd" value='${recordOrderTrorLandImport.heavd}'>
-			<input type="hidden" name="fkeysopd" id="fkeysopd" value='${recordOrderTrorLandImport.heopd}'>
-			<input type="hidden" name="fkyessign" id="fkyessign" value='${recordOrderTrorLandImport.hesg}'>
-				
-			<tr height="20"><td>&nbsp;</td></tr>
-
+			<input type="hidden" name="fkeysavd" id="fkeysavd" value='${model.avd}'>
+			<input type="hidden" name="fkeysopd" id="fkeysopd" value='${model.opd}'>
+			<input type="hidden" name="fkyessign" id="fkyessign" value='${model.sign}'>
+			<%-- --%>
+			<input type="hidden" name="action" id="action" value='${model.action}'>
+			
  	   	 	<tr>
 				<td align="center" width="99%">
 					<table width="99%" cellspacing="0" border="0">
- 	   	 				<tr height="30px"><td ></td></tr>
+ 	   	 				<tr height="15px"><td ></td></tr>
  	   	 				<tr>
 							<td  >
-							<table width="55%" border="0">
+							<table width="50%" border="0">
 								<tr>
 									<td class="text12" title="wsavd">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.avd"/></td>
 									<td class="text12" title="wssg">&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.sign"/></td>
@@ -152,7 +153,7 @@
 							</table>
 							</td>
 						</tr>
-						<tr height="10px"><td ></td></tr>
+						<tr height="5px"><td ></td></tr>
 
 						<tr>
 						<td>	
@@ -185,23 +186,23 @@
 									 			<td align="left">
 								        			<select class="inputTextMediumBlue" name="of" id="of">
 								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.of == 'J' || empty Xmodel.record.of}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.of == 'N'}"> selected </c:if> >Nei</option>
+									 				  	<option value="J"<c:if test="${model.record.of == 'J'}"> selected </c:if> >Ja</option>
+														<option value="N"<c:if test="${model.record.of == 'N'}"> selected </c:if> >Nei</option>
 													</select>
-													<input type="text" class="inputTextMediumBlue"  name="wsdt2" id="wsdt2" size="8" maxlength="6" value=''>
+													<input type="text" class="inputTextMediumBlue"  name="wsdt2" id="wsdt2" size="8" maxlength="6" value='${model.record.wsdt2}'>
 												</td>
 												<td align="left">
 								        			<select class="inputTextMediumBlue" name="vf" id="vf">
 								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.vf == 'J' || empty Xmodel.record.vf}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.vf == 'N'}"> selected </c:if> >Nei</option>
+									 				  	<option value="J"<c:if test="${model.record.vf == 'J'}"> selected </c:if> >Ja</option>
+														<option value="N"<c:if test="${model.record.vf == 'N'}"> selected </c:if> >Nei</option>
 													</select>
 												</td>
 												<td align="left">
 								        			<select class="inputTextMediumBlue" name="tpfb" id="tpfb">
 								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.tpfb == 'J' || empty Xmodel.record.tpfb}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.tpfb == 'N'}"> selected </c:if> >Nei</option>
+									 				  	<option value="J"<c:if test="${model.record.tpfb == 'J'}"> selected </c:if> >Ja</option>
+														<option value="N"<c:if test="${model.record.tpfb == 'N'}"> selected </c:if> >Nei</option>
 													</select>
 												</td>
 												<td align="left">
@@ -214,40 +215,39 @@
 												<td align="left">
 								        			<select class="inputTextMediumBlue" name="iffb" id="iffb">
 								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.iffb == 'J' || empty Xmodel.record.iffb}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.iffb == 'N'}"> selected </c:if> >Nei</option>
+									 				  	<option value="J"<c:if test="${model.record.iffb == 'J'}"> selected </c:if> >Ja</option>
+														<option value="N"<c:if test="${model.record.iffb == 'N'}"> selected </c:if> >Nei</option>
 													</select>
 												</td>
 												<td align="left">
 								        			<select class="inputTextMediumBlue" name="loss" id="loss">
 								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.loss == 'J' || empty Xmodel.record.loss}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.loss == 'N'}"> selected </c:if> >Nei</option>
+									 				  	<option value="J"<c:if test="${model.record.loss == 'J'}"> selected </c:if> >Ja</option>
+														<option value="N"<c:if test="${model.record.loss == 'N'}"> selected </c:if> >Nei</option>
 													</select>
 												</td>
 												<td align="left">
 								        			<select class="inputTextMediumBlue" name="ffak" id="ffak">
 								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.ffak == 'J' || empty Xmodel.record.ffak}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.ffak == 'N'}"> selected </c:if> >Nei</option>
+									 				  	<option value="J"<c:if test="${model.record.ffak == 'J'}"> selected </c:if> >Ja</option>
+														<option value="N"<c:if test="${model.record.ffak == 'N'}"> selected </c:if> >Nei</option>
 													</select>
 												</td>
 												<td align="left">
 								        			<select class="inputTextMediumBlue" name="cm" id="cm">
 								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.cm == 'J' || empty Xmodel.record.cm}"> selected </c:if> >Ja</option>
-														<option value="N"<c:if test="${Xmodel.record.cm == 'N'}"> selected </c:if> >Nei</option>
+									 				  	<option value="J"<c:if test="${model.record.cm == 'J'}"> selected </c:if> >Ja</option>
+														<option value="N"<c:if test="${model.record.cm == 'N'}"> selected </c:if> >Nei</option>
 													</select>
 												</td>
 												<td align="left">
-								        			<input type="text" class="inputTextMediumBlue"  name="sakode" id="sakode" size="4" maxlength="2" value=''>
-								        			<input type="text" class="inputTextMediumBlue"  name="satype" id="satype" size="2" maxlength="1" value=''>
+								        			<input type="text" class="inputTextMediumBlue"  name="sakode" id="sakode" size="4" maxlength="2" value='${model.record.sakode}'>
+								        			<input type="text" class="inputTextMediumBlue"  name="satype" id="satype" size="2" maxlength="1" value='${model.record.satype}'>
 												</td>	
 												<td align="left">
 								        			<select class="inputTextMediumBlue" name="wssum" id="wssum">
-								 						<option value="">-velg-</option>
-									 				  	<option value="J"<c:if test="${Xmodel.record.wssum == 'J' || empty Xmodel.record.wssum}"> selected </c:if> >Beløp</option>
-														<option value="L"<c:if test="${Xmodel.record.wssum == 'L'}"> selected </c:if> >Labels</option>
+								 						<option value="J"<c:if test="${model.record.wssum == 'J' || empty model.record.wssum}"> selected </c:if> >Beløp</option>
+														<option value="L"<c:if test="${model.record.wssum == 'L'}"> selected </c:if> >Labels</option>
 													</select>
 												</td>
 												
@@ -262,12 +262,12 @@
 									 					</tr>
 									 					<tr>
 												        	<td align="left">
-											        			<input type="text" class="inputTextMediumBlue"  name="wsms1" id="wsms1" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="wsms2" id="wsms2" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="wsms3" id="wsms3" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="wsms4" id="wsms4" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="wsms5" id="wsms5" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="wsms6" id="wsms6" size="4" maxlength="2" value=''>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsms1" id="wsms1" size="4" maxlength="2" value='${model.record.wsms1}'>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsms2" id="wsms2" size="4" maxlength="2" value='${model.record.wsms2}'>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsms3" id="wsms3" size="4" maxlength="2" value='${model.record.wsms3}'>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsms4" id="wsms4" size="4" maxlength="2" value='${model.record.wsms4}'>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsms5" id="wsms5" size="4" maxlength="2" value='${model.record.wsms5}'>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsms6" id="wsms6" size="4" maxlength="2" value='${model.record.wsms6}'>
 											        		</td>		
 												        </tr>
 									 				</table>
@@ -279,11 +279,11 @@
 									 					</tr>
 									 					<tr>
 												        	<td align="left">
-											        			<input type="text" class="inputTextMediumBlue"  name="wsot1" id="wsot1" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="wsot2" id="wsot2" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="wsot3" id="wsot3" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="wsot4" id="wsot4" size="4" maxlength="2" value=''>
-											        			<input type="text" class="inputTextMediumBlue"  name="wsot5" id="wsot5" size="4" maxlength="2" value=''>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsot1" id="wsot1" size="4" maxlength="2" value='${model.record.wsot1}'>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsot2" id="wsot2" size="4" maxlength="2" value='${model.record.wsot2}'>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsot3" id="wsot3" size="4" maxlength="2" value='${model.record.wsot3}'>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsot4" id="wsot4" size="4" maxlength="2" value='${model.record.wsot4}'>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsot5" id="wsot5" size="4" maxlength="2" value='${model.record.wsot5}'>
 											        			
 											        		</td>		
 												        </tr>
@@ -301,18 +301,21 @@
 									            			<td align="left">
 											        			<select class="inputTextMediumBlue" name="jbk" id="jbk">
 											 						<option value="">-velg-</option>
-												 				  	<option value="J"<c:if test="${Xmodel.record.jbk == 'J' || empty Xmodel.record.jbk}"> selected </c:if> >Ja</option>
-																	<option value="N"<c:if test="${Xmodel.record.jbk == 'N'}"> selected </c:if> >Nei</option>
+												 				  	<option value="J"<c:if test="${model.record.jbk == 'J' || empty model.record.jbk}"> selected </c:if> >Ja</option>
+																	<option value="N"<c:if test="${model.record.jbk == 'N'}"> selected </c:if> >Nei</option>
 																</select>
 															</td>
 															<td align="left">
-											        			<input type="text" class="inputTextMediumBlue"  name="wsprt" id="wsprt" size="12" maxlength="10" value=''>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsprt" id="wsprt" size="12" maxlength="10" value='${model.record.wsprt}'>
 											        		</td>
 											        		<td align="left">
-											        			<input type="text" class="inputTextMediumBlue"  name="wsprt2" id="wsprt2" size="12" maxlength="10" value=''>
+											        			<input type="text" class="inputTextMediumBlue"  name="wsprt2" id="wsprt2" size="12" maxlength="10" value='${model.record.wsprt2}'>
 											        		</td>		
 									            		</tr>
 									 				</table>
+									 			</td>
+									 			<td valign="bottom">
+									 				<input onClick="setBlockUI(this);" class="inputFormSubmit" type="submit" name="submit" id="submit" value='<spring:message code="systema.tror.submit.save"/>'>
 									 			</td>
 									        </tr>
 									        
@@ -330,6 +333,7 @@
 			</tr>											
  	   	 	<tr height="3"><td></td></tr>
  			</table>
+ 			</form>
 		</td>
 	</tr>
 	
@@ -352,8 +356,8 @@
 								<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlue11MandatoryField" name="selectedType" id="selectedType">
 									<option value="A"><spring:message code="systema.tror.order.suborder.landimport"/></option>
 									<option value="B"><spring:message code="systema.tror.order.suborder.landexport"/></option>
-									<option value="C"><spring:message code="systema.tror.order.suborder.airimport"/></option>
-									<option value="D"><spring:message code="systema.tror.order.suborder.airexport"/></option>
+									<option value="C"><spring:message code="systema.tror.order.suborder.flyimport"/></option>
+									<option value="D"><spring:message code="systema.tror.order.suborder.flyexport"/></option>
 								</select>
 								&nbsp;&nbsp;<div style="display:inline;" id="imagePreview"></div>
 							</td>
@@ -362,7 +366,7 @@
 							<td class="text12MediumBlue">Avd&nbsp;&nbsp;
 								<select required oninvalid="this.setCustomValidity('Obligatorisk')" oninput="setCustomValidity('')" class="inputTextMediumBlueMandatoryField" name="heavd" id="heavd" >
 			 						<c:forEach var="record" items="${model.avdList}" >
-				 				  		<option value="${record.koakon}"<c:if test="${model.record.heavd == record.koakon}"> selected </c:if> >${record.koakon}</option>
+				 				  		<option value="${record.koakon}"<c:if test="${model.avd == record.koakon}"> selected </c:if> >${record.koakon}</option>
 									</c:forEach>  
 								</select>
 							</td>

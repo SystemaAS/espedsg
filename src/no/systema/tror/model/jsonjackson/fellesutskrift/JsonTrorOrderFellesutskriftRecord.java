@@ -46,8 +46,30 @@ public class JsonTrorOrderFellesutskriftRecord {
 	private String wsms4 = null;
 	private String wsms5 = null;
 	private String wsms6 = null;
+	private String wsprt = null;
+	private String wsprt2 = null;
 	
 	
+		public String getWsprt() {
+		return wsprt;
+	}
+
+
+	public void setWsprt(String wsprt) {
+		this.wsprt = wsprt;
+	}
+
+
+	public String getWsprt2() {
+		return wsprt2;
+	}
+
+
+	public void setWsprt2(String wsprt2) {
+		this.wsprt2 = wsprt2;
+	}
+
+
 		public String getJbk() {
 		return jbk;
 	}

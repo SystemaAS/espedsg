@@ -467,5 +467,22 @@ public class DateTimeManager {
 		
 		return retval;
 	}
+	/**
+	 * 
+	 * @param formatMask
+	 * @param days
+	 * @return
+	 */
+	public String getNewDateFromNow( String formatMask, int days){
+		String retval = "";
+		
+		Calendar cal = GregorianCalendar.getInstance();
+		cal.add( Calendar.DAY_OF_YEAR, days);
+		Date daysAgoOrAhead = cal.getTime();
+		SimpleDateFormat formatter = new SimpleDateFormat(formatMask);
+		retval = formatter.format(daysAgoOrAhead);
+		
+		return retval;
+	}
 	
 }
