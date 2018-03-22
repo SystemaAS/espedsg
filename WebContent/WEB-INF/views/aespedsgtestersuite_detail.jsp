@@ -30,6 +30,8 @@
 						<font class="tabLink">${model.moduleChild}&nbsp;<spring:message code="systema.testersuite.module.child.suffix.label"/></font>&nbsp;
 						<%-- <img style="vertical-align: top;" src="resources/images/engines.png" height="14px" width="14px" border="0" alt="test suite"> --%>
 						<img style="vertical-align: top;" src="resources/images/leaf.png" height="16px" width="16px" border="0" alt="test module">
+						&nbsp;<font class="text11SkyBlue">(${model.listSize})</font>
+						
 					</td>
 					
 					

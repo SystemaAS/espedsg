@@ -43,8 +43,23 @@ import no.systema.main.model.SystemaWebUser;
 //SysJservices
 import no.systema.aespedsgtestersuite.model.TestersuiteObject;
 import no.systema.tvinn.sad.url.store.TvinnSadUrlDataStore;
+import no.systema.tvinn.sad.sadexport.url.store.SadExportUrlDataStore;
+import no.systema.tvinn.sad.sadimport.url.store.SadImportUrlDataStore;
+import no.systema.tvinn.sad.nctsexport.url.store.SadNctsExportUrlDataStore;
+import no.systema.tvinn.sad.nctsimport.url.store.SadNctsImportUrlDataStore;
+
+
 import no.systema.tds.url.store.TdsUrlDataStore;
+import no.systema.tds.tdsexport.url.store.TdsExportUrlDataStore;
+import no.systema.tds.tdsimport.url.store.TdsImportUrlDataStore;
+
 import no.systema.skat.url.store.SkatUrlDataStore;
+import no.systema.skat.skatexport.url.store.SkatExportUrlDataStore;
+import no.systema.skat.skatimport.url.store.SkatImportUrlDataStore;
+import no.systema.skat.nctsexport.url.store.SkatNctsExportUrlDataStore;
+import no.systema.skat.nctsimport.url.store.SkatNctsImportUrlDataStore;
+
+
 import no.systema.ebooking.url.store.EbookingUrlDataStore;
 import no.systema.transportdisp.url.store.TransportDispUrlDataStore;
 import no.systema.sporringoppdrag.url.store.SporringOppdragUrlDataStore;
@@ -85,6 +100,7 @@ public class JsonEspedsgTestersuiteController {
 	private final String TEST_MODULE_TDS = "tds";
 	private final String TEST_MODULE_TVINN = "tvinn";
 	private final String TEST_MODULE_SKAT = "skat";
+	private final String TEST_MODULE_SKAT_EXPORT = "skatexport";
 	private final String TEST_MODULE_AVG_GRUNNLAG = "avggrunn";
 	private final String TEST_MODULE_EFAKTURA = "efaktura";
 	private final String TEST_MODULE_EBOOKING = "ebooking";
@@ -93,10 +109,10 @@ public class JsonEspedsgTestersuiteController {
 	private final String TEST_MODULE_UFORTOLL = "ufortoll";
 	private final String TEST_MODULE_SPORROPPD = "sporroppd";
 	private final String TEST_MODULE_ALTINN = "altinn";
-	
+	//
+	private final String TEST_LIST_SIZE = "listSize";
 	
 
-	
 	@PostConstruct
 	public void initIt() throws Exception {
 		if("DEBUG".equals(AppConstants.LOG4J_LOGGER_LEVEL)){
@@ -129,6 +145,7 @@ public class JsonEspedsgTestersuiteController {
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
 			list = this.initTesterSuiteSpecification();
 			model.put("list",list);
+			model.put(TEST_LIST_SIZE, list.size());
 			
     		//--------------------------------------
     		//Final successView with domain objects
@@ -141,6 +158,7 @@ public class JsonEspedsgTestersuiteController {
 	}
 	
 	
+	
 	/**
 	 * 
 	 * @param session
@@ -149,7 +167,7 @@ public class JsonEspedsgTestersuiteController {
 	 * @return
 	 */
 	@RequestMapping(value="aespedsgtestersuite_detail.do", method={RequestMethod.GET, RequestMethod.POST} )
-	public ModelAndView doTestGeneric( HttpSession session, HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView doTestSkat( HttpSession session, HttpServletRequest request, HttpServletResponse response){
 		List list = new ArrayList();
 		
 		Map model = new HashMap();
@@ -165,9 +183,14 @@ public class JsonEspedsgTestersuiteController {
 			//appUser.setActiveMenu(SystemaWebUser.ACTIVE_MENU_TEST_SUITES);
 			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
 			
-			
-			list = this.setTesterSuiteServices(appUser, testModule, model);
+			if(TEST_MODULE_SKAT.equals(testModule) || TEST_MODULE_TDS.equals(testModule) || TEST_MODULE_TVINN.equals(testModule) ){
+				list = this.setTesterSuiteServicesCompound(appUser, testModule, model);
+			}else{
+				list = this.setTesterSuiteServices(appUser, testModule, model);
+			}
 			model.put("listServices",list);
+			model.put(TEST_LIST_SIZE, list.size());
+			
 			
     		//--------------------------------------
     		//Final successView with domain objects
@@ -205,6 +228,7 @@ public class JsonEspedsgTestersuiteController {
 			//http://gw.systema.no:8080/altinn-proxy/downloadDagsobjor.do?user=DEMO
 			list = this.setTesterSuiteServicesAltin(appUser.getUser(),testModule, model);
 			model.put("listServices",list);
+			model.put(TEST_LIST_SIZE, list.size());
 			
     		//--------------------------------------
     		//Final successView with domain objects
@@ -214,6 +238,328 @@ public class JsonEspedsgTestersuiteController {
     		return successView;
 		    
 		}
+	}
+	
+	/**
+	 * 
+	 * @param testModule
+	 * @param model
+	 * @return
+	 */
+	private List setTesterSuiteServices(SystemaWebUser appUser, String testModule, Map<String, Object> model){
+		logger.info("Inside setTesterSuiteServices...");
+		List outputList = new ArrayList();
+		
+		StringBuffer moduleChild = new StringBuffer();
+		Object urlStoreObj = this.setModuleChildText(testModule, moduleChild);
+		
+		try{
+			this.buildList(outputList, urlStoreObj, moduleChild, model);
+			
+		}catch(Exception e){
+			logger.info(e.toString());
+		}
+		return outputList;
+	}
+	/**
+	 * Used when there are several UrlStores in a specific module (SKAT, TDS, TVINN, etc)
+	 * @param appUser
+	 * @param testModule
+	 * @param model
+	 * @return
+	 */
+	private List setTesterSuiteServicesCompound(SystemaWebUser appUser, String testModule, Map<String, Object> model){
+		logger.info("Inside setTesterSuiteServicesCompound...");
+		List outputList = new ArrayList();
+		
+		StringBuffer moduleChild = new StringBuffer();
+		List<Object> listObj= this.getUrlObjectList(testModule, moduleChild);
+		
+		for(Object urlStoreObjRecord : listObj){
+			try{
+				this.buildList(outputList, urlStoreObjRecord, moduleChild, model);
+				
+			}catch(Exception e){
+				logger.info(e.toString());
+			}
+			
+		}
+	
+		return outputList;
+	}
+	
+	/**
+	 * 
+	 * @param urlStoreObj
+	 * @param moduleChild
+	 * @param model
+	 * @return
+	 */
+	private void buildList(List objectList, Object urlStoreObj, StringBuffer moduleChild, Map<String, Object> model){
+		
+		try{
+			model.put("moduleChild", moduleChild.toString());
+			
+			//Start with Reflection
+			Class cl = Class.forName(urlStoreObj.getClass().getCanonicalName());
+			Field[] fields = cl.getDeclaredFields();
+			List<Field> list = Arrays.asList(fields);
+			TestersuiteObject testersuiteObject = null;
+			logger.info("before loop...");
+			for(Field field : list){
+				try{
+					field.setAccessible(true);
+					String value = (String)field.get(urlStoreObj);
+					if(value!=null && !"".equals(value)){
+						//logger.info(field.getName() + " Value:" + value);
+						testersuiteObject = new TestersuiteObject();
+						testersuiteObject.setModuleName(value);
+						testersuiteObject.setServiceUrl(value);
+						
+						if(fireFirstSmokeTest(value, testersuiteObject, this.TIMEOUT_LIMIT)){
+							testersuiteObject.setStatus(GREEN_STATUS);
+							//====================
+							//From here on: Note
+							//====================
+							//THIS 2nd-SMOKE-TEST IS NOT IN USED until further agreement.
+							/*
+							if(value.contains("syj") && field.getName().contains("UPDATE") ){
+								//java services with Update require a valid USER or get a NullPointerException otherwise. 
+								//We just leave all CRUD-services as = OK
+								testersuiteObject.setStatus(GREEN_STATUS);
+							}else{
+								
+								
+								String BASE_URL = value;
+								String urlRequestParams = "user=" + appUser.getUser();
+								//fire the second smoke test
+								String jsonReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
+								//logger.info(jsonReturnPayload);
+								
+								if(jsonReturnPayload!=null && (jsonReturnPayload.contains("user") || jsonReturnPayload.contains("JsonResponseOutputterController") )){
+									testersuiteObject.setStatus(GREEN_STATUS);
+								}else{
+									testersuiteObject.setStatus(RED_STATUS);
+									testersuiteObject.setErrMsg(ERROR_PREFIX + "json-payload [null]: second smoke test failure [http: code 500]...");
+								}
+							
+							}
+							*/
+						}else{
+							testersuiteObject.setStatus(RED_STATUS);
+							
+						}
+						
+						objectList.add(testersuiteObject);
+					}
+				}catch(Exception e){
+					continue;
+				}
+			}
+		}catch(Exception e){
+			logger.info(e.toString());
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * @param testModule
+	 * @param moduleChild
+	 * @return
+	 */
+	private List<Object> getUrlObjectList(String testModule, StringBuffer moduleChild){
+		List<Object> listObj= new ArrayList<Object>();
+		Object urlStoreObj = null;
+		
+		if(TEST_MODULE_TDS.equalsIgnoreCase(testModule)){
+			urlStoreObj = new TdsUrlDataStore();
+			listObj.add(urlStoreObj);
+			//
+			urlStoreObj = new TdsExportUrlDataStore();
+			listObj.add(urlStoreObj);
+			//
+			urlStoreObj = new TdsImportUrlDataStore();
+			listObj.add(urlStoreObj);
+			//
+			urlStoreObj = new no.systema.tds.nctsexport.url.store.UrlDataStore();
+			listObj.add(urlStoreObj);
+			//
+			urlStoreObj = new no.systema.tds.nctsimport.url.store.UrlDataStore();
+			listObj.add(urlStoreObj);
+			//
+			moduleChild.append(TEST_MODULE_TDS.toUpperCase());
+			
+			
+		}else if(TEST_MODULE_SKAT.equalsIgnoreCase(testModule)){
+			urlStoreObj = new SkatUrlDataStore();
+			listObj.add(urlStoreObj);
+			//
+			urlStoreObj = new SkatExportUrlDataStore();
+			listObj.add(urlStoreObj);
+			//
+			urlStoreObj = new SkatImportUrlDataStore();
+			listObj.add(urlStoreObj);
+			//
+			urlStoreObj = new SkatNctsExportUrlDataStore();
+			listObj.add(urlStoreObj);
+			//
+			urlStoreObj = new SkatNctsImportUrlDataStore();
+			listObj.add(urlStoreObj);
+			//
+			moduleChild.append(TEST_MODULE_SKAT.toUpperCase());
+			
+			
+		}else if(TEST_MODULE_TVINN.equalsIgnoreCase(testModule)){
+			urlStoreObj = new TvinnSadUrlDataStore();
+			listObj.add(urlStoreObj);
+			//
+			urlStoreObj = new SadExportUrlDataStore();
+			listObj.add(urlStoreObj);
+			//
+			urlStoreObj = new SadImportUrlDataStore();
+			listObj.add(urlStoreObj);
+			//
+			urlStoreObj = new SadNctsExportUrlDataStore();
+			listObj.add(urlStoreObj);
+			//
+			urlStoreObj = new SadNctsImportUrlDataStore();
+			listObj.add(urlStoreObj);
+			//
+			moduleChild.append(TEST_MODULE_TVINN.toUpperCase());
+			
+			
+		}
+		
+		return listObj;
+	}
+	
+	/**
+	 * 
+	 * @param testModule
+	 * @param model
+	 * @return
+	 */
+	private List setTesterSuiteServicesAltin(String validUser, String testModule, Map<String, Object> model){
+		List retval = new ArrayList();
+		//String value = "http://gw.systema.no:8080/altinn-proxy/downloadDagsobjor.do?user=" + validUser;
+		String value = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/altinn-proxy/downloadDagsobjor.do?user=" + validUser;
+		
+		try{
+			model.put("moduleChild", "Altinn-Proxy");
+			
+			TestersuiteObject testersuiteObject = null;
+			testersuiteObject = new TestersuiteObject();
+			testersuiteObject.setModuleName(value);
+			testersuiteObject.setServiceUrl(value);
+			
+			if(fireFirstSmokeTest(value, testersuiteObject, this.TIMEOUT_LIMIT + 5000)){ //usually takes longer than other services
+				String BASE_URL = value;
+				//fire the second smoke test
+				String payload = this.urlCgiProxyService.getJsonContent(BASE_URL, "");
+				logger.info(payload);
+				
+				if(payload!=null && payload.contains("Dagsoppgjors") ){
+					testersuiteObject.setStatus(GREEN_STATUS);
+				}else{
+					testersuiteObject.setStatus(RED_STATUS);
+					testersuiteObject.setErrMsg(ERROR_PREFIX + "json-payload [null]: second smoke test failure [http: code 500]...");
+				}
+			}else{
+				testersuiteObject.setStatus(RED_STATUS);
+				
+			}
+			retval.add(testersuiteObject);
+	
+		}catch(Exception e){
+			logger.info(e.toString());
+		}
+		return retval;
+	}
+	/**
+	 * Checks it the url is available for connection. To avoid "hang" service...
+	 * @param url
+	 * @return
+	 */
+	private boolean fireFirstSmokeTest(String url, TestersuiteObject testersuiteObject, int timeout){
+		boolean retval = false;
+		try{
+			URL u = new URL ( url);
+			HttpURLConnection huc =  ( HttpURLConnection )  u.openConnection (); 
+			huc.setRequestMethod ("GET");  //OR  huc.setRequestMethod ("HEAD"); 
+			huc.setConnectTimeout(TIMEOUT_LIMIT); // x seconds connectTimeout
+			huc.setReadTimeout(timeout);
+			huc.connect () ; 
+			int code = huc.getResponseCode() ;
+			//logger.info("CODE:" + code);
+			
+			retval = true;
+		}catch(Exception e){
+			testersuiteObject.setErrMsg(ERROR_PREFIX + e.toString());
+			logger.info(e.toString());	
+		}
+		return retval;
+	}
+	
+	/**
+	 * 
+	 * @param testModule
+	 * @param moduleChildTitle
+	 * @return
+	 */
+	private Object setModuleChildText(String testModule, StringBuffer moduleChildTitle){
+		Object urlStoreObj = null;
+		
+		//Instantiate the correct test module
+		
+		if(this.TEST_MODULE_OPPDREG.equals(testModule)){ 
+			urlStoreObj = new TrorUrlDataStore();
+			moduleChildTitle.append(TEST_MODULE_OPPDREG.toUpperCase());
+		
+		}else if(this.TEST_MODULE_TVINN.equals(testModule)){ 
+			urlStoreObj = new TvinnSadUrlDataStore();
+			moduleChildTitle.append(TEST_MODULE_TVINN.toUpperCase());
+		
+		}else if(this.TEST_MODULE_TDS.equals(testModule)){ 
+			urlStoreObj = new TdsUrlDataStore();
+			moduleChildTitle.append(TEST_MODULE_TDS.toUpperCase());
+		
+		}else if(this.TEST_MODULE_SKAT.equals(testModule)){ 
+			urlStoreObj = new SkatUrlDataStore();
+			moduleChildTitle.append(TEST_MODULE_SKAT.toUpperCase());
+		
+		}else if(this.TEST_MODULE_EBOOKING.equals(testModule)){ 
+			urlStoreObj = new EbookingUrlDataStore();
+			moduleChildTitle.append(TEST_MODULE_EBOOKING.toUpperCase());
+		
+		}else if(this.TEST_MODULE_LASTETORG.equals(testModule)){ 
+			urlStoreObj = new TransportDispUrlDataStore();
+			moduleChildTitle.append(TEST_MODULE_LASTETORG.toUpperCase());
+		
+		}else if(this.TEST_MODULE_SPORROPPD.equals(testModule)){ 
+			urlStoreObj = new SporringOppdragUrlDataStore();
+			moduleChildTitle.append(TEST_MODULE_SPORROPPD.toUpperCase());
+		
+		}else if(this.TEST_MODULE_UFORTOLL.equals(testModule)){ 
+			urlStoreObj = new UrlDataStore();
+			moduleChildTitle.append(TEST_MODULE_UFORTOLL.toUpperCase());
+		
+		}else if(this.TEST_MODULE_PRISKALK.equals(testModule)){ 
+			urlStoreObj = new FraktKalkulatorUrlDataStore();
+			moduleChildTitle.append(TEST_MODULE_PRISKALK.toUpperCase());
+		
+		}else if(this.TEST_MODULE_AVG_GRUNNLAG.equals(testModule)){ 
+			urlStoreObj = new SadAdminUrlDataStore();
+			moduleChildTitle.append(TEST_MODULE_AVG_GRUNNLAG.toUpperCase());
+		
+		}else if(this.TEST_MODULE_EFAKTURA.equals(testModule)){ 
+			urlStoreObj = new EfakturaUrlDataStore();
+			moduleChildTitle.append(TEST_MODULE_EFAKTURA.toUpperCase());
+		
+		}
+		
+
+		return urlStoreObj;
 	}
 	
 	/**
@@ -311,210 +657,6 @@ public class JsonEspedsgTestersuiteController {
 		//
 		
 		return list;
-	}
-	
-	/**
-	 * 
-	 * @param testModule
-	 * @param model
-	 * @return
-	 */
-	private List setTesterSuiteServices(SystemaWebUser appUser, String testModule, Map<String, Object> model){
-		List retval = new ArrayList();
-		
-		StringBuffer moduleChild = new StringBuffer();
-		Object urlStoreObj = this.setModuleChildText(testModule, moduleChild);
-		
-		try{
-			model.put("moduleChild", moduleChild.toString());
-			
-			//Start with Reflection
-			Class cl = Class.forName(urlStoreObj.getClass().getCanonicalName());
-			Field[] fields = cl.getDeclaredFields();
-			List<Field> list = Arrays.asList(fields);
-			TestersuiteObject testersuiteObject = null;
-			logger.info("before loop...");
-			for(Field field : list){
-				try{
-					field.setAccessible(true);
-					String value = (String)field.get(urlStoreObj);
-					if(value!=null && !"".equals(value)){
-						logger.info(field.getName() + " Value:" + value);
-						testersuiteObject = new TestersuiteObject();
-						testersuiteObject.setModuleName(value);
-						testersuiteObject.setServiceUrl(value);
-						
-						if(fireFirstSmokeTest(value, testersuiteObject, this.TIMEOUT_LIMIT)){
-							testersuiteObject.setStatus(GREEN_STATUS);
-							//====================
-							//From here on: Note
-							//====================
-							//THIS 2nd-SMOKE-TEST IS NOT IN USED until further agreement.
-							/*
-							if(value.contains("syj") && field.getName().contains("UPDATE") ){
-								//java services with Update require a valid USER or get a NullPointerException otherwise. 
-								//We just leave all CRUD-services as = OK
-								testersuiteObject.setStatus(GREEN_STATUS);
-							}else{
-								
-								
-								String BASE_URL = value;
-								String urlRequestParams = "user=" + appUser.getUser();
-								//fire the second smoke test
-								String jsonReturnPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams);
-								//logger.info(jsonReturnPayload);
-								
-								if(jsonReturnPayload!=null && (jsonReturnPayload.contains("user") || jsonReturnPayload.contains("JsonResponseOutputterController") )){
-									testersuiteObject.setStatus(GREEN_STATUS);
-								}else{
-									testersuiteObject.setStatus(RED_STATUS);
-									testersuiteObject.setErrMsg(ERROR_PREFIX + "json-payload [null]: second smoke test failure [http: code 500]...");
-								}
-							
-							}
-							*/
-						}else{
-							testersuiteObject.setStatus(RED_STATUS);
-							
-						}
-						
-						retval.add(testersuiteObject);
-					}
-				}catch(Exception e){
-					continue;
-				}
-			}
-		}catch(Exception e){
-			logger.info(e.toString());
-		}
-		return retval;
-	}
-	/**
-	 * 
-	 * @param testModule
-	 * @param model
-	 * @return
-	 */
-	private List setTesterSuiteServicesAltin(String validUser, String testModule, Map<String, Object> model){
-		List retval = new ArrayList();
-		//String value = "http://gw.systema.no:8080/altinn-proxy/downloadDagsobjor.do?user=" + validUser;
-		String value = AppConstants.HTTP_ROOT_SERVLET_JSERVICES + "/altinn-proxy/downloadDagsobjor.do?user=" + validUser;
-		
-		try{
-			model.put("moduleChild", "Altinn-Proxy");
-			
-			TestersuiteObject testersuiteObject = null;
-			testersuiteObject = new TestersuiteObject();
-			testersuiteObject.setModuleName(value);
-			testersuiteObject.setServiceUrl(value);
-			
-			if(fireFirstSmokeTest(value, testersuiteObject, this.TIMEOUT_LIMIT + 5000)){ //usually takes longer than other services
-				String BASE_URL = value;
-				//fire the second smoke test
-				String payload = this.urlCgiProxyService.getJsonContent(BASE_URL, "");
-				logger.info(payload);
-				
-				if(payload!=null && payload.contains("Dagsoppgjors") ){
-					testersuiteObject.setStatus(GREEN_STATUS);
-				}else{
-					testersuiteObject.setStatus(RED_STATUS);
-					testersuiteObject.setErrMsg(ERROR_PREFIX + "json-payload [null]: second smoke test failure [http: code 500]...");
-				}
-			}else{
-				testersuiteObject.setStatus(RED_STATUS);
-				
-			}
-			retval.add(testersuiteObject);
-	
-		}catch(Exception e){
-			logger.info(e.toString());
-		}
-		return retval;
-	}
-	/**
-	 * Checks it the url is available for connection. To avoid "hang" service...
-	 * @param url
-	 * @return
-	 */
-	private boolean fireFirstSmokeTest(String url, TestersuiteObject testersuiteObject, int timeout){
-		boolean retval = false;
-		try{
-			URL u = new URL ( url);
-			HttpURLConnection huc =  ( HttpURLConnection )  u.openConnection (); 
-			huc.setRequestMethod ("GET");  //OR  huc.setRequestMethod ("HEAD"); 
-			huc.setConnectTimeout(TIMEOUT_LIMIT); // x seconds connectTimeout
-			huc.setReadTimeout(timeout);
-			huc.connect () ; 
-			int code = huc.getResponseCode() ;
-			logger.info("CODE:" + code);
-			
-			retval = true;
-		}catch(Exception e){
-			testersuiteObject.setErrMsg(ERROR_PREFIX + e.toString());
-			logger.info(e.toString());	
-		}
-		return retval;
-	}
-	
-	/**
-	 * 
-	 * @param testModule
-	 * @param moduleChildTitle
-	 * @return
-	 */
-	private Object setModuleChildText(String testModule, StringBuffer moduleChildTitle){
-		Object urlStoreObj = null;
-		
-		//Instantiate the correct test module
-		
-		if(this.TEST_MODULE_OPPDREG.equals(testModule)){ 
-			urlStoreObj = new TrorUrlDataStore();
-			moduleChildTitle.append(TEST_MODULE_OPPDREG.toUpperCase());
-		
-		}else if(this.TEST_MODULE_TVINN.equals(testModule)){ 
-			urlStoreObj = new TvinnSadUrlDataStore();
-			moduleChildTitle.append(TEST_MODULE_TVINN.toUpperCase());
-		
-		}else if(this.TEST_MODULE_TDS.equals(testModule)){ 
-			urlStoreObj = new TdsUrlDataStore();
-			moduleChildTitle.append(TEST_MODULE_TDS.toUpperCase());
-		
-		}else if(this.TEST_MODULE_SKAT.equals(testModule)){ 
-			urlStoreObj = new SkatUrlDataStore();
-			moduleChildTitle.append(TEST_MODULE_SKAT.toUpperCase());
-		
-		}else if(this.TEST_MODULE_EBOOKING.equals(testModule)){ 
-			urlStoreObj = new EbookingUrlDataStore();
-			moduleChildTitle.append(TEST_MODULE_EBOOKING.toUpperCase());
-		
-		}else if(this.TEST_MODULE_LASTETORG.equals(testModule)){ 
-			urlStoreObj = new TransportDispUrlDataStore();
-			moduleChildTitle.append(TEST_MODULE_LASTETORG.toUpperCase());
-		
-		}else if(this.TEST_MODULE_SPORROPPD.equals(testModule)){ 
-			urlStoreObj = new SporringOppdragUrlDataStore();
-			moduleChildTitle.append(TEST_MODULE_SPORROPPD.toUpperCase());
-		
-		}else if(this.TEST_MODULE_UFORTOLL.equals(testModule)){ 
-			urlStoreObj = new UrlDataStore();
-			moduleChildTitle.append(TEST_MODULE_UFORTOLL.toUpperCase());
-		
-		}else if(this.TEST_MODULE_PRISKALK.equals(testModule)){ 
-			urlStoreObj = new FraktKalkulatorUrlDataStore();
-			moduleChildTitle.append(TEST_MODULE_PRISKALK.toUpperCase());
-		
-		}else if(this.TEST_MODULE_AVG_GRUNNLAG.equals(testModule)){ 
-			urlStoreObj = new SadAdminUrlDataStore();
-			moduleChildTitle.append(TEST_MODULE_AVG_GRUNNLAG.toUpperCase());
-		
-		}else if(this.TEST_MODULE_EFAKTURA.equals(testModule)){ 
-			urlStoreObj = new EfakturaUrlDataStore();
-			moduleChildTitle.append(TEST_MODULE_EFAKTURA.toUpperCase());
-		
-		}
-		
-
-		return urlStoreObj;
 	}
 	
 	

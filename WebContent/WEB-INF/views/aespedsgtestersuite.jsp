@@ -20,6 +20,7 @@
 					<td width="20%" valign="bottom" class="tab" align="center" nowrap>
 						<font class="tabLink">&nbsp;<spring:message code="systema.testersuite.label"/></font>&nbsp;
 						<img style="vertical-align: top;" src="resources/images/testsuites.png" height="16px" width="16px" border="0" alt="general list">
+						&nbsp;<font class="text11SkyBlue">(${model.listSize})</font>
 					</td>
 					<td width="80%" class="tabFantomSpace" align="center" nowrap><font class="tabDisabledLink">&nbsp;</font></td>	
 				</tr>

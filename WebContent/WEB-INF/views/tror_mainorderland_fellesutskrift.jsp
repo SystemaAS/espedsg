@@ -157,14 +157,14 @@
 
 						<tr>
 						<td>	
-							<table width="85%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
+							<table width="95%" align="left" class="formFrameHeader" border="0" cellspacing="0" cellpadding="0">
 						 		<tr height="15">
 						 			<td class="text12White" align="left" >
 						 				<b>&nbsp;&nbsp;<spring:message code="systema.tror.more.fellesutskrift.label.parameter"/></b>
 					 				</td>
 				 				</tr>
 			 				</table>
-							<table width="85%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
+							<table width="95%" align="left" class="formFrame" border="0" cellspacing="0" cellpadding="0">
 						 		<tr height="15"><td class="text" align="left"></td></tr>
 						 		<tr>
 							 		<td>
