@@ -117,13 +117,14 @@ public class TrorUrlDataStore {
 	// mode=U (update)
 	// mode=D (delete)
 	//----------------------------------------------------------
-	static public String TROR_BASE_FETCH_MAIN_ORDER_INVOICE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE25R.pgm";
 	//Lista -->http://gw.systema.no/sycgip/TJGE25R.pgm?user=JOVO&avd=80&opd=201523&lin=type=A
 	//Linje -->http://gw.systema.no/sycgip/TJGE25R.pgm?user=JOVO&avd=80&opd=201523&lin=55&type=A
-	static public String TROR_BASE_UPDATE_MAIN_ORDER_INVOICE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE26R.pgm";
+    static public String TROR_BASE_FETCH_MAIN_ORDER_INVOICE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE25R.pgm";
 	//Update -->http://gw.systema.no/sycgip/TJGE26R.pgm?user=JOVO&avd=80&opd=201523&lin=55&mode=(A)(U)(D)
-		
-
+    static public String TROR_BASE_UPDATE_MAIN_ORDER_INVOICE_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TJGE26R.pgm";
+	//http://gw.systema.no/sycgip/TSYFI10X.pgm?user=CB&avd=1&opd=184	
+    static public String TROR_BASE_EXECUTE_RECALCULATE_INVOICE_LINES_URL = AppConstants.HTTP_ROOT_CGI + "/sycgip/TSYFI10X.pgm";
+	
 	//----------------
 	//Child window
 	//----------------

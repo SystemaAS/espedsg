@@ -232,15 +232,16 @@
 					           			<font id="readyMarkInvoice" class="text12MediumBlue">&nbsp;Status:&nbsp;${model.container.readyMarkStatus}</font>
 					           		</c:when>
 					           		<c:otherwise>
-					           			<%-- this id must always be present since AJAX call must fill upp with text... --%>
+					           			<%-- this id must always be present since AJAX call must fill up with text... --%>
 					           			<font id="readyMarkInvoice" class="text12MediumBlue"></font>
 					           		</c:otherwise>
 				           		</c:choose>
+				           		&nbsp;<button name="recalculateButton" id="recalculateButton" class="buttonGrayWithGreenFrame" type="button" >&nbsp;Ny beregning</button>				           		
 	        				</td>
 	        			</tr>
 	        			
 						<tr>
-							<td class="ownScrollableSubWindow" style="width:100%; height:20em;"> 
+							<td class="ownScrollableSubWindow" style="width:100%; height:25em;"> 
 								<form name="formItemList" id="formItemList" method="POST" >
 				               		<input type="hidden" name="applicationUser" id="applicationUser" value="${user.user}">
 				 				<table id="container tableTable" width="100%" cellspacing="2" align="left" >
@@ -251,7 +252,7 @@
 									<thead>
 									<tr style="background-color:#DDDDDD" class="tableHeaderField" height="23" valign="left">
 										<th width="2%" align="center" class="tableHeaderFieldFirst" title="fali">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.lineNr"/></th>
-										<c:if test="${empty recordOrderTrorLand.hest || recordOrderTrorLand.hest == 'U' || recordOrderTrorLand.hest == 'O' || recordOrderTrorLand.hest == 'F' }">
+										<c:if test="${empty recordOrderTrorLand.hest || not empty recordOrderTrorLand.hest }">
 									    	<th width="2%" align="center" class="tableHeaderField">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.edit"/></th> 
 									    </c:if>
 									    <th align="center" class="tableHeaderField" title="fask">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.sk"/></th>
@@ -262,10 +263,11 @@
 					                    <th align="right" class="tableHeaderField" title="fabeln">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.amount2"/>&nbsp;</th>
 					                    <th width="2%" align="center" class="tableHeaderField" title="fakdm">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.mva"/></th>
 					                    <th width="2%" align="center" class="tableHeaderField" title="fakda">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.opr"/></th>
+					                    <th width="2%" align="center" class="tableHeaderField" title="fakda">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.st"/></th>
 					                    <th class="tableHeaderField" title="fakunr/knavn">&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.customer"/></th>
 					                    <th align="right" class="tableHeaderField" title="fabelu"><spring:message code="systema.tror.orders.invoice.update.label.budget"/>&nbsp;</th>
 					                    
-					                    <c:if test="${empty recordOrderTrorLand.hest || recordOrderTrorLand.hest == 'U' || recordOrderTrorLand.hest == 'O' || recordOrderTrorLand.hest == 'F' }">
+					                    <c:if test="${empty recordOrderTrorLand.hest || not empty recordOrderTrorLand.hest }">
 					                    	<th width="2%" align="center" class="tableHeaderField" nowrap>&nbsp;<spring:message code="systema.tror.orders.invoice.update.label.delete"/></th>
 					                    </c:if> 
 					               </tr> 
@@ -276,12 +278,14 @@
 							              <tr class="tableRow" height="20" >
 										   <td width="2%" align="center" class="tableCellFirst" >${record.fali}</td>
 
-										   <c:if test="${empty recordOrderTrorLand.hest || recordOrderTrorLand.hest == 'U' || recordOrderTrorLand.hest == 'O' || recordOrderTrorLand.hest == 'F' }">
+										   <c:if test="${empty recordOrderTrorLand.hest || not empty recordOrderTrorLand.hest }">
 								               <td width="2%" class="tableCell" align="center">
 								               		<c:if test="${not empty record.fali}"> 
-								               			<a tabindex=-1 id="recordUpdate_${record.fali}" href="#" onClick="getInvoiceItemData(this);">
-								               				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
-								               			</a>							       
+								               			<c:if test="${ record.faopko != 'O' && record.faopko != 'F' && record.faopko != 'G'}">
+									               			<a tabindex=-1 id="recordUpdate_${record.fali}" href="#" onClick="getInvoiceItemData(this);">
+									               				<img title="Update" style="vertical-align:bottom;" src="resources/images/update.gif" border="0" alt="update">&nbsp;
+									               			</a>
+								               			</c:if>							       
 							               			</c:if>        			
 								               </td>
 							               </c:if>
@@ -318,15 +322,18 @@
 							               
 							               <td width="2%" align="center" class="tableCell" >&nbsp;${record.fakdm}</td>
 							               <td width="2%" align="center" class="tableCell" >&nbsp;${record.fakda}</td>
+							               <td width="2%" align="center" class="tableCell" >&nbsp;${record.faopko}</td>
 							               <td align="left" class="tableCell" >&nbsp;<font class="text11MediumBlue"><b>${record.fakunr}</b></font>&nbsp;${record.knavn}</td>
 							               <td align="right" class="tableCell" >${record.fabelu}</td>
 							               <%-- DELETE cell --%>
-							               <c:if test="${empty recordOrderTrorLand.hest || recordOrderTrorLand.hest == 'U' || recordOrderTrorLand.hest == 'O' || recordOrderTrorLand.hest == 'F' }">
+							               <c:if test="${empty recordOrderTrorLand.hest || not empty recordOrderTrorLand.hest }">
 							               		<td class="tableCell" align="center" nowrap>
 											   		<c:if test="${not empty record.fali}">
-								                   		<a style="cursor:pointer;" id="heavd_${recordOrderTrorLand.heavd}@heopd_${recordOrderTrorLand.heopd}@fali_${record.fali}" onClick="doPermanentlyDeleteInvoiceLine(this);" tabindex=-1 >
-										               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
-										               	</a>&nbsp;
+											   			<c:if test="${ record.faopko != 'O' && record.faopko != 'F' && record.faopko != 'G'}">
+									                   		<a style="cursor:pointer;" id="heavd_${recordOrderTrorLand.heavd}@heopd_${recordOrderTrorLand.heopd}@fali_${record.fali}" onClick="doPermanentlyDeleteInvoiceLine(this);" tabindex=-1 >
+											               		<img valign="bottom" src="resources/images/delete.gif" border="0" alt="remove">
+											               	</a>&nbsp;
+										               	</c:if>
 									               	</c:if>
 								               	</td>
 							               </c:if>
@@ -709,7 +716,8 @@
 						            	</td>
 			            				
 			            				<c:choose>	
-											<c:when test="${empty recordOrderTrorLand.hest || recordOrderTrorLand.hest == 'U' || recordOrderTrorLand.hest == 'O' || recordOrderTrorLand.hest == 'F' }">
+			            					<%-- <c:when test="${empty recordOrderTrorLand.hest || recordOrderTrorLand.hest == 'U' || recordOrderTrorLand.hest == 'O' || recordOrderTrorLand.hest == 'F' }"> --%>
+											<c:when test="${empty recordOrderTrorLand.hest || not empty recordOrderTrorLand.hest }">
 												<td align="center">
 													<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="systema.tror.submit.save"/>'>
 												</td>
@@ -730,22 +738,7 @@
 						        </table>
 					        </td>
 				        </tr>
-				        <%--
-					    <tr height="10"><td colspan="2" ></td></tr>
-					    <tr>	
-						    <td align="left" colspan="5">
-								<c:choose>	
-									<c:when test="${empty recordOrderTrorLand.hest || recordOrderTrorLand.hest == 'U' || recordOrderTrorLand.hest == 'O' || recordOrderTrorLand.hest == 'F' }">
-										<input class="inputFormSubmit" type="submit" name="submit" value='<spring:message code="systema.tror.submit.save"/>'>
-										&nbsp;&nbsp;<input class="inputFormSubmitGray" type="button" name="updCancelButton" id="updCancelButton" value='<spring:message code="systema.tror.submit.clearValues"/>'>
-									</c:when>
-									<c:otherwise>
-			 				    		<input disabled class="inputFormSubmitGrayDisabled" type="submit" name="submit" value='<spring:message code="systema.tror.submit.not.editable"/>'/>
-			 				    	</c:otherwise>	
-		 				    	</c:choose>	
-							</td>							        	
-				        </tr>
-				         --%>
+				        
         	        </table>
         	        </form>
 		        </td>

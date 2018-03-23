@@ -60,7 +60,6 @@ import no.systema.tror.util.manager.CodeDropDownMgr;
 import no.systema.tror.model.jsonjackson.order.invoice.JsonTrorOrderLandExportInvoiceContainer;
 import no.systema.tror.model.jsonjackson.order.invoice.JsonTrorOrderLandExportInvoiceReadyMarkContainer;
 import no.systema.tror.model.jsonjackson.order.invoice.JsonTrorOrderLandExportInvoiceRecord;
-
 import no.systema.tror.model.jsonjackson.JsonTrorOrderHeaderRecord;
 import no.systema.tror.service.html.dropdown.TrorDropDownListPopulationService;
 import no.systema.tror.service.landexport.TrorMainOrderHeaderLandexportService;
@@ -325,6 +324,66 @@ public class TrorMainOrderHeaderLandExportControllerInvoice {
 		}
 		
 		return successView;
+	}
+	/**
+	 * 
+	 * @param recordToValidate
+	 * @param bindingResult
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="tror_mainorderlandexport_invoice_recalculate.do", method={RequestMethod.GET, RequestMethod.POST} )
+	public ModelAndView doRecalculateInvoiceLines(@ModelAttribute ("record") JsonTrorOrderHeaderRecord recordToValidate, BindingResult bindingResult, HttpSession session, HttpServletRequest request){
+		this.context = TdsAppContext.getApplicationContext();
+		Map model = new HashMap();
+		
+		ModelAndView successView = new ModelAndView("redirect:tror_mainorderlandexport_invoice.do?action=doInit&heavd=" + recordToValidate.getHeavd() + "&heopd=" + recordToValidate.getHeopd());
+		SystemaWebUser appUser = this.loginValidator.getValidUser(session);
+		String parentTrip = recordToValidate.getHepro();
+		
+		//check user (should be in session already)
+		if(appUser==null){
+			return loginView;
+			
+		}else{
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER start - timestamp");
+			
+			if(recordToValidate.getHeavd()!=null && !"".equals(recordToValidate.getHeavd()) && 
+				recordToValidate.getHeopd()!=null && !"".equals(recordToValidate.getHeopd())){
+		    	final String BASE_URL = TrorUrlDataStore.TROR_BASE_EXECUTE_RECALCULATE_INVOICE_LINES_URL;
+		    	
+	    		//add URL-parameters
+	    		StringBuffer urlRequestParams = new StringBuffer();
+	    		urlRequestParams.append("user=" + appUser.getUser());
+	    		urlRequestParams.append("&avd=" + recordToValidate.getHeavd());
+	    		urlRequestParams.append("&opd=" + recordToValidate.getHeopd());
+	    		
+	    		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
+		    	logger.info("URL: " + BASE_URL);
+		    	logger.info("URL PARAMS: " + urlRequestParams);
+			    String jsonPayload = this.urlCgiProxyService.getJsonContent(BASE_URL, urlRequestParams.toString());
+			    //Debug --> 
+			  	//logger.debug(jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+			  	logger.debug(this.jsonDebugger.debugJsonPayloadWithLog4J(jsonPayload));
+	    		logger.info(Calendar.getInstance().getTime() +  " CGI-end timestamp");
+	    		if(jsonPayload!=null){
+	    			JsonTrorOrderLandExportInvoiceContainer container = this.trorMainOrderHeaderLandexportService.getOrderInvoiceContainer(jsonPayload);
+	    			if(container!=null){
+	    				if(strMgr.isNotNull(container.getErrMsg()) ){
+	    					logger.info("ERROR after recalculation...");
+	    				}else{
+	    					logger.info("OK after recalculation...");
+	    				}
+	    			}
+	    		}
+
+			}
+			
+			logger.info(Calendar.getInstance().getTime() + " CONTROLLER end - timestamp");
+		    return successView;
+
+		}
 	}
 	/**
 	 * 

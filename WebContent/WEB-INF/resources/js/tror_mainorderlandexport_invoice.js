@@ -77,6 +77,13 @@
 			  	  }
 			  	}); 
 	  		});
+	  	
+	  	  //by beregning button
+	  	  jq('#recalculateButton').click(function() {
+	  		  jq.blockUI({ message: BLOCKUI_OVERLAY_MESSAGE_DEFAULT});
+	  		  window.location = "tror_mainorderlandexport_invoice_recalculate.do?action=doInit&heavd=" + jq('#heavd').val() + "&heopd=" + jq('#heopd').val();
+	  		  
+		  });
 	});
 	
 	
