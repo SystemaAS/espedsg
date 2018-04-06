@@ -679,8 +679,22 @@ public class TrorMainOrderHeaderLandControllerFreightBill {
 			recordToValidate.setDfntla(Integer.parseInt(orderHeader.getHent())); //Merkelappar in header
 			//item lines
 			recordToValidate.setDfnt(recordToValidate.getDfntla());
-			recordToValidate.setDfgm(orderHeader.getHegm1());
-			recordToValidate.setDfgm2(orderHeader.getHegm2());
+			//godsmerke 1
+			if(orderHeader!=null && strMgr.isNotNull(orderHeader.getHegm1())){
+				if(orderHeader.getHegm1().length()>12){
+					recordToValidate.setDfgm(orderHeader.getHegm1().substring(0,12));
+				}else{
+					recordToValidate.setDfgm(orderHeader.getHegm1());
+				}
+			}
+			//godsmerke 2
+			if(orderHeader!=null && strMgr.isNotNull(orderHeader.getHegm2())){
+				if(orderHeader.getHegm2().length()>12){
+					recordToValidate.setDfgm(orderHeader.getHegm2().substring(0,12));
+				}else{
+					recordToValidate.setDfgm(orderHeader.getHegm2());
+				}
+			}
 			recordToValidate.setDfvs(orderHeader.getHevs1());
 			recordToValidate.setDfvs2(orderHeader.getHevs2());
 			
@@ -834,6 +848,7 @@ public class TrorMainOrderHeaderLandControllerFreightBill {
     			if(container.getDtoList()!=null){
     				for( JsonTrorOrderHeaderRecord headerRecord: container.getDtoList()){
 	    				record = headerRecord;
+	    				
 		    		}
     			}
     		}
@@ -977,7 +992,9 @@ public class TrorMainOrderHeaderLandControllerFreightBill {
 		String urlRequestParamsKeys = "user=" + appUser.getUser() + "&mode=" + mode + "&lang=" +appUser.getUsrLang();
 		String urlRequestParams = this.urlRequestParameterMapper.getUrlParameterValidString(record);
 		urlRequestParams = urlRequestParamsKeys + urlRequestParams;
-
+		//debug
+		//this.debugAttributes(record);
+		
 		logger.info(Calendar.getInstance().getTime() + " CGI-start timestamp");
 		logger.info("URL: " + jsonDebugger.getBASE_URL_NoHostName(BASE_URL));
 		logger.info("URL PARAMS: " + urlRequestParams);
@@ -1001,7 +1018,25 @@ public class TrorMainOrderHeaderLandControllerFreightBill {
 		}
 		logger.info("savedRecord="+ReflectionToStringBuilder.toString(savedRecord));
 		return savedRecord;
-	}	
+	}
+	/**
+	 * aux method
+	 * @param record
+	 */
+	private void debugAttributes(DokufDao record){
+		
+		logger.info("dfm3:" + record.getDfm3());
+		logger.info("dflm:" + record.getDflm());
+		logger.info("dffvbl:" + record.getDffvbl());
+		logger.info("dfbele:" + record.getDfbele());
+		logger.info("integers......................");
+		logger.info("dfavd:" + record.getDfavd());
+		logger.info("dfopd:" + record.getDfopd());
+		logger.info("dffbnr:" + record.getDffbnr());
+		logger.info("dfdtu:" + record.getDfdtu());
+		//...
+		
+	}
 	
 	/**
 	 * 

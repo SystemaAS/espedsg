@@ -863,7 +863,7 @@
 										 		</tr>
 										 		<tr class="tableRow">
 										 			<td align="left" class="tableCell" nowrap>
-									 					<input type="text" class="inputTextMediumBlue11" name="dfgm" id="dfgm" size="16" maxlength="15" value="${model.record.dfgm}">
+									 					<input type="text" class="inputTextMediumBlue11" name="dfgm" id="dfgm" size="15" maxlength="12" value="${model.record.dfgm}">
 									 				</td>
 									 				<td align="right" class="tableCell" nowrap>
 										 				<input onKeyPress="return numberKey(event)" type="text" class="inputTextMediumBlue11" style="text-align:right;" name="dfnt" id="dfnt" size="8" maxlength="7" value="${model.record.dfnt}">
@@ -912,7 +912,7 @@
 									 			</tr>
 									 			<tr class="tableRow">
 										 			<td align="left" class="tableCell" nowrap>
-									 					<input type="text" class="inputTextMediumBlue11" name="dfgm2" id="dfgm2" size="16" maxlength="15" value="${model.record.dfgm2}">
+									 					<input type="text" class="inputTextMediumBlue11" name="dfgm2" id="dfgm2" size="15" maxlength="12" value="${model.record.dfgm2}">
 									 				</td>
 									 				<td align="right" class="tableCell" nowrap>&nbsp;</td>
 									 				<td align="center" class="tableCell" >
